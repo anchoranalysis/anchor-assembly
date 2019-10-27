@@ -1,0 +1,296 @@
+<!--
+  #%L
+  packaging distribution
+  %%
+  Copyright (C) 2016 ETH Zurich, University of Zurich, Owen Feehan
+  %%
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+  #L%
+  -->
+ <config>
+ <bean config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskList">
+ 	<list config-class="java.util.List" config-factory="list">
+			  	
+  	<!--  Export Graph NRG Time Series -->
+	  	<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" outputName="nrgBreakdownTime">
+	  		<createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.GraphFromCfgNRGInstantState" width="500" height="300">
+	  			<graphDefinition config-class="ch.ethz.biol.cell.mpp.gui.graph.jfreechart.bar.GraphDefinitionBarNRGBreakdown" showDomainAxis="false"/>
+	  		</createRasterGenerator>
+	  	</item>
+	  	
+	  	<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" outputName="textCfgSize">
+	  		<createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.CfgSizeStringFromCfgNRGInstantState">
+	  			<stringGenerator config-class="ch.ethz.biol.cell.imageprocessing.io.generator.raster.StringRasterGenerator" width="200" height="100" fontSize="36"/>
+	  		</createRasterGenerator>
+	  	</item>
+	  	
+	  	<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCSVStatistic" incrementSize="1000" outputName="dynamicCfgSize">
+	  		<createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.GraphCfgSizeDynamicallyDrawnFromCSVStatistic" width="500" height="300">
+		  		<graphDefinition config-class="org.anchoranalysis.plugin.gui.bean.graphdefinition.line.GraphDefinitionLineIterVsCfgSize"/>
+		  	</createRasterGenerator>
+	  	</item>
+	  	
+	  	<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCSVStatistic" incrementSize="1000" outputName="dynamicNRG">
+			<createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.GraphNRGDynamicallyDrawnFromCSVStatistic" width="500" height="300">
+	  			<graphDefinition config-class="org.anchoranalysis.plugin.gui.bean.graphdefinition.line.GraphDefinitionLineIterVsNRG"/>
+	  		</createRasterGenerator>
+	  		
+<!--			<sequenceFactory config-class="ch.ethz.biol.cell.imageprocessing.io.generator.sequence.factory.MovieGeneratorSequenceFactory" framesPerSecond="20"/>-->
+		<sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+  	</item>
+
+	<!-- increment size previously 1000 -->
+		<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1" outputName="rgbOutline">
+			<createRasterGenerator index="0" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
+				<item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+			</createRasterGenerator>
+<!--			<sequenceFactory config-class="ch.ethz.biol.cell.imageprocessing.io.generator.sequence.factory.MovieGeneratorSequenceFactory" framesPerSecond="20"/>-->
+			<sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+		</item>
+		
+		<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskMergedCfgNRGInstantState" incrementSize="1" outputName="rgbOutlineMerged">
+			<createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState" mip="true" colorFromIter="true"/>
+<!--			<sequenceFactory config-class="ch.ethz.biol.cell.imageprocessing.io.generator.sequence.factory.MovieGeneratorSequenceFactory" framesPerSecond="20"/>-->
+			<sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+		</item>
+		
+		
+		
+		<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" startAtEnd="true" outputName="rgbOutlineBackward">
+			<createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState" mip="true"/>
+<!--			<sequenceFactory config-class="ch.ethz.biol.cell.imageprocessing.io.generator.sequence.factory.MovieGeneratorSequenceFactory" framesPerSecond="20"/>-->
+			<sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+		</item>
+		
+		<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1" startAtEnd="true" outputName="rgbOutlineLast">
+			<createRasterGenerator backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+<!--			<sequenceFactory config-class="ch.ethz.biol.cell.imageprocessing.io.generator.sequence.factory.MovieGeneratorSequenceFactory" framesPerSecond="20"/>-->
+					<sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+				</item>
+				
+		<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" outputName="combined" incrementSize="1">
+				
+					<createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.CombinedFromCfgNRGInstantState">
+					
+						<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
+							<cells config-class="java.util.List" config-factory="arrangeRasterCellList">
+								<item config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterCell" row="0" col="0">
+									<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+								</item>
+								<item config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterCell" row="0" col="1">
+									<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
+								</item>
+							</cells>
+						</arrangeRaster>
+						
+						<createRasterGeneratorList config-class="java.util.List" config-factory="list">
+							<item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+		
+					  		<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.CfgSizeStringFromCfgNRGInstantState">
+			  					<stringGenerator config-class="ch.ethz.biol.cell.imageprocessing.io.generator.raster.StringRasterGenerator" width="45" height="50" fontSize="28" fontName="SansSerif" bold="true">
+			  						<fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="255" green="255" blue="255"/>
+			  					</stringGenerator>
+			  				</item>
+			  									
+					  		<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.GraphCfgSizeDynamicallyDrawnFromCfgNRGInstantState" width="400" height="200">
+								<graphDefinition config-class="org.anchoranalysis.plugin.gui.bean.graphdefinition.line.GraphDefinitionLineIterVsCfgSize">
+									<graphColorScheme config-class="ch.ethz.biol.cell.gui.graph.colorscheme.BlackBackgroudGraphColorScheme"/>
+								</graphDefinition>
+							</item>
+					  		<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.GraphNRGDynamicallyDrawnFromCfgNRGInstantState" width="400" height="200">
+								<graphDefinition config-class="org.anchoranalysis.plugin.gui.bean.graphdefinition.line.GraphDefinitionLineIterVsNRG">
+									<graphColorScheme config-class="ch.ethz.biol.cell.gui.graph.colorscheme.BlackBackgroudGraphColorScheme"/>
+								</graphDefinition>
+							</item>
+<!-- 							<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.GraphFromCfgNRGInstantState" width="400" height="200"> -->
+<!-- 					  			<graphDefinition config-class="ch.ethz.biol.cell.mpp.gui.graph.jfreechart.bar.GraphDefinitionBarNRGBreakdown" showDomainAxis="false"> -->
+<!-- 									<graphColorScheme config-class="ch.ethz.biol.cell.gui.graph.colorscheme.BlackBackgroudGraphColorScheme"/> -->
+<!-- 								</graphDefinition> -->
+<!-- 					  		</item> -->
+						</createRasterGeneratorList>
+
+			</createRasterGenerator>
+<!--			<sequenceFactory config-class="ch.ethz.biol.cell.imageprocessing.io.generator.sequence.factory.MovieGeneratorSequenceFactory" framesPerSecond="20"/>-->
+			<sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+		</item>
+		
+		
+		
+		
+		<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" outputName="combinedCornea" incrementSize="10">
+				
+					<createRasterGenerator config-class="org.anchoranalysis.gui.bean.exporttask.createrastergenerator.Combined">
+					
+						<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
+							<cells config-class="java.util.List" config-factory="arrangeRasterCellList">
+								<item config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterCell" row="0" col="0">
+									<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+									<!--<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>-->
+								</item>
+								<item config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterCell" row="0" col="1">
+									<!--<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>-->
+									<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+								</item>
+								<item config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterCell" row="1" col="0">
+									<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>
+								</item>
+								<item config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterCell" row="1" col="1">
+									<!--<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>-->
+									<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+								</item>
+							</cells>
+						</arrangeRaster>
+						
+						<createRasterGeneratorList config-class="java.util.List" config-factory="list">
+						
+							<item index="2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
+								<item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+							</item>
+							
+							<item index="2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
+								<item prefix="Proposed Segments: size=" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.CfgSizeStringFromCfgNRGInstantState">
+									<stringGenerator config-class="ch.ethz.biol.cell.imageprocessing.io.generator.raster.StringRasterGenerator" width="500" height="50" fontSize="28" fontName="SansSerif" bold="true">
+										<fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="0" green="255" blue="255"/>
+									</stringGenerator>
+								</item>
+							</item>
+							
+							<item index="1" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
+								<item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+							</item>
+
+							
+							<item index="2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
+								<item text="Proposed Ellipse" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.ConstantStringRasterGenerator">
+									<stringGenerator config-class="ch.ethz.biol.cell.imageprocessing.io.generator.raster.StringRasterGenerator" width="500" height="50" fontSize="28" fontName="SansSerif" bold="true">
+										<fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="0" green="255" blue="255"/>
+									</stringGenerator>
+								</item>
+							</item>
+
+							<item index="1" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
+								<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.GraphNRGDynamicallyDrawnFromCfgNRGInstantState" width="700" height="400">
+									<graphDefinition config-class="org.anchoranalysis.plugin.gui.bean.graphdefinition.line.GraphDefinitionLineIterVsNRG" minMaxIgnoreBeforeIndex="100">
+										<graphColorScheme config-class="ch.ethz.biol.cell.gui.graph.colorscheme.BlackBackgroudGraphColorScheme"/>
+									</graphDefinition>
+								</item>
+							</item>
+
+							<item index="0" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
+								<item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+							</item>
+							
+														
+							<item index="2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
+								<item text="Best-Fitting Ellipse" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.ConstantStringRasterGenerator">
+									<stringGenerator config-class="ch.ethz.biol.cell.imageprocessing.io.generator.raster.StringRasterGenerator" width="500" height="50" fontSize="28" fontName="SansSerif" bold="true">
+										<fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="0" green="255" blue="255"/>
+									</stringGenerator>
+								</item>
+							</item>
+							
+
+							
+<!-- 							<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.GraphFromCfgNRGInstantState" width="400" height="200"> -->
+<!-- 					  			<graphDefinition config-class="ch.ethz.biol.cell.mpp.gui.graph.jfreechart.bar.GraphDefinitionBarNRGBreakdown" showDomainAxis="false"> -->
+<!-- 									<graphColorScheme config-class="ch.ethz.biol.cell.gui.graph.colorscheme.BlackBackgroudGraphColorScheme"/> -->
+<!-- 								</graphDefinition> -->
+<!-- 					  		</item> -->
+						</createRasterGeneratorList>
+
+			</createRasterGenerator>
+<!--			<sequenceFactory config-class="ch.ethz.biol.cell.imageprocessing.io.generator.sequence.factory.MovieGeneratorSequenceFactory" framesPerSecond="20"/>-->
+			<sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+		</item>
+		
+		
+		
+		<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" outputName="combinedNuc" incrementSize="100">
+		
+			<createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.CombinedFromCfgNRGInstantState">
+			
+				<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
+					<cells config-class="java.util.List" config-factory="arrangeRasterCellList">
+<!--						<item config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterCell" row="0" col="0">-->
+<!--							<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>-->
+<!--						</item>-->
+					<item config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterCell" row="0" col="0">
+							<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
+						</item>
+
+					</cells>
+				</arrangeRaster>
+				
+				<createRasterGeneratorList config-class="java.util.List" config-factory="list">
+					<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState" mip="true"/>
+
+			  		<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.CfgSizeStringFromCfgNRGInstantState">
+	  					<stringGenerator config-class="ch.ethz.biol.cell.imageprocessing.io.generator.raster.StringRasterGenerator" width="70" height="100" fontSize="28" fontName="SansSerif" bold="true">
+	  						<fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="255" green="255" blue="255"/>
+	  					</stringGenerator>
+	  				</item>
+				</createRasterGeneratorList>
+			</createRasterGenerator>
+<!--			<sequenceFactory config-class="ch.ethz.biol.cell.imageprocessing.io.generator.sequence.factory.MovieGeneratorSequenceFactory" framesPerSecond="20"/>-->
+		<sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+	</item>
+	
+	
+	
+		<item outputName="combinedNuc2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" startAtEnd="true" limitIterations="1">
+			<createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState" mip="true"/>
+<!--			<sequenceFactory config-class="ch.ethz.biol.cell.imageprocessing.io.generator.sequence.factory.MovieGeneratorSequenceFactory" framesPerSecond="20"/>-->
+					<sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+				</item>
+				
+				<item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" outputName="combined2" incrementSize="100">
+				
+					<createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.CombinedFromCfgNRGInstantState">
+					
+						<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="1" numCols="2">
+							<cells config-class="java.util.List" config-factory="arrangeRasterCellList">
+								<item config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterCell" row="0" col="1">
+									<arrangeRaster config-class="ch.ethz.biol.cell.imageprocessing.io.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
+								</item>
+							</cells>
+						</arrangeRaster>
+						
+						<createRasterGeneratorList config-class="java.util.List" config-factory="list">
+							<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState" mip="true"/>
+		
+
+					  		<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.GraphNRGDynamicallyDrawnFromCfgNRGInstantState" width="400" height="200">
+								<graphDefinition config-class="org.anchoranalysis.plugin.gui.bean.graphdefinition.line.GraphDefinitionLineIterVsNRG">
+									<graphColorScheme config-class="ch.ethz.biol.cell.gui.graph.colorscheme.BlackBackgroudGraphColorScheme"/>
+								</graphDefinition>
+							</item>
+<!-- 							<item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.GraphFromCfgNRGInstantState" width="400" height="200"> -->
+<!-- 					  			<graphDefinition config-class="ch.ethz.biol.cell.mpp.gui.graph.jfreechart.bar.GraphDefinitionBarNRGBreakdown" showDomainAxis="false"> -->
+<!-- 									<graphColorScheme config-class="ch.ethz.biol.cell.gui.graph.colorscheme.BlackBackgroudGraphColorScheme"/> -->
+<!-- 								</graphDefinition> -->
+<!-- 					  		</item> -->
+						</createRasterGeneratorList>
+				</createRasterGenerator>
+<!--			<sequenceFactory config-class="ch.ethz.biol.cell.imageprocessing.io.generator.sequence.factory.MovieGeneratorSequenceFactory" framesPerSecond="20"/>-->
+			<sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+		</item>
+	  </list>	
+  </bean>
+  </config>
+  

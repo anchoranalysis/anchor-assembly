@@ -1,0 +1,156 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+        <groupId>org.anchoranalysis.anchor</groupId>
+   	    <artifactId>anchor-parent-assembly</artifactId>
+		<version>0.0.6-SNAPSHOT</version>
+    </parent>
+    <artifactId>anchor-parent-addplugins</artifactId>
+    <packaging>pom</packaging>
+
+	<!-- We specify two different profiles depending on whether
+	   we wish to include the GUI or not in the build. use -DnoGUI to trigger the withoutGUI -->
+	<profiles>
+		<profile>
+			<id>withGUI</id>
+			<activation>
+			  <property>
+				<name>!noGUI</name>
+			  </property>
+			</activation>
+			<modules>
+				<module>anchor-browser</module>
+				<module>anchor-launcher</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>withoutGUI</id>
+			<activation>
+			  <property>
+				<name>noGUI</name>
+			  </property>
+			</activation>
+			<modules>
+				<module>anchor-launcher</module>
+			</modules>
+		</profile>
+	</profiles>
+	
+	<!-- This is the MAIN LOCATION where we update the version of plugins -->
+	<dependencies>
+		<!-- Common dependencies to the modules -->
+	
+		<!-- Referrred to directly in launcher -->
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-io</artifactId>
+		  <version>0.0.8-SNAPSHOT</version>
+		</dependency>
+	
+		<!-- Plugins we wish to 'add' to the modules -->
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-eth</artifactId>
+		  <version>0.0.8-SNAPSHOT</version>
+		</dependency>
+	 
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-ij</artifactId>
+		  <version>0.0.8-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-image</artifactId>
+		  <version>0.0.8-SNAPSHOT</version>
+		</dependency>
+	 
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-image-feature</artifactId>
+		  <version>0.0.8-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-image-task</artifactId>
+		  <version>0.0.8-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-mpp</artifactId>
+		  <version>0.0.8-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-mpp-experiment</artifactId>
+		  <version>0.0.8-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-mpp-feature</artifactId>
+		  <version>0.0.8-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-mpp-sgmn</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-points</artifactId>
+		  <version>0.0.8-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-quick</artifactId>
+		  <version>0.0.3-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-annotation</artifactId>
+		  <version>0.0.2-SNAPSHOT</version>
+		</dependency>	
+		
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-gui-annotation</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		</dependency>			
+		
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-gui-export</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		</dependency>			
+		
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-gui-import</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-gui-live</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- <dependency>
+		  <groupId>${project.groupId}</groupId>
+		  <artifactId>anchor-plugin-dl4j</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		</dependency>	-->
+	
+	</dependencies>
+		
+</project>

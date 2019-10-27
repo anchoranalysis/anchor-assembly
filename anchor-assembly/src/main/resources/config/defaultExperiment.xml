@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  #%L
+  packaging distribution
+  %%
+  Copyright (C) 2016 ETH Zurich, University of Zurich, Owen Feehan
+  %%
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+  #L%
+  -->
+
+<config>
+
+<experiment config-class="org.anchoranalysis.experiment.bean.io.InputOutputExperiment">
+
+	 <input config-class="org.anchoranalysis.io.bean.input.Files">
+	 	<!--  As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
+	 	<fileProvider fileFilter="*.jpg" recursive="true" config-class="org.anchoranalysis.io.bean.provider.file.FileSet"/>
+	 </input>
+
+  	  <experimentIdentifier name="TestDefaultCommandLineExperiment" version="1.0" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierSimple"/>
+
+	  <output config-class="org.anchoranalysis.io.output.bean.OutputManagerPermissiveExcept" delExistingFolder="true">
+	  
+		  <filePathPrefixer filePath="../configGUI/ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.bean.filepath.prefixer.FilePathPrefixer" config-factory="include"/>
+
+		  <except config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
+			<item>manifest</item>
+			<item>executionTime</item>
+		  </except>
+	  </output>
+	  
+	  <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+	  	<list config-class="java.util.List" config-factory="list">
+	  		<item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+	  		<item config-class="org.anchoranalysis.experiment.bean.logreporter.TextFileLogReporterBean"/>
+	  	</list>
+	  </logReporter>
+	  
+	  <taskProcessor config-class="org.anchoranalysis.experiment.bean.processor.ParallelProcessor" supressExceptions="true">
+		  
+		  <task config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeFilesTask">
+		  
+		  	<pathSummarizer avoidBulletOnFirst="true" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerAggregate">
+		  		<list config-class="java.util.List" config-factory="list">
+		  			<item config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
+		  			<item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.ExtensionCount"/>
+		  			<item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FileSizeStatistics"/>
+		  			<item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FilePathPattern"/>
+		  		</list>
+		  	</pathSummarizer>
+	  		  
+		  </task>
+		  
+    	</taskProcessor>
+	</experiment>
+	
+</config>

@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+     <parent>
+        <groupId>org.anchoranalysis.anchor</groupId>
+   	    <artifactId>anchor-pom</artifactId>
+		<version>0.0.16-SNAPSHOT</version>
+    </parent> 
+	
+  <artifactId>anchor-parent-assembly</artifactId>
+  <version>0.0.6-SNAPSHOT</version>
+    <url>http://www.anchoranalysis.org/</url>
+  
+  <packaging>pom</packaging>
+
+  <name>anchor-parent-assembly</name>
+  
+    	<scm>
+		<connection>scm:git:ssh://git@bitbucket.org/anchorimageanalysis/anchor-assembly.git</connection>
+		<developerConnection>scm:git:ssh://git@bitbucket.org/anchorimageanalysis/anchor-assembly.git</developerConnection>
+		<url>https://git@bitbucket.org/anchorimageanalysis/anchor-assembly.git</url>
+	    <tag>anchor-parent-0.0.1</tag>
+    </scm>
+  
+    <modules>
+        <module>anchor-assembly</module>
+	   <module>addplugins</module>
+    </modules>
+  	
+<!-- Provides a means of reaching anchor-pom and ImageJ -->
+    <repositories>
+		<repository>
+		  <releases>
+			<enabled>true</enabled>
+			<updatePolicy>never</updatePolicy>
+			<checksumPolicy>warn</checksumPolicy>
+		  </releases>
+		  <snapshots>
+			<enabled>true</enabled>
+			<updatePolicy>always</updatePolicy>
+			<checksumPolicy>warn</checksumPolicy>
+		  </snapshots>
+		  <id>anchor</id>
+		   <name>anchor</name>
+		   <url>http://maven.anchoranalysis.org:8081/repository/anchor</url>
+		  <layout>default</layout>
+		</repository>
+		
+		<repository>
+			<id>imagej</id>
+			<name>ImageJ repository</name>
+			<url>http://maven.imagej.net/content/groups/public</url>
+		</repository>
+		
+   	</repositories>
+  
+</project>

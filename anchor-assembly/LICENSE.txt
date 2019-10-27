@@ -1,0 +1,3 @@
+This projects references components with mixed-licenses.
+
+DO NOT DISTRIBUTE without establishing that you have permission.
