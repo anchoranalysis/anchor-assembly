@@ -44,7 +44,7 @@
 		
 		<!-- Build the EXE launcher only on windows -->
 		<profile>
-			<id>makeEexes</id>
+			<id>makeExes</id>
 			<activation>
 			<os>
 				<family>Windows</family>
