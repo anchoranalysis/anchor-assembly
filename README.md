@@ -1,6 +1,6 @@
-# anchor-gui
+# anchor-assembly
 
-gui portion of anchor
+Creates an anchor distribution that combines JARs from the other repositories together with launcher tools
 
 ## Note
 
