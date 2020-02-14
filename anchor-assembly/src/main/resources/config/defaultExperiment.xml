@@ -57,7 +57,7 @@
 		  
 		  <task config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeFilesTask">
 		  
-		    <pathSummarizer countThreshold="1" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerSplitMoreThan">
+		    <pathSummarizer countThreshold="0" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerSplitMoreThan">
 		    
 			    <summarizerGreaterThan avoidBulletOnFirst="true" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerAggregate">
 	                <list config-class="java.util.List" config-factory="list">
@@ -67,8 +67,8 @@
 	                    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FilePathPattern"/>
 	                </list>
 	            </summarizerGreaterThan>
-	            
-	            <summarizerElse config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
+
+                <summarizerElse config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
 		    
 		    </pathSummarizer>
 	  		  
