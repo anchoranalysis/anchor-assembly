@@ -3,7 +3,6 @@ package org.anchoranalysis.browser.launcher;
 import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
 import org.anchoranalysis.launcher.parser.CommandLineParserExperimentWithConfig;
@@ -57,32 +56,6 @@ class CommandLineParserExperimentBrowser extends CommandLineParserExperimentWith
 	}
 	
 	@Override
-	protected void processExperiment( CommandLine line, LogErrorReporter logger ) throws ExperimentExecutionException {
-		
-        ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
-        ea.setGUIEnabled(true);
-        
-        ExperimentExecutor executor = new ExperimentExecutor(
-        	true,
-        	configDir(CommandLineParserExperimentBrowser.class)
-        );
-
-        executor.executeExperiment(
-        	createExperimentTemplate(line),
-        	ea,
-        	logger.getLogReporter()
-        );
-	}
-	
-	private static ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException {
-		return ExperimentExecutionTemplateFactory.create(
-			line,
-			PATH_RELATIVE_PROPERTIES,
-			CommandLineParserExperimentBrowser.class
-		);
-	}
-	
-	@Override
 	protected ClassLoader classLoaderResources() {
 		return getClass().getClassLoader();
 	}
@@ -121,6 +94,27 @@ class CommandLineParserExperimentBrowser extends CommandLineParserExperimentWith
 	@Override
 	protected boolean requiresFirstArgument() {
 		return false;
+	}
+
+	@Override
+	protected ExperimentExecutionArguments createArguments( CommandLine line ) {
+		 ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
+	     ea.setGUIEnabled(true);
+	     return ea;
+	}
+
+	@Override
+	protected Class<?> classInCurrentJar() {
+		return CommandLineParserExperimentBrowser.class;
+	}
+
+	@Override
+	protected ExperimentExecutionTemplate createExperimentTemplate(CommandLine line) throws ExperimentExecutionException {
+		return ExperimentExecutionTemplateFactory.create(
+			line,
+			PATH_RELATIVE_PROPERTIES,
+			CommandLineParserExperimentBrowser.class
+		);
 	}
 
 }

@@ -87,23 +87,6 @@ class CommandLineParserExperimentLauncher extends CommandLineParserExperimentWit
 		return RESOURCE_MAVEN_PROPERTIES;
 	}
 	
-	@Override
-	protected void processExperiment( CommandLine line, LogErrorReporter logger ) throws ExperimentExecutionException {
-		
-		ExperimentExecutionArguments ea = createArguments(line);
-        
-		ExperimentExecutor executor = new ExperimentExecutor(
-			ea.isGUIEnabled(),
-			configDir(CommandLineParserExperimentLauncher.class)
-		);
-		
-		executor.executeExperiment(
-			createExperimentTemplate(line),
-			ea,
-			logger.getLogReporter()
-		);
-	}
-	
 	/**
 	 * Adds additional options unique to this implementation
 	 */
@@ -148,7 +131,8 @@ class CommandLineParserExperimentLauncher extends CommandLineParserExperimentWit
 		return false;
 	}
 	
-	private static ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException {
+	@Override
+	protected ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException {
 		
 		ExperimentExecutionTemplate template = ExperimentExecutionTemplateFactory.create(
 			line,
@@ -165,7 +149,8 @@ class CommandLineParserExperimentLauncher extends CommandLineParserExperimentWit
         return template;
 	}
 	
-	private static ExperimentExecutionArguments createArguments( CommandLine line ) {
+	@Override
+	protected ExperimentExecutionArguments createArguments( CommandLine line ) {
 		ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
         if (line.hasOption(OPTION_GUI)) {
         	ea.setGUIEnabled(true);
@@ -174,5 +159,10 @@ class CommandLineParserExperimentLauncher extends CommandLineParserExperimentWit
         	ea.setDebugEnabled(true);
         }
         return ea;
+	}
+
+	@Override
+	protected Class<?> classInCurrentJar() {
+		return CommandLineParserExperimentLauncher.class;
 	}
 }

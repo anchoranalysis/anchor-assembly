@@ -226,7 +226,7 @@ public abstract class CommandLineParserExperiment {
 	    String headerDisplayMessage = ResourceReader.readStringFromResource(resourceUsageHeader(), classLoaderResources() );
 	    String footerDisplayMessage = ResourceReader.readStringFromResource(resourceUsageFooter(), classLoaderResources() );
 
-	    String firstLine = String.format( "%s [options] %s", commandNameInHelp(), firstArgumentInHelp() );
+	    String firstLine = String.format( "%s [options] [%s]", commandNameInHelp(), firstArgumentInHelp() );
 	    formatter.printHelp(
 	    	firstLine,
 	    	headerDisplayMessage,
