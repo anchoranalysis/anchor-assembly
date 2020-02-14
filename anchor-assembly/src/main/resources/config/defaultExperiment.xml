@@ -59,14 +59,14 @@
 		  
 		    <pathSummarizer countThreshold="1" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerSplitMoreThan">
 		    
-			    <summarizerMoreThan avoidBulletOnFirst="true" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerAggregate">
+			    <summarizerGreaterThan avoidBulletOnFirst="true" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerAggregate">
 	                <list config-class="java.util.List" config-factory="list">
 	                    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
 	                    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.ExtensionCount"/>
 	                    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FileSizeStatistics"/>
 	                    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FilePathPattern"/>
 	                </list>
-	            </summarizerMoreThan>
+	            </summarizerGreaterThan>
 	            
 	            <summarizerElse config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
 		    
