@@ -47,7 +47,7 @@
 	  </logReporter>
 	  
 	  <taskProcessor config-class="org.anchoranalysis.experiment.bean.processor.SequentialProcessor" supressExceptions="true">
-		  <task config-class="org.anchoranalysis.gui.launch.InteractiveBrowserTask">
+		  <task config-class="org.anchoranalysis.gui.interactivebrowser.launch.InteractiveBrowserTask">
 
 			  <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
 			  	<list config-class="java.util.List" config-factory="list">
