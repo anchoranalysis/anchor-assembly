@@ -31,8 +31,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.anchoranalysis.core.file.PathUtilities;
 import org.anchoranalysis.core.log.LogErrorReporter;
+import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
+import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -209,7 +213,22 @@ public abstract class CommandLineParserExperiment {
 	 * @param logger TODO
 	 * @throws ExperimentExecutionException if processing ends early
 	 */
-	protected abstract void processExperiment( CommandLine line, LogErrorReporter logger ) throws ExperimentExecutionException;
+	protected void processExperiment( CommandLine line, LogErrorReporter logger ) throws ExperimentExecutionException {
+		
+        ExperimentExecutionArguments ea = createArguments(line);
+        
+        ExperimentExecutor executor = new ExperimentExecutor(
+        	ea.isGUIEnabled(),
+        	configDir()
+        );
+		
+		executor.executeExperiment(
+        	createExperimentTemplate(line),
+        	ea,
+        	logger.getLogReporter()
+        );
+	}
+	
 	
 	/**
 	 * Prints help message to guide usage to std-output
@@ -283,4 +302,15 @@ public abstract class CommandLineParserExperiment {
 	 * @return true if a first-argument is always required, false otherwise
 	 */
 	protected abstract boolean requiresFirstArgument();
+	
+	/**
+	 * Directory where the configuration files are stored
+	 * 
+	 * @return a path to the directory
+	 */
+	protected abstract Path configDir();
+	
+	protected abstract ExperimentExecutionArguments createArguments( CommandLine line );
+	
+	protected abstract ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException;
 }

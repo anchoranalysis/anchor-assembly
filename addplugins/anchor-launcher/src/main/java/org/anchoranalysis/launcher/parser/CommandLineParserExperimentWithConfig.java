@@ -33,7 +33,6 @@ import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
-import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.apache.commons.cli.CommandLine;
 
 public abstract class CommandLineParserExperimentWithConfig extends CommandLineParserExperiment {
@@ -47,31 +46,13 @@ public abstract class CommandLineParserExperimentWithConfig extends CommandLineP
 		super(logger, newlinesBeforeError);
 	}
 	
-	protected static Path configDir( Class<?> c ) {
-		Path pathCurrentJARDir = PathUtilities.pathCurrentJAR(c);
+	@Override
+	protected Path configDir() {
+		Path pathCurrentJARDir = PathUtilities.pathCurrentJAR( classInCurrentJar() );
 	    return pathCurrentJARDir.resolve(CONFIG_RELATIVE_PATH);
 	}
 	
-	@Override
-	protected void processExperiment( CommandLine line, LogErrorReporter logger ) throws ExperimentExecutionException {
-		
-        ExperimentExecutionArguments ea = createArguments(line);
-        
-        ExperimentExecutor executor = new ExperimentExecutor(
-        	ea.isGUIEnabled(),
-        	configDir(classInCurrentJar())
-        );
-		
-		executor.executeExperiment(
-        	createExperimentTemplate(line),
-        	ea,
-        	logger.getLogReporter()
-        );
-	}
-	
-	protected abstract ExperimentExecutionArguments createArguments( CommandLine line );
-	
 	protected abstract Class<?> classInCurrentJar();
 	
-	protected abstract ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException;
+	
 }
