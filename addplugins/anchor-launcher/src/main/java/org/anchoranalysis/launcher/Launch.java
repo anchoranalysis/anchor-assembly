@@ -3,6 +3,7 @@ package org.anchoranalysis.launcher;
 import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.log.ConsoleLogReporter;
 import org.anchoranalysis.launcher.parser.CommandLineParserExperiment;
+import org.anchoranalysis.launcher.parser.CommandLineParserConfig;
 
 /*
  * #%L
@@ -52,7 +53,7 @@ public class Launch {
 	 */
 	public static void main(String[] args) throws Exception {
 		LogErrorReporter logger = new LogErrorReporter( new ConsoleLogReporter() );
-		runCommandLineApp( args, new CommandLineParserExperimentLauncher( logger ) );
+		runCommandLineApp( args, new CommandLineParserConfigLauncher(), logger );
 	}
 	
 
@@ -62,9 +63,9 @@ public class Launch {
 	 * @param args args from command-line application
 	 * @param parser a parser for this command-line application
 	 */
-	public static void runCommandLineApp( String[] args, CommandLineParserExperiment parser ) {
+	public static void runCommandLineApp( String[] args, CommandLineParserConfig parserConfig, LogErrorReporter logger ) {
 		DirtyInitializer.dirtyInitialization();
-		parser.parse(args);
+		new CommandLineParserExperiment(logger).parse(args, parserConfig);
 	}
 	
 }

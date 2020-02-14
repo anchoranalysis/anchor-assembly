@@ -1,12 +1,12 @@
 package org.anchoranalysis.browser.launcher;
 
-import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
-import org.anchoranalysis.launcher.parser.CommandLineParserExperimentWithConfig;
+import org.anchoranalysis.launcher.parser.CommandLineParserConfig;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Options;
 
 /*
  * #%L
@@ -34,7 +34,7 @@ import org.apache.commons.cli.CommandLine;
  * #L%
  */
 
-class CommandLineParserExperimentBrowser extends CommandLineParserExperimentWithConfig {
+class CommandLineParserConfigBrowser extends CommandLineParserConfig {
 	
 	/**
 	 * A path relative to the current JAR where a properties file can be found
@@ -46,75 +46,75 @@ class CommandLineParserExperimentBrowser extends CommandLineParserExperimentWith
 	private static final String RESOURCE_USAGE_FOOTER =  "org/anchoranalysis/browser/launcher/usageFooterDisplayMessage.txt";
 	private static final String RESOURCE_MAVEN_PROPERTIES = "META-INF/maven/org.anchoranalysis.anchor/anchor-browser/pom.properties";
 	
-	
-	/**
-	 * A command line parser application for the browser application
-	 * @param logger for reporting user-friendly errors
-	 */
-	public CommandLineParserExperimentBrowser(LogErrorReporter logger) {
-		super(logger, true);
-	}
-	
 	@Override
-	protected ClassLoader classLoaderResources() {
+	public ClassLoader classLoaderResources() {
 		return getClass().getClassLoader();
 	}
 
 	@Override
-	protected String commandNameInHelp() {
+	public String commandNameInHelp() {
 		return "anchorGUI";
 	}
 
 	@Override
-	protected String firstArgumentInHelp() {
+	public String firstArgumentInHelp() {
 		return "configFile.xml";
 	}
 	
 
 	@Override
-	protected String resourceVersionFooter() {
+	public String resourceVersionFooter() {
 		return RESOURCE_VERSION_FOOTER;
 	}
 
 	@Override
-	protected String resourceMavenProperties() {
+	public String resourceMavenProperties() {
 		return RESOURCE_MAVEN_PROPERTIES;
 	}
 
 	@Override
-	protected String resourceUsageHeader() {
+	public String resourceUsageHeader() {
 		return RESOURCE_USAGE_HEADER;
 	}
 
 	@Override
-	protected String resourceUsageFooter() {
+	public String resourceUsageFooter() {
 		return RESOURCE_USAGE_FOOTER;
 	}
 
 	@Override
-	protected boolean requiresFirstArgument() {
+	public boolean requiresFirstArgument() {
 		return false;
 	}
 
 	@Override
-	protected ExperimentExecutionArguments createArguments( CommandLine line ) {
+	public ExperimentExecutionArguments createArguments( CommandLine line ) {
 		 ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
 	     ea.setGUIEnabled(true);
 	     return ea;
 	}
 
 	@Override
-	protected Class<?> classInCurrentJar() {
-		return CommandLineParserExperimentBrowser.class;
+	public Class<?> classInCurrentJar() {
+		return CommandLineParserConfigBrowser.class;
 	}
 
 	@Override
-	protected ExperimentExecutionTemplate createExperimentTemplate(CommandLine line) throws ExperimentExecutionException {
+	public ExperimentExecutionTemplate createExperimentTemplate(CommandLine line) throws ExperimentExecutionException {
 		return ExperimentExecutionTemplateFactory.create(
 			line,
 			PATH_RELATIVE_PROPERTIES,
-			CommandLineParserExperimentBrowser.class
+			CommandLineParserConfigBrowser.class
 		);
+	}
+
+	@Override
+	public boolean newlinesBeforeError() {
+		return true;
+	}
+
+	@Override
+	public void addAdditionalOptions(Options options) {
 	}
 
 }

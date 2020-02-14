@@ -31,11 +31,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.anchoranalysis.core.file.PathUtilities;
 import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -54,21 +52,13 @@ import org.apache.commons.cli.ParseException;
  * @author Owen Feehan
  *
  */
-public abstract class CommandLineParserExperiment {
+public class CommandLineParserExperiment {
 	
 	// START: Options
 	public static final String OPTION_HELP = "h";
 	private static final String OPTION_VERSION = "v";
 	private static final String OPTION_LOG_ERROR = "l";
 	// END: Options
-	
-	/**
-	 * if TRUE, then some extra newlines are inserted before error messages
-	 *  
-	 *  This useful for the GUI client in Windows due to WinRun4j running as a Windows app, and not as
-	 *    a shell app. This changes how output is displayed;
-	 */
-	private boolean newlinesBeforeError;
 	
 	/**
 	 * For reporting messages on what goes wrong
@@ -80,8 +70,7 @@ public abstract class CommandLineParserExperiment {
 	 * @param logger a logger where error messages outputted to
 	 * @param newlinesBeforeError if TRUE, then some extra newlines are inserted before error messages
 	 */
-	protected CommandLineParserExperiment( LogErrorReporter logger, boolean newlinesBeforeError ) {
-		this.newlinesBeforeError = newlinesBeforeError;
+	public CommandLineParserExperiment( LogErrorReporter logger ) {
 		this.logger = logger;
 	}
 	
@@ -91,9 +80,9 @@ public abstract class CommandLineParserExperiment {
 	 *   
 	 * @param args arguments from command-line
 	 */
-	public void parse( String args[] ) {
+	public void parse( String args[], CommandLineParserConfig parserConfig ) {
 		
-		Options options = createOptions();
+		Options options = createOptions(parserConfig);
 		
 		// create the parser
 	    CommandLineParser parser = new DefaultParser();
@@ -101,16 +90,16 @@ public abstract class CommandLineParserExperiment {
 	        // parse the command line arguments
 	        CommandLine line = parser.parse( options, args );
 	        
-	        if (maybePrintHelp(line, options, args )) {
+	        if (maybePrintHelp(line, options, args, parserConfig)) {
 	        	return;
 	        }
 	        
-	        if (maybePrintVersion(line)) {
+	        if (maybePrintVersion(line, parserConfig)) {
 	        	return;
 	        }
 	      	        
 	        // We process the remaining arguments
-	        if (requiresFirstArgument() && line.getArgs().length==0) {
+	        if (parserConfig.requiresFirstArgument() && line.getArgs().length==0) {
 	        	ErrorPrinter.printMissingExperimentArgument();
 	        	return;
 	        }
@@ -120,7 +109,7 @@ public abstract class CommandLineParserExperiment {
 	        	return;
 	        }
 	        
-	        processExperimentShowErrors(line);
+	        processExperimentShowErrors(line, parserConfig );
 			
 	    } catch( ParseException e ) {
 	        // oSomething went wrong
@@ -137,59 +126,40 @@ public abstract class CommandLineParserExperiment {
 	 * @return true if it prints the message, false otherwise
 	 * @throws IOException 
 	 */
-	private boolean maybePrintHelp( CommandLine line, Options options, String args[] ) throws IOException {
-		boolean isArgumentRequiredAndMissing = requiresFirstArgument() && args.length==0;
+	private boolean maybePrintHelp( CommandLine line, Options options, String args[], CommandLineParserConfig parserConfig ) throws IOException {
+		boolean isArgumentRequiredAndMissing = parserConfig.requiresFirstArgument() && args.length==0;
 		if (line.hasOption(OPTION_HELP) || isArgumentRequiredAndMissing) {
-        	printHelp( options );
+        	printHelp( options, parserConfig );
 		    return true;
         }
 		return false;
 	}
 	
-	private boolean maybePrintVersion( CommandLine line ) throws IOException {
+	private boolean maybePrintVersion( CommandLine line, CommandLineParserConfig parserConfig ) throws IOException {
 		if (line.hasOption(OPTION_VERSION)) {
         	VersionPrinter.printVersion(
-        		classLoaderResources(),
-        		resourceVersionFooter(),
-        		resourceMavenProperties()
+        		parserConfig.classLoaderResources(),
+        		parserConfig.resourceVersionFooter(),
+        		parserConfig.resourceMavenProperties()
         	);
         	return true;
         } 
         return false;
 	}
-	
-	/**
-	 * Create options for the command-line client, returning default options always available for this class
-	 * @return the options that can be used
-	 */
-	protected Options createOptions() {
-
-		Options options = new Options();
-
-		options.addOption(OPTION_HELP, false, "print this message and exit");
 		
-		options.addOption(OPTION_VERSION, false, "print version information and exit");
-		
-		// This logs the errors in greater detail
-		options.addOption(OPTION_LOG_ERROR, true, "log BeanXML parsing errors to file");
-		
-		return options;
-	}
-	
-	
 	/**
 	 * Calls processExperiment() but displays any error messages in a user-friendly way on System.err
 	 * 
 	 * @param line
 	 */
-	private void processExperimentShowErrors( CommandLine line ) {
+	private void processExperimentShowErrors( CommandLine line, CommandLineParserConfig parserConfig ) {
 		
 		try {
-			processExperiment(line, logger);
+			processExperiment(line, logger, parserConfig );
 			
 		} catch (ExperimentExecutionException e) {
 	    	
-			if (newlinesBeforeError) {
+			if (parserConfig.newlinesBeforeError()) {
 				logger.getLogReporter().logFormatted("%n");
 			}
 			
@@ -213,17 +183,17 @@ public abstract class CommandLineParserExperiment {
 	 * @param logger TODO
 	 * @throws ExperimentExecutionException if processing ends early
 	 */
-	protected void processExperiment( CommandLine line, LogErrorReporter logger ) throws ExperimentExecutionException {
+	protected void processExperiment( CommandLine line, LogErrorReporter logger, CommandLineParserConfig parserConfig ) throws ExperimentExecutionException {
 		
-        ExperimentExecutionArguments ea = createArguments(line);
+        ExperimentExecutionArguments ea = parserConfig.createArguments(line);
         
         ExperimentExecutor executor = new ExperimentExecutor(
         	ea.isGUIEnabled(),
-        	configDir()
+        	parserConfig.configDir()
         );
 		
 		executor.executeExperiment(
-        	createExperimentTemplate(line),
+        	parserConfig.createExperimentTemplate(line),
         	ea,
         	logger.getLogReporter()
         );
@@ -236,16 +206,16 @@ public abstract class CommandLineParserExperiment {
 	 * @param options possible user-options
 	 * @throws IOException if the help display messages cannot be read
 	 */
-	protected void printHelp( Options options ) throws IOException {
+	protected void printHelp( Options options, CommandLineParserConfig parserConfig ) throws IOException {
 		
     	// automatically generate the help statement
 	    HelpFormatter formatter = new HelpFormatter();
 	    
 	    // Avoid a leading / on the resource path as it uses a ClassLoader to load resources, which is different behaviour to getClass().getResourceAsStream()
-	    String headerDisplayMessage = ResourceReader.readStringFromResource(resourceUsageHeader(), classLoaderResources() );
-	    String footerDisplayMessage = ResourceReader.readStringFromResource(resourceUsageFooter(), classLoaderResources() );
+	    String headerDisplayMessage = ResourceReader.readStringFromResource(parserConfig.resourceUsageHeader(), parserConfig.classLoaderResources() );
+	    String footerDisplayMessage = ResourceReader.readStringFromResource(parserConfig.resourceUsageFooter(), parserConfig.classLoaderResources() );
 
-	    String firstLine = String.format( "%s [options] [%s]", commandNameInHelp(), firstArgumentInHelp() );
+	    String firstLine = String.format( "%s [options] [%s]", parserConfig.commandNameInHelp(), parserConfig.firstArgumentInHelp() );
 	    formatter.printHelp(
 	    	firstLine,
 	    	headerDisplayMessage,
@@ -255,62 +225,22 @@ public abstract class CommandLineParserExperiment {
 	}
 	
 	/**
-	 * What class-loader to use for loading resources
-	 * @return a class-loader
+	 * Create options for the command-line client, returning default options always available for this class
+	 * @return the options that can be used
 	 */
-	protected abstract ClassLoader classLoaderResources();
-	
-	/**
-	 * What the application command is described as in the help message e.g.&nbsp;anchor or anchorGUI
-	 * @return a word describing the application command (for the help message)
-	 */
-	protected abstract String commandNameInHelp();
-	
-	/**
-	 * What the application argument is described as in the help message e.g.&nbsp;experimentFile.xml
-	 * @return a word describing the application arguments (for the help message)
-	 */
-	protected abstract String firstArgumentInHelp();
-	
-	/**
-	 * What resource to use for the version-footer
-	 * @return resource-path
-	 */
-	protected abstract String resourceVersionFooter();
+	private Options createOptions( CommandLineParserConfig parserConfig ) {
 
-	/**
-	 * What resource to use for the usage-footer
-	 * @return resource-path
-	 */
-	protected abstract String resourceUsageHeader();
-	
-	/**
-	 * What resource to use for the usage-footer
-	 * @return resource-path
-	 */
-	protected abstract String resourceUsageFooter();
-	
-	
-	/**
-	 * What resource to use for the maven properties
-	 * @return resource-path
-	 */
-	protected abstract String resourceMavenProperties();
-	
-	/**
-	 * If true this command-line application always requires a first-argument (unless -help or -version is selected)
-	 * @return true if a first-argument is always required, false otherwise
-	 */
-	protected abstract boolean requiresFirstArgument();
-	
-	/**
-	 * Directory where the configuration files are stored
-	 * 
-	 * @return a path to the directory
-	 */
-	protected abstract Path configDir();
-	
-	protected abstract ExperimentExecutionArguments createArguments( CommandLine line );
-	
-	protected abstract ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException;
+		Options options = new Options();
+
+		options.addOption(OPTION_HELP, false, "print this message and exit");
+		
+		options.addOption(OPTION_VERSION, false, "print version information and exit");
+		
+		// This logs the errors in greater detail
+		options.addOption(OPTION_LOG_ERROR, true, "log BeanXML parsing errors to file");
+		
+		parserConfig.addAdditionalOptions(options);
+		
+		return options;
+	}
 }

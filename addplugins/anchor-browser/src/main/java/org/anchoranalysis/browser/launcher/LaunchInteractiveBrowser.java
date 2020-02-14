@@ -47,7 +47,7 @@ public class LaunchInteractiveBrowser {
 	public static void main(String[] args) throws Exception {
 				
 		LogErrorReporter logger = createLogErrorReporter();
-		Launch.runCommandLineApp(args, new CommandLineParserExperimentBrowser(logger) );
+		Launch.runCommandLineApp(args, new CommandLineParserConfigBrowser(), logger );
 	}
 	
 	private static LogErrorReporter createLogErrorReporter() {

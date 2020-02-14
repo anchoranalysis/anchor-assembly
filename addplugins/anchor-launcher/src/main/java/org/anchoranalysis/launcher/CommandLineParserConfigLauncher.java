@@ -1,13 +1,11 @@
 package org.anchoranalysis.launcher;
 
-import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamManagerFactory;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
-import org.anchoranalysis.launcher.parser.CommandLineParserExperimentWithConfig;
+import org.anchoranalysis.launcher.parser.CommandLineParserConfig;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -43,7 +41,7 @@ import org.apache.commons.cli.Options;
  * @author Owen Feehan
  *
  */
-class CommandLineParserExperimentLauncher extends CommandLineParserExperimentWithConfig {
+class CommandLineParserConfigLauncher extends CommandLineParserConfig {
 	
 	// START: Options
 	private static final String OPTION_GUI = "g";
@@ -63,27 +61,19 @@ class CommandLineParserExperimentLauncher extends CommandLineParserExperimentWit
 	 * A path relative to the current JAR where a properties file can be found
 	 */
 	private static final String PATH_RELATIVE_PROPERTIES = "anchor.properties";
-	
-	/**
-	 * A command line parser application for the launcher application
-	 * @param logger for reporting user-friendly errors
-	 */
-	public CommandLineParserExperimentLauncher(LogErrorReporter logger) {
-		super(logger, false);
-	}
-	
+
 	@Override
-	protected ClassLoader classLoaderResources() {
+	public ClassLoader classLoaderResources() {
 		return getClass().getClassLoader();
 	}
 
 	@Override
-	protected String resourceVersionFooter() {
+	public String resourceVersionFooter() {
 		return RESOURCE_VERSION_FOOTER;
 	}
 
 	@Override
-	protected String resourceMavenProperties() {
+	public String resourceMavenProperties() {
 		return RESOURCE_MAVEN_PROPERTIES;
 	}
 	
@@ -91,10 +81,8 @@ class CommandLineParserExperimentLauncher extends CommandLineParserExperimentWit
 	 * Adds additional options unique to this implementation
 	 */
 	@Override
-	protected Options createOptions() {
-		
-		Options options = super.createOptions();
-		
+	public void addAdditionalOptions(Options options) {
+	
 		options.addOption(OPTION_GUI, false, "enables GUI display dialogs");
 		
 		options.addOption(OPTION_DEBUG, false, "enables debug mode");
@@ -102,42 +90,40 @@ class CommandLineParserExperimentLauncher extends CommandLineParserExperimentWit
 		options.addOption(OPTION_INPUT, true, "an input-directory or manager (path to BeanXML)");
 		
 		options.addOption(OPTION_OUTPUT, true, "an output-directory or manager (path to BeanXML)");
-		
-		return options;
 	}
 
 	@Override
-	protected String commandNameInHelp() {
+	public String commandNameInHelp() {
 		return "anchor";
 	}
 
 	@Override
-	protected String firstArgumentInHelp() {
+	public String firstArgumentInHelp() {
 		return "experimentFile.xml";
 	}
 
 	@Override
-	protected String resourceUsageHeader() {
+	public String resourceUsageHeader() {
 		return RESOURCE_USAGE_HEADER;
 	}
 
 	@Override
-	protected String resourceUsageFooter() {
+	public String resourceUsageFooter() {
 		return RESOURCE_USAGE_FOOTER;
 	}
 
 	@Override
-	protected boolean requiresFirstArgument() {
+	public boolean requiresFirstArgument() {
 		return false;
 	}
 	
 	@Override
-	protected ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException {
+	public ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException {
 		
 		ExperimentExecutionTemplate template = ExperimentExecutionTemplateFactory.create(
 			line,
 			PATH_RELATIVE_PROPERTIES,
-			CommandLineParserExperimentLauncher.class
+			CommandLineParserConfigLauncher.class
 		);
 		template.setInput(
 			SelectParamManagerFactory.create( line, OPTION_INPUT, true )
@@ -150,7 +136,7 @@ class CommandLineParserExperimentLauncher extends CommandLineParserExperimentWit
 	}
 	
 	@Override
-	protected ExperimentExecutionArguments createArguments( CommandLine line ) {
+	public ExperimentExecutionArguments createArguments( CommandLine line ) {
 		ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
         if (line.hasOption(OPTION_GUI)) {
         	ea.setGUIEnabled(true);
@@ -162,7 +148,12 @@ class CommandLineParserExperimentLauncher extends CommandLineParserExperimentWit
 	}
 
 	@Override
-	protected Class<?> classInCurrentJar() {
-		return CommandLineParserExperimentLauncher.class;
+	public Class<?> classInCurrentJar() {
+		return CommandLineParserConfigLauncher.class;
+	}
+
+	@Override
+	public boolean newlinesBeforeError() {
+		return false;
 	}
 }
