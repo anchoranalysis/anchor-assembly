@@ -114,6 +114,7 @@ public class SelectParamManagerFactory {
 		return configDir.resolve("tasks").resolve(arg + ".xml");
 	}
 	
+	// Check if it contains only a restricted set of characters... alphaNumeric, hyphen, underscore, forward-slash
 	private static boolean isTaskName( String arg ) {
 		return arg.matches("^[a-zA-Z0-9_\\-\\/]+$");
 	}
