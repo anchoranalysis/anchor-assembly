@@ -1,13 +1,11 @@
 package org.anchoranalysis.launcher;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
-import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamManagerFactory;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
-import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -91,25 +89,6 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	}
 	
 	@Override
-	public ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException {
-		
-		ExperimentExecutionTemplate template = ExperimentExecutionTemplateFactory.create(
-			line,
-			PATH_RELATIVE_PROPERTIES,
-			LauncherConfigCommandLine.class
-		);
-		template.setInput(
-			SelectParamManagerFactory.create( line, OPTION_INPUT, true )
-		);
-		template.setOutput(
-			SelectParamManagerFactory.create(line, OPTION_OUTPUT, false )
-		);
-		template.setDefaultBehaviourString( "Searching for inputs as per default experiment" );
-		
-        return template;
-	}
-	
-	@Override
 	public ExperimentExecutionArguments createArguments( CommandLine line ) {
 		ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
         if (line.hasOption(OPTION_GUI)) {
@@ -122,7 +101,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	}
 
 	@Override
-	public Class<?> classInCurrentJar() {
+	protected Class<?> classInCurrentJar() {
 		return LauncherConfigCommandLine.class;
 	}
 
@@ -134,5 +113,21 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	@Override
 	public HelpConfig help() {
 		return new HelpConfig("anchor", "experimentFile.xml");
+	}
+
+	@Override
+	protected String pathRelativeProperties() {
+		return PATH_RELATIVE_PROPERTIES;
+	}
+	
+	@Override
+	protected void customizeExperimentTemplate(ExperimentExecutionTemplate template, CommandLine line) {
+		template.setInput(
+			SelectParamManagerFactory.create( line, OPTION_INPUT, true )
+		);
+		template.setOutput(
+			SelectParamManagerFactory.create(line, OPTION_OUTPUT, false )
+		);
+		template.setDefaultBehaviourString( "Searching for inputs as per default experiment" );
 	}
 }

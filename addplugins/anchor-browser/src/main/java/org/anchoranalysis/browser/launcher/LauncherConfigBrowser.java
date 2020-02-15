@@ -1,12 +1,10 @@
 package org.anchoranalysis.browser.launcher;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
-import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
-import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -63,17 +61,8 @@ class LauncherConfigBrowser extends LauncherConfig {
 	}
 
 	@Override
-	public Class<?> classInCurrentJar() {
+	protected Class<?> classInCurrentJar() {
 		return LauncherConfigBrowser.class;
-	}
-
-	@Override
-	public ExperimentExecutionTemplate createExperimentTemplate(CommandLine line) throws ExperimentExecutionException {
-		return ExperimentExecutionTemplateFactory.create(
-			line,
-			PATH_RELATIVE_PROPERTIES,
-			LauncherConfigBrowser.class
-		);
 	}
 
 	@Override
@@ -99,6 +88,16 @@ class LauncherConfigBrowser extends LauncherConfig {
 	@Override
 	public HelpConfig help() {
 		return new HelpConfig("anchorGUI", "configFile.xml");
+	}
+
+	@Override
+	protected String pathRelativeProperties() {
+		return PATH_RELATIVE_PROPERTIES;
+	}
+	
+	@Override
+	protected void customizeExperimentTemplate(ExperimentExecutionTemplate template, CommandLine line) {
+		
 	}
 
 }

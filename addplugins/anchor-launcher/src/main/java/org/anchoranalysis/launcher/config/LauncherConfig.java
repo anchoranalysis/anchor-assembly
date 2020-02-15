@@ -32,6 +32,7 @@ import org.anchoranalysis.core.file.PathUtilities;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
+import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -41,6 +42,24 @@ public abstract class LauncherConfig {
 	 * A path to a folder where config files are stored (relative to the bin/ directory)
 	 */
 	private static String CONFIG_RELATIVE_PATH = "../config/";
+	
+	/** Config for resources sued by the launcher */
+	public abstract ResourcesConfig resources();
+	
+	/** Config for displaying help message */
+	public abstract HelpConfig help();
+		
+	/**
+	 * if TRUE, then some extra newlines are inserted before error messages
+	 *  
+	 *  This useful for the GUI client in Windows due to WinRun4j running as a Windows app, and not as
+	 *    a shell app. This changes how output is displayed;
+	 */
+	public abstract boolean newlinesBeforeError();
+		
+	public abstract ExperimentExecutionArguments createArguments( CommandLine line );
+	
+	public abstract void addAdditionalOptions(Options options);
 
 	/**
 	 * Directory where the configuration files are stored
@@ -52,26 +71,19 @@ public abstract class LauncherConfig {
 	    return pathCurrentJARDir.resolve(CONFIG_RELATIVE_PATH);
 	}
 	
-	public abstract Class<?> classInCurrentJar();
+	public ExperimentExecutionTemplate createExperimentTemplate(CommandLine line) throws ExperimentExecutionException {
+		ExperimentExecutionTemplate template = ExperimentExecutionTemplateFactory.create(
+			line,
+			pathRelativeProperties(),
+			classInCurrentJar()
+		);
+		customizeExperimentTemplate(template, line);
+		return template;
+	}
 	
-	/** Config for resources sued by the launcher */
-	public abstract ResourcesConfig resources();
+	protected abstract String pathRelativeProperties();
 	
-	/** Config for displaying help message */
-	public abstract HelpConfig help();
-	
-	public abstract ExperimentExecutionArguments createArguments( CommandLine line );
-	
-	public abstract ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException;
-	
-	
-	/**
-	 * if TRUE, then some extra newlines are inserted before error messages
-	 *  
-	 *  This useful for the GUI client in Windows due to WinRun4j running as a Windows app, and not as
-	 *    a shell app. This changes how output is displayed;
-	 */
-	public abstract boolean newlinesBeforeError();
-	
-	public abstract void addAdditionalOptions(Options options);
+	protected abstract void customizeExperimentTemplate(ExperimentExecutionTemplate template, CommandLine line);
+		
+	protected abstract Class<?> classInCurrentJar();
 }
