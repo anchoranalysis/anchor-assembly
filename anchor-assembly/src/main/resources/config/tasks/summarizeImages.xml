@@ -3,6 +3,7 @@ Summarizes different properties of images
 
  * Count
  * Size (width, height, z-stack, time) etc.
+ * Number of channels
  * Bit-depth
 -->
 <config>
