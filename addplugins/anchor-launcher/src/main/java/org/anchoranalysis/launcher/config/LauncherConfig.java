@@ -31,8 +31,8 @@ import java.nio.file.Path;
 import org.anchoranalysis.core.file.PathUtilities;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
-import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
+import org.anchoranalysis.launcher.executor.ExperimentExecutor;
+import org.anchoranalysis.launcher.executor.ExperimentExecutorFactory;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -71,19 +71,19 @@ public abstract class LauncherConfig {
 	    return pathCurrentJARDir.resolve(CONFIG_RELATIVE_PATH);
 	}
 	
-	public ExperimentExecutionTemplate createExperimentTemplate(CommandLine line) throws ExperimentExecutionException {
-		ExperimentExecutionTemplate template = ExperimentExecutionTemplateFactory.create(
+	public ExperimentExecutor createExperimentExecutor(CommandLine line) throws ExperimentExecutionException {
+		ExperimentExecutor executor = ExperimentExecutorFactory.create(
 			line,
 			pathRelativeProperties(),
 			classInCurrentJar()
 		);
-		customizeExperimentTemplate(template, line);
-		return template;
+		customizeExperimentTemplate(executor, line);
+		return executor;
 	}
 	
 	protected abstract String pathRelativeProperties();
 	
-	protected abstract void customizeExperimentTemplate(ExperimentExecutionTemplate template, CommandLine line);
+	protected abstract void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line);
 		
 	protected abstract Class<?> classInCurrentJar();
 }

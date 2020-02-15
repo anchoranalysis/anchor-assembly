@@ -179,7 +179,7 @@ public class ParseArgsAndRunExperiment {
 	 */
 	protected void processExperiment( CommandLine line, LogErrorReporter logger, LauncherConfig parserConfig ) throws ExperimentExecutionException {
         
-        parserConfig.createExperimentTemplate(line).executeExperiment(
+        parserConfig.createExperimentExecutor(line).executeExperiment(
         	parserConfig.configDir(),
         	parserConfig.createArguments(line),
         	logger.getLogReporter()

@@ -31,10 +31,10 @@ import org.anchoranalysis.launcher.FilePathResolver;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamExperimentFactory;
 import org.apache.commons.cli.CommandLine;
 
-public class ExperimentExecutionTemplateFactory {
+public class ExperimentExecutorFactory {
 
 	/**
-	 * Creates an execution-template from a command line that EITHER:
+	 * Creates an experiment-executor from a command line that EITHER:
 	 *       uses a default-experiment
 	 *    OR accepts a path passed as the first command-line argument
 	 *    
@@ -44,8 +44,8 @@ public class ExperimentExecutionTemplateFactory {
 	 * @return
 	 * @throws ExperimentExecutionException
 	 */
-	public static ExperimentExecutionTemplate create( CommandLine line, String pathRelativeProperties, Class<?> executingClass ) throws ExperimentExecutionException {
-		return new ExperimentExecutionTemplate(
+	public static ExperimentExecutor create( CommandLine line, String pathRelativeProperties, Class<?> executingClass ) throws ExperimentExecutionException {
+		return new ExperimentExecutor(
 			SelectParamExperimentFactory.defaultExperimentOrCustom(
 				line,
 				pathRelativeProperties,

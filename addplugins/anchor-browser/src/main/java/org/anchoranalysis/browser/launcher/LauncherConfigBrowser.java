@@ -4,7 +4,7 @@ import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
-import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
+import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -96,7 +96,7 @@ class LauncherConfigBrowser extends LauncherConfig {
 	}
 	
 	@Override
-	protected void customizeExperimentTemplate(ExperimentExecutionTemplate template, CommandLine line) {
+	protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) {
 		
 	}
 
