@@ -52,6 +52,8 @@ public class ExperimentExecutor {
 
 	private SelectParam<Path> output = SelectParamManagerFactory.useDefault();
 	
+	private SelectParam<Path> task = SelectParamManagerFactory.useDefault();
+	
 	// If non-null, a string is printed in the description if the default-experiment is used. If non-null this is ignored.
 	private String defaultBehaviourString;
 	
@@ -77,7 +79,8 @@ public class ExperimentExecutor {
 			loadExperimentFromPath(execArgs),
 			execArgs,
 			getInput().select( execArgs ),
-			getOutput().select( execArgs )
+			getOutput().select( execArgs ),
+			getTask().select( execArgs )
 		);
 		
 	}
@@ -166,5 +169,13 @@ public class ExperimentExecutor {
 
 	public String getDefaultBehaviourString() {
 		return defaultBehaviourString;
+	}
+
+	public SelectParam<Path> getTask() {
+		return task;
+	}
+
+	public void setTask(SelectParam<Path> task) {
+		this.task = task;
 	}
 }

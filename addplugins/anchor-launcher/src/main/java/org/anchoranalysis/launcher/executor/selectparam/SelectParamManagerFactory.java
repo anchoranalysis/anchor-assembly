@@ -28,6 +28,7 @@ package org.anchoranalysis.launcher.executor.selectparam;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.function.Function;
 
 import org.apache.commons.cli.CommandLine;
 
@@ -49,24 +50,39 @@ public class SelectParamManagerFactory {
 	}
 	
 	/**
-	 * Constructor
+	 * Can point to either a path to beanXML
+	 * 
+	 * @param line command-line to consider if certain options have been selected or not
+	 * @param optionName which option we consider
+	 * @return an appropriate SelectParam object
+	 */
+	public static SelectParam<Path> pathOrDefault( CommandLine line, String optionName ) {
+		return ifOption(line, optionName, path -> new CustomManagerFromPath(path) );
+	}
+	
+	/**
+	 * Can point to either a path to beanXML or to a directory (in which case a manager is derived)
 	 * 
 	 * @param line command-line to consider if certain options have been selected or not
 	 * @param optionName which option we consider
 	 * @param iff TRUE, this is an input-manager, otherwise it's an output manager
 	 * @return an appropriate SelectParam object
 	 */
-	public static SelectParam<Path> create(
+	public static SelectParam<Path> pathOrDirectoryOrDefault(
 		CommandLine line,
 		String optionName,
 		boolean input
 	) {
-        if (line.hasOption(optionName)) {
+		return ifOption(line, optionName, path -> pathOrDirectory(path, input) );
+	}
+	
+	private static SelectParam<Path> ifOption(CommandLine line, String optionName, Function<Path,SelectParam<Path>> func ) {
+		if (line.hasOption(optionName)) {
         	
         	Path optionValuePath = Paths.get(
         		line.getOptionValue(optionName)
         	);
-        	return pathOrDirectory(optionValuePath, input);
+        	return func.apply(optionValuePath);
         	
         } else {
         	return new UseDefaultManager();

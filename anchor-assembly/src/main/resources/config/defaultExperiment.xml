@@ -55,26 +55,10 @@
 	  
 	  <taskProcessor config-class="org.anchoranalysis.experiment.bean.processor.ParallelProcessor" supressExceptions="true">
 		  
-		  <task config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeFilesTask">
-		  
-		    <pathSummarizer countThreshold="0" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerSplitMoreThan">
-		    
-			    <summarizerGreaterThan avoidBulletOnFirst="true" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerAggregate">
-	                <list config-class="java.util.List" config-factory="list">
-	                    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
-	                    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.ExtensionCount"/>
-	                    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FileSizeStatistics"/>
-	                    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FilePathPattern"/>
-	                </list>
-	            </summarizerGreaterThan>
-
-                <summarizerElse config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
-		    
-		    </pathSummarizer>
-	  		  
-		  </task>
-		  
-    	</taskProcessor>
+		  <!--  Default task -->
+		  <task filePath="tasks/summarizeFiles.xml" config-class="org.anchoranalysis.experiment.task.Task" config-factory="include"/>
+		  		  
+      </taskProcessor>
 	</experiment>
 	
 </config>

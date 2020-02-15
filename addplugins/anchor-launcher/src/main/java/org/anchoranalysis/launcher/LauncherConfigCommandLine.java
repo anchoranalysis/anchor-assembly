@@ -126,14 +126,14 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	@Override
 	protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) {
 		template.setInput(
-			SelectParamManagerFactory.create( line, OPTION_INPUT, true )
+			SelectParamManagerFactory.pathOrDirectoryOrDefault( line, OPTION_INPUT, true )
 		);
 		template.setOutput(
-			SelectParamManagerFactory.create(line, OPTION_OUTPUT, false )
+			SelectParamManagerFactory.pathOrDirectoryOrDefault(line, OPTION_OUTPUT, false )
 		);
-		/*template.setTask(
-			SelectParamManagerFactory.create(line, OPTION_OUTPUT, false )
-		);*/
+		template.setTask(
+			SelectParamManagerFactory.pathOrDefault(line, OPTION_TASK )
+		);
 		template.setDefaultBehaviourString( "Searching for inputs as per default experiment" );
 	}
 }

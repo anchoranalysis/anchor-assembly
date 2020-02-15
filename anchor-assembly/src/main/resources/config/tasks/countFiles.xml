@@ -1,0 +1,7 @@
+<config>
+<bean config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeFilesTask">
+          
+   <pathSummarizer config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
+
+</bean>
+</config>
