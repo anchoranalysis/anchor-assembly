@@ -67,7 +67,7 @@ public class ExperimentExecutionTemplate {
 	 */
 	public void executeExperiment( Path pathExecutionDirectory, ExperimentExecutionArguments execArgs, LogReporter logger ) throws ExperimentExecutionException {
 		
-		ExperimentExecutorObj delegate = new ExperimentExecutorObj(execArgs.isGUIEnabled(), pathExecutionDirectory);
+		ExperimentExecutor delegate = new ExperimentExecutor(execArgs.isGUIEnabled(), pathExecutionDirectory);
 		
 		logger.log( describe() );
 		

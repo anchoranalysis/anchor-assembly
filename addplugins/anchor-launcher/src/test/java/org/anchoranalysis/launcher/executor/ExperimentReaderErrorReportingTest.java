@@ -33,7 +33,7 @@ import java.nio.file.Path;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.executor.ExperimentExecutorObj;
+import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.ExperimentReader;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -55,7 +55,7 @@ public class ExperimentReaderErrorReportingTest {
 		
 	@BeforeClass
     public static void setUp() throws Exception {
-        ExperimentExecutorObj.initializeIfNecessary(false, tl.getRoot(), false, false );
+        ExperimentExecutor.initializeIfNecessary(false, tl.getRoot(), false, false );
     }
 	
 	@Test(expected=ExperimentExecutionException.class)
