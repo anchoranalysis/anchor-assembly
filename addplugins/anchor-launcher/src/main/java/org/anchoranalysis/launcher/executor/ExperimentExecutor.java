@@ -27,6 +27,8 @@ package org.anchoranalysis.launcher.executor;
  */
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.anchoranalysis.core.log.LogReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
@@ -67,16 +69,29 @@ public class ExperimentExecutor {
 	 * 
 	 * @throws ExperimentExecutionException if the execution ends early
 	 */
-	public void executeExperiment( Path pathExecutionDirectory, ExperimentExecutionArguments execArgs, LogReporter logger ) throws ExperimentExecutionException {
+	public void executeExperiment( Path pathExecutionDirectory, ExperimentExecutionArguments execArgs, boolean alwaysShowExperimentArgs, LogReporter logger ) throws ExperimentExecutionException {
 		
 		ExperimentExecutorObj delegate = new ExperimentExecutorObj(execArgs.isGUIEnabled(), pathExecutionDirectory);
+				
+		if (defaultBehaviourString!=null) {
+			// Special behaviour if everything has defaults
+			if (areAllDefault()) {
+				logger.logFormatted(
+					"%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.%n",
+					defaultBehaviourString,
+					ParseArgsAndRunExperiment.OPTION_HELP
+				);
+			}
+		}
 		
-		logger.log( describe() );
+		Experiment experiment = loadExperimentFromPath(execArgs); 
 		
-		logger.log("");
-		
+		if (alwaysShowExperimentArgs || experiment.useDetailedLogging()) {
+			logger.log( describe() );
+		}
+
 		delegate.executeExperiment(
-			loadExperimentFromPath(execArgs),
+			experiment,
 			execArgs,
 			getInput().select( execArgs ),
 			getOutput().select( execArgs ),
@@ -89,25 +104,13 @@ public class ExperimentExecutor {
 	 * @throws ExperimentExecutionException */
 	private String describe() throws ExperimentExecutionException {
 		return String.format(
-			"%s%s",
+			"%s%s%n",
 			describeExperiment(),
 			describeInputOutput()
 		);
 	}
 	
 	private String describeExperiment() throws ExperimentExecutionException{
-		
-		if (defaultBehaviourString!=null) {
-			// Special behaviour if everything has defaults
-			if (areAllDefault()) {
-				return String.format(
-					"%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.",
-					defaultBehaviourString,
-					ParseArgsAndRunExperiment.OPTION_HELP
-				);
-			}
-		}
-		
 		return String.format("Executing %s", experiment.describe() );
 	}
 	
@@ -115,32 +118,38 @@ public class ExperimentExecutor {
 		return experiment.isDefault() && input.isDefault() && output.isDefault() && task.isDefault();
 	}
 	
+	private void addToListIfNonDefault(SelectParam<Path> selectParam, String textDscr, List<String> list) throws ExperimentExecutionException {
+		if (!selectParam.isDefault()) {
+			list.add( String.format("%s %s", textDscr, selectParam.describe()) );
+		}
+	}
+	
 	private String describeInputOutput() throws ExperimentExecutionException {
 		
-		if (input.isDefault() && output.isDefault() ) {
-			// We show nothing
-			return "";
-		}
-		
-		if (!input.isDefault() && !output.isDefault()) {
-			// BOTH are overridden
-			return String.format(" with input %s and output %s", input.describe(), output.describe() );
-		}
-		
-		if (!input.isDefault() && output.isDefault()) {
-			// input only
-			return String.format(" with input %s", input.describe() );
-		}
-		
-		if (input.isDefault() && !output.isDefault()) {
-			// output only
-			return String.format(" with output %s", output.describe() );
-		}
-		
-		assert(false);
-		return "should never happen";
+		// Components
+		List<String> list = new ArrayList<>();
+		addToListIfNonDefault( input, "input", list );
+		addToListIfNonDefault( output, "output", list );
+		addToListIfNonDefault( task, "task", list );
+				
+		return collapseIntoOneLine(list);
 	}
-
+	
+	private static String collapseIntoOneLine( List<String> list ) {
+		StringBuilder sb = new StringBuilder();
+		for( int i=0; i<list.size(); i++) {
+			String item = list.get(i);
+			
+			if (i==0) {
+				sb.append(" with ");
+			} else {
+				sb.append(" and ");
+			}
+			sb.append( item );
+		}
+		return sb.toString();
+	}
+	
 	private Experiment loadExperimentFromPath( ExperimentExecutionArguments execArgs ) throws ExperimentExecutionException {
 		return ExperimentReader.readExperimentFromXML( experiment.select(execArgs), execArgs);
 	}

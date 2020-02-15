@@ -59,6 +59,7 @@ public class ParseArgsAndRunExperiment {
 	public static final String OPTION_HELP = "h";
 	private static final String OPTION_VERSION = "v";
 	private static final String OPTION_LOG_ERROR = "l";
+	private static final String OPTION_SHOW_EXPERIMENT_ARGUMENTS = "sa";
 	// END: Options
 	
 	/**
@@ -182,6 +183,7 @@ public class ParseArgsAndRunExperiment {
         parserConfig.createExperimentExecutor(line).executeExperiment(
         	parserConfig.configDir(),
         	parserConfig.createArguments(line),
+        	line.hasOption(OPTION_SHOW_EXPERIMENT_ARGUMENTS),
         	logger.getLogReporter()
         );
 	}
@@ -226,6 +228,8 @@ public class ParseArgsAndRunExperiment {
 		// This logs the errors in greater detail
 		options.addOption(OPTION_LOG_ERROR, true, "log BeanXML parsing errors to file");
 		
+		options.addOption(OPTION_SHOW_EXPERIMENT_ARGUMENTS, false, "print experiment path argument(s)");
+				
 		parserConfig.addAdditionalOptions(options);
 		
 		return options;

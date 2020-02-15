@@ -58,12 +58,19 @@ public class PrettyPathConverter {
 			return ".";
 		}
 		
-		Path relativePath = workingDir.relativize(path).normalize();
+		if (workingDir.getRoot().equals(path.getRoot())) {
 		
-		if( countDoubleDotsInRelativePath(relativePath) > MAX_DOUBLE_DOTS_CNT ) {
-			return path.toString();
+			Path relativePath = workingDir.relativize(path).normalize();
+			
+			if( countDoubleDotsInRelativePath(relativePath) > MAX_DOUBLE_DOTS_CNT ) {
+				return path.toString();
+			} else {
+				return relativePath.toString();
+			}
+			
 		} else {
-			return relativePath.toString();
+			// If on different roots
+			return path.toAbsolutePath().normalize().toString();
 		}
 	}
 	
