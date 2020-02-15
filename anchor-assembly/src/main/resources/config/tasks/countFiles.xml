@@ -1,3 +1,4 @@
+<!-- Counts the number of input-files -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeFilesTask">
           

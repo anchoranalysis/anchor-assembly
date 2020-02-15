@@ -1,7 +1,15 @@
+<!--
+Summarizes different properties of input-files
+
+ * Count
+ * What extensions?
+ * File-sizes
+ * The pattern can be found among the file-paths
+-->
 <config>
-<bean config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeFilesTask">
+<bean config-class="org.anchoranalysis.plugin.io.bean.task.SummarizePathsTask">
           
-   <pathSummarizer countThreshold="0" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerSplitMoreThan">
+   <summarizer countThreshold="0" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerSplitMoreThan">
    
        <summarizerGreaterThan avoidBulletOnFirst="true" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerAggregate">
            <list config-class="java.util.List" config-factory="list">
@@ -14,7 +22,7 @@
 
        <summarizerElse config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
    
-   </pathSummarizer>
+   </summarizer>
      
 </bean>
 </config>
