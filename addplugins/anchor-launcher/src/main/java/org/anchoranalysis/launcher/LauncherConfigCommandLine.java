@@ -3,9 +3,10 @@ package org.anchoranalysis.launcher;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamManagerFactory;
+import org.anchoranalysis.launcher.config.CommandLineResources;
+import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
-import org.anchoranalysis.launcher.parser.CommandLineParserConfig;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -36,12 +37,12 @@ import org.apache.commons.cli.Options;
  */
 
 /**
- * Parsing arguments for the anchor-launcher command-line application
+ * A command-line interface for executing experiments
  * 
  * @author Owen Feehan
  *
  */
-class CommandLineParserConfigLauncher extends CommandLineParserConfig {
+class LauncherConfigCommandLine extends LauncherConfig {
 	
 	// START: Options
 	private static final String OPTION_GUI = "g";
@@ -61,21 +62,6 @@ class CommandLineParserConfigLauncher extends CommandLineParserConfig {
 	 * A path relative to the current JAR where a properties file can be found
 	 */
 	private static final String PATH_RELATIVE_PROPERTIES = "anchor.properties";
-
-	@Override
-	public ClassLoader classLoaderResources() {
-		return getClass().getClassLoader();
-	}
-
-	@Override
-	public String resourceVersionFooter() {
-		return RESOURCE_VERSION_FOOTER;
-	}
-
-	@Override
-	public String resourceMavenProperties() {
-		return RESOURCE_MAVEN_PROPERTIES;
-	}
 	
 	/**
 	 * Adds additional options unique to this implementation
@@ -101,20 +87,16 @@ class CommandLineParserConfigLauncher extends CommandLineParserConfig {
 	public String firstArgumentInHelp() {
 		return "experimentFile.xml";
 	}
-
+	
 	@Override
-	public String resourceUsageHeader() {
-		return RESOURCE_USAGE_HEADER;
-	}
-
-	@Override
-	public String resourceUsageFooter() {
-		return RESOURCE_USAGE_FOOTER;
-	}
-
-	@Override
-	public boolean requiresFirstArgument() {
-		return false;
+	public CommandLineResources resources() {
+		return new CommandLineResources(
+			getClass().getClassLoader(),
+			RESOURCE_VERSION_FOOTER,
+			RESOURCE_MAVEN_PROPERTIES,
+			RESOURCE_USAGE_HEADER,
+			RESOURCE_USAGE_FOOTER
+		);
 	}
 	
 	@Override
@@ -123,7 +105,7 @@ class CommandLineParserConfigLauncher extends CommandLineParserConfig {
 		ExperimentExecutionTemplate template = ExperimentExecutionTemplateFactory.create(
 			line,
 			PATH_RELATIVE_PROPERTIES,
-			CommandLineParserConfigLauncher.class
+			LauncherConfigCommandLine.class
 		);
 		template.setInput(
 			SelectParamManagerFactory.create( line, OPTION_INPUT, true )
@@ -149,7 +131,7 @@ class CommandLineParserConfigLauncher extends CommandLineParserConfig {
 
 	@Override
 	public Class<?> classInCurrentJar() {
-		return CommandLineParserConfigLauncher.class;
+		return LauncherConfigCommandLine.class;
 	}
 
 	@Override

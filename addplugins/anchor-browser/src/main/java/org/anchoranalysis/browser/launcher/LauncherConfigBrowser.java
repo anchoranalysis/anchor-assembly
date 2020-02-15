@@ -2,9 +2,10 @@ package org.anchoranalysis.browser.launcher;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.config.CommandLineResources;
+import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
-import org.anchoranalysis.launcher.parser.CommandLineParserConfig;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -34,7 +35,14 @@ import org.apache.commons.cli.Options;
  * #L%
  */
 
-class CommandLineParserConfigBrowser extends CommandLineParserConfig {
+
+/**
+ * A command-line interface for launching the GUI browser
+ * 
+ * @author owen
+ *
+ */
+class LauncherConfigBrowser extends LauncherConfig {
 	
 	/**
 	 * A path relative to the current JAR where a properties file can be found
@@ -45,11 +53,6 @@ class CommandLineParserConfigBrowser extends CommandLineParserConfig {
 	private static final String RESOURCE_USAGE_HEADER =  "org/anchoranalysis/browser/launcher/usageHeaderDisplayMessage.txt";
 	private static final String RESOURCE_USAGE_FOOTER =  "org/anchoranalysis/browser/launcher/usageFooterDisplayMessage.txt";
 	private static final String RESOURCE_MAVEN_PROPERTIES = "META-INF/maven/org.anchoranalysis.anchor/anchor-browser/pom.properties";
-	
-	@Override
-	public ClassLoader classLoaderResources() {
-		return getClass().getClassLoader();
-	}
 
 	@Override
 	public String commandNameInHelp() {
@@ -59,32 +62,6 @@ class CommandLineParserConfigBrowser extends CommandLineParserConfig {
 	@Override
 	public String firstArgumentInHelp() {
 		return "configFile.xml";
-	}
-	
-
-	@Override
-	public String resourceVersionFooter() {
-		return RESOURCE_VERSION_FOOTER;
-	}
-
-	@Override
-	public String resourceMavenProperties() {
-		return RESOURCE_MAVEN_PROPERTIES;
-	}
-
-	@Override
-	public String resourceUsageHeader() {
-		return RESOURCE_USAGE_HEADER;
-	}
-
-	@Override
-	public String resourceUsageFooter() {
-		return RESOURCE_USAGE_FOOTER;
-	}
-
-	@Override
-	public boolean requiresFirstArgument() {
-		return false;
 	}
 
 	@Override
@@ -96,7 +73,7 @@ class CommandLineParserConfigBrowser extends CommandLineParserConfig {
 
 	@Override
 	public Class<?> classInCurrentJar() {
-		return CommandLineParserConfigBrowser.class;
+		return LauncherConfigBrowser.class;
 	}
 
 	@Override
@@ -104,7 +81,7 @@ class CommandLineParserConfigBrowser extends CommandLineParserConfig {
 		return ExperimentExecutionTemplateFactory.create(
 			line,
 			PATH_RELATIVE_PROPERTIES,
-			CommandLineParserConfigBrowser.class
+			LauncherConfigBrowser.class
 		);
 	}
 
@@ -115,6 +92,17 @@ class CommandLineParserConfigBrowser extends CommandLineParserConfig {
 
 	@Override
 	public void addAdditionalOptions(Options options) {
+	}
+
+	@Override
+	public CommandLineResources resources() {
+		return new CommandLineResources(
+			getClass().getClassLoader(),
+			RESOURCE_VERSION_FOOTER,
+			RESOURCE_MAVEN_PROPERTIES,
+			RESOURCE_USAGE_HEADER,
+			RESOURCE_USAGE_FOOTER
+		);
 	}
 
 }

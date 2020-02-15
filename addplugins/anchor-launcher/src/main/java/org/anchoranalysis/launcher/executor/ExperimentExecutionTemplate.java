@@ -33,7 +33,7 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamManagerFactory;
-import org.anchoranalysis.launcher.parser.CommandLineParserExperiment;
+import org.anchoranalysis.launcher.parser.ParseArgsAndRunExperiment;
 
 /**
  * Determines where the files passed the ExperimentExecutor are loaded from
@@ -75,7 +75,7 @@ public class ExperimentExecutionTemplate {
 			return String.format(
 				"%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.",
 				DEFAULT_BEHAVIOUR_STRING,
-				CommandLineParserExperiment.OPTION_HELP
+				ParseArgsAndRunExperiment.OPTION_HELP
 			);
 		} else if (experiment.isDefault()) {
 			return DEFAULT_BEHAVIOUR_STRING;

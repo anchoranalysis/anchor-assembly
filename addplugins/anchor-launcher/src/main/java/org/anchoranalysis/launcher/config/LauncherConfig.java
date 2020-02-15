@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.parser;
+package org.anchoranalysis.launcher.config;
 
 /*-
  * #%L
@@ -35,7 +35,7 @@ import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
-public abstract class CommandLineParserConfig {
+public abstract class LauncherConfig {
 	
 	/**
 	 * A path to a folder where config files are stored (relative to the bin/ directory)
@@ -54,13 +54,6 @@ public abstract class CommandLineParserConfig {
 	
 	public abstract Class<?> classInCurrentJar();
 	
-	
-	/**
-	 * What class-loader to use for loading resources
-	 * @return a class-loader
-	 */
-	public abstract ClassLoader classLoaderResources();
-	
 	/**
 	 * What the application command is described as in the help message e.g.&nbsp;anchor or anchorGUI
 	 * @return a word describing the application command (for the help message)
@@ -73,36 +66,7 @@ public abstract class CommandLineParserConfig {
 	 */
 	public abstract String firstArgumentInHelp();
 	
-	/**
-	 * What resource to use for the version-footer
-	 * @return resource-path
-	 */
-	public abstract String resourceVersionFooter();
-
-	/**
-	 * What resource to use for the usage-footer
-	 * @return resource-path
-	 */
-	public abstract String resourceUsageHeader();
-	
-	/**
-	 * What resource to use for the usage-footer
-	 * @return resource-path
-	 */
-	public abstract String resourceUsageFooter();
-	
-	
-	/**
-	 * What resource to use for the maven properties
-	 * @return resource-path
-	 */
-	public abstract String resourceMavenProperties();
-	
-	/**
-	 * If true this command-line application always requires a first-argument (unless -help or -version is selected)
-	 * @return true if a first-argument is always required, false otherwise
-	 */
-	public abstract boolean requiresFirstArgument();
+	public abstract CommandLineResources resources();
 	
 	public abstract ExperimentExecutionArguments createArguments( CommandLine line );
 	

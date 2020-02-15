@@ -34,6 +34,8 @@ import java.nio.file.Paths;
 import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.config.CommandLineResources;
+import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -52,7 +54,7 @@ import org.apache.commons.cli.ParseException;
  * @author Owen Feehan
  *
  */
-public class CommandLineParserExperiment {
+public class ParseArgsAndRunExperiment {
 	
 	// START: Options
 	public static final String OPTION_HELP = "h";
@@ -70,17 +72,17 @@ public class CommandLineParserExperiment {
 	 * @param logger a logger where error messages outputted to
 	 * @param newlinesBeforeError if TRUE, then some extra newlines are inserted before error messages
 	 */
-	public CommandLineParserExperiment( LogErrorReporter logger ) {
+	public ParseArgsAndRunExperiment( LogErrorReporter logger ) {
 		this.logger = logger;
 	}
 	
 	/**
-	 * Parses the arguments to a command-line experiment and does some action, usually processExperiment()
-	 *   but sometimes other actions (depending on what options are selected)
+	 * Parses the arguments to a command-line experiment and runs an experiment
 	 *   
 	 * @param args arguments from command-line
+	 * @params parserConfig a configuration for the command-line exector
 	 */
-	public void parse( String args[], CommandLineParserConfig parserConfig ) {
+	public void parseAndRun( String args[], LauncherConfig parserConfig ) {
 		
 		Options options = createOptions(parserConfig);
 		
@@ -94,13 +96,7 @@ public class CommandLineParserExperiment {
 	        	return;
 	        }
 	        
-	        if (maybePrintVersion(line, parserConfig)) {
-	        	return;
-	        }
-	      	        
-	        // We process the remaining arguments
-	        if (parserConfig.requiresFirstArgument() && line.getArgs().length==0) {
-	        	ErrorPrinter.printMissingExperimentArgument();
+	        if (maybePrintVersion(line, parserConfig.resources())) {
 	        	return;
 	        }
 	        
@@ -115,7 +111,7 @@ public class CommandLineParserExperiment {
 	        // oSomething went wrong
 	    	logger.getLogReporter().logFormatted( "Parsing of command-line arguments failed.  Reason: %s%n", e.getMessage() );
 	    } catch (IOException e) {
-	    	logger.getErrorReporter().recordError(CommandLineParserExperiment.class, e);
+	    	logger.getErrorReporter().recordError(ParseArgsAndRunExperiment.class, e);
 	    	logger.getLogReporter().logFormatted( "An I/O error occurred.  Reason: %s%n", e.getMessage() );
 		}
 	}
@@ -126,21 +122,20 @@ public class CommandLineParserExperiment {
 	 * @return true if it prints the message, false otherwise
 	 * @throws IOException 
 	 */
-	private boolean maybePrintHelp( CommandLine line, Options options, String args[], CommandLineParserConfig parserConfig ) throws IOException {
-		boolean isArgumentRequiredAndMissing = parserConfig.requiresFirstArgument() && args.length==0;
-		if (line.hasOption(OPTION_HELP) || isArgumentRequiredAndMissing) {
-        	printHelp( options, parserConfig );
+	private boolean maybePrintHelp( CommandLine line, Options options, String args[], LauncherConfig parserConfig ) throws IOException {
+		if (line.hasOption(OPTION_HELP) || args.length==0) {
+        	printHelp( options, parserConfig.resources(), parserConfig.commandNameInHelp(), parserConfig.firstArgumentInHelp() );
 		    return true;
         }
 		return false;
 	}
 	
-	private boolean maybePrintVersion( CommandLine line, CommandLineParserConfig parserConfig ) throws IOException {
+	private boolean maybePrintVersion( CommandLine line, CommandLineResources resources ) throws IOException {
 		if (line.hasOption(OPTION_VERSION)) {
         	VersionPrinter.printVersion(
-        		parserConfig.classLoaderResources(),
-        		parserConfig.resourceVersionFooter(),
-        		parserConfig.resourceMavenProperties()
+        		resources.getClassLoader(),
+        		resources.getVersionFooter(),
+        		resources.getMavenProperties()
         	);
         	return true;
         } 
@@ -152,7 +147,7 @@ public class CommandLineParserExperiment {
 	 * 
 	 * @param line
 	 */
-	private void processExperimentShowErrors( CommandLine line, CommandLineParserConfig parserConfig ) {
+	private void processExperimentShowErrors( CommandLine line, LauncherConfig parserConfig ) {
 		
 		try {
 			processExperiment(line, logger, parserConfig );
@@ -183,7 +178,7 @@ public class CommandLineParserExperiment {
 	 * @param logger TODO
 	 * @throws ExperimentExecutionException if processing ends early
 	 */
-	protected void processExperiment( CommandLine line, LogErrorReporter logger, CommandLineParserConfig parserConfig ) throws ExperimentExecutionException {
+	protected void processExperiment( CommandLine line, LogErrorReporter logger, LauncherConfig parserConfig ) throws ExperimentExecutionException {
 		
         ExperimentExecutionArguments ea = parserConfig.createArguments(line);
         
@@ -206,16 +201,16 @@ public class CommandLineParserExperiment {
 	 * @param options possible user-options
 	 * @throws IOException if the help display messages cannot be read
 	 */
-	protected void printHelp( Options options, CommandLineParserConfig parserConfig ) throws IOException {
+	private static void printHelp( Options options, CommandLineResources resources, String commandNameInHelp, String firstArgumentInHelp ) throws IOException {
 		
     	// automatically generate the help statement
 	    HelpFormatter formatter = new HelpFormatter();
 	    
 	    // Avoid a leading / on the resource path as it uses a ClassLoader to load resources, which is different behaviour to getClass().getResourceAsStream()
-	    String headerDisplayMessage = ResourceReader.readStringFromResource(parserConfig.resourceUsageHeader(), parserConfig.classLoaderResources() );
-	    String footerDisplayMessage = ResourceReader.readStringFromResource(parserConfig.resourceUsageFooter(), parserConfig.classLoaderResources() );
+	    String headerDisplayMessage = ResourceReader.readStringFromResource(resources.getUsageHeader(), resources.getClassLoader() );
+	    String footerDisplayMessage = ResourceReader.readStringFromResource(resources.getUsageFooter(), resources.getClassLoader() );
 
-	    String firstLine = String.format( "%s [options] [%s]", parserConfig.commandNameInHelp(), parserConfig.firstArgumentInHelp() );
+	    String firstLine = String.format( "%s [options] [%s]", commandNameInHelp, firstArgumentInHelp );
 	    formatter.printHelp(
 	    	firstLine,
 	    	headerDisplayMessage,
@@ -228,7 +223,7 @@ public class CommandLineParserExperiment {
 	 * Create options for the command-line client, returning default options always available for this class
 	 * @return the options that can be used
 	 */
-	private Options createOptions( CommandLineParserConfig parserConfig ) {
+	private Options createOptions( LauncherConfig parserConfig ) {
 
 		Options options = new Options();
 
