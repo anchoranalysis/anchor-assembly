@@ -28,6 +28,7 @@ package org.anchoranalysis.launcher.executor;
 
 import java.nio.file.Path;
 
+import org.anchoranalysis.core.log.LogReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
@@ -58,10 +59,32 @@ public class ExperimentExecutionTemplate {
 		super();
 		this.experiment = experiment;
 	}
+
+	/**
+	 * Executes an experiment after finding a single experiment XML file, and reading the experiment from this file 
+	 * 
+	 * @throws ExperimentExecutionException if the execution ends early
+	 */
+	public void executeExperiment( Path pathExecutionDirectory, ExperimentExecutionArguments execArgs, LogReporter logger ) throws ExperimentExecutionException {
+		
+		ExperimentExecutorObj delegate = new ExperimentExecutorObj(execArgs.isGUIEnabled(), pathExecutionDirectory);
+		
+		logger.log( describe() );
+		
+		logger.log("");
+		
+		delegate.executeExperiment(
+			loadExperimentFromPath(execArgs),
+			execArgs,
+			getInput().select( execArgs ),
+			getOutput().select( execArgs )
+		);
+		
+	}
 	
 	/** Constructs a summary string to describe how the experiment is being executed 
 	 * @throws ExperimentExecutionException */
-	public String describe() throws ExperimentExecutionException {
+	private String describe() throws ExperimentExecutionException {
 		return String.format(
 			"%s%s",
 			describeExperiment(),
@@ -117,7 +140,7 @@ public class ExperimentExecutionTemplate {
 		return "should never happen";
 	}
 
-	public Experiment loadExperimentFromPath( ExperimentExecutionArguments execArgs ) throws ExperimentExecutionException {
+	private Experiment loadExperimentFromPath( ExperimentExecutionArguments execArgs ) throws ExperimentExecutionException {
 		return ExperimentReader.readExperimentFromXML( experiment.select(execArgs), execArgs);
 	}
 	
@@ -139,5 +162,9 @@ public class ExperimentExecutionTemplate {
 
 	public void setDefaultBehaviourString(String defaultBehaviourString) {
 		this.defaultBehaviourString = defaultBehaviourString;
+	}
+
+	public String getDefaultBehaviourString() {
+		return defaultBehaviourString;
 	}
 }

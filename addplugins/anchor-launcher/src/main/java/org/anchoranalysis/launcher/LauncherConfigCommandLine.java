@@ -48,6 +48,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	private static final String OPTION_DEBUG = "d";
 	private static final String OPTION_INPUT = "i";
 	private static final String OPTION_OUTPUT = "o";
+	private static final String OPTION_TASK = "t";
 	// END: Options
 	
 	// START: Resource PATHs
@@ -72,9 +73,11 @@ class LauncherConfigCommandLine extends LauncherConfig {
 		
 		options.addOption(OPTION_DEBUG, false, "enables debug mode");
 		
-		options.addOption(OPTION_INPUT, true, "an input-directory or manager (path to BeanXML)");
+		options.addOption(OPTION_INPUT, true, "an input-directory or manager bean (path to BeanXML)");
 		
-		options.addOption(OPTION_OUTPUT, true, "an output-directory or manager (path to BeanXML)");
+		options.addOption(OPTION_OUTPUT, true, "an output-directory or manager bean (path to BeanXML)");
+		
+		options.addOption(OPTION_TASK, true, "a task-name or task bean (path to BeanXML)");
 	}
 	
 	@Override
@@ -128,6 +131,9 @@ class LauncherConfigCommandLine extends LauncherConfig {
 		template.setOutput(
 			SelectParamManagerFactory.create(line, OPTION_OUTPUT, false )
 		);
+		/*template.setTask(
+			SelectParamManagerFactory.create(line, OPTION_OUTPUT, false )
+		);*/
 		template.setDefaultBehaviourString( "Searching for inputs as per default experiment" );
 	}
 }

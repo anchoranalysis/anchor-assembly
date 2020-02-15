@@ -32,12 +32,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.anchoranalysis.core.log.LogErrorReporter;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
-import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -180,17 +178,10 @@ public class ParseArgsAndRunExperiment {
 	 * @throws ExperimentExecutionException if processing ends early
 	 */
 	protected void processExperiment( CommandLine line, LogErrorReporter logger, LauncherConfig parserConfig ) throws ExperimentExecutionException {
-		
-        ExperimentExecutionArguments ea = parserConfig.createArguments(line);
         
-        ExperimentExecutor executor = new ExperimentExecutor(
-        	ea.isGUIEnabled(),
-        	parserConfig.configDir()
-        );
-		
-		executor.executeExperiment(
-        	parserConfig.createExperimentTemplate(line),
-        	ea,
+        parserConfig.createExperimentTemplate(line).executeExperiment(
+        	parserConfig.configDir(),
+        	parserConfig.createArguments(line),
         	logger.getLogReporter()
         );
 	}
