@@ -54,10 +54,11 @@ public class SelectParamManagerFactory {
 	 * 
 	 * @param line command-line to consider if certain options have been selected or not
 	 * @param optionName which option we consider
+	 * @param configDir path to the configuration-directory of anchor
 	 * @return an appropriate SelectParam object
 	 */
-	public static SelectParam<Path> pathOrDefault( CommandLine line, String optionName ) {
-		return ifOption(line, optionName, path -> new CustomManagerFromPath(path) );
+	public static SelectParam<Path> pathOrTaskNameOrDefault( CommandLine line, String optionName, Path configDir ) {
+		return ifOption(line, optionName, arg -> pathOrTaskName(arg, configDir) );
 	}
 	
 	/**
@@ -73,34 +74,51 @@ public class SelectParamManagerFactory {
 		String optionName,
 		boolean input
 	) {
-		return ifOption(line, optionName, path -> pathOrDirectory(path, input) );
+		return ifOption(line, optionName, arg -> pathOrDirectory(arg, input) );
 	}
 	
-	private static SelectParam<Path> ifOption(CommandLine line, String optionName, Function<Path,SelectParam<Path>> func ) {
+	private static SelectParam<Path> ifOption(CommandLine line, String optionName, Function<String,SelectParam<Path>> func ) {
 		if (line.hasOption(optionName)) {
-        	
-        	Path optionValuePath = Paths.get(
-        		line.getOptionValue(optionName)
-        	);
-        	return func.apply(optionValuePath);
+        	return func.apply( line.getOptionValue(optionName) );
         	
         } else {
         	return new UseDefaultManager();
         }
 	}
 	
-	/** If a path is a directory, execIfDir is called, and NULL is returned.  If a path is a non-directory, is is returned directly */
-	private static SelectParam<Path> pathOrDirectory( Path path, boolean input ) {
-				
-		// If it's a relative path, we convert to absolute
-		if (!path.isAbsolute()) {
-			path = path.toAbsolutePath();
-		}
+	/** If the argument is a path to a directory, then this directory is set as the default. Otherwise the argument is treated like a path to BeanXML */
+	private static SelectParam<Path> pathOrDirectory( String arg, boolean input ) {
+    	
+    	Path path = pathFromArg(arg);
 		
 		if (path.toFile().isDirectory()) {
     		return new UseDirectoryAsManager(path, input);
     	} else {
     		return new CustomManagerFromPath(path);	
     	}
+	}
+	
+	/** If the argument a name (no extension, no root, no special-chars apart from forward-slashes), then construct an automatic path to the tasks
+	 *  in the configuration directory. Otherwise treat as path to BeanXML */
+	private static SelectParam<Path> pathOrTaskName( String arg, Path configDir ) {
+    	
+		if (isTaskName(arg)) {
+			return new CustomManagerFromPath( constructPathForTaskName(arg, configDir) );
+		} else {
+			return new CustomManagerFromPath( pathFromArg(arg) );
+		}
+    	
+	}
+	
+	private static Path constructPathForTaskName( String arg, Path configDir ) {
+		return configDir.resolve("tasks").resolve(arg + ".xml");
+	}
+	
+	private static boolean isTaskName( String arg ) {
+		return arg.matches("^[a-zA-Z0-9_\\-\\/]+$");
+	}
+		
+	private static Path pathFromArg( String arg ) {
+		return Paths.get(arg).toAbsolutePath();
 	}
 }

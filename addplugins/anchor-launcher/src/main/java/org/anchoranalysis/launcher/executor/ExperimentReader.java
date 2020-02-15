@@ -78,6 +78,9 @@ class ExperimentReader {
 	 */
 	private static <T> T readBeanFromXML( Path configPath, ExperimentExecutionArguments ea, String xmlPath, boolean associateXml ) throws ExperimentExecutionException {
 
+		// To avoid any .. or . in error reporting
+		configPath = configPath.normalize();
+		
 		if (!Files.exists(configPath)) {
 			throw new ExperimentExecutionException( String.format("Error: a file does not exist at \"%s\"", configPath) );
 		}

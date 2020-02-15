@@ -132,7 +132,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
 			SelectParamManagerFactory.pathOrDirectoryOrDefault(line, OPTION_OUTPUT, false )
 		);
 		template.setTask(
-			SelectParamManagerFactory.pathOrDefault(line, OPTION_TASK )
+			SelectParamManagerFactory.pathOrTaskNameOrDefault(line, OPTION_TASK, configDir() )
 		);
 		template.setDefaultBehaviourString( "Searching for inputs as per default experiment" );
 	}
