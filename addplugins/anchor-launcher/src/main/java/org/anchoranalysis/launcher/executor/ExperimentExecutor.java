@@ -105,8 +105,6 @@ public class ExperimentExecutor {
 					defaultBehaviourString,
 					ParseArgsAndRunExperiment.OPTION_HELP
 				);
-			} else if (experiment.isDefault()) {
-				return defaultBehaviourString;
 			}
 		}
 		
