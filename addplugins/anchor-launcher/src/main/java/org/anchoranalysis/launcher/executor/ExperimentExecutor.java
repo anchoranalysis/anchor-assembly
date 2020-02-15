@@ -114,7 +114,7 @@ public class ExperimentExecutor {
 	}
 	
 	private boolean areAllDefault() {
-		return experiment.isDefault() && input.isDefault() && output.isDefault();
+		return experiment.isDefault() && input.isDefault() && output.isDefault() && task.isDefault();
 	}
 	
 	private String describeInputOutput() throws ExperimentExecutionException {
