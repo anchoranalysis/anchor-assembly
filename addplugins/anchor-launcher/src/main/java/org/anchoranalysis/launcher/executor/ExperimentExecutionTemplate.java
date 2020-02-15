@@ -44,14 +44,15 @@ import org.anchoranalysis.launcher.parser.ParseArgsAndRunExperiment;
  *
  */
 public class ExperimentExecutionTemplate {
-
-	private static String DEFAULT_BEHAVIOUR_STRING = "Searching for inputs as per default experiment";
 			
 	private SelectParam<Path> experiment;
 	
 	private SelectParam<Path> input = SelectParamManagerFactory.useDefault();
 
 	private SelectParam<Path> output = SelectParamManagerFactory.useDefault();
+	
+	// If non-null, a string is printed in the description if the default-experiment is used. If non-null this is ignored.
+	private String defaultBehaviourString;
 	
 	ExperimentExecutionTemplate( SelectParam<Path> experiment) {
 		super();
@@ -70,19 +71,20 @@ public class ExperimentExecutionTemplate {
 	
 	private String describeExperiment() throws ExperimentExecutionException{
 		
-		// Special behaviour if everything has defaults
-		if (areAllDefault()) {
-			return String.format(
-				"%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.",
-				DEFAULT_BEHAVIOUR_STRING,
-				ParseArgsAndRunExperiment.OPTION_HELP
-			);
-		} else if (experiment.isDefault()) {
-			return DEFAULT_BEHAVIOUR_STRING;
-		} else {
-			return String.format("Executing %s", experiment.describe() );
+		if (defaultBehaviourString!=null) {
+			// Special behaviour if everything has defaults
+			if (areAllDefault()) {
+				return String.format(
+					"%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.",
+					defaultBehaviourString,
+					ParseArgsAndRunExperiment.OPTION_HELP
+				);
+			} else if (experiment.isDefault()) {
+				return defaultBehaviourString;
+			}
 		}
 		
+		return String.format("Executing %s", experiment.describe() );
 	}
 	
 	private boolean areAllDefault() {
@@ -133,5 +135,9 @@ public class ExperimentExecutionTemplate {
 
 	public SelectParam<Path> getOutput() {
 		return output;
+	}
+
+	public void setDefaultBehaviourString(String defaultBehaviourString) {
+		this.defaultBehaviourString = defaultBehaviourString;
 	}
 }

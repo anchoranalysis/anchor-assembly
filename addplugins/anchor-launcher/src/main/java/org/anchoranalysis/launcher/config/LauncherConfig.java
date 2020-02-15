@@ -54,19 +54,11 @@ public abstract class LauncherConfig {
 	
 	public abstract Class<?> classInCurrentJar();
 	
-	/**
-	 * What the application command is described as in the help message e.g.&nbsp;anchor or anchorGUI
-	 * @return a word describing the application command (for the help message)
-	 */
-	public abstract String commandNameInHelp();
+	/** Config for resources sued by the launcher */
+	public abstract ResourcesConfig resources();
 	
-	/**
-	 * What the application argument is described as in the help message e.g.&nbsp;experimentFile.xml
-	 * @return a word describing the application arguments (for the help message)
-	 */
-	public abstract String firstArgumentInHelp();
-	
-	public abstract CommandLineResources resources();
+	/** Config for displaying help message */
+	public abstract HelpConfig help();
 	
 	public abstract ExperimentExecutionArguments createArguments( CommandLine line );
 	

@@ -34,7 +34,8 @@ import java.nio.file.Paths;
 import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.config.CommandLineResources;
+import org.anchoranalysis.launcher.config.HelpConfig;
+import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.apache.commons.cli.CommandLine;
@@ -92,7 +93,7 @@ public class ParseArgsAndRunExperiment {
 	        // parse the command line arguments
 	        CommandLine line = parser.parse( options, args );
 	        
-	        if (maybePrintHelp(line, options, args, parserConfig)) {
+	        if (maybePrintHelp(line, options, args, parserConfig.resources(), parserConfig.help())) {
 	        	return;
 	        }
 	        
@@ -122,15 +123,15 @@ public class ParseArgsAndRunExperiment {
 	 * @return true if it prints the message, false otherwise
 	 * @throws IOException 
 	 */
-	private boolean maybePrintHelp( CommandLine line, Options options, String args[], LauncherConfig parserConfig ) throws IOException {
-		if (line.hasOption(OPTION_HELP) || args.length==0) {
-        	printHelp( options, parserConfig.resources(), parserConfig.commandNameInHelp(), parserConfig.firstArgumentInHelp() );
+	private boolean maybePrintHelp( CommandLine line, Options options, String args[], ResourcesConfig resourcesConfig, HelpConfig helpConfig ) throws IOException {
+		if (line.hasOption(OPTION_HELP)) {
+        	printHelp( options, resourcesConfig, helpConfig.getCommandName(), helpConfig.getFirstArgument() );
 		    return true;
         }
 		return false;
 	}
 	
-	private boolean maybePrintVersion( CommandLine line, CommandLineResources resources ) throws IOException {
+	private boolean maybePrintVersion( CommandLine line, ResourcesConfig resources ) throws IOException {
 		if (line.hasOption(OPTION_VERSION)) {
         	VersionPrinter.printVersion(
         		resources.getClassLoader(),
@@ -201,7 +202,7 @@ public class ParseArgsAndRunExperiment {
 	 * @param options possible user-options
 	 * @throws IOException if the help display messages cannot be read
 	 */
-	private static void printHelp( Options options, CommandLineResources resources, String commandNameInHelp, String firstArgumentInHelp ) throws IOException {
+	private static void printHelp( Options options, ResourcesConfig resources, String commandNameInHelp, String firstArgumentInHelp ) throws IOException {
 		
     	// automatically generate the help statement
 	    HelpFormatter formatter = new HelpFormatter();

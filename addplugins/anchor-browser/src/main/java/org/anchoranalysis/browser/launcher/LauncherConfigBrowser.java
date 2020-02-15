@@ -2,7 +2,8 @@ package org.anchoranalysis.browser.launcher;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.config.CommandLineResources;
+import org.anchoranalysis.launcher.config.HelpConfig;
+import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
@@ -55,16 +56,6 @@ class LauncherConfigBrowser extends LauncherConfig {
 	private static final String RESOURCE_MAVEN_PROPERTIES = "META-INF/maven/org.anchoranalysis.anchor/anchor-browser/pom.properties";
 
 	@Override
-	public String commandNameInHelp() {
-		return "anchorGUI";
-	}
-
-	@Override
-	public String firstArgumentInHelp() {
-		return "configFile.xml";
-	}
-
-	@Override
 	public ExperimentExecutionArguments createArguments( CommandLine line ) {
 		 ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
 	     ea.setGUIEnabled(true);
@@ -95,14 +86,19 @@ class LauncherConfigBrowser extends LauncherConfig {
 	}
 
 	@Override
-	public CommandLineResources resources() {
-		return new CommandLineResources(
+	public ResourcesConfig resources() {
+		return new ResourcesConfig(
 			getClass().getClassLoader(),
 			RESOURCE_VERSION_FOOTER,
 			RESOURCE_MAVEN_PROPERTIES,
 			RESOURCE_USAGE_HEADER,
 			RESOURCE_USAGE_FOOTER
 		);
+	}
+
+	@Override
+	public HelpConfig help() {
+		return new HelpConfig("anchorGUI", "configFile.xml");
 	}
 
 }

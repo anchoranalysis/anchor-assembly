@@ -26,42 +26,31 @@ package org.anchoranalysis.launcher.config;
  * #L%
  */
 
-public class CommandLineResources {
+public class HelpConfig {
 
-	// Which class-loader to use for loading resources
-	private ClassLoader classLoader;
-
-	private String versionFooter;
-	private String mavenProperties;
-	private String usageHeader;
-	private String usageFooter;
+	/**
+	 * What the application command is described as in the help message e.g.&nbsp;anchor or anchorGUI
+	 * @return a word describing the application command (for the help message)
+	 */
+	private String commandName;
+		
+	/**
+	 * What the application argument is described as in the help message e.g.&nbsp;experimentFile.xml
+	 * @return a word describing the application arguments (for the help message)
+	 */
+	private String firstArgument;
 	
-	public CommandLineResources(ClassLoader classLoader, String versionFooter, String mavenProperties, String usageHeader, String usageFooter) {
+	public HelpConfig(String commandName, String firstArgument) {
 		super();
-		this.classLoader = classLoader;
-		this.versionFooter = versionFooter;
-		this.mavenProperties = mavenProperties;
-		this.usageHeader = usageHeader;
-		this.usageFooter = usageFooter;
+		this.commandName = commandName;
+		this.firstArgument = firstArgument;
 	}
 	
-	public String getVersionFooter() {
-		return versionFooter;
+	public String getCommandName() {
+		return commandName;
 	}
 
-	public String getMavenProperties() {
-		return mavenProperties;
-	}
-
-	public String getUsageHeader() {
-		return usageHeader;
-	}
-
-	public String getUsageFooter() {
-		return usageFooter;
-	}
-	
-	public ClassLoader getClassLoader() {
-		return classLoader;
-	}
+	public String getFirstArgument() {
+		return firstArgument;
+	}	
 }

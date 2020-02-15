@@ -3,7 +3,8 @@ package org.anchoranalysis.launcher;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamManagerFactory;
-import org.anchoranalysis.launcher.config.CommandLineResources;
+import org.anchoranalysis.launcher.config.HelpConfig;
+import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
 import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
@@ -77,20 +78,10 @@ class LauncherConfigCommandLine extends LauncherConfig {
 		
 		options.addOption(OPTION_OUTPUT, true, "an output-directory or manager (path to BeanXML)");
 	}
-
-	@Override
-	public String commandNameInHelp() {
-		return "anchor";
-	}
-
-	@Override
-	public String firstArgumentInHelp() {
-		return "experimentFile.xml";
-	}
 	
 	@Override
-	public CommandLineResources resources() {
-		return new CommandLineResources(
+	public ResourcesConfig resources() {
+		return new ResourcesConfig(
 			getClass().getClassLoader(),
 			RESOURCE_VERSION_FOOTER,
 			RESOURCE_MAVEN_PROPERTIES,
@@ -113,6 +104,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
 		template.setOutput(
 			SelectParamManagerFactory.create(line, OPTION_OUTPUT, false )
 		);
+		template.setDefaultBehaviourString( "Searching for inputs as per default experiment" );
 		
         return template;
 	}
@@ -137,5 +129,10 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	@Override
 	public boolean newlinesBeforeError() {
 		return false;
+	}
+
+	@Override
+	public HelpConfig help() {
+		return new HelpConfig("anchor", "experimentFile.xml");
 	}
 }
