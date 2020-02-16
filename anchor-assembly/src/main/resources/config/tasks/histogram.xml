@@ -1,0 +1,7 @@
+<!-- Extracts histograms:
+  1. a histogram for each channel of each image
+  2. an aggregated histogram for each channel, summing across all images (in directory all/)
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.grouped.histogram.GroupedHistogramExportTask"/>
+</config>
