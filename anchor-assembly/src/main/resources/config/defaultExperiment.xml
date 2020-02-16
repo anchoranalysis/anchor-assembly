@@ -33,6 +33,7 @@
 		 <fileInput config-class="org.anchoranalysis.io.bean.input.Files">
 		 	<!--  As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
 		 	<fileProvider fileFilter="*.jpg" recursive="true" config-class="org.anchoranalysis.io.bean.provider.file.FileSet"/>
+		 	<descriptiveNameFromFile config-class="org.anchoranalysis.plugin.io.bean.descriptivename.PatternSpan"/>
 		 </fileInput>
 		 
 		 <imgChnlMapCreator config-class="org.anchoranalysis.image.io.bean.chnl.map.creator.ImgChnlMapAutoname"/>
