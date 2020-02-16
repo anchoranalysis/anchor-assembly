@@ -47,6 +47,8 @@
 
 		  <except config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>manifest</item>
+			<item>manifestExperiment</item>
+			<item>config</item>
 			<item>executionTime</item>
 		  </except>
 	  </output>

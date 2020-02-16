@@ -39,24 +39,22 @@
 
 	  </output>
 	  
-	  <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+	  <logReporterExperiment config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
 	  	<list config-class="java.util.List" config-factory="list">
 	  		<item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
 	  		<item config-class="org.anchoranalysis.experiment.bean.logreporter.TextFileLogReporterBean"/>
 	  	</list>
-	  </logReporter>
-	  
+	  </logReporterExperiment>
+
+      <logReporterTask config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+        <list config-class="java.util.List" config-factory="list">
+            <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+        </list>
+      </logReporterTask>
+              	  
 	  <taskProcessor config-class="org.anchoranalysis.experiment.bean.processor.SequentialProcessor" supressExceptions="true">
 		  <task config-class="org.anchoranalysis.gui.interactivebrowser.launch.InteractiveBrowserTask">
-
-			  <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
-			  	<list config-class="java.util.List" config-factory="list">
-			  		<item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
-			  	</list>
-			  </logReporter>
-	  
 	  		  <exportTaskList filePath="exportTaskList.xml" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskList" config-factory="include"/>
-   	
     		</task>
     	</taskProcessor>
 	</experiment>
