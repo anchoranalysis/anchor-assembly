@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
 import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.config.HelpConfig;
@@ -113,6 +114,8 @@ public class ParseArgsAndRunExperiment {
 	    } catch (IOException e) {
 	    	logger.getErrorReporter().recordError(ParseArgsAndRunExperiment.class, e);
 	    	logger.getLogReporter().logFormatted( "An I/O error occurred.  Reason: %s%n", e.getMessage() );
+		} catch (AnchorFriendlyRuntimeException e) {
+			logger.getLogReporter().logFormatted( e.friendlyMessageHierarchy() );
 		}
 	}
 	
