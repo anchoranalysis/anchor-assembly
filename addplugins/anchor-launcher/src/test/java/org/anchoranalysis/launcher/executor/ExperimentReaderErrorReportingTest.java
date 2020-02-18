@@ -51,7 +51,7 @@ import anchor.test.TestLoader;
  */
 public class ExperimentReaderErrorReportingTest {
 
-	private static TestLoader tl = TestLoader.createFromMavenWorkingDir();
+	private static TestLoader tl = TestLoader.createFromMavenWorkingDirTest();
 		
 	@BeforeClass
     public static void setUp() throws Exception {
