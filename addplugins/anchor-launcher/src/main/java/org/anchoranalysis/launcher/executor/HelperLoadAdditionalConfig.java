@@ -143,7 +143,7 @@ class HelperLoadAdditionalConfig {
 			return Paths.get(home);
 		} else {
 			// Fall back to the execution directory
-			return pathExecutionDirectory;
+			return pathExecutionDirectory.resolve("..");
 		}
 	}
 	
