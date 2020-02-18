@@ -1,4 +1,4 @@
 
-An experiment combines (inputs, task, outputs).
+An experiment combines three elements:  outputs = task(inputs)
 Learn more at https://www.anchoranalysis.org/user_guide.html
 
