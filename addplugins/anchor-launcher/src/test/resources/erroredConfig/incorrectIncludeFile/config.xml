@@ -2,9 +2,10 @@
 <bean>
 <experiment config-class="org.anchoranalysis.anchor.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" folderOutput="../output/" inputName="stackInput">
 
+    <logReporterTask config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+
 	<task config-class="ch.ethz.biol.cell.countchrom.experiment.SharedObjectsMultiInputTask" suppressSubfolders="false" nrgParamsName="input_params">
 		  <namedDefinitions config-class="java.util.List" config-factory="include" filePath="namedDefinitions/missingIncludeFile.xml"/>
-		  <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
 	</task>
 
 </experiment>
