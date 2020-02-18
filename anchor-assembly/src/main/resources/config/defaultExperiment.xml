@@ -51,46 +51,10 @@
 			<item>executionTime</item>
 		  </except>
 	  </output>
-	  
-	  <!-- When we are in detailed-reporting mode, then we show details of the experiment on the console and log it
-	       When not, we assume the details are relevant only to the screen  -->
-      <logReporterExperiment config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanSwitchDetailedLogging">
-      
-        <detailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
-            <list config-class="java.util.List" config-factory="list">
-                <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
-                <item config-class="org.anchoranalysis.experiment.bean.logreporter.TextFileLogReporterBean"/>
-            </list>
-        </detailed>
-      
-        <notDetailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
-            <list config-class="java.util.List" config-factory="list">
-                <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
-            </list>
-        </notDetailed>
-        
-      </logReporterExperiment>
-      
 
-       <!-- When we are in detailed-reporting mode, then we show details of the experiment on the console BUT
-          not individual tasks, as this would be information overload -->	  
-	  <logReporterTask config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanSwitchDetailedLogging">
-      
-        <detailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
-            <list config-class="java.util.List" config-factory="list">
-                <item config-class="org.anchoranalysis.experiment.bean.logreporter.FailureOnlyTextFileLogReporterBean"/>
-            </list>
-        </detailed>
-      
-        <notDetailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
-	        <list config-class="java.util.List" config-factory="list">
-	            <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
-	            <item config-class="org.anchoranalysis.experiment.bean.logreporter.FailureOnlyTextFileLogReporterBean"/>
-	        </list>
-	    </notDetailed>
-	    
-      </logReporterTask>
-	  
+      <logReporterExperiment filePath="logreporter/experiment.xml" config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBean" config-factory="include"/>
+
+      <logReporterTask filePath="logreporter/task.xml" config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBean" config-factory="include"/>   
 	  
 	  <taskProcessor config-class="org.anchoranalysis.experiment.bean.processor.ParallelProcessor" supressExceptions="true">
 		  
