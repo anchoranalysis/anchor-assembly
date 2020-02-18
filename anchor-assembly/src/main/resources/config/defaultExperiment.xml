@@ -29,13 +29,11 @@
 
 <experiment config-class="org.anchoranalysis.experiment.bean.io.InputOutputExperiment">
 
-     <input config-class="org.anchoranalysis.image.io.bean.input.NamedChnls">
-		 <fileInput config-class="org.anchoranalysis.plugin.io.bean.input.Files">
+     <input config-class="org.anchoranalysis.plugin.io.bean.input.chnl.NamedChnls">
+		 <fileInput config-class="org.anchoranalysis.plugin.io.bean.input.file.Files">
 		 	<!--  As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
 		 	<fileProvider fileFilter="*.jpg" recursive="true" config-class="org.anchoranalysis.io.bean.provider.file.FileSet"/>
 		 </fileInput>
-		 
-		 <imgChnlMapCreator config-class="org.anchoranalysis.image.io.bean.chnl.map.creator.ImgChnlMapAutoname"/>
 	  </input>
 
   	  <experimentIdentifier name="TestDefaultCommandLineExperiment" version="1.0" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierSimple"/>
