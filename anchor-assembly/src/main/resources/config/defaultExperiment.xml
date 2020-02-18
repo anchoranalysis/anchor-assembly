@@ -29,46 +29,76 @@
 
 <experiment config-class="org.anchoranalysis.experiment.bean.io.InputOutputExperiment">
 
-	 <input config-class="org.anchoranalysis.io.bean.input.Files">
-	 	<!--  As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
-	 	<fileProvider fileFilter="*.jpg" recursive="true" config-class="org.anchoranalysis.io.bean.provider.file.FileSet"/>
-	 </input>
+     <input config-class="org.anchoranalysis.image.io.bean.input.NamedChnls">
+		 <fileInput config-class="org.anchoranalysis.io.bean.input.Files">
+		 	<!--  As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
+		 	<fileProvider fileFilter="*.jpg" recursive="true" config-class="org.anchoranalysis.io.bean.provider.file.FileSet"/>
+		 	<descriptiveNameFromFile config-class="org.anchoranalysis.plugin.io.bean.descriptivename.PatternSpan"/>
+		 </fileInput>
+		 
+		 <imgChnlMapCreator config-class="org.anchoranalysis.image.io.bean.chnl.map.creator.ImgChnlMapAutoname"/>
+	  </input>
 
   	  <experimentIdentifier name="TestDefaultCommandLineExperiment" version="1.0" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierSimple"/>
 
-	  <output config-class="org.anchoranalysis.io.output.bean.OutputManagerPermissiveExcept" delExistingFolder="true">
+	  <output config-class="org.anchoranalysis.io.output.bean.OutputManagerPermissiveExcept" delExistingFolder="false">
 	  
 		  <filePathPrefixer filePath="../configGUI/ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.bean.filepath.prefixer.FilePathPrefixer" config-factory="include"/>
 
 		  <except config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>manifest</item>
+			<item>manifestExperiment</item>
+			<item>config</item>
 			<item>executionTime</item>
 		  </except>
 	  </output>
 	  
-	  <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
-	  	<list config-class="java.util.List" config-factory="list">
-	  		<item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
-	  		<item config-class="org.anchoranalysis.experiment.bean.logreporter.TextFileLogReporterBean"/>
-	  	</list>
-	  </logReporter>
+	  <!-- When we are in detailed-reporting mode, then we show details of the experiment on the console and log it
+	       When not, we assume the details are relevant only to the screen  -->
+      <logReporterExperiment config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanSwitchDetailedLogging">
+      
+        <detailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+            <list config-class="java.util.List" config-factory="list">
+                <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+                <item config-class="org.anchoranalysis.experiment.bean.logreporter.TextFileLogReporterBean"/>
+            </list>
+        </detailed>
+      
+        <notDetailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+            <list config-class="java.util.List" config-factory="list">
+                <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+            </list>
+        </notDetailed>
+        
+      </logReporterExperiment>
+      
+
+       <!-- When we are in detailed-reporting mode, then we show details of the experiment on the console BUT
+          not individual tasks, as this would be information overload -->	  
+	  <logReporterTask config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanSwitchDetailedLogging">
+      
+        <detailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+            <list config-class="java.util.List" config-factory="list">
+                <item config-class="org.anchoranalysis.experiment.bean.logreporter.FailureOnlyTextFileLogReporterBean"/>
+            </list>
+        </detailed>
+      
+        <notDetailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+	        <list config-class="java.util.List" config-factory="list">
+	            <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+	            <item config-class="org.anchoranalysis.experiment.bean.logreporter.FailureOnlyTextFileLogReporterBean"/>
+	        </list>
+	    </notDetailed>
+	    
+      </logReporterTask>
+	  
 	  
 	  <taskProcessor config-class="org.anchoranalysis.experiment.bean.processor.ParallelProcessor" supressExceptions="true">
 		  
-		  <task config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeFilesTask">
-		  
-		  	<pathSummarizer avoidBulletOnFirst="true" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerAggregate">
-		  		<list config-class="java.util.List" config-factory="list">
-		  			<item config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
-		  			<item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.ExtensionCount"/>
-		  			<item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FileSizeStatistics"/>
-		  			<item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FilePathPattern"/>
-		  		</list>
-		  	</pathSummarizer>
-	  		  
-		  </task>
-		  
-    	</taskProcessor>
+		  <!--  Default task -->
+		  <task filePath="tasks/summarizePaths.xml" config-class="org.anchoranalysis.experiment.task.Task" config-factory="include"/>
+		  		  
+      </taskProcessor>
 	</experiment>
 	
 </config>

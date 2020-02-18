@@ -31,8 +31,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
 import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.config.HelpConfig;
+import org.anchoranalysis.launcher.config.ResourcesConfig;
+import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -50,21 +54,14 @@ import org.apache.commons.cli.ParseException;
  * @author Owen Feehan
  *
  */
-public abstract class CommandLineParserExperiment {
+public class ParseArgsAndRunExperiment {
 	
 	// START: Options
 	public static final String OPTION_HELP = "h";
 	private static final String OPTION_VERSION = "v";
 	private static final String OPTION_LOG_ERROR = "l";
+	private static final String OPTION_SHOW_EXPERIMENT_ARGUMENTS = "sa";
 	// END: Options
-	
-	/**
-	 * if TRUE, then some extra newlines are inserted before error messages
-	 *  
-	 *  This useful for the GUI client in Windows due to WinRun4j running as a Windows app, and not as
-	 *    a shell app. This changes how output is displayed;
-	 */
-	private boolean newlinesBeforeError;
 	
 	/**
 	 * For reporting messages on what goes wrong
@@ -76,20 +73,19 @@ public abstract class CommandLineParserExperiment {
 	 * @param logger a logger where error messages outputted to
 	 * @param newlinesBeforeError if TRUE, then some extra newlines are inserted before error messages
 	 */
-	protected CommandLineParserExperiment( LogErrorReporter logger, boolean newlinesBeforeError ) {
-		this.newlinesBeforeError = newlinesBeforeError;
+	public ParseArgsAndRunExperiment( LogErrorReporter logger ) {
 		this.logger = logger;
 	}
 	
 	/**
-	 * Parses the arguments to a command-line experiment and does some action, usually processExperiment()
-	 *   but sometimes other actions (depending on what options are selected)
+	 * Parses the arguments to a command-line experiment and runs an experiment
 	 *   
 	 * @param args arguments from command-line
+	 * @params parserConfig a configuration for the command-line exector
 	 */
-	public void parse( String args[] ) {
+	public void parseAndRun( String args[], LauncherConfig parserConfig ) {
 		
-		Options options = createOptions();
+		Options options = createOptions(parserConfig);
 		
 		// create the parser
 	    CommandLineParser parser = new DefaultParser();
@@ -97,17 +93,11 @@ public abstract class CommandLineParserExperiment {
 	        // parse the command line arguments
 	        CommandLine line = parser.parse( options, args );
 	        
-	        if (maybePrintHelp(line, options, args )) {
+	        if (maybePrintHelp(line, options, args, parserConfig.resources(), parserConfig.help())) {
 	        	return;
 	        }
 	        
-	        if (maybePrintVersion(line)) {
-	        	return;
-	        }
-	      	        
-	        // We process the remaining arguments
-	        if (requiresFirstArgument() && line.getArgs().length==0) {
-	        	ErrorPrinter.printMissingExperimentArgument();
+	        if (maybePrintVersion(line, parserConfig.resources())) {
 	        	return;
 	        }
 	        
@@ -116,14 +106,16 @@ public abstract class CommandLineParserExperiment {
 	        	return;
 	        }
 	        
-	        processExperimentShowErrors(line);
+	        processExperimentShowErrors(line, parserConfig );
 			
 	    } catch( ParseException e ) {
 	        // oSomething went wrong
 	    	logger.getLogReporter().logFormatted( "Parsing of command-line arguments failed.  Reason: %s%n", e.getMessage() );
 	    } catch (IOException e) {
-	    	logger.getErrorReporter().recordError(CommandLineParserExperiment.class, e);
+	    	logger.getErrorReporter().recordError(ParseArgsAndRunExperiment.class, e);
 	    	logger.getLogReporter().logFormatted( "An I/O error occurred.  Reason: %s%n", e.getMessage() );
+		} catch (AnchorFriendlyRuntimeException e) {
+			logger.getLogReporter().logFormatted( e.friendlyMessageHierarchy() );
 		}
 	}
 	
@@ -133,59 +125,39 @@ public abstract class CommandLineParserExperiment {
 	 * @return true if it prints the message, false otherwise
 	 * @throws IOException 
 	 */
-	private boolean maybePrintHelp( CommandLine line, Options options, String args[] ) throws IOException {
-		boolean isArgumentRequiredAndMissing = requiresFirstArgument() && args.length==0;
-		if (line.hasOption(OPTION_HELP) || isArgumentRequiredAndMissing) {
-        	printHelp( options );
+	private boolean maybePrintHelp( CommandLine line, Options options, String args[], ResourcesConfig resourcesConfig, HelpConfig helpConfig ) throws IOException {
+		if (line.hasOption(OPTION_HELP)) {
+        	printHelp( options, resourcesConfig, helpConfig.getCommandName(), helpConfig.getFirstArgument() );
 		    return true;
         }
 		return false;
 	}
 	
-	private boolean maybePrintVersion( CommandLine line ) throws IOException {
+	private boolean maybePrintVersion( CommandLine line, ResourcesConfig resources ) throws IOException {
 		if (line.hasOption(OPTION_VERSION)) {
         	VersionPrinter.printVersion(
-        		classLoaderResources(),
-        		resourceVersionFooter(),
-        		resourceMavenProperties()
+        		resources.getClassLoader(),
+        		resources.getVersionFooter(),
+        		resources.getMavenProperties()
         	);
         	return true;
         } 
         return false;
 	}
-	
-	/**
-	 * Create options for the command-line client, returning default options always available for this class
-	 * @return the options that can be used
-	 */
-	protected Options createOptions() {
-
-		Options options = new Options();
-
-		options.addOption(OPTION_HELP, false, "print this message and exit");
 		
-		options.addOption(OPTION_VERSION, false, "print version information and exit");
-		
-		// This logs the errors in greater detail
-		options.addOption(OPTION_LOG_ERROR, true, "log BeanXML parsing errors to file");
-		
-		return options;
-	}
-	
-	
 	/**
 	 * Calls processExperiment() but displays any error messages in a user-friendly way on System.err
 	 * 
 	 * @param line
 	 */
-	private void processExperimentShowErrors( CommandLine line ) {
+	private void processExperimentShowErrors( CommandLine line, LauncherConfig parserConfig ) {
 		
 		try {
-			processExperiment(line, logger);
+			processExperiment(line, logger, parserConfig );
 			
 		} catch (ExperimentExecutionException e) {
 	    	
-			if (newlinesBeforeError) {
+			if (parserConfig.newlinesBeforeError()) {
 				logger.getLogReporter().logFormatted("%n");
 			}
 			
@@ -209,7 +181,16 @@ public abstract class CommandLineParserExperiment {
 	 * @param logger TODO
 	 * @throws ExperimentExecutionException if processing ends early
 	 */
-	protected abstract void processExperiment( CommandLine line, LogErrorReporter logger ) throws ExperimentExecutionException;
+	protected void processExperiment( CommandLine line, LogErrorReporter logger, LauncherConfig parserConfig ) throws ExperimentExecutionException {
+        
+        parserConfig.createExperimentExecutor(line).executeExperiment(
+        	parserConfig.configDir(),
+        	parserConfig.createArguments(line),
+        	line.hasOption(OPTION_SHOW_EXPERIMENT_ARGUMENTS),
+        	logger.getLogReporter()
+        );
+	}
+	
 	
 	/**
 	 * Prints help message to guide usage to std-output
@@ -217,16 +198,16 @@ public abstract class CommandLineParserExperiment {
 	 * @param options possible user-options
 	 * @throws IOException if the help display messages cannot be read
 	 */
-	protected void printHelp( Options options ) throws IOException {
+	private static void printHelp( Options options, ResourcesConfig resources, String commandNameInHelp, String firstArgumentInHelp ) throws IOException {
 		
     	// automatically generate the help statement
 	    HelpFormatter formatter = new HelpFormatter();
 	    
 	    // Avoid a leading / on the resource path as it uses a ClassLoader to load resources, which is different behaviour to getClass().getResourceAsStream()
-	    String headerDisplayMessage = ResourceReader.readStringFromResource(resourceUsageHeader(), classLoaderResources() );
-	    String footerDisplayMessage = ResourceReader.readStringFromResource(resourceUsageFooter(), classLoaderResources() );
+	    String headerDisplayMessage = ResourceReader.readStringFromResource(resources.getUsageHeader(), resources.getClassLoader() );
+	    String footerDisplayMessage = ResourceReader.readStringFromResource(resources.getUsageFooter(), resources.getClassLoader() );
 
-	    String firstLine = String.format( "%s [options] %s", commandNameInHelp(), firstArgumentInHelp() );
+	    String firstLine = String.format( "%s [options] [%s]", commandNameInHelp, firstArgumentInHelp );
 	    formatter.printHelp(
 	    	firstLine,
 	    	headerDisplayMessage,
@@ -236,51 +217,24 @@ public abstract class CommandLineParserExperiment {
 	}
 	
 	/**
-	 * What class-loader to use for loading resources
-	 * @return a class-loader
+	 * Create options for the command-line client, returning default options always available for this class
+	 * @return the options that can be used
 	 */
-	protected abstract ClassLoader classLoaderResources();
-	
-	/**
-	 * What the application command is described as in the help message e.g.&nbsp;anchor or anchorGUI
-	 * @return a word describing the application command (for the help message)
-	 */
-	protected abstract String commandNameInHelp();
-	
-	/**
-	 * What the application argument is described as in the help message e.g.&nbsp;experimentFile.xml
-	 * @return a word describing the application arguments (for the help message)
-	 */
-	protected abstract String firstArgumentInHelp();
-	
-	/**
-	 * What resource to use for the version-footer
-	 * @return resource-path
-	 */
-	protected abstract String resourceVersionFooter();
+	private Options createOptions( LauncherConfig parserConfig ) {
 
-	/**
-	 * What resource to use for the usage-footer
-	 * @return resource-path
-	 */
-	protected abstract String resourceUsageHeader();
-	
-	/**
-	 * What resource to use for the usage-footer
-	 * @return resource-path
-	 */
-	protected abstract String resourceUsageFooter();
-	
-	
-	/**
-	 * What resource to use for the maven properties
-	 * @return resource-path
-	 */
-	protected abstract String resourceMavenProperties();
-	
-	/**
-	 * If true this command-line application always requires a first-argument (unless -help or -version is selected)
-	 * @return true if a first-argument is always required, false otherwise
-	 */
-	protected abstract boolean requiresFirstArgument();
+		Options options = new Options();
+
+		options.addOption(OPTION_HELP, false, "print this message and exit");
+		
+		options.addOption(OPTION_VERSION, false, "print version information and exit");
+		
+		// This logs the errors in greater detail
+		options.addOption(OPTION_LOG_ERROR, true, "log BeanXML parsing errors to file");
+		
+		options.addOption(OPTION_SHOW_EXPERIMENT_ARGUMENTS, false, "print experiment path argument(s)");
+				
+		parserConfig.addAdditionalOptions(options);
+		
+		return options;
+	}
 }

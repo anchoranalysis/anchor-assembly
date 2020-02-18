@@ -24,7 +24,7 @@
   #L%
   -->
 <config>
-<bean config-class="org.anchoranalysis.gui.launch.InteractiveBrowserInputManager">
+<bean config-class="org.anchoranalysis.gui.interactivebrowser.launch.InteractiveBrowserInputManager">
 	 
 	<listFileCreators config-class="java.util.List" config-factory="list">
 	</listFileCreators>

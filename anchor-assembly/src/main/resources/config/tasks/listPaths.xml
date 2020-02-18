@@ -1,0 +1,12 @@
+<!--
+Summarizes different properties of input-files
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeInputsTask">
+          
+   <summarizer config-class="org.anchoranalysis.plugin.io.bean.summarizer.input.ExtractPath">
+        <summarizer config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerListMultiline"/>
+   </summarizer>
+   
+</bean>
+</config>

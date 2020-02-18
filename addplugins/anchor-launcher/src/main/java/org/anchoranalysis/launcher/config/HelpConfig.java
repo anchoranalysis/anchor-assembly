@@ -1,10 +1,10 @@
-package org.anchoranalysis.launcher.parser;
+package org.anchoranalysis.launcher.config;
 
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,23 +26,31 @@ package org.anchoranalysis.launcher.parser;
  * #L%
  */
 
-import java.nio.file.Path;
-import org.anchoranalysis.core.file.PathUtilities;
-import org.anchoranalysis.core.log.LogErrorReporter;
+public class HelpConfig {
 
-public abstract class CommandLineParserExperimentWithConfig extends CommandLineParserExperiment {
-	
 	/**
-	 * A path to a folder where config files are stored (relative to the bin/ directory)
+	 * What the application command is described as in the help message e.g.&nbsp;anchor or anchorGUI
+	 * @return a word describing the application command (for the help message)
 	 */
-	private static String CONFIG_RELATIVE_PATH = "../config/";
+	private String commandName;
+		
+	/**
+	 * What the application argument is described as in the help message e.g.&nbsp;experimentFile.xml
+	 * @return a word describing the application arguments (for the help message)
+	 */
+	private String firstArgument;
 	
-	protected CommandLineParserExperimentWithConfig(LogErrorReporter logger, boolean newlinesBeforeError) {
-		super(logger, newlinesBeforeError);
+	public HelpConfig(String commandName, String firstArgument) {
+		super();
+		this.commandName = commandName;
+		this.firstArgument = firstArgument;
 	}
 	
-	protected static Path configDir( Class<?> c ) {
-		Path pathCurrentJARDir = PathUtilities.pathCurrentJAR(c);
-	    return pathCurrentJARDir.resolve(CONFIG_RELATIVE_PATH);
+	public String getCommandName() {
+		return commandName;
 	}
+
+	public String getFirstArgument() {
+		return firstArgument;
+	}	
 }

@@ -41,28 +41,28 @@
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="volume_pixels">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-			<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.objmask.NumVoxels"/>
+			<item config-class="org.anchoranalysis.image.feature.bean.objmask.NumVoxels"/>
 		</item>			
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="area_pixels">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-			<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.objmask.NumVoxels" mip="true"/>
+			<item config-class="org.anchoranalysis.image.feature.bean.objmask.NumVoxels" mip="true"/>
 		</item>			
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="volume_microns_cubed">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-			<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.operator.ConvertToPhysicalVolume" unitType="µm^3">
-				<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.objmask.NumVoxels"/>
+			<item config-class="org.anchoranalysis.image.feature.bean.operator.ConvertToPhysicalVolume" unitType="µm^3">
+				<item config-class="org.anchoranalysis.image.feature.bean.objmask.NumVoxels"/>
 			</item>
 		</item>			
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="area_microns_sq">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-			<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.operator.ConvertToPhysicalAreaXY" unitType="µm^2">
-				<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.objmask.NumVoxels" mip="true"/>
+			<item config-class="org.anchoranalysis.image.feature.bean.operator.ConvertToPhysicalAreaXY" unitType="µm^2">
+				<item config-class="org.anchoranalysis.image.feature.bean.objmask.NumVoxels" mip="true"/>
 			</item>
 		</item>			
 	</item>

@@ -54,10 +54,6 @@ class ErrorPrinter {
 		System.err.println("Please only pass a single experiment-file as an argument. Multiple files are not allowed");
 	}
 	
-	public static void printMissingExperimentArgument() {
-		System.err.println("Please pass an experiment-file as an argument.");
-	}
-	
 	/**
 	 * Prints an exception to the file-system as an error log
 	 * 

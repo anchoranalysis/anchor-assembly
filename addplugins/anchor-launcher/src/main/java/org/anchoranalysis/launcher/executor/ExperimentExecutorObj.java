@@ -10,6 +10,8 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.experiment.io.IReplaceInputManager;
 import org.anchoranalysis.experiment.io.IReplaceOutputManager;
+import org.anchoranalysis.experiment.io.IReplaceTask;
+import org.anchoranalysis.experiment.task.Task;
 import org.anchoranalysis.image.bean.RegisterBeanFactoriesImage;
 import org.anchoranalysis.image.io.bean.RegisterBeanFactoriesIO;
 import org.anchoranalysis.io.bean.input.InputManager;
@@ -95,9 +97,10 @@ class ExperimentExecutorObj {
 	 * @param ea experiment-arguments
 	 * @param pathInput if non-null, the path to an input-manager to replace the input-manager specified in the experiment. If null, ignored.
 	 * @param pathOutput if non-null, the path to an output-manager to replace the output-manager specified in the experiment. If null, ignored.
+	 * @param pathTask if non-null, the path to a task to replace the task specified in the experiment. If null, ignored.
 	 * @throws ExperimentExecutionException if the execution ends early
 	 */
-	public void executeExperiment( Experiment experiment, ExperimentExecutionArguments ea, Path pathInput, Path pathOutput ) throws ExperimentExecutionException {		
+	public void executeExperiment( Experiment experiment, ExperimentExecutionArguments ea, Path pathInput, Path pathOutput, Path pathTask ) throws ExperimentExecutionException {		
 		
 		if (pathInput!=null) {
 			replaceInputManager(experiment, ea, pathInput);
@@ -105,6 +108,10 @@ class ExperimentExecutorObj {
 		
 		if (pathOutput!=null) {
 			replaceOutputManager(experiment, ea, pathOutput);
+		}
+		
+		if (pathTask!=null) {
+			replaceTask(experiment, ea, pathTask);
 		}
 		
 		executeExperiment( experiment, ea );		
@@ -184,6 +191,48 @@ class ExperimentExecutorObj {
 					"Cannot override the output of an experiment %s with input-manager type %s",
 					experiment.getClass().getName(),
 					outputManager.getClass().getName()
+				),
+				e
+			);
+		}
+	}
+	
+	
+	
+	/**
+	 * Replaces the task of an experiment with an task declared at pathTask
+	 * 
+	 * @param experiment experiment whose input-task will be replaced
+	 * @param ea experiment-arguments
+	 * @param pathTask a path to a BeanXML file defining the replacement task
+	 * @throws ExperimentExecutionException
+	 */
+	@SuppressWarnings("unchecked")
+	private void replaceTask( Experiment experiment, ExperimentExecutionArguments ea, Path pathTask ) throws ExperimentExecutionException {
+		
+		// As path could be a folder, we make sure we get a file
+		Task<InputFromManager,Object> task = ExperimentReader.readTaskFromXML(pathTask, ea);
+		
+		try {
+			if (experiment instanceof IReplaceTask) {
+				IReplaceTask<InputFromManager,Object> experimentCasted = (IReplaceTask<InputFromManager,Object>) experiment;
+				experimentCasted.replaceTask(task);
+			} else {
+				throw new ExperimentExecutionException(
+					String.format(
+						"To override the task of an experiment, it must implement %s.%nThe current experiment does not: %s",
+						IReplaceTask.class.getName(),
+						experiment.getClass().getName()
+					)
+				);
+			}
+			
+		} catch (OperationFailedException e) {
+			throw new ExperimentExecutionException(
+				String.format(
+					"Cannot override the input of an experiment %s with task type %s",
+					experiment.getClass().getName(),
+					task.getClass().getName()
 				),
 				e
 			);

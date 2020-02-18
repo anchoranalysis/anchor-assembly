@@ -38,6 +38,7 @@ import org.anchoranalysis.bean.xml.error.BeanXmlException;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
+import org.anchoranalysis.experiment.task.Task;
 import org.anchoranalysis.io.bean.input.InputManager;
 import org.anchoranalysis.io.input.InputFromManager;
 import org.anchoranalysis.io.output.bean.OutputManager;
@@ -61,6 +62,10 @@ class ExperimentReader {
 		return readBeanFromXML( configPath, ea, "bean", false );
 	}
 	
+	public static Task<InputFromManager,Object> readTaskFromXML( Path configPath, ExperimentExecutionArguments ea ) throws ExperimentExecutionException {
+		return readBeanFromXML( configPath, ea, "bean", false );
+	}
+	
 	/**
 	 * Read bean from xml
 	 * 
@@ -73,6 +78,9 @@ class ExperimentReader {
 	 */
 	private static <T> T readBeanFromXML( Path configPath, ExperimentExecutionArguments ea, String xmlPath, boolean associateXml ) throws ExperimentExecutionException {
 
+		// To avoid any .. or . in error reporting
+		configPath = configPath.normalize();
+		
 		if (!Files.exists(configPath)) {
 			throw new ExperimentExecutionException( String.format("Error: a file does not exist at \"%s\"", configPath) );
 		}

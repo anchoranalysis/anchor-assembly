@@ -1,13 +1,12 @@
 package org.anchoranalysis.browser.launcher;
 
-import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
-import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.config.HelpConfig;
+import org.anchoranalysis.launcher.config.ResourcesConfig;
+import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
-import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplate;
-import org.anchoranalysis.launcher.executor.ExperimentExecutionTemplateFactory;
-import org.anchoranalysis.launcher.parser.CommandLineParserExperimentWithConfig;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Options;
 
 /*
  * #%L
@@ -35,7 +34,14 @@ import org.apache.commons.cli.CommandLine;
  * #L%
  */
 
-class CommandLineParserExperimentBrowser extends CommandLineParserExperimentWithConfig {
+
+/**
+ * A command-line interface for launching the GUI browser
+ * 
+ * @author owen
+ *
+ */
+class LauncherConfigBrowser extends LauncherConfig {
 	
 	/**
 	 * A path relative to the current JAR where a properties file can be found
@@ -46,81 +52,52 @@ class CommandLineParserExperimentBrowser extends CommandLineParserExperimentWith
 	private static final String RESOURCE_USAGE_HEADER =  "org/anchoranalysis/browser/launcher/usageHeaderDisplayMessage.txt";
 	private static final String RESOURCE_USAGE_FOOTER =  "org/anchoranalysis/browser/launcher/usageFooterDisplayMessage.txt";
 	private static final String RESOURCE_MAVEN_PROPERTIES = "META-INF/maven/org.anchoranalysis.anchor/anchor-browser/pom.properties";
-	
-	
-	/**
-	 * A command line parser application for the browser application
-	 * @param logger for reporting user-friendly errors
-	 */
-	public CommandLineParserExperimentBrowser(LogErrorReporter logger) {
-		super(logger, true);
-	}
-	
-	@Override
-	protected void processExperiment( CommandLine line, LogErrorReporter logger ) throws ExperimentExecutionException {
-		
-        ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
-        ea.setGUIEnabled(true);
-        
-        ExperimentExecutor executor = new ExperimentExecutor(
-        	true,
-        	configDir(CommandLineParserExperimentBrowser.class)
-        );
 
-        executor.executeExperiment(
-        	createExperimentTemplate(line),
-        	ea,
-        	logger.getLogReporter()
-        );
+	@Override
+	public ExperimentExecutionArguments createArguments( CommandLine line ) {
+		 ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
+	     ea.setGUIEnabled(true);
+	     return ea;
 	}
-	
-	private static ExperimentExecutionTemplate createExperimentTemplate( CommandLine line ) throws ExperimentExecutionException {
-		return ExperimentExecutionTemplateFactory.create(
-			line,
-			PATH_RELATIVE_PROPERTIES,
-			CommandLineParserExperimentBrowser.class
+
+	@Override
+	protected Class<?> classInCurrentJar() {
+		return LauncherConfigBrowser.class;
+	}
+
+	@Override
+	public boolean newlinesBeforeError() {
+		return true;
+	}
+
+	@Override
+	public void addAdditionalOptions(Options options) {
+	}
+
+	@Override
+	public ResourcesConfig resources() {
+		return new ResourcesConfig(
+			getClass().getClassLoader(),
+			RESOURCE_VERSION_FOOTER,
+			RESOURCE_MAVEN_PROPERTIES,
+			RESOURCE_USAGE_HEADER,
+			RESOURCE_USAGE_FOOTER
 		);
 	}
-	
+
 	@Override
-	protected ClassLoader classLoaderResources() {
-		return getClass().getClassLoader();
+	public HelpConfig help() {
+		return new HelpConfig("anchorGUI", "configFile.xml");
 	}
 
 	@Override
-	protected String commandNameInHelp() {
-		return "anchorGUI";
-	}
-
-	@Override
-	protected String firstArgumentInHelp() {
-		return "configFile.xml";
+	protected String pathRelativeProperties() {
+		return PATH_RELATIVE_PROPERTIES;
 	}
 	
-
 	@Override
-	protected String resourceVersionFooter() {
-		return RESOURCE_VERSION_FOOTER;
-	}
-
-	@Override
-	protected String resourceMavenProperties() {
-		return RESOURCE_MAVEN_PROPERTIES;
-	}
-
-	@Override
-	protected String resourceUsageHeader() {
-		return RESOURCE_USAGE_HEADER;
-	}
-
-	@Override
-	protected String resourceUsageFooter() {
-		return RESOURCE_USAGE_FOOTER;
-	}
-
-	@Override
-	protected boolean requiresFirstArgument() {
-		return false;
+	protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) {
+		
 	}
 
 }
