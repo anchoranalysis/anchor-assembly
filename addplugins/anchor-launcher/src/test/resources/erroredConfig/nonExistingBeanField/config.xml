@@ -8,7 +8,7 @@
 		  <namedDefinitions config-class="java.util.List" config-factory="include" filePath="namedDefinitions.xml"/>
 	</task>
 	 
-   <outputEnabled config-class="org.anchoranalysis.io.bean.output.allowed.SpecificOutputAllowed">
+   <outputEnabled config-class="org.anchoranalysis.plugin.io.bean.output.allowed.SpecificOutputAllowed">
 	  	<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>stackCollection</item>
 			<item>objMaskCollection</item>
@@ -25,7 +25,7 @@
 	</outputEnabled>
 	
 	
-	<stackCollectionOutputEnabled config-class="org.anchoranalysis.io.bean.output.allowed.SpecificOutputAllowed">
+	<stackCollectionOutputEnabled config-class="org.anchoranalysis.plugin.io.bean.output.allowed.SpecificOutputAllowed">
 		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>chnlInput</item>
 			<item>stackEllipses</item>
@@ -33,7 +33,7 @@
 		</outputsAllowed>
 	</stackCollectionOutputEnabled>
 
-	<objMaskCollectionOutputEnabled config-class="org.anchoranalysis.io.bean.output.allowed.SpecificOutputAllowed">
+	<objMaskCollectionOutputEnabled config-class="org.anchoranalysis.plugin.io.bean.output.allowed.SpecificOutputAllowed">
 		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>objsSgmn</item>
 		</outputsAllowed>
