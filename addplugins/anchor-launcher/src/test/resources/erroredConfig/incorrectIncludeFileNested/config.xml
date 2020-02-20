@@ -15,7 +15,8 @@
 			<item>cfgCollection</item>
 			<item>log</item>
 			<item>errors</item>
-			<item>messagelog</item>
+			<item>experiment_log</item>
+			<item>job_log</item>
 			<item>manifest</item>
 			<item>manifestExperiment</item>
 			<item>objMaskCollection</item>
