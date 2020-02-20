@@ -73,7 +73,7 @@ class ExperimentExecutorObj {
 			
 			// We first register all bean-factories without any default instances, so we can load
 			//  the default-instances from beans in a config-file
-			AnchorDefaultBeanFactory defaultFactory = RegisterBeanFactories.registerAllPackageBeanFactories( gui );
+			AnchorDefaultBeanFactory defaultFactory = RegisterBeanFactories.registerAllPackageBeanFactories();
 			RegisterBeanFactoriesImage.registerBeanFactories();
 			RegisterBeanFactoriesIO.registerBeanFactories();
 			
