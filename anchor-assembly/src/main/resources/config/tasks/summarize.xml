@@ -1,22 +1,20 @@
 <!--
-Summarizes different properties of images
+Summarizes different properties of input-images
 
- * Count
- * Size (width, height, z-stack, time) etc.
- * Number of channels
- * Bit-depth
+Combines summarizePaths.xml with summarizeImages.xml
 -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeInputsTask">
-          
-   <summarizer countThreshold="0" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerSplitMoreThan">
-   
+    
+    
+	<summarizer countThreshold="0" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerSplitMoreThan">
+
        <summarizerGreaterThan avoidBulletOnFirst="true" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerAggregate">
-           <list filePath="include/summarize/images.xml" config-class="java.util.List" config-factory="include"/>
+           <list filePath="include/summarize/pathsAndImages.xml" config-class="java.util.List" config-factory="include"/>
        </summarizerGreaterThan>
 
        <summarizerElse config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
-   
+	   
    </summarizer>
      
 </bean>
