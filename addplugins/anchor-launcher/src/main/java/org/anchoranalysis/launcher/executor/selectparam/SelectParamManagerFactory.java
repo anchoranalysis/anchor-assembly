@@ -126,7 +126,7 @@ public class SelectParamManagerFactory {
 
 		// If it contains a wildcard, assume its a glob
 		if (arg.contains("*")) {
-			return new UserAsGlob(arg);
+			return new UseAsGlob(arg);
 		}
 		
 		// If it begins with a period, and no slashes, then assume it's a file extension

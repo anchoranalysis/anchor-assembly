@@ -30,9 +30,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Set;
 
 import org.anchoranalysis.bean.BeanInstanceMap;
 import org.anchoranalysis.bean.NamedBean;
+import org.anchoranalysis.bean.StringSet;
 import org.anchoranalysis.bean.error.BeanMisconfiguredException;
 import org.anchoranalysis.bean.xml.BeanXmlLoader;
 import org.anchoranalysis.bean.xml.error.BeanXmlException;
@@ -57,6 +59,11 @@ class HelperLoadAdditionalConfig {
 	 * Filename (relative to anchor root) for default instances config file
 	 */
 	private static String DEFAULT_INSTANCES_FILENAME = "defaultBeans.xml";
+	
+	/**
+	 * Filename (relative to anchor root) for default extensions
+	 */
+	private static String DEFAULT_EXTENSIONS_FILENAME = "defaultInputExtensions.xml";
 	
 	/**
 	 * Filename (relative to anchor root) for root path map
@@ -84,6 +91,33 @@ class HelperLoadAdditionalConfig {
 		addDefaultInstancesFromDir(pathHome, map);
 		addDefaultInstancesFromDir(pathUser, map);
 		return map;
+	}
+	
+	/**
+	 * Loads a set of default file extensions from the config/ directory
+	 * 
+	 * @param pathExecutionDirectory the directory in which anchor is executed (i.e. the bin/)
+	 * @return the set of extensions (they should be without any period, and in lower-case) or null if the file doesn't exist
+	 * @throws ExperimentExecutionException
+	 */
+	public static Set<String> loadDefaultExtensions( Path pathExecutionDirectory ) throws ExperimentExecutionException {
+		
+		Path path = getAnchorHome(pathExecutionDirectory).resolve(ANCHOR_HOME_CONFIG).resolve(DEFAULT_EXTENSIONS_FILENAME).normalize();
+		
+		if (Files.exists(path)) {
+			try {
+				StringSet setBean = BeanXmlLoader.loadBean(path, "bean");
+				return setBean.set();
+				
+			} catch (BeanXmlException e) {
+				throw new ExperimentExecutionException(
+					String.format("An error occurred loading bean XML from %s", path),
+					e
+				);
+			}			
+		}
+		
+		return null;
 	}
 	
 	private static void addDefaultInstancesFromDir( Path path, BeanInstanceMap addToMap ) throws ExperimentExecutionException {

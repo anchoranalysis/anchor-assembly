@@ -28,6 +28,7 @@ package org.anchoranalysis.launcher.executor.selectparam;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -41,7 +42,7 @@ import org.anchoranalysis.io.glob.GlobExtractor.GlobWithDirectory;
  * @author Owen Feehan
  *
  */
-class UserAsGlob extends SelectParam<Path> {
+class UseAsGlob extends SelectParam<Path> {
 
 	private String wildcardStr;
 	
@@ -50,7 +51,7 @@ class UserAsGlob extends SelectParam<Path> {
 	 *  
 	 * @param wildcardStr string containing a wildcard
 	 */
-	public UserAsGlob(String wildcardStr) {
+	public UseAsGlob(String wildcardStr) {
 		super();
 		this.wildcardStr = wildcardStr;
 	}
@@ -67,6 +68,11 @@ class UserAsGlob extends SelectParam<Path> {
 		}
 		
 		eea.setInputFilterGlob( gwd.getGlob() );
+		
+		// An empty set, means no filter check is applied
+		
+		eea.setInputFilterExtensions( new HashSet<String>() );
+		
 		return null;
 	}
 
