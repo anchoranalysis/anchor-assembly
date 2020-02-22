@@ -32,8 +32,13 @@
      <input config-class="org.anchoranalysis.plugin.io.bean.input.chnl.NamedChnls">
 		 <fileInput config-class="org.anchoranalysis.plugin.io.bean.input.file.Files">
 		 	<!--  As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
-		 	<fileProvider recursive="true" config-class="org.anchoranalysis.io.bean.provider.file.FileSet">
-		 	    <matcher glob="*.{jpg,jp2,png,tif,tiff,gif,lsm,ics,dcm,dicom,scn,czi,psd,mdb,ome}" config-class="org.anchoranalysis.io.bean.file.matcher.MatchGlob"/>
+		 	<fileProvider ignoreHidden="true" recursive="true" config-class="org.anchoranalysis.io.bean.provider.file.FileSet">
+		 	    
+		 	    <!-- As no extensions or glob are defined, they are both populated from the input-context -->
+		 	    <matcher config-class="org.anchoranalysis.io.bean.file.matcher.MatchExtensions">
+		 	        <matcher config-class="org.anchoranalysis.io.bean.file.matcher.MatchGlob"/>
+		 	    </matcher>
+		 	    
 		 	</fileProvider>
 		 </fileInput>
 	  </input>

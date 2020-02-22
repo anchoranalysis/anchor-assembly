@@ -62,19 +62,42 @@ public class SelectParamManagerFactory {
 	}
 	
 	/**
-	 * Can point to either a path to beanXML or to a directory (in which case a manager is derived)
+	 * Can point to either:
+	 * <ol>
+	 * <li>a path ending in .xml -> assumed to BeanXML for an input manager</li>
+	 * <li>a directory -> set as an the inputDirectory in the input-context</li>
+	 * <li>a string with a wild-card, assumed to be a glob, set into the input-context as a glob</li>
+	 * <li>a string with a period, and without any forward or backwards slashes -> set into the input-context as an extension to match</li>
+	 * </ol>
 	 * 
 	 * @param line command-line to consider if certain options have been selected or not
 	 * @param optionName which option we consider
-	 * @param iff TRUE, this is an input-manager, otherwise it's an output manager
 	 * @return an appropriate SelectParam object
 	 */
-	public static SelectParam<Path> pathOrDirectoryOrDefault(
+	public static SelectParam<Path> inputSelectParam(
 		CommandLine line,
-		String optionName,
-		boolean input
+		String optionName
 	) {
-		return ifOption(line, optionName, arg -> pathOrDirectory(arg, input) );
+		return ifOption(line, optionName, arg -> pathOrDirectoryOrGlobOrExtension(arg) );
+	}
+	
+	
+	/**
+	 * Can point to either
+	 * <ol>
+	 * <li>a path ending in .xml -> assumed to BeanXML for an output manager</li> 
+	 * <li>a directory -> set as the outputDirectory in the input-context</li>
+	 * </ol>
+	 * 
+	 * @param line command-line to consider if certain options have been selected or not
+	 * @param optionName which option we consider
+	 * @return an appropriate SelectParam object
+	 */
+	public static SelectParam<Path> outputSelectParam(
+		CommandLine line,
+		String optionName
+	) {
+		return ifOption(line, optionName, arg -> pathOrDirectory(arg, false) );
 	}
 	
 	private static SelectParam<Path> ifOption(CommandLine line, String optionName, Function<String,SelectParam<Path>> func ) {
@@ -98,6 +121,28 @@ public class SelectParamManagerFactory {
     	}
 	}
 	
+	
+	private static SelectParam<Path> pathOrDirectoryOrGlobOrExtension( String arg ) {
+
+		// If it contains a wildcard, assume its a glob
+		if (arg.contains("*")) {
+			return new UserAsGlob(arg);
+		}
+		
+		// If it begins with a period, and no slashes, then assume it's a file extension
+		if (isFileExtension(arg)) {
+			return new UseAsExtension(arg);
+		}
+				
+    	Path path = pathFromArg(arg);
+		
+		if (path.toFile().isDirectory()) {
+    		return new UseDirectoryAsManager(path, true);
+    	} else {
+    		return new CustomManagerFromPath(path);	
+    	}
+	}
+	
 	/** If the argument a name (no extension, no root, no special-chars apart from forward-slashes), then construct an automatic path to the tasks
 	 *  in the configuration directory. Otherwise treat as path to BeanXML */
 	private static SelectParam<Path> pathOrTaskName( String arg, Path configDir ) {
@@ -107,7 +152,6 @@ public class SelectParamManagerFactory {
 		} else {
 			return new CustomManagerFromPath( pathFromArg(arg) );
 		}
-    	
 	}
 	
 	private static Path constructPathForTaskName( String arg, Path configDir ) {
@@ -121,5 +165,21 @@ public class SelectParamManagerFactory {
 		
 	private static Path pathFromArg( String arg ) {
 		return Paths.get(arg).toAbsolutePath();
+	}
+	
+	private static boolean isFileExtension( String arg ) {
+		if (!arg.startsWith(".")) {
+			return false;
+		}
+		
+		if (arg.contains("/") || arg.contains("\\")) {
+			return false;
+		}
+		
+		if (arg.equals(".") || arg.equals("..")) {
+			return false;
+		}
+		
+		return true;
 	}
 }
