@@ -63,7 +63,7 @@ class UseDirectoryAsManager extends SelectParam<Path> {
 		if (input) {
 			eea.setInputDirectory(directory);
 		} else {
-			eea.getOutputDirectory();
+			eea.setOutputDirectory(directory);
 		}
 		
 		return null;

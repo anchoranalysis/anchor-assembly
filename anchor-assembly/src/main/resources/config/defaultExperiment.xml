@@ -46,8 +46,8 @@
   	  <experimentIdentifier name="TestDefaultCommandLineExperiment" version="1.0" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierSimple"/>
 
 	  <output config-class="org.anchoranalysis.plugin.io.bean.output.OutputManagerPermissiveExcept" delExistingFolder="false">
-	  
-		  <filePathPrefixer filePath="../configGUI/ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.bean.filepath.prefixer.FilePathPrefixer" config-factory="include"/>
+		  
+		  <filePathPrefixer config-class="org.anchoranalysis.plugin.io.bean.filepath.prefixer.FilePathPrefixerFromDescriptiveName"/>
 
 		  <except config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>manifest</item>
