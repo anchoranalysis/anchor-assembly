@@ -75,7 +75,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
 		
 		options.addOption(OPTION_INPUT, true, "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML");
 		
-		options.addOption(OPTION_OUTPUT, true, "an output-directory OR path to BeanXML)");
+		options.addOption(OPTION_OUTPUT, true, "an output-directory OR path to BeanXML");
 		
 		options.addOption(OPTION_TASK, true, "a task-name OR path to BeanXML");
 	}

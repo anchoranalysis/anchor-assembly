@@ -231,7 +231,7 @@ public class ParseArgsAndRunExperiment {
 		// This logs the errors in greater detail
 		options.addOption(OPTION_LOG_ERROR, true, "log BeanXML parsing errors to file");
 		
-		options.addOption(OPTION_SHOW_EXPERIMENT_ARGUMENTS, false, "print experiment path argument(s)");
+		options.addOption(OPTION_SHOW_EXPERIMENT_ARGUMENTS, false, "print experiment path arguments");
 				
 		parserConfig.addAdditionalOptions(options);
 		
