@@ -97,6 +97,6 @@ public class PrettyPathConverter {
 			}
 		}
 		
-		return cnt++;
+		return cnt;
 	}
 }
