@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 /*-
  * #%L
@@ -27,13 +27,14 @@ package org.anchoranalysis.launcher.executor.selectparam;
  */
 
 import java.nio.file.Path;
-import java.util.Arrays;
+import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.io.glob.GlobExtractor;
+import org.anchoranalysis.io.glob.GlobExtractor.GlobWithDirectory;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 
 /**
@@ -42,42 +43,43 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
  * @author Owen Feehan
  *
  */
-class UseAsExtension extends SelectParam<Path> {
+class UseAsGlob extends SelectParam<Path> {
 
-	private String[] extensions;
+	private String wildcardStr;
 	
 	/**
 	 * Constructor
 	 *  
 	 * @param wildcardStr string containing a wildcard
 	 */
-	public UseAsExtension(String[] extensions) {
+	public UseAsGlob(String wildcardStr) {
 		super();
-		this.extensions = extensions;
+		this.wildcardStr = wildcardStr;
 	}
 
 	@Override
 	public Path select( ExperimentExecutionArguments eea ) {
 		
-		// Remove the period from the left side
-		List<String> extWithoutPeriod = removeLeadingPeriod(extensions);
+		// Isolate a directory component, from the rest of the glob
+		// to allow matches like sdsds/sdsds/*.jpg
+		GlobWithDirectory gwd = GlobExtractor.extract(wildcardStr);
 		
-		eea.setInputFilterExtensions(
-			new HashSet<>(extWithoutPeriod)
-		);
+		if (gwd.getDirectory()!=null) {
+			eea.setInputDirectory( Paths.get(gwd.getDirectory()) );
+		}
+		
+		eea.setInputFilterGlob( gwd.getGlob() );
+		
+		// An empty set, means no filter check is applied
+		
+		eea.setInputFilterExtensions( new HashSet<String>() );
 		
 		return null;
-	}
-	
-	private static List<String> removeLeadingPeriod( String[] exts ) {
-		return Arrays.stream(exts)
-			.map( s-> s.substring(1) )
-			.collect( Collectors.toList() );
 	}
 
 	@Override
 	public String describe() throws ExperimentExecutionException {
-		return String.join(", ", extensions);
+		return wildcardStr;
 	}
 
 	@Override

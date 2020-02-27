@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 /*-
  * #%L
@@ -30,29 +30,54 @@ import java.nio.file.Path;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
 
 
 /**
- * Uses whatever default-manager exists
+ * Uses the path directory as a manager
  * 
  * @author Owen Feehan
  *
  */
-public class UseDefaultManager extends SelectParam<Path> {
+class UseDirectoryForManager extends SelectParam<Path> {
+
+	private boolean input = true;
+	private Path directory;
+	
+	/**
+	 * Constructor
+	 *  
+	 * @param input iff TRUE, then we are replacing the input-manager, otherwise the output-manager
+	 */
+	public UseDirectoryForManager(Path directory, boolean input) {
+		super();
+		this.input = input;
+		this.directory = directory;
+		assert( directory.toFile().isDirectory() );
+	}
+
+
 
 	@Override
 	public Path select( ExperimentExecutionArguments eea ) {
+		
+		if (input) {
+			eea.setInputDirectory(directory);
+		} else {
+			eea.setOutputDirectory(directory);
+		}
+		
 		return null;
 	}
 
 	@Override
-	public boolean isDefault() {
-		return true;
+	public String describe() throws ExperimentExecutionException {
+		return PrettyPathConverter.prettyPath(directory);
 	}
 
 	@Override
-	public String describe() throws ExperimentExecutionException {
-		return "default manager on current working directory";
+	public boolean isDefault() {
+		return false;
 	}
-
 }

@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.experiment;
 
 /*-
  * #%L
@@ -28,61 +28,39 @@ package org.anchoranalysis.launcher.executor.selectparam;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
 
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.io.glob.GlobExtractor;
-import org.anchoranalysis.io.glob.GlobExtractor.GlobWithDirectory;
+import org.anchoranalysis.launcher.FilePathResolver;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import org.apache.commons.cli.CommandLine;
 
 
 /**
- * Uses the path directory as a manager
+ * SelectParam<Path> factory for experiments
  * 
- * @author Owen Feehan
- *
+ * @author owen
  */
-class UseAsGlob extends SelectParam<Path> {
+public class ExperimentFactory {
 
-	private String wildcardStr;
-	
-	/**
-	 * Constructor
-	 *  
-	 * @param wildcardStr string containing a wildcard
-	 */
-	public UseAsGlob(String wildcardStr) {
-		super();
-		this.wildcardStr = wildcardStr;
-	}
-
-	@Override
-	public Path select( ExperimentExecutionArguments eea ) {
+	public static SelectParam<Path> defaultExperimentOrCustom( CommandLine line, String relativePathProperties, FilePathResolver resolver ) throws ExperimentExecutionException {
 		
-		// Isolate a directory component, from the rest of the glob
-		// to allow matches like sdsds/sdsds/*.jpg
-		GlobWithDirectory gwd = GlobExtractor.extract(wildcardStr);
-		
-		if (gwd.getDirectory()!=null) {
-			eea.setInputDirectory( Paths.get(gwd.getDirectory()) );
+		// It should only be possible to have 0 or 1 args, due to prior check
+		if (line.getArgs().length==1) {
+			return new UseExperimentPassedAsPath( extractPath(line) );
+			
+		} else {
+			// We check to see if a defaultExperimentPath is passed and use this instead
+			//
+			// This is a useful workaround to allow a helper application (e.g. WinRunJ) to always pass a defaultExperimentPath into the application
+			//  on the command-line, rather than through a properties file or some other method (which might not have the correct
+			//  path relative to the working directory.
+			//
+			// The default path is simply ignored if the user specifies their own explicit path
+			return new UseDefaultExperiment(relativePathProperties, resolver);
 		}
-		
-		eea.setInputFilterGlob( gwd.getGlob() );
-		
-		// An empty set, means no filter check is applied
-		
-		eea.setInputFilterExtensions( new HashSet<String>() );
-		
-		return null;
 	}
-
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return wildcardStr;
-	}
-
-	@Override
-	public boolean isDefault() {
-		return false;
+	
+	private static Path extractPath( CommandLine line ) {
+		return Paths.get( line.getArgs()[0] );
 	}
 }

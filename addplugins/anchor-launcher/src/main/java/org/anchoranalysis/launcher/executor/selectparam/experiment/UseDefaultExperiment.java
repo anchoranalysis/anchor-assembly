@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.experiment;
 
 /*-
  * #%L
@@ -35,8 +35,10 @@ import java.util.Properties;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.FilePathResolver;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
 
-class DefaultExperiment extends SelectParam<Path> {
+class UseDefaultExperiment extends SelectParam<Path> {
 
 	/**
 	 * A property that indicates a relative path to a default properties file
@@ -50,7 +52,7 @@ class DefaultExperiment extends SelectParam<Path> {
 	// Caches experimentPath
 	private String experimentPath = null;
 	
-	public DefaultExperiment(String relativePathProperties, FilePathResolver resolver ) {
+	public UseDefaultExperiment(String relativePathProperties, FilePathResolver resolver ) {
 		super();
 		this.relativePathProperties = relativePathProperties;
 		this.resolver = resolver;

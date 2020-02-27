@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 /*-
  * #%L
@@ -50,7 +50,7 @@ public class PrettyPathConverter {
 		);
 	}
 	
-	public static String prettyPath( Path path, Path workingDir ) {
+	static String prettyPath( Path path, Path workingDir ) {
 		
 		// First we make both paths absolute and normalized, so they have non-null roots
 		path = path.toAbsolutePath().normalize();

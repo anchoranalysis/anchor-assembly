@@ -1,11 +1,11 @@
 package org.anchoranalysis.launcher;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
-import org.anchoranalysis.launcher.executor.selectparam.SelectParamManagerFactory;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -134,13 +134,13 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	@Override
 	protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) {
 		template.setInput(
-			SelectParamManagerFactory.inputSelectParam( line, OPTION_INPUT )
+			SelectParamFactory.inputSelectParam( line, OPTION_INPUT )
 		);
 		template.setOutput(
-			SelectParamManagerFactory.outputSelectParam(line, OPTION_OUTPUT )
+			SelectParamFactory.outputSelectParam(line, OPTION_OUTPUT )
 		);
 		template.setTask(
-			SelectParamManagerFactory.pathOrTaskNameOrDefault(line, OPTION_TASK, configDir() )
+			SelectParamFactory.pathOrTaskNameOrDefault(line, OPTION_TASK, configDir() )
 		);
 		template.setDefaultBehaviourString( "Searching for inputs as per default experiment" );
 	}

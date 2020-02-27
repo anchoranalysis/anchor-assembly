@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 /*-
  * #%L
@@ -27,56 +27,62 @@ package org.anchoranalysis.launcher.executor.selectparam;
  */
 
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 
 /**
- * Uses a list of paths to specific files as a manager
+ * Uses the path directory as a manager
  * 
  * @author Owen Feehan
  *
  */
-class UseListFilesAsManager extends SelectParam<Path> {
+class UseAsExtension extends SelectParam<Path> {
 
-	private List<Path> paths;
+	private String[] extensions;
 	
 	/**
 	 * Constructor
 	 *  
-	 * @param input iff TRUE, then we are replacing the input-manager, otherwise the output-manager
+	 * @param wildcardStr string containing a wildcard
 	 */
-	public UseListFilesAsManager(List<Path> paths) {
+	public UseAsExtension(String[] extensions) {
 		super();
-		this.paths = paths;
-		checkNoDirectories(paths);
+		this.extensions = extensions;
 	}
 
 	@Override
 	public Path select( ExperimentExecutionArguments eea ) {
-
-		eea.setInputPaths(paths);
+		
+		// Remove the period from the left side
+		List<String> extWithoutPeriod = removeLeadingPeriod(extensions);
+		
+		eea.setInputFilterExtensions(
+			new HashSet<>(extWithoutPeriod)
+		);
 		
 		return null;
+	}
+	
+	private static List<String> removeLeadingPeriod( String[] exts ) {
+		return Arrays.stream(exts)
+			.map( s-> s.substring(1) )
+			.collect( Collectors.toList() );
 	}
 
 	@Override
 	public String describe() throws ExperimentExecutionException {
-		List<String> prettyPaths = paths.stream().map( PrettyPathConverter::prettyPath ).collect( Collectors.toList() );
-		return String.join(", ", prettyPaths);
+		return String.join(", ", extensions);
 	}
 
 	@Override
 	public boolean isDefault() {
 		return false;
-	}
-	
-	private void checkNoDirectories(List<Path> paths) {
-		for( Path p : paths ) {
-			assert( !p.toFile().isDirectory() );
-		}
 	}
 }

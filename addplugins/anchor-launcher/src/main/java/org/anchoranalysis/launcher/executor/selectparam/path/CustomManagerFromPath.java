@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 /*-
  * #%L
@@ -26,34 +26,29 @@ package org.anchoranalysis.launcher.executor.selectparam;
  * #L%
  */
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
- * An experiment passed as a custom-path
+ * Loads a custom-manager from a path
  * 
  * @author Owen Feehan
  *
  */
-class ExperimentPassedAsPath extends SelectParam<Path> {
+public class CustomManagerFromPath extends SelectParam<Path> {
 
 	private Path path;
-		
-	public ExperimentPassedAsPath(Path path) {
+
+	public CustomManagerFromPath(Path path) {
 		super();
 		this.path = path;
 	}
 
 	@Override
-	public Path select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
-		
-		if (Files.isDirectory(path)) {
-			throw new ExperimentExecutionException("Please select a path to experiment FILE not a folder");
-		}
-		
+	public Path select( ExperimentExecutionArguments eea ) {
 		return path;
 	}
 
@@ -65,9 +60,8 @@ class ExperimentPassedAsPath extends SelectParam<Path> {
 	@Override
 	public String describe() throws ExperimentExecutionException {
 		return String.format(
-			"experiment %s",
+			"from %s",
 			PrettyPathConverter.prettyPath(path)
 		);
 	}
-
 }

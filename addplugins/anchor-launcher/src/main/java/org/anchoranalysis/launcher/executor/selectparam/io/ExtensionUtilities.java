@@ -1,10 +1,10 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,41 +26,27 @@ package org.anchoranalysis.launcher.executor.selectparam;
  * #L%
  */
 
-import java.nio.file.Path;
+import org.apache.commons.io.FilenameUtils;
 
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
-import org.anchoranalysis.experiment.ExperimentExecutionException;
+class ExtensionUtilities {
 
-/**
- * Loads a custom-manager from a path
- * 
- * @author Owen Feehan
- *
- */
-class CustomManagerFromPath extends SelectParam<Path> {
-
-	private Path path;
-
-	public CustomManagerFromPath(Path path) {
-		super();
-		this.path = path;
+	public static boolean hasXmlExtension( String path ) {
+		return FilenameUtils.getExtension(path).equalsIgnoreCase("xml");
 	}
-
-	@Override
-	public Path select( ExperimentExecutionArguments eea ) {
-		return path;
-	}
-
-	@Override
-	public boolean isDefault() {
-		return false;
-	}
-
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return String.format(
-			"from %s",
-			PrettyPathConverter.prettyPath(path)
-		);
+		
+	public static boolean isFileExtension( String arg ) {
+		if (!arg.startsWith(".")) {
+			return false;
+		}
+		
+		if (arg.contains("/") || arg.contains("\\")) {
+			return false;
+		}
+		
+		if (arg.equals(".") || arg.equals("..")) {
+			return false;
+		}
+		
+		return true;
 	}
 }

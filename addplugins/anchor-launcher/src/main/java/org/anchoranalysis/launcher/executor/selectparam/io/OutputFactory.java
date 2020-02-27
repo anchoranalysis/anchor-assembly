@@ -1,10 +1,10 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,54 +28,34 @@ package org.anchoranalysis.launcher.executor.selectparam;
 
 import java.nio.file.Path;
 
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
-import org.anchoranalysis.experiment.ExperimentExecutionException;
-
+import org.anchoranalysis.launcher.CommandLineException;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
+import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
 
 /**
- * Uses the path directory as a manager
+ * SelectParam<Path> factory for outputs
  * 
- * @author Owen Feehan
+ * @author owen
  *
  */
-class UseDirectoryAsManager extends SelectParam<Path> {
+public class OutputFactory {
 
-	private boolean input = true;
-	private Path directory;
-	
-	/**
-	 * Constructor
-	 *  
-	 * @param input iff TRUE, then we are replacing the input-manager, otherwise the output-manager
-	 */
-	public UseDirectoryAsManager(Path directory, boolean input) {
-		super();
-		this.input = input;
-		this.directory = directory;
-		assert( directory.toFile().isDirectory() );
-	}
-
-
-
-	@Override
-	public Path select( ExperimentExecutionArguments eea ) {
-		
-		if (input) {
-			eea.setInputDirectory(directory);
-		} else {
-			eea.setOutputDirectory(directory);
+	/** If the argument is a path to a directory, then this directory is set as the default. Otherwise the argument is treated like a path to BeanXML 
+	 * @throws CommandLineException  */
+	public static SelectParam<Path> pathOrDirectory( String[] arg, boolean input ) {
+    	
+		if (arg.length>1) {
+			throw new CommandLineException("More than one argument was passed to -o. Only one is allowed!");
 		}
 		
-		return null;
+    	Path path = PathConverter.pathFromArg(arg[0]);
+		
+		if (path.toFile().isDirectory()) {
+    		return new UseDirectoryForManager(path, input);
+    	} else {
+    		return new CustomManagerFromPath(path);	
+    	}
 	}
-
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return PrettyPathConverter.prettyPath(directory);
-	}
-
-	@Override
-	public boolean isDefault() {
-		return false;
-	}
+	
 }

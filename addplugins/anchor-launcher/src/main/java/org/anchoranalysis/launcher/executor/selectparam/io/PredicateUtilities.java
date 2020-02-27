@@ -1,10 +1,10 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,33 +26,41 @@ package org.anchoranalysis.launcher.executor.selectparam;
  * #L%
  */
 
-import java.nio.file.Path;
-
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
-import org.anchoranalysis.experiment.ExperimentExecutionException;
-
+import java.util.List;
+import java.util.function.Predicate;
 
 /**
- * Uses whatever default-manager exists
+ * Tests certain conditions across arrays or lists
  * 
- * @author Owen Feehan
+ * @author owen
  *
  */
-public class UseDefaultManager extends SelectParam<Path> {
+class PredicateUtilities {
 
-	@Override
-	public Path select( ExperimentExecutionArguments eea ) {
-		return null;
+	public static <T> boolean anyHas( T[] args, Predicate<T> pred ) {
+		for( T arg : args ) {
+			if (pred.test(arg)) {
+				return true;
+			}
+		}
+		return false;
 	}
-
-	@Override
-	public boolean isDefault() {
+	
+	public static <T> boolean anyHas( List<T> args, Predicate<T> pred ) {
+		for( T arg : args ) {
+			if (pred.test(arg)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static <T> boolean allHave( T[] args, Predicate<T> pred ) {
+		for( T arg : args ) {
+			if (!pred.test(arg)) {
+				return false;
+			}
+		}
 		return true;
 	}
-
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return "default manager on current working directory";
-	}
-
 }
