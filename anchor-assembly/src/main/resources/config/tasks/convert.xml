@@ -1,0 +1,4 @@
+<!-- Converts an image into default output format (usually TIFF) -->
+<config>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.FormatConverterTask" preferRGB="true"/>
+</config>
