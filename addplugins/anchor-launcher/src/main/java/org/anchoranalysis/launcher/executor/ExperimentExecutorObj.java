@@ -107,7 +107,8 @@ class ExperimentExecutorObj {
 	 */
 	public void executeExperiment( Experiment experiment, ExperimentExecutionArguments ea, Path pathInput, Path pathOutput, Path pathTask ) throws ExperimentExecutionException {		
 				
-		if (defaultExtensions!=null) {
+		if (!ea.hasInputFilterExtensions() &&  defaultExtensions!=null) {
+			// If no input-filter extensions have been specified and defaults are available, they are inserted in
 			ea.setInputFilterExtensions(defaultExtensions);
 		}
 		

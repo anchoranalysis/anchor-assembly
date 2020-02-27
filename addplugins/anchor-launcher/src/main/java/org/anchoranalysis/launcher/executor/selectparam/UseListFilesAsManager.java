@@ -27,8 +27,6 @@ package org.anchoranalysis.launcher.executor.selectparam;
  */
 
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,51 +35,48 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 
 
 /**
- * Uses the path directory as a manager
+ * Uses a list of paths to specific files as a manager
  * 
  * @author Owen Feehan
  *
  */
-class UseAsExtension extends SelectParam<Path> {
+class UseListFilesAsManager extends SelectParam<Path> {
 
-	private String[] extensions;
+	private List<Path> paths;
 	
 	/**
 	 * Constructor
 	 *  
-	 * @param wildcardStr string containing a wildcard
+	 * @param input iff TRUE, then we are replacing the input-manager, otherwise the output-manager
 	 */
-	public UseAsExtension(String[] extensions) {
+	public UseListFilesAsManager(List<Path> paths) {
 		super();
-		this.extensions = extensions;
+		this.paths = paths;
+		checkNoDirectories(paths);
 	}
 
 	@Override
 	public Path select( ExperimentExecutionArguments eea ) {
-		
-		// Remove the period from the left side
-		List<String> extWithoutPeriod = removeLeadingPeriod(extensions);
-		
-		eea.setInputFilterExtensions(
-			new HashSet<>(extWithoutPeriod)
-		);
+
+		eea.setInputPaths(paths);
 		
 		return null;
-	}
-	
-	private static List<String> removeLeadingPeriod( String[] exts ) {
-		return Arrays.stream(exts)
-			.map( s-> s.substring(1) )
-			.collect( Collectors.toList() );
 	}
 
 	@Override
 	public String describe() throws ExperimentExecutionException {
-		return String.join(", ", extensions);
+		List<String> prettyPaths = paths.stream().map( PrettyPathConverter::prettyPath ).collect( Collectors.toList() );
+		return String.join(", ", prettyPaths);
 	}
 
 	@Override
 	public boolean isDefault() {
 		return false;
+	}
+	
+	private void checkNoDirectories(List<Path> paths) {
+		for( Path p : paths ) {
+			assert( !p.toFile().isDirectory() );
+		}
 	}
 }

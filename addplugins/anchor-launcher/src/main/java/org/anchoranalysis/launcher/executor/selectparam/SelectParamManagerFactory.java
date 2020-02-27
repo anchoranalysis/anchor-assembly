@@ -28,9 +28,15 @@ package org.anchoranalysis.launcher.executor.selectparam;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
+import org.anchoranalysis.launcher.CommandLineException;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * Creates an appropriate SelectParam based upon the options passed to the command-line
@@ -58,7 +64,7 @@ public class SelectParamManagerFactory {
 	 * @return an appropriate SelectParam object
 	 */
 	public static SelectParam<Path> pathOrTaskNameOrDefault( CommandLine line, String optionName, Path configDir ) {
-		return ifOption(line, optionName, arg -> pathOrTaskName(arg, configDir) );
+		return ifOption(line, optionName, args -> pathOrTaskName(args, configDir) );
 	}
 	
 	/**
@@ -78,7 +84,7 @@ public class SelectParamManagerFactory {
 		CommandLine line,
 		String optionName
 	) {
-		return ifOption(line, optionName, arg -> pathOrDirectoryOrGlobOrExtension(arg) );
+		return ifOption(line, optionName, args -> pathOrDirectoryOrGlobOrExtension(args) );
 	}
 	
 	
@@ -100,19 +106,24 @@ public class SelectParamManagerFactory {
 		return ifOption(line, optionName, arg -> pathOrDirectory(arg, false) );
 	}
 	
-	private static SelectParam<Path> ifOption(CommandLine line, String optionName, Function<String,SelectParam<Path>> func ) {
+	private static SelectParam<Path> ifOption(CommandLine line, String optionName, Function<String[],SelectParam<Path>> func ) {
 		if (line.hasOption(optionName)) {
-        	return func.apply( line.getOptionValue(optionName) );
+        	return func.apply( line.getOptionValues(optionName) );
         	
         } else {
         	return new UseDefaultManager();
         }
 	}
 	
-	/** If the argument is a path to a directory, then this directory is set as the default. Otherwise the argument is treated like a path to BeanXML */
-	private static SelectParam<Path> pathOrDirectory( String arg, boolean input ) {
+	/** If the argument is a path to a directory, then this directory is set as the default. Otherwise the argument is treated like a path to BeanXML 
+	 * @throws CommandLineException  */
+	private static SelectParam<Path> pathOrDirectory( String[] arg, boolean input ) {
     	
-    	Path path = pathFromArg(arg);
+		if (arg.length>1) {
+			throw new CommandLineException("More than one argument was passed to -o. Only one is allowed!");
+		}
+		
+    	Path path = pathFromArg(arg[0]);
 		
 		if (path.toFile().isDirectory()) {
     		return new UseDirectoryAsManager(path, input);
@@ -122,35 +133,96 @@ public class SelectParamManagerFactory {
 	}
 	
 	
-	private static SelectParam<Path> pathOrDirectoryOrGlobOrExtension( String arg ) {
+	private static SelectParam<Path> pathOrDirectoryOrGlobOrExtension( String[] args ) {
 
 		// If it contains a wildcard, assume its a glob
-		if (arg.contains("*")) {
-			return new UseAsGlob(arg);
+		if (anyHas(args, s->s.contains("*"))) {
+			if (args.length==1) {
+				return new UseAsGlob(args[0]);
+			} else {
+				throw new CommandLineException("Only a single wildcard argument is permitted to -i");
+			}
 		}
 		
 		// If it begins with a period, and no slashes, then assume it's a file extension
-		if (isFileExtension(arg)) {
-			return new UseAsExtension(arg);
+		if (anyHas(args, SelectParamManagerFactory::isFileExtension)) {
+			if (allHave(args, SelectParamManagerFactory::isFileExtension)) {
+				return new UseAsExtension(args);	
+			} else {
+				throw new CommandLineException("If a file-extension (e.g. .png) is specified, all other arguments to -i must also be file-extensions");
+			}
+			
 		}
 				
-    	Path path = pathFromArg(arg);
+		if (anyHas(args, SelectParamManagerFactory::hasXmlExtension)) {
+			if (args.length==1) {
+				return new CustomManagerFromPath( pathFromArg(args[0]) );
+			} else {
+				throw new CommandLineException("Only a single BeanXML argument is permitted after -i (i.e. with a path with a .xml extension)");
+			}
+			
+		}
+				
+		List<Path> paths = pathFromArgs(args);
 		
-		if (path.toFile().isDirectory()) {
-    		return new UseDirectoryAsManager(path, true);
-    	} else {
-    		return new CustomManagerFromPath(path);	
-    	}
+		if (anyHas(paths, p->p.toFile().isDirectory())) {
+			if (args.length==1) {
+				return new UseDirectoryAsManager(paths.get(0), true);
+			} else {
+				throw new CommandLineException("Only a single argument is permitted after -i if it's a directory");
+			}
+			
+		}
+		
+		return new UseListFilesAsManager(paths);
+		//throw new CommandLineException("At least one argument passed to -i was not recognised");
+	}
+	
+	private static boolean hasXmlExtension( String path ) {
+		return FilenameUtils.getExtension(path).equalsIgnoreCase("xml");
+	}
+	
+	private static <T> boolean anyHas( T[] args, Predicate<T> pred ) {
+		for( T arg : args ) {
+			if (pred.test(arg)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private static <T> boolean anyHas( List<T> args, Predicate<T> pred ) {
+		for( T arg : args ) {
+			if (pred.test(arg)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private static boolean allHave( String[] args, Predicate<String> pred ) {
+		for( String arg : args ) {
+			if (!pred.test(arg)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/** If the argument a name (no extension, no root, no special-chars apart from forward-slashes), then construct an automatic path to the tasks
 	 *  in the configuration directory. Otherwise treat as path to BeanXML */
-	private static SelectParam<Path> pathOrTaskName( String arg, Path configDir ) {
+	private static SelectParam<Path> pathOrTaskName( String[] args, Path configDir ) {
     	
-		if (isTaskName(arg)) {
-			return new CustomManagerFromPath( constructPathForTaskName(arg, configDir) );
+		if (args.length!=1) {
+			throw new CommandLineException("One and only one argument is permitted after -t");
+		}
+		
+		String taskArg = args[0];
+		
+		if (isTaskName(taskArg)) {
+			return new CustomManagerFromPath( constructPathForTaskName(taskArg, configDir) );
 		} else {
-			return new CustomManagerFromPath( pathFromArg(arg) );
+			return new CustomManagerFromPath( pathFromArg(taskArg) );
 		}
 	}
 	
@@ -162,7 +234,11 @@ public class SelectParamManagerFactory {
 	private static boolean isTaskName( String arg ) {
 		return arg.matches("^[a-zA-Z0-9_\\-\\/]+$");
 	}
-		
+	
+	private static List<Path> pathFromArgs( String[] args ) {
+		return Arrays.stream(args).map( SelectParamManagerFactory::pathFromArg ).collect( Collectors.toList() );
+	}
+	
 	private static Path pathFromArg( String arg ) {
 		return Paths.get(arg).toAbsolutePath();
 	}

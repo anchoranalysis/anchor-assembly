@@ -15,7 +15,6 @@
   <notDetailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
       <list config-class="java.util.List" config-factory="list">
           <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
-          <item config-class="org.anchoranalysis.experiment.bean.logreporter.FailureOnlyTextFileLogReporterBean"/>
       </list>
   </notDetailed>
   

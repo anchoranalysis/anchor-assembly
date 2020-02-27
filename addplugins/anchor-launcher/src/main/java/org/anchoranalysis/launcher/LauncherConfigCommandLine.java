@@ -7,6 +7,7 @@ import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 /*
@@ -73,11 +74,18 @@ class LauncherConfigCommandLine extends LauncherConfig {
 		
 		options.addOption(OPTION_DEBUG, false, "enables debug mode");
 		
-		options.addOption(OPTION_INPUT, true, "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML");
+		addInputOption(options);
 		
 		options.addOption(OPTION_OUTPUT, true, "an output-directory OR path to BeanXML");
 		
 		options.addOption(OPTION_TASK, true, "a task-name OR path to BeanXML");
+	}
+	
+	/** The input option is added separately as it can take more than a single argument */
+	private void addInputOption(Options options) {
+		Option optionInput = new Option(OPTION_INPUT, true, "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML");
+		optionInput.setArgs(Option.UNLIMITED_VALUES);
+		options.addOption(optionInput);		
 	}
 	
 	@Override
