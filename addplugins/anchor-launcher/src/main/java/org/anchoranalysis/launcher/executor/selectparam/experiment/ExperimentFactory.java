@@ -60,7 +60,14 @@ public class ExperimentFactory {
 		}
 	}
 	
-	private static Path extractPath( CommandLine line ) {
-		return Paths.get( line.getArgs()[0] );
+	private static Path extractPath( CommandLine line ) throws ExperimentExecutionException {
+		String str = line.getArgs()[0];
+		
+		if (str.contains("*")) {
+			throw new ExperimentExecutionException(
+				String.format("Cannot accept a wildcard in path to experiment BeanXML: %s", str)
+			);
+		}
+		return Paths.get( str );
 	}
 }
