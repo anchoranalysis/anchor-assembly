@@ -136,6 +136,6 @@ class LauncherConfigCommandLine extends LauncherConfig {
 		template.setTask(
 			SelectParamFactory.pathOrTaskNameOrDefault(line, OPTION_TASK, configDir() )
 		);
-		template.setDefaultBehaviourString( "Searching for inputs as per default experiment. CTRL+C cancels." );
+		template.setDefaultBehaviourString( "Searching for inputs as per default experiment. CTRL+C cancels" );
 	}
 }
