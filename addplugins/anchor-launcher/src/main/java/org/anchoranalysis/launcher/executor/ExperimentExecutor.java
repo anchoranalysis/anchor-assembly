@@ -71,7 +71,7 @@ public class ExperimentExecutor {
 	 */
 	public void executeExperiment( Path pathExecutionDirectory, ExperimentExecutionArguments execArgs, boolean alwaysShowExperimentArgs, LogReporter logger ) throws ExperimentExecutionException {
 		
-		ExperimentExecutorObj delegate = new ExperimentExecutorObj(execArgs.isGUIEnabled(), pathExecutionDirectory);
+		ExperimentExecutorObj delegate = new ExperimentExecutorObj(pathExecutionDirectory);
 				
 		if (defaultBehaviourString!=null) {
 			// Special behaviour if everything has defaults

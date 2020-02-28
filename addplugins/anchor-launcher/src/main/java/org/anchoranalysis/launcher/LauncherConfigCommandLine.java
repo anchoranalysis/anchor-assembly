@@ -45,7 +45,6 @@ import org.apache.commons.cli.Options;
 class LauncherConfigCommandLine extends LauncherConfig {
 	
 	// START: Options
-	private static final String OPTION_GUI = "g";
 	private static final String OPTION_DEBUG = "d";
 	private static final String OPTION_INPUT = "i";
 	private static final String OPTION_OUTPUT = "o";
@@ -69,8 +68,6 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	 */
 	@Override
 	public void addAdditionalOptions(Options options) {
-	
-		options.addOption(OPTION_GUI, false, "enables GUI display dialogs");
 		
 		options.addOption(OPTION_DEBUG, false, "enables debug mode");
 		
@@ -102,9 +99,6 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	@Override
 	public ExperimentExecutionArguments createArguments( CommandLine line ) {
 		ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
-        if (line.hasOption(OPTION_GUI)) {
-        	ea.setGUIEnabled(true);
-        }
         if (line.hasOption(OPTION_DEBUG)) {
         	ea.setDebugEnabled(true);
         }

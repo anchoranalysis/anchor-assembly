@@ -58,8 +58,8 @@ class ExperimentExecutorObj {
 	
 	private static Set<String> defaultExtensions;
 	
-	public ExperimentExecutorObj( boolean gui, Path pathExecutionDirectory ) throws ExperimentExecutionException {
-		initializeIfNecessary(gui, pathExecutionDirectory, true, true );
+	public ExperimentExecutorObj( Path pathExecutionDirectory ) throws ExperimentExecutionException {
+		initializeIfNecessary(pathExecutionDirectory, true, true );
 		// Only accessible through static methods
 	}
 	
@@ -71,7 +71,7 @@ class ExperimentExecutorObj {
 	 * @param includeRootPaths if TRUE, a root bank is sought among the configurations and loaded
 	 * @throws ExperimentExecutionException 
 	 */
-	static void initializeIfNecessary( boolean gui, Path pathExecutionDirectory, boolean includeDefaultInstances, boolean includeRootPaths ) throws ExperimentExecutionException {
+	static void initializeIfNecessary( Path pathExecutionDirectory, boolean includeDefaultInstances, boolean includeRootPaths ) throws ExperimentExecutionException {
 		if (!RegisterBeanFactories.isCalledRegisterAllPackage()) {
 			
 			// We first register all bean-factories without any default instances, so we can load
