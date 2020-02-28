@@ -1,0 +1,14 @@
+<config>
+<bean config-class="org.anchoranalysis.plugin.io.bean.output.OutputManagerPermissiveExcept" delExistingFolder="false">
+    
+    <filePathPrefixer config-class="org.anchoranalysis.plugin.io.bean.filepath.prefixer.FilePathPrefixerFromDescriptiveName"/>
+
+    <except config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
+      <item>manifest</item>
+      <item>manifestExperiment</item>
+      <item>config</item>
+      <item>executionTime</item>
+    </except>
+    
+</bean>
+</config>
