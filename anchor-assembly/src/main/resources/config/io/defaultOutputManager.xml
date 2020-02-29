@@ -10,5 +10,13 @@
       <item>executionTime</item>
     </except>
     
+    <exceptSecondLevel config-class="java.util.List" config-factory="list">
+    
+        <item config-class="org.anchoranalysis.bean.NamedBean" name="stack">
+		    <item config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
+		      <item>input_image</item>
+		    </item>
+        </item>
+    </exceptSecondLevel>
 </bean>
 </config>

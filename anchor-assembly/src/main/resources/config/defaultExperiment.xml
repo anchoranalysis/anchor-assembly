@@ -40,8 +40,10 @@
   
     <taskProcessor keepProcessorsFree="1" config-class="org.anchoranalysis.experiment.bean.processor.ParallelProcessor" supressExceptions="true">
 	  
-        <!--  Default task -->
-        <task filePath="tasks/summarizePaths.xml" config-class="org.anchoranalysis.experiment.task.Task" config-factory="include"/>
+	    <task config-class="org.anchoranalysis.mpp.io.bean.task.ConvertNamedChnlsInputTask">
+	        <!--  Default task -->
+	        <task filePath="tasks/summarizePaths.xml" config-class="org.anchoranalysis.experiment.task.Task" config-factory="include"/>
+        </task>
 	  		  
     </taskProcessor>
 </experiment>
