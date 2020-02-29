@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config>
+<bean config-class="java.util.Set" config-factory="stringSet">
+
+	<item>jpg</item>
+	<item>jp2</item>
+	<item>jpeg</item>
+	<item>tif</item>
+	<item>tiff</item>
+	<item>tf2</item>
+	<item>tf8</item>
+	<item>btf</item>
+	<item>gif</item>
+	<item>bmp</item>
+	
+	<item>ome.tiff</item>
+	<item>ome.tif</item>
+	<item>ome.tf2</item>
+	<item>ome.tf8</item>
+	<item>ome.btf</item>
+	<item>ome.xml</item>
+	<item>ome</item>
+	
+	<!-- From bioformats -->
+	<item>sld</item>
+	<item>aim</item>
+	<item>al3d</item>
+	<item>gel</item>
+	<item>am</item>
+	<item>amiramesh</item>
+	<item>grey</item>
+	<item>hx</item>
+	<item>labels</item>
+	<item>cif</item>
+	<item>img</item>
+	<item>hdr</item>
+	<item>sif</item>
+	<item>afi</item>
+	<item>svs</item>
+	<item>htd</item>
+	<item>pnl</item>
+	<item>avi</item>
+	<item>arf</item>
+	<item>exp</item>
+	<item>spc</item>
+	<item>sdt</item>
+	<item>1sc</item>
+	
+	<item>pic</item>
+	<item>scn</item>
+	
+	<item>ims</item>
+	<item>img</item>
+	
+	<item>cr2</item>
+	<item>crw</item>
+	<item>ch5</item>
+	<item>c01</item>
+	<item>din</item>
+	
+	<item>vsi</item>
+	
+	<item>dv</item>
+	<item>r3d</item>
+	
+	<item>dcm</item>
+	<item>dicom</item>
+	
+	<item>v</item>
+	
+	<item>eps</item>
+	<item>epsi</item>
+	<item>ps</item>
+	
+	<item>flex</item>
+	<item>mea</item>
+	
+	<item>fits</item>
+	
+	<item>dm2</item>
+	<item>dm3</item>
+	<item>dm4</item>
+	
+	<item>naf</item>
+	<item>his</item>
+	
+	<item>ndpi</item>
+	<item>ndpis</item>
+	
+	<item>vms</item>
+	
+	<item>i2i</item>
+	<item>ics</item>
+	<item>ids</item>
+	
+	<item>fff</item>
+	<item>seq</item>
+	
+	<item>ipw</item>
+	
+	<item>hed</item>
+	<item>mod</item>
+	
+	<item>liff</item>
+	<item>raw</item>
+	
+	<item>frm</item>
+	<item>inr</item>
+	
+	<item>ipl</item>
+	<item>ipm</item>
+	
+	<item>jpk</item>
+	<item>jpx</item>
+	
+	<item>xv</item>
+	
+	<item>bip</item>
+	
+	<item>fli</item>
+	
+	<item>msr</item>
+	
+	<item>lei</item>
+	<item>lif</item>
+	
+	<item>scn</item>
+	
+	<item>sxm</item>
+	
+	<item>l2d</item>
+	<item>lim</item>
+	
+	<item>stk</item>
+	<item>nd</item>
+	
+	<item>mnc</item>
+	<item>mrw</item>
+	<item>mng</item>
+	
+	<item>stp</item>
+	<item>mrc</item>
+	
+	<item>nef</item>
+	
+	<item>hdr</item>
+	<item>nii</item>
+	<item>nii.gz</item>
+	
+	<item>nd2</item>
+	<item>nrrd</item>
+	<item>nhdr</item>
+	
+	<item>apl</item>
+	<item>mtb</item>
+	<item>tnb</item>
+	<item>obsep</item>
+	
+	<item>oib</item>
+	<item>oif</item>
+	<item>oir</item>
+	
+	<item>top</item>
+	<item>pcoraw</item>
+	<item>rec</item>
+	
+	<item>pcx</item>
+	<item>pds</item>
+	
+	<item>im3</item>
+	
+	<item>qptiff</item>
+	
+	<item>pbm</item>
+	<item>pgm</item>
+	<item>ppm</item>
+	
+	<item>png</item>
+	
+	<item>psd</item>
+	
+	<item>pict</item>
+	
+	<item>spe</item>
+	<item>afm</item>
+	
+	<item>mov</item>
+	
+	<item>sm2</item>
+	<item>sm3</item>
+	
+	<item>xqd</item>
+	<item>xqf</item>
+	
+	<item>cxd</item>
+	
+	<item>spi</item>
+	<item>stk</item>
+	<item>tga</item>
+	
+	<item>vws</item>
+	
+	<item>tfr</item>
+	<item>ffr</item>
+	<item>zfr</item>
+	<item>zfp</item>
+	<item>2fl</item>
+	
+	<item>sld</item>
+	
+	<item>pr3</item>
+	
+	<item>fdf</item>
+	<item>hdf</item>
+	<item>dti</item>
+	<item>xys</item>
+	<item>mvd2</item>
+	
+	<item>acff</item>
+	<item>wat</item>
+	<item>wlz</item>
+	
+	<item>lms</item>
+	
+	<item>mdb</item>
+	
+	<item>zvi</item>
+	<item>czi</item>
+	<item>lsm</item>
+	<item>mdb</item>
+</bean>
+</config>

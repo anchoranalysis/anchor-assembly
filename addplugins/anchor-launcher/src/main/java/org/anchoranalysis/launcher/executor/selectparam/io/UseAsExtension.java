@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 /*-
  * #%L
@@ -27,40 +27,62 @@ package org.anchoranalysis.launcher.executor.selectparam;
  */
 
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+
 
 /**
- * Loads a custom-manager from a path
+ * Uses the path directory as a manager
  * 
  * @author Owen Feehan
  *
  */
-class CustomManagerFromPath extends SelectParam<Path> {
+class UseAsExtension extends SelectParam<Path> {
 
-	private Path path;
-
-	public CustomManagerFromPath(Path path) {
+	private String[] extensions;
+	
+	/**
+	 * Constructor
+	 *  
+	 * @param wildcardStr string containing a wildcard
+	 */
+	public UseAsExtension(String[] extensions) {
 		super();
-		this.path = path;
+		this.extensions = extensions;
 	}
 
 	@Override
 	public Path select( ExperimentExecutionArguments eea ) {
-		return path;
+		
+		// Remove the period from the left side
+		List<String> extWithoutPeriod = removeLeadingPeriod(extensions);
+		
+		eea.setInputFilterExtensions(
+			new HashSet<>(extWithoutPeriod)
+		);
+		
+		return null;
+	}
+	
+	private static List<String> removeLeadingPeriod( String[] exts ) {
+		return Arrays.stream(exts)
+			.map( s-> s.substring(1) )
+			.collect( Collectors.toList() );
+	}
+
+	@Override
+	public String describe() throws ExperimentExecutionException {
+		return String.join(", ", extensions);
 	}
 
 	@Override
 	public boolean isDefault() {
 		return false;
-	}
-
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return String.format(
-			"from %s",
-			PrettyPathConverter.prettyPath(path)
-		);
 	}
 }

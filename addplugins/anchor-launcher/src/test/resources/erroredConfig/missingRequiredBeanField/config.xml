@@ -2,19 +2,21 @@
 <config>
 <experiment config-class="org.anchoranalysis.anchor.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" folderOutput="../output/" inputName="stackInput">
 
+    <logReporterTask config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+
 	<task config-class="ch.ethz.biol.cell.countchrom.experiment.SharedObjectsMultiInputTask" suppressSubfolders="false" nrgParamsName="input_params">
 		  <namedDefinitions config-class="java.util.List" config-factory="include" filePath="namedDefinitions.xml"/>
-		  <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
 	</task>
 	 
-   <outputEnabled config-class="org.anchoranalysis.io.bean.output.allowed.SpecificOutputAllowed">
+   <outputEnabled config-class="org.anchoranalysis.plugin.io.bean.output.allowed.SpecificOutputAllowed">
 	  	<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>stackCollection</item>
 			<item>objMaskCollection</item>
 			<item>cfgCollection</item>
 			<item>log</item>
 			<item>errors</item>
-			<item>messagelog</item>
+			<item>experiment_log</item>
+			<item>job_log</item>
 			<item>manifest</item>
 			<item>manifestExperiment</item>
 			<item>objMaskCollection</item>
@@ -24,7 +26,7 @@
 	</outputEnabled>
 	
 	
-	<stackCollectionOutputEnabled config-class="org.anchoranalysis.io.bean.output.allowed.SpecificOutputAllowed">
+	<stackCollectionOutputEnabled config-class="org.anchoranalysis.plugin.io.bean.output.allowed.SpecificOutputAllowed">
 		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>chnlInput</item>
 			<item>stackEllipses</item>
@@ -32,7 +34,7 @@
 		</outputsAllowed>
 	</stackCollectionOutputEnabled>
 
-	<objMaskCollectionOutputEnabled config-class="org.anchoranalysis.io.bean.output.allowed.SpecificOutputAllowed">
+	<objMaskCollectionOutputEnabled config-class="org.anchoranalysis.plugin.io.bean.output.allowed.SpecificOutputAllowed">
 		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>objsSgmn</item>
 		</outputsAllowed>

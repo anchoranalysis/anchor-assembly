@@ -55,9 +55,7 @@ class LauncherConfigBrowser extends LauncherConfig {
 
 	@Override
 	public ExperimentExecutionArguments createArguments( CommandLine line ) {
-		 ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
-	     ea.setGUIEnabled(true);
-	     return ea;
+		 return new ExperimentExecutionArguments();
 	}
 
 	@Override

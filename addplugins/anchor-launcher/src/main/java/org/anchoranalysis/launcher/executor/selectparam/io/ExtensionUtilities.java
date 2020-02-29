@@ -1,10 +1,10 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,33 +26,27 @@ package org.anchoranalysis.launcher.executor.selectparam;
  * #L%
  */
 
-import java.nio.file.Path;
+import org.apache.commons.io.FilenameUtils;
 
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
-import org.anchoranalysis.experiment.ExperimentExecutionException;
+class ExtensionUtilities {
 
-
-/**
- * Uses whatever default-manager exists
- * 
- * @author Owen Feehan
- *
- */
-public class UseDefaultManager extends SelectParam<Path> {
-
-	@Override
-	public Path select( ExperimentExecutionArguments eea ) {
-		return null;
+	public static boolean hasXmlExtension( String path ) {
+		return FilenameUtils.getExtension(path).equalsIgnoreCase("xml");
 	}
-
-	@Override
-	public boolean isDefault() {
+		
+	public static boolean isFileExtension( String arg ) {
+		if (!arg.startsWith(".")) {
+			return false;
+		}
+		
+		if (arg.contains("/") || arg.contains("\\")) {
+			return false;
+		}
+		
+		if (arg.equals(".") || arg.equals("..")) {
+			return false;
+		}
+		
 		return true;
 	}
-
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return "default manager on current working directory";
-	}
-
 }

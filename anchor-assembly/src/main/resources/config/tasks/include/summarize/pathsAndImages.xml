@@ -1,0 +1,26 @@
+<config>
+<bean config-class="java.util.List" config-factory="list">
+    
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.input.ExtractPath">
+        <summarizer config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
+    </item>
+        
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.input.ExtractPath">
+	    <summarizer config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.ExtensionCount"/>
+	</item>
+    
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.image.ImageSize"/>
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.image.NumberChnls"/>
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.image.BitDepth"/>
+
+        
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.input.ExtractPath">
+        <summarizer config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FileSizeStatistics"/>
+    </item>
+            
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.input.ExtractPath">
+        <summarizer config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FilePathPattern"/>
+    </item>
+    
+</bean>
+</config>

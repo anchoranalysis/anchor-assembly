@@ -1,10 +1,10 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.task;
 
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,29 +30,38 @@ import java.nio.file.Path;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
- * Uses whatever default-manager exists
+ * Updates task-name AND delegates to another SelectParam<Path>
  * 
- * @author Owen Feehan
+ * @author owen
  *
  */
-public class UseDefaultManager extends SelectParam<Path> {
+class UpdateTaskName extends SelectParam<Path> {
+
+	private SelectParam<Path> delegate;
+	private String taskName;
+
+	public UpdateTaskName(SelectParam<Path> delegate, String taskName) {
+		super();
+		this.delegate = delegate;
+		this.taskName = taskName;
+	}
 
 	@Override
-	public Path select( ExperimentExecutionArguments eea ) {
-		return null;
+	public Path select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
+		eea.setTaskName(taskName);
+		return delegate.select(eea);
 	}
 
 	@Override
 	public boolean isDefault() {
-		return true;
+		return delegate.isDefault();
 	}
 
 	@Override
 	public String describe() throws ExperimentExecutionException {
-		return "default manager on current working directory";
+		return delegate.describe();
 	}
-
 }

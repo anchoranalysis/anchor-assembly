@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 /*-
  * #%L
@@ -27,32 +27,63 @@ package org.anchoranalysis.launcher.executor.selectparam;
  */
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.io.glob.GlobExtractor;
+import org.anchoranalysis.io.glob.GlobExtractor.GlobWithDirectory;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 
 /**
- * Uses whatever default-manager exists
+ * Uses the path directory as a manager
  * 
  * @author Owen Feehan
  *
  */
-public class UseDefaultManager extends SelectParam<Path> {
+class UseAsGlob extends SelectParam<Path> {
+
+	private String wildcardStr;
+	
+	/**
+	 * Constructor
+	 *  
+	 * @param wildcardStr string containing a wildcard
+	 */
+	public UseAsGlob(String wildcardStr) {
+		super();
+		this.wildcardStr = wildcardStr;
+	}
 
 	@Override
 	public Path select( ExperimentExecutionArguments eea ) {
+		
+		// Isolate a directory component, from the rest of the glob
+		// to allow matches like sdsds/sdsds/*.jpg
+		GlobWithDirectory gwd = GlobExtractor.extract(wildcardStr);
+		
+		if (gwd.getDirectory()!=null) {
+			eea.setInputDirectory( Paths.get(gwd.getDirectory()) );
+		}
+		
+		eea.setInputFilterGlob( gwd.getGlob() );
+		
+		// An empty set, means no filter check is applied
+		
+		eea.setInputFilterExtensions( new HashSet<String>() );
+		
 		return null;
 	}
 
 	@Override
-	public boolean isDefault() {
-		return true;
+	public String describe() throws ExperimentExecutionException {
+		return wildcardStr;
 	}
 
 	@Override
-	public String describe() throws ExperimentExecutionException {
-		return "default manager on current working directory";
+	public boolean isDefault() {
+		return false;
 	}
-
 }

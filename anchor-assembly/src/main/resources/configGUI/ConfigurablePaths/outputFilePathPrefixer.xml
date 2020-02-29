@@ -26,5 +26,5 @@
   -->
 
 <config>
-<bean subDirectoryName="interactiveOutput" config-class="org.anchoranalysis.plugin.io.bean.filepath.rslvr.HomeSubdirectory"/>
+<bean subDirectoryName="interactiveOutput" config-class="org.anchoranalysis.plugin.io.bean.filepath.prefixer.HomeSubdirectory"/>
 </config>

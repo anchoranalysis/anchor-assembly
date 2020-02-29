@@ -1,12 +1,13 @@
 package org.anchoranalysis.launcher;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
-import org.anchoranalysis.launcher.executor.selectparam.SelectParamManagerFactory;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 /*
@@ -44,7 +45,6 @@ import org.apache.commons.cli.Options;
 class LauncherConfigCommandLine extends LauncherConfig {
 	
 	// START: Options
-	private static final String OPTION_GUI = "g";
 	private static final String OPTION_DEBUG = "d";
 	private static final String OPTION_INPUT = "i";
 	private static final String OPTION_OUTPUT = "o";
@@ -68,16 +68,21 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	 */
 	@Override
 	public void addAdditionalOptions(Options options) {
-	
-		options.addOption(OPTION_GUI, false, "enables GUI display dialogs");
 		
 		options.addOption(OPTION_DEBUG, false, "enables debug mode");
 		
-		options.addOption(OPTION_INPUT, true, "an input-directory or manager bean (path to BeanXML)");
+		addInputOption(options);
 		
-		options.addOption(OPTION_OUTPUT, true, "an output-directory or manager bean (path to BeanXML)");
+		options.addOption(OPTION_OUTPUT, true, "an output-directory OR path to BeanXML");
 		
-		options.addOption(OPTION_TASK, true, "a task-name or task bean (path to BeanXML)");
+		options.addOption(OPTION_TASK, true, "a task-name OR path to BeanXML");
+	}
+	
+	/** The input option is added separately as it can take more than a single argument */
+	private void addInputOption(Options options) {
+		Option optionInput = new Option(OPTION_INPUT, true, "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML");
+		optionInput.setArgs(Option.UNLIMITED_VALUES);
+		options.addOption(optionInput);		
 	}
 	
 	@Override
@@ -94,9 +99,6 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	@Override
 	public ExperimentExecutionArguments createArguments( CommandLine line ) {
 		ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
-        if (line.hasOption(OPTION_GUI)) {
-        	ea.setGUIEnabled(true);
-        }
         if (line.hasOption(OPTION_DEBUG)) {
         	ea.setDebugEnabled(true);
         }
@@ -126,14 +128,14 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	@Override
 	protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) {
 		template.setInput(
-			SelectParamManagerFactory.pathOrDirectoryOrDefault( line, OPTION_INPUT, true )
+			SelectParamFactory.inputSelectParam( line, OPTION_INPUT )
 		);
 		template.setOutput(
-			SelectParamManagerFactory.pathOrDirectoryOrDefault(line, OPTION_OUTPUT, false )
+			SelectParamFactory.outputSelectParam(line, OPTION_OUTPUT )
 		);
 		template.setTask(
-			SelectParamManagerFactory.pathOrTaskNameOrDefault(line, OPTION_TASK, configDir() )
+			SelectParamFactory.pathOrTaskNameOrDefault(line, OPTION_TASK, configDir() )
 		);
-		template.setDefaultBehaviourString( "Searching for inputs as per default experiment" );
+		template.setDefaultBehaviourString( "Searching for inputs as per default experiment. CTRL+C cancels" );
 	}
 }

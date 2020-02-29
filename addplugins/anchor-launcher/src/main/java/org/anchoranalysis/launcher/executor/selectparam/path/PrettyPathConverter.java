@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 /*-
  * #%L
@@ -50,7 +50,11 @@ public class PrettyPathConverter {
 		);
 	}
 	
-	public static String prettyPath( Path path, Path workingDir ) {
+	static String prettyPath( Path path, Path workingDir ) {
+		
+		// First we make both paths absolute and normalized, so they have non-null roots
+		path = path.toAbsolutePath().normalize();
+		workingDir = workingDir.toAbsolutePath().normalize();
 		
 		if (workingDir.equals(path)) {
 			// Special case to handle when directories are equal, as for some reason the Java
@@ -59,9 +63,12 @@ public class PrettyPathConverter {
 		}
 		
 		if (workingDir.getRoot().equals(path.getRoot())) {
+			// If on the same root, then find a relative path between them
 		
 			Path relativePath = workingDir.relativize(path).normalize();
 			
+			// Depending on the number of dots in the relative path, we show
+			//   either the absolute-path or the relative-path.
 			if( countDoubleDotsInRelativePath(relativePath) > MAX_DOUBLE_DOTS_CNT ) {
 				return path.toString();
 			} else {
@@ -90,6 +97,6 @@ public class PrettyPathConverter {
 			}
 		}
 		
-		return cnt++;
+		return cnt;
 	}
 }

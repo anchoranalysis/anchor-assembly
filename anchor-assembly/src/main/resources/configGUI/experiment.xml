@@ -31,9 +31,9 @@
 
 	 <input filePath="inputManager.xml" config-class="org.anchoranalysis.io.bean.input.InputManager" config-factory="include"/>
 
-  	  <experimentIdentifier name="TestInteractiveBrowserExperiment" version="1.0" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierSimple"/>
+  	  <experimentIdentifier name="TestInteractiveBrowserExperiment" version="1.0" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierConstant"/>
 
-	  <output config-class="org.anchoranalysis.io.output.bean.OutputManagerPermissive" delExistingFolder="true">
+	  <output config-class="org.anchoranalysis.plugin.io.bean.output.OutputManagerPermissive" delExistingFolder="true">
 	  
 		  <filePathPrefixer filePath="ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.bean.filepath.prefixer.FilePathPrefixer" config-factory="include"/>
 

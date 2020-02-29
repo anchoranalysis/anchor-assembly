@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher.executor.selectparam;
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 /*-
  * #%L
@@ -27,32 +27,58 @@ package org.anchoranalysis.launcher.executor.selectparam;
  */
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
 
 
 /**
- * Uses whatever default-manager exists
+ * Uses a list of paths to specific files as a manager
  * 
  * @author Owen Feehan
  *
  */
-public class UseDefaultManager extends SelectParam<Path> {
+class UseListFilesForManager extends SelectParam<Path> {
+
+	private List<Path> paths;
+	
+	/**
+	 * Constructor
+	 *  
+	 * @param input iff TRUE, then we are replacing the input-manager, otherwise the output-manager
+	 */
+	public UseListFilesForManager(List<Path> paths) {
+		super();
+		this.paths = paths;
+		checkNoDirectories(paths);
+	}
 
 	@Override
 	public Path select( ExperimentExecutionArguments eea ) {
+
+		eea.setInputPaths(paths);
+		
 		return null;
 	}
 
 	@Override
-	public boolean isDefault() {
-		return true;
+	public String describe() throws ExperimentExecutionException {
+		List<String> prettyPaths = paths.stream().map( PrettyPathConverter::prettyPath ).collect( Collectors.toList() );
+		return String.join(", ", prettyPaths);
 	}
 
 	@Override
-	public String describe() throws ExperimentExecutionException {
-		return "default manager on current working directory";
+	public boolean isDefault() {
+		return false;
 	}
-
+	
+	private void checkNoDirectories(List<Path> paths) {
+		for( Path p : paths ) {
+			assert( !p.toFile().isDirectory() );
+		}
+	}
 }

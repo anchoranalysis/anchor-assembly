@@ -28,7 +28,7 @@ package org.anchoranalysis.launcher.executor;
 
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.FilePathResolver;
-import org.anchoranalysis.launcher.executor.selectparam.SelectParamExperimentFactory;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.apache.commons.cli.CommandLine;
 
 public class ExperimentExecutorFactory {
@@ -46,7 +46,7 @@ public class ExperimentExecutorFactory {
 	 */
 	public static ExperimentExecutor create( CommandLine line, String pathRelativeProperties, Class<?> executingClass ) throws ExperimentExecutionException {
 		return new ExperimentExecutor(
-			SelectParamExperimentFactory.defaultExperimentOrCustom(
+			SelectParamFactory.experimentSelectParam(
 				line,
 				pathRelativeProperties,
 				new FilePathResolver(executingClass)

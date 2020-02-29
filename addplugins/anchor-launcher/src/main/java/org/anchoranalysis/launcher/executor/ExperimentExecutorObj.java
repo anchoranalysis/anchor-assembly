@@ -1,6 +1,7 @@
 package org.anchoranalysis.launcher.executor;
 
 import java.nio.file.Path;
+import java.util.Set;
 
 import org.anchoranalysis.bean.xml.RegisterBeanFactories;
 import org.anchoranalysis.bean.xml.factory.AnchorDefaultBeanFactory;
@@ -54,9 +55,11 @@ import org.anchoranalysis.io.output.bean.OutputManager;
  *
  */
 class ExperimentExecutorObj {
-			
-	public ExperimentExecutorObj( boolean gui, Path pathExecutionDirectory ) throws ExperimentExecutionException {
-		initializeIfNecessary(gui, pathExecutionDirectory, true, true );
+	
+	private static Set<String> defaultExtensions;
+	
+	public ExperimentExecutorObj( Path pathExecutionDirectory ) throws ExperimentExecutionException {
+		initializeIfNecessary(pathExecutionDirectory, true, true );
 		// Only accessible through static methods
 	}
 	
@@ -68,12 +71,12 @@ class ExperimentExecutorObj {
 	 * @param includeRootPaths if TRUE, a root bank is sought among the configurations and loaded
 	 * @throws ExperimentExecutionException 
 	 */
-	static void initializeIfNecessary( boolean gui, Path pathExecutionDirectory, boolean includeDefaultInstances, boolean includeRootPaths ) throws ExperimentExecutionException {
+	static void initializeIfNecessary( Path pathExecutionDirectory, boolean includeDefaultInstances, boolean includeRootPaths ) throws ExperimentExecutionException {
 		if (!RegisterBeanFactories.isCalledRegisterAllPackage()) {
 			
 			// We first register all bean-factories without any default instances, so we can load
 			//  the default-instances from beans in a config-file
-			AnchorDefaultBeanFactory defaultFactory = RegisterBeanFactories.registerAllPackageBeanFactories( gui );
+			AnchorDefaultBeanFactory defaultFactory = RegisterBeanFactories.registerAllPackageBeanFactories();
 			RegisterBeanFactoriesImage.registerBeanFactories();
 			RegisterBeanFactoriesIO.registerBeanFactories();
 			
@@ -87,6 +90,8 @@ class ExperimentExecutorObj {
 			if (includeRootPaths) {
 				HelperLoadAdditionalConfig.loadRootPaths(pathExecutionDirectory);
 			}
+			
+			defaultExtensions = HelperLoadAdditionalConfig.loadDefaultExtensions(pathExecutionDirectory);
 		}
 	}
 	
@@ -101,6 +106,11 @@ class ExperimentExecutorObj {
 	 * @throws ExperimentExecutionException if the execution ends early
 	 */
 	public void executeExperiment( Experiment experiment, ExperimentExecutionArguments ea, Path pathInput, Path pathOutput, Path pathTask ) throws ExperimentExecutionException {		
+				
+		if (!ea.hasInputFilterExtensions() &&  defaultExtensions!=null) {
+			// If no input-filter extensions have been specified and defaults are available, they are inserted in
+			ea.setInputFilterExtensions(defaultExtensions);
+		}
 		
 		if (pathInput!=null) {
 			replaceInputManager(experiment, ea, pathInput);
@@ -256,5 +266,4 @@ class ExperimentExecutorObj {
 			throw new ExperimentExecutionException("Experiment execution ended with failure", e);
 		}
 	}
-	
 }

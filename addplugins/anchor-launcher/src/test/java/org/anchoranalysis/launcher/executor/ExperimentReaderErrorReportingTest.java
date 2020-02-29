@@ -51,11 +51,11 @@ import anchor.test.TestLoader;
  */
 public class ExperimentReaderErrorReportingTest {
 
-	private static TestLoader tl = TestLoader.createFromDefaultSystemProperty();
+	private static TestLoader tl = TestLoader.createFromMavenWorkingDir();
 		
 	@BeforeClass
     public static void setUp() throws Exception {
-        ExperimentExecutorObj.initializeIfNecessary(false, tl.getRoot(), false, false );
+        ExperimentExecutorObj.initializeIfNecessary(tl.getRoot(), false, false );
     }
 	
 	@Test(expected=ExperimentExecutionException.class)

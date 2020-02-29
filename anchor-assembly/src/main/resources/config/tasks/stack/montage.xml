@@ -1,0 +1,18 @@
+<!-- Converts a stack of images into a montage -->
+<config>
+<bean config-class="ch.ethz.biol.cell.countchrom.experiment.SharedObjectsMultiInputTask">
+    <define config-class="org.anchoranalysis.bean.define.Define" config-factory="define">
+
+        <namedStackProviderList config-class="java.util.List" config-factory="list">
+        
+            <item config-class="org.anchoranalysis.bean.NamedBean" name="montage">
+		        <item config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderMontageFromSlices">
+		          <stackProvider config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
+		        </item>
+		    </item>
+
+        </namedStackProviderList>
+
+    </define>
+</bean>
+</config>

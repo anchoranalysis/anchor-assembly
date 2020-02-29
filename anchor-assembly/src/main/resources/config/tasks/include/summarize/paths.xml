@@ -1,0 +1,8 @@
+<config>
+<bean config-class="java.util.List" config-factory="list">
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.ExtensionCount"/>
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FileSizeStatistics"/>
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.path.FilePathPattern"/>
+</bean>
+</config>

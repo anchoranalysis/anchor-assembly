@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config>
+<!-- 
+ When we are in detailed-reporting mode, then we show details of the experiment on the console BUT
+    not individual tasks, as this would be information overload
+-->     
+<bean config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanSwitchDetailedLogging">
+
+  <detailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+      <list config-class="java.util.List" config-factory="list">
+          <item config-class="org.anchoranalysis.experiment.bean.logreporter.FailureOnlyTextFileLogReporterBean"/>
+      </list>
+  </detailed>
+
+  <notDetailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+      <list config-class="java.util.List" config-factory="list">
+          <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+      </list>
+  </notDetailed>
+  
+</bean>
+</config>

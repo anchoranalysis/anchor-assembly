@@ -35,7 +35,7 @@ import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
-import org.anchoranalysis.launcher.executor.selectparam.SelectParamManagerFactory;
+import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.anchoranalysis.launcher.parser.ParseArgsAndRunExperiment;
 
 /**
@@ -50,11 +50,11 @@ public class ExperimentExecutor {
 			
 	private SelectParam<Path> experiment;
 	
-	private SelectParam<Path> input = SelectParamManagerFactory.useDefault();
+	private SelectParam<Path> input = SelectParamFactory.useDefault();
 
-	private SelectParam<Path> output = SelectParamManagerFactory.useDefault();
+	private SelectParam<Path> output = SelectParamFactory.useDefault();
 	
-	private SelectParam<Path> task = SelectParamManagerFactory.useDefault();
+	private SelectParam<Path> task = SelectParamFactory.useDefault();
 	
 	// If non-null, a string is printed in the description if the default-experiment is used. If non-null this is ignored.
 	private String defaultBehaviourString;
@@ -71,7 +71,7 @@ public class ExperimentExecutor {
 	 */
 	public void executeExperiment( Path pathExecutionDirectory, ExperimentExecutionArguments execArgs, boolean alwaysShowExperimentArgs, LogReporter logger ) throws ExperimentExecutionException {
 		
-		ExperimentExecutorObj delegate = new ExperimentExecutorObj(execArgs.isGUIEnabled(), pathExecutionDirectory);
+		ExperimentExecutorObj delegate = new ExperimentExecutorObj(pathExecutionDirectory);
 				
 		if (defaultBehaviourString!=null) {
 			// Special behaviour if everything has defaults
