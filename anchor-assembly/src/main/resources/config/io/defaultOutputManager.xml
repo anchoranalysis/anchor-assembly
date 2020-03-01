@@ -1,7 +1,9 @@
 <config>
 <bean config-class="org.anchoranalysis.plugin.io.bean.output.OutputManagerPermissiveExcept" delExistingFolder="false">
     
-    <filePathPrefixer config-class="org.anchoranalysis.plugin.io.bean.filepath.prefixer.FilePathPrefixerFromDescriptiveName"/>
+    <filePathPrefixer config-class="org.anchoranalysis.plugin.io.bean.filepath.prefixer.FilePathPrefixerLastDirectoryAsPrefix">
+        <filePathPrefixer config-class="org.anchoranalysis.plugin.io.bean.filepath.prefixer.FilePathPrefixerFromDescriptiveName"/>
+    </filePathPrefixer>
 
     <except config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
       <item>manifest</item>
