@@ -67,14 +67,14 @@ public class ExperimentFactory {
 		
 		if (str.contains("*")) {
 			throw new ExperimentExecutionException(
-				String.format("Cannot accept a wildcard in path to experiment BeanXML: %s", str)
+				String.format("Error: Cannot accept a wildcard in path to experiment BeanXML: %s", str)
 			);
 		}
 		try {
 			return Paths.get( str );
 		} catch (InvalidPathException e) {
 			throw new ExperimentExecutionException(
-				String.format("The argument \"%s\" should be a path to experiment BeanXML, but contains illegal character(s) or is otherwise invalid.", str)
+				String.format("Error: The argument \"%s\" should be a path to experiment BeanXML, but is invalid.", str)
 			);
 		}
 	}
