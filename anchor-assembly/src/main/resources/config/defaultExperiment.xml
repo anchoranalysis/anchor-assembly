@@ -30,7 +30,7 @@
 
     <input filePath="io/defaultInputManager.xml" config-class="org.anchoranalysis.io.bean.input.InputManager" config-factory="include"/>
 
-    <experimentIdentifier config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierAuto"/>
+    <experimentIdentifier day="false" time="true" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierAuto"/>
 
     <output filePath="io/defaultOutputManager.xml" config-class="org.anchoranalysis.io.output.bean.OutputManager" config-factory="include"/>
 
