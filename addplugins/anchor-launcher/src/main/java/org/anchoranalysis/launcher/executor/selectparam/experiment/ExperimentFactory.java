@@ -1,5 +1,7 @@
 package org.anchoranalysis.launcher.executor.selectparam.experiment;
 
+import java.nio.file.InvalidPathException;
+
 /*-
  * #%L
  * anchor-launcher
@@ -68,6 +70,12 @@ public class ExperimentFactory {
 				String.format("Cannot accept a wildcard in path to experiment BeanXML: %s", str)
 			);
 		}
-		return Paths.get( str );
+		try {
+			return Paths.get( str );
+		} catch (InvalidPathException e) {
+			throw new ExperimentExecutionException(
+				String.format("The argument \"%s\" should be a path to experiment BeanXML, but contains illegal character(s) or is otherwise invalid.", str)
+			);
+		}
 	}
 }
