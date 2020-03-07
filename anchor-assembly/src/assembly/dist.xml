@@ -141,6 +141,7 @@
     </dependencySet>
     
     
+    
     <!--  The anchor-launcher and anchor-browser jars are placed in bin folder. They are simple apps used to start
       anchor from the command-line, or to start the anchor GUI -->
     <dependencySet>

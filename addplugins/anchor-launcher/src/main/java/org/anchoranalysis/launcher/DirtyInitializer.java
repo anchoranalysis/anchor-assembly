@@ -3,7 +3,7 @@ package org.anchoranalysis.launcher;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import org.anchoranalysis.plugin.io.rasterwriter.bioformats.ConfigureBioformatsLogging;
+import org.anchoranalysis.io.bioformats.ConfigureBioformatsLogging;
 
 /*
  * #%L
