@@ -89,6 +89,8 @@ public class ExperimentExecutor {
 		if (alwaysShowExperimentArgs || experiment.useDetailedLogging()) {
 			logger.log( describe() );
 		}
+		
+		setupModelDirectory(pathExecutionDirectory, execArgs);
 
 		delegate.executeExperiment(
 			experiment,
@@ -98,6 +100,13 @@ public class ExperimentExecutor {
 			getTask().select( execArgs )
 		);
 		
+	}
+	
+	private void setupModelDirectory( Path pathExecutionDirectory, ExperimentExecutionArguments execArgs ) {
+		// Set model directory, assuming that the directory is called from bin/
+		execArgs.setModelDirectory(
+			pathExecutionDirectory.getParent().resolve("models").normalize().toAbsolutePath()
+		);
 	}
 	
 	/** Constructs a summary string to describe how the experiment is being executed 
