@@ -15,7 +15,7 @@
             <!-- A binary mask of all the bounding-boxes merged together -->
             <item config-class="org.anchoranalysis.bean.NamedBean" name="mask">
                 <item config-class="ch.ethz.biol.cell.imageprocessing.binaryimgchnl.provider.BinaryImgChnlProviderFromObjMasks">
-                    <objMaskProvider id="boxes" config-class="ch.ethz.biol.cell.imageprocessing.objmask.provider.ObjMaskProviderReference"/>
+                    <objs id="boxes" config-class="ch.ethz.biol.cell.imageprocessing.objmask.provider.ObjMaskProviderReference"/>
                 </item>
             </item>
         
@@ -23,7 +23,7 @@
             <item config-class="org.anchoranalysis.bean.NamedBean" name="visualization_boxes">
 		        <item outline="true" config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderRGBFromObjMask">
 		          <stackProviderBackground config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
-		          <objMaskProvider id="boxes" config-class="ch.ethz.biol.cell.imageprocessing.objmask.provider.ObjMaskProviderReference"/>
+		          <objs id="boxes" config-class="ch.ethz.biol.cell.imageprocessing.objmask.provider.ObjMaskProviderReference"/>
 		          <colorSetGenerator config-class="org.anchoranalysis.io.bean.color.generator.ColorSetGeneratorRGBColor">
                     <rgbColor red="0" green="255" blue="0" config-class="org.anchoranalysis.io.bean.color.RGBColorBean"/>
                   </colorSetGenerator>
