@@ -7,7 +7,7 @@
 
             <!-- The bounding boxes (as ObjMasks) -->
             <item config-class="org.anchoranalysis.bean.NamedBean" name="boxes">
-                <item minConfidence="0.1" suppressIntersectionOverUnionAbove="0.3" config-class="org.anchoranalysis.plugin.opencv.text.ObjMaskProviderExtractText">
+                <item minConfidence="0.1" suppressIntersectionOverUnionAbove="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.text.ObjMaskProviderExtractText">
                   <stackProvider config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
                 </item>
             </item>
@@ -29,15 +29,6 @@
                   </colorSetGenerator>
 		        </item>
 		    </item>
-		    
-		    <!-- Visualization of the mask on top of the original image -->
-            <!-- <item config-class="org.anchoranalysis.bean.NamedBean" name="visualization_boxes">
-                <item config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderOutlineRGB">
-                  <stackProviderBackground config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
-                  <binaryImgChnlProviderMask id="mask" config-class="ch.ethz.biol.cell.imageprocessing.binaryimgchnl.provider.BinaryImgChnlProviderReference"/>
-                  
-                </item>
-            </item>-->
 
         </objs>
 
