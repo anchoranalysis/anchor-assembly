@@ -26,7 +26,7 @@
   -->
 
 <config>
-<bean config-class="ch.ethz.biol.cell.mpp.nrg.nrgscheme.creator.NRGSchemeCreatorByElement">
+<bean config-class="org.anchoranalysis.anchor.mpp.feature.bean.nrgscheme.NRGSchemeCreatorByElement">
 							
 	<pairAddCriteria config-class="org.anchoranalysis.anchor.mpp.feature.addcriteria.AddCriteriaOr">
 		<list config-class="java.util.List" config-factory="list">

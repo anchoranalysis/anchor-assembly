@@ -30,7 +30,7 @@
     <!--  Export Graph NRG Time Series -->
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" outputName="nrgBreakdownTime">
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.GraphFromCfgNRGInstantState" width="500" height="300">
-                <graphDefinition config-class="ch.ethz.biol.cell.mpp.gui.graph.jfreechart.bar.GraphDefinitionBarNRGBreakdown" showDomainAxis="false"/>
+                <graphDefinition config-class="org.anchoranalysis.anchor.mpp.graph.bean.GraphDefinitionBarNRGBreakdown" showDomainAxis="false"/>
             </createRasterGenerator>
         </item>
         

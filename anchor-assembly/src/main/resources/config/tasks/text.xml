@@ -1,6 +1,6 @@
 <!-- Converts a stack of images into a montage -->
 <config>
-<bean config-class="ch.ethz.biol.cell.countchrom.experiment.SharedObjectsMultiInputTask">
+<bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask">
     <define config-class="org.anchoranalysis.bean.define.Define" config-factory="define">
 
         <objs config-class="java.util.List" config-factory="list">
