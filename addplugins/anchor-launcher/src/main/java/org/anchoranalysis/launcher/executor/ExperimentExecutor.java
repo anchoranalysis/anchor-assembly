@@ -56,12 +56,25 @@ public class ExperimentExecutor {
 	
 	private SelectParam<Path> task = SelectParamFactory.useDefault();
 	
+	private Path configDir;
+	
+	private Path executionDir;
+	
 	// If non-null, a string is printed in the description if the default-experiment is used. If non-null this is ignored.
 	private String defaultBehaviourString;
 	
-	ExperimentExecutor( SelectParam<Path> experiment) {
+	/**
+	 * Constructor
+	 * 
+	 * @param experiment the experiment to run
+	 * @param configDir the directory where configuration files are stored
+	 * @param executionDir the directory from which the experiment is executed
+	 */
+	ExperimentExecutor( SelectParam<Path> experiment, Path configDir, Path executionDir) {
 		super();
 		this.experiment = experiment;
+		this.configDir = configDir;
+		this.executionDir = executionDir;
 	}
 
 	/**
@@ -69,9 +82,9 @@ public class ExperimentExecutor {
 	 * 
 	 * @throws ExperimentExecutionException if the execution ends early
 	 */
-	public void executeExperiment( Path pathExecutionDirectory, ExperimentExecutionArguments execArgs, boolean alwaysShowExperimentArgs, LogReporter logger ) throws ExperimentExecutionException {
+	public void executeExperiment( ExperimentExecutionArguments execArgs, boolean alwaysShowExperimentArgs, LogReporter logger ) throws ExperimentExecutionException {
 		
-		ExperimentExecutorObj delegate = new ExperimentExecutorObj(pathExecutionDirectory);
+		ExperimentExecutorObj delegate = new ExperimentExecutorObj(executionDir);
 				
 		if (defaultBehaviourString!=null) {
 			// Special behaviour if everything has defaults
@@ -90,7 +103,7 @@ public class ExperimentExecutor {
 			logger.log( describe() );
 		}
 		
-		setupModelDirectory(pathExecutionDirectory, execArgs);
+		setupModelDirectory(configDir, execArgs);
 
 		delegate.executeExperiment(
 			experiment,
@@ -193,5 +206,9 @@ public class ExperimentExecutor {
 
 	public void setTask(SelectParam<Path> task) {
 		this.task = task;
+	}
+
+	public Path getConfigDir() {
+		return configDir;
 	}
 }

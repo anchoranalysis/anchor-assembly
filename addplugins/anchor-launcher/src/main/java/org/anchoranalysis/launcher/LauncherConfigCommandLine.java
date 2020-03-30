@@ -1,6 +1,7 @@
 package org.anchoranalysis.launcher;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
+import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
@@ -126,7 +127,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	}
 	
 	@Override
-	protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) {
+	protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) throws ExperimentExecutionException {
 		template.setInput(
 			SelectParamFactory.inputSelectParam( line, OPTION_INPUT )
 		);
@@ -134,7 +135,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
 			SelectParamFactory.outputSelectParam(line, OPTION_OUTPUT )
 		);
 		template.setTask(
-			SelectParamFactory.pathOrTaskNameOrDefault(line, OPTION_TASK, configDir() )
+			SelectParamFactory.pathOrTaskNameOrDefault(line, OPTION_TASK, template.getConfigDir() )
 		);
 		template.setDefaultBehaviourString( "Searching recursively for image files. CTRL+C cancels" );
 	}

@@ -181,10 +181,9 @@ public class ParseArgsAndRunExperiment {
 	 * @param logger TODO
 	 * @throws ExperimentExecutionException if processing ends early
 	 */
-	protected void processExperiment( CommandLine line, LogErrorReporter logger, LauncherConfig parserConfig ) throws ExperimentExecutionException {
+	private void processExperiment( CommandLine line, LogErrorReporter logger, LauncherConfig parserConfig ) throws ExperimentExecutionException {
         
         parserConfig.createExperimentExecutor(line).executeExperiment(
-        	parserConfig.configDir(),
         	parserConfig.createArguments(line),
         	line.hasOption(OPTION_SHOW_EXPERIMENT_ARGUMENTS),
         	logger.getLogReporter()
