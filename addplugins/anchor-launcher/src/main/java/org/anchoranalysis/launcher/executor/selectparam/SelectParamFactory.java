@@ -30,7 +30,6 @@ import java.nio.file.Path;
 import java.util.function.Function;
 
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.FilePathResolver;
 import org.anchoranalysis.launcher.executor.selectparam.experiment.ExperimentFactory;
 import org.anchoranalysis.launcher.executor.selectparam.io.InputFactory;
 import org.anchoranalysis.launcher.executor.selectparam.io.OutputFactory;
@@ -114,17 +113,12 @@ public class SelectParamFactory {
 	 * </ol>
 	 * 
 	 * @param line command-line to consider if certain options have been selected or not
-	 * @param relativePathProperties a relative-path to properties file used to find the default experiment
-	 * @param resolver used to find a path from the relative-path
+	 * @param defaultExperiment path to the default experiment
 	 * @return an appropriate SelectParam object
 	 * @throws ExperimentExecutionException
 	 */
-	public static SelectParam<Path> experimentSelectParam(
-		CommandLine line,
-		String relativePathProperties,
-		FilePathResolver resolver
-	) throws ExperimentExecutionException {
-		return ExperimentFactory.defaultExperimentOrCustom(line, relativePathProperties, resolver);
+	public static SelectParam<Path> experimentSelectParam( CommandLine line, Path defaultExperiment	) throws ExperimentExecutionException {
+		return ExperimentFactory.defaultExperimentOrCustom(line, defaultExperiment);
 	}
 	
 	private static SelectParam<Path> ifOption(CommandLine line, String optionName, Function<String[],SelectParam<Path>> func ) {

@@ -1,5 +1,7 @@
 package org.anchoranalysis.launcher.executor;
 
+import java.nio.file.Path;
+
 /*-
  * #%L
  * anchor-launcher
@@ -27,7 +29,6 @@ package org.anchoranalysis.launcher.executor;
  */
 
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.FilePathResolver;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.apache.commons.cli.CommandLine;
 
@@ -39,18 +40,17 @@ public class ExperimentExecutorFactory {
 	 *    OR accepts a path passed as the first command-line argument
 	 *    
 	 * @param line the command-line arguments
-	 * @param pathRelativeProperties a property that defines a relative-path to the default experiment in bean XML
-	 * @param executingClass a class which we use to determine the base location for pathRelativeProperties
+	 * @param defaultExperiment path to the default-experiment
+	 * @param configDir path to the configuration directory
+	 * @param executionDir path from which experiment is executed (i.e. the bin/ directory typically)
 	 * @return
 	 * @throws ExperimentExecutionException
 	 */
-	public static ExperimentExecutor create( CommandLine line, String pathRelativeProperties, Class<?> executingClass ) throws ExperimentExecutionException {
+	public static ExperimentExecutor create( CommandLine line, Path defaultExperiment, Path configDir, Path executionDir ) throws ExperimentExecutionException {
 		return new ExperimentExecutor(
-			SelectParamFactory.experimentSelectParam(
-				line,
-				pathRelativeProperties,
-				new FilePathResolver(executingClass)
-			)
+			SelectParamFactory.experimentSelectParam(line, defaultExperiment),
+			configDir,
+			executionDir
 		);
 	}
 }

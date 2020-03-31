@@ -1,5 +1,7 @@
 package org.anchoranalysis.launcher.config;
 
+
+
 /*-
  * #%L
  * anchor-launcher
@@ -38,11 +40,6 @@ import org.apache.commons.cli.Options;
 
 public abstract class LauncherConfig {
 	
-	/**
-	 * A path to a folder where config files are stored (relative to the bin/ directory)
-	 */
-	private static String CONFIG_RELATIVE_PATH = "../config/";
-	
 	/** Config for resources sued by the launcher */
 	public abstract ResourcesConfig resources();
 	
@@ -60,30 +57,39 @@ public abstract class LauncherConfig {
 	public abstract ExperimentExecutionArguments createArguments( CommandLine line );
 	
 	public abstract void addAdditionalOptions(Options options);
-
-	/**
-	 * Directory where the configuration files are stored
-	 * 
-	 * @return a path to the directory
-	 */
-	public Path configDir() {
-		Path pathCurrentJARDir = PathUtilities.pathCurrentJAR( classInCurrentJar() );
-	    return pathCurrentJARDir.resolve(CONFIG_RELATIVE_PATH);
-	}
 	
 	public ExperimentExecutor createExperimentExecutor(CommandLine line) throws ExperimentExecutionException {
+				
+		Path pathCurrentJARDir = PathUtilities.pathCurrentJAR( classInCurrentJar() );
+		
+		Path pathDefaultExperiment = pathDefaultExperiment(pathCurrentJARDir); 
+		
+		// Assumes config-dir is always the directory of defaultExperiment.xml
 		ExperimentExecutor executor = ExperimentExecutorFactory.create(
 			line,
-			pathRelativeProperties(),
-			classInCurrentJar()
+			pathDefaultExperiment,
+			pathDefaultExperiment.getParent(),
+			pathCurrentJARDir
 		);
 		customizeExperimentTemplate(executor, line);
 		return executor;
 	}
-	
+
+	/** path to a property file that defines a relative-path to the default experiment in bean XML */
 	protected abstract String pathRelativeProperties();
 	
-	protected abstract void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line);
-		
+	protected abstract void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) throws ExperimentExecutionException;
+	
+	/** a class which we use to determine the base location for pathRelativeProperties */
 	protected abstract Class<?> classInCurrentJar();
+		
+	/**
+	 * Path to default-experiment
+	 * 
+	 * @return a path to the defaultExperiment
+	 * @throws ExperimentExecutionException 
+	 */
+	private Path pathDefaultExperiment( Path pathCurrentJARDir ) throws ExperimentExecutionException {
+		return PathDeriver.pathDefaultExperiment( pathCurrentJARDir, pathRelativeProperties() ); 
+	}
 }

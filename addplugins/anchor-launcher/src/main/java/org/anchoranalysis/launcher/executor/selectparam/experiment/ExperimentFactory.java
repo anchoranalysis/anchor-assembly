@@ -32,7 +32,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.FilePathResolver;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.apache.commons.cli.CommandLine;
 
@@ -44,7 +43,15 @@ import org.apache.commons.cli.CommandLine;
  */
 public class ExperimentFactory {
 
-	public static SelectParam<Path> defaultExperimentOrCustom( CommandLine line, String relativePathProperties, FilePathResolver resolver ) throws ExperimentExecutionException {
+	/**
+	 * Chooses either a path to the default-experiment or a path to a custom experiment.
+	 *  
+	 * @param line
+	 * @param defaultExperiment path to the default experiment
+	 * @return
+	 * @throws ExperimentExecutionException
+	 */
+	public static SelectParam<Path> defaultExperimentOrCustom( CommandLine line, Path defaultExperiment ) throws ExperimentExecutionException {
 		
 		// It should only be possible to have 0 or 1 args, due to prior check
 		if (line.getArgs().length==1) {
@@ -58,7 +65,7 @@ public class ExperimentFactory {
 			//  path relative to the working directory.
 			//
 			// The default path is simply ignored if the user specifies their own explicit path
-			return new UseDefaultExperiment(relativePathProperties, resolver);
+			return new UseDefaultExperiment(defaultExperiment);
 		}
 	}
 	

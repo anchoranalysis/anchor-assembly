@@ -3,15 +3,15 @@
 <bean config-class="java.util.List" config-factory="list">
 
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.rasterreader.RasterReader">
-		<item config-class="org.anchoranalysis.plugin.io.bean.rasterreader.BioformatsReader">
-			<options config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.bioformats.options.ForceBitsPerPixel" bitsPerPixel="8">
-				<options config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.bioformats.options.ForceTimeSeriesToStack"/>
+		<item config-class="org.anchoranalysis.io.bioformats.bean.BioformatsReader">
+			<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceBitsPerPixel" bitsPerPixel="8">
+				<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceTimeSeriesToStack"/>
 			</options>
 		</item>
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.rasterwriter.RasterWriter">
-		<item config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.ij.IJTiffWriter"/>
+		<item config-class="org.anchoranalysis.io.ij.bean.writer.IJTiffWriter"/>
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.moviewriter.MovieWriter">

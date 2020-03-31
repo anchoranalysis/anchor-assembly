@@ -78,7 +78,22 @@
 	  <artifactId>anchor-image-io</artifactId>
 	  <version>0.0.8-SNAPSHOT</version>
 	</dependency>
-	
+
+    <!--  START ADDITIONAL DEPENDENCIES FOR ASSSEMBLY -->
+    <!--  These aren't actually called by anchor-launcher but they are included as dependencies for assembly -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>anchor-io-bioformats</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>anchor-io-ij</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!--  END ADDITIONAL DEPENDENCIES FOR ASSSEMBLY -->
+    
+    	
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-test</artifactId>

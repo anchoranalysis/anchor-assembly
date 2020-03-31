@@ -1,0 +1,37 @@
+<!-- Converts a stack of images into a montage -->
+<config>
+<bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask">
+    <define config-class="org.anchoranalysis.bean.define.Define" config-factory="define">
+
+        <objs config-class="java.util.List" config-factory="list">
+
+            <!-- The bounding boxes (as ObjMasks) -->
+            <item config-class="org.anchoranalysis.bean.NamedBean" name="boxes">
+                <item minConfidence="0.1" suppressIntersectionOverUnionAbove="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.text.ObjMaskProviderExtractText">
+                  <stackProvider config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
+                </item>
+            </item>
+            
+            <!-- A binary mask of all the bounding-boxes merged together -->
+            <item config-class="org.anchoranalysis.bean.NamedBean" name="mask">
+                <item config-class="ch.ethz.biol.cell.imageprocessing.binaryimgchnl.provider.BinaryImgChnlProviderFromObjMasks">
+                    <objs id="boxes" config-class="ch.ethz.biol.cell.imageprocessing.objmask.provider.ObjMaskProviderReference"/>
+                </item>
+            </item>
+        
+            <!-- Visualization of the bounding-boxes on top of the original image -->
+            <item config-class="org.anchoranalysis.bean.NamedBean" name="visualization_boxes">
+		        <item outline="true" config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderRGBFromObjMask">
+		          <stackProviderBackground config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
+		          <objs id="boxes" config-class="ch.ethz.biol.cell.imageprocessing.objmask.provider.ObjMaskProviderReference"/>
+		          <colorSetGenerator config-class="org.anchoranalysis.io.bean.color.generator.ColorSetGeneratorRGBColor">
+                    <rgbColor red="0" green="255" blue="0" config-class="org.anchoranalysis.io.bean.color.RGBColorBean"/>
+                  </colorSetGenerator>
+		        </item>
+		    </item>
+
+        </objs>
+
+    </define>
+</bean>
+</config>

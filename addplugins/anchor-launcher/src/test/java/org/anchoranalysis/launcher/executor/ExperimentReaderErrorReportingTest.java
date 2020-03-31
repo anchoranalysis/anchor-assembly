@@ -35,10 +35,9 @@ import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.ExperimentExecutorObj;
 import org.anchoranalysis.launcher.executor.ExperimentReader;
+import org.anchoranalysis.test.TestLoader;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import anchor.test.TestLoader;
 
 /**
  * Tests the different kind of error messages produced by configuration-files that have deliberate errors

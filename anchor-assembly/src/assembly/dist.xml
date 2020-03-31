@@ -67,6 +67,12 @@
         <lineEnding>lf</lineEnding>
      </fileSet>
      
+     <fileSet>
+        <directory>src/main/resources/models</directory>
+        <outputDirectory>models</outputDirectory>
+        <fileMode>0644</fileMode>
+     </fileSet>     
+     
   
   	 <!--  The helper-apps used to allow easy start of Anchor on different platforms -->
   	 
@@ -139,6 +145,7 @@
       </includes>
       <fileMode>0644</fileMode>
     </dependencySet>
+    
     
     
     <!--  The anchor-launcher and anchor-browser jars are placed in bin folder. They are simple apps used to start
