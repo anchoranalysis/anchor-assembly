@@ -8,8 +8,8 @@ import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+import static org.anchoranalysis.launcher.CustomOptions.*;
 
 /*
  * #%L
@@ -70,20 +70,22 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	@Override
 	public void addAdditionalOptions(Options options) {
 		
-		options.addOption(OPTION_DEBUG, false, "enables debug mode");
+		options.addOption( optionalSingleArgument(OPTION_DEBUG, "enables debug mode") );
 		
-		addInputOption(options);
+		options.addOption(
+			multipleArguments(
+				OPTION_INPUT,
+				"an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML"
+			)
+		);
 		
-		options.addOption(OPTION_OUTPUT, true, "an output-directory OR path to BeanXML");
+		options.addOption(
+			requiredSingleArgument(OPTION_OUTPUT, "an output-directory OR path to BeanXML")
+		);
 		
-		options.addOption(OPTION_TASK, true, "a task-name OR path to BeanXML");
-	}
-	
-	/** The input option is added separately as it can take more than a single argument */
-	private void addInputOption(Options options) {
-		Option optionInput = new Option(OPTION_INPUT, true, "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML");
-		optionInput.setArgs(Option.UNLIMITED_VALUES);
-		options.addOption(optionInput);		
+		options.addOption(
+			requiredSingleArgument(OPTION_TASK, "a task-name OR path to BeanXML")
+		);
 	}
 	
 	@Override
@@ -101,7 +103,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
 	public ExperimentExecutionArguments createArguments( CommandLine line ) {
 		ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
         if (line.hasOption(OPTION_DEBUG)) {
-        	ea.setDebugEnabled(true);
+        	ea.activateDebugMode( line.getOptionValue(OPTION_DEBUG) );
         }
         return ea;
 	}
