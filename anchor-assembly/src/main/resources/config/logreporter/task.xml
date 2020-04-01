@@ -9,6 +9,13 @@
   <detailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
       <list config-class="java.util.List" config-factory="list">
           <item config-class="org.anchoranalysis.experiment.bean.logreporter.FailureOnlyTextFileLogReporterBean"/>
+          
+          <!-- If it's debug mode, we also display the task to the console -->
+          <item config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanRequireArguments">
+                <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+                <requireArguments config-class="org.anchoranalysis.experiment.bean.RequireArguments" requiresDebug="true"/>
+          </item>
+          
       </list>
   </detailed>
 
