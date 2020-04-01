@@ -1,11 +1,12 @@
 <!-- 
--------------------
-Task:   text
-Author: Owen Feehan
--------------------
+===================
+TASK:   text
+AUTHOR: Owen Feehan
+===================
 
-Description
------------
+===========
+DESCRIPTION
+===========
 
 Finds text-regions in RGB images.
 
@@ -18,13 +19,18 @@ The EAST model was designed to work with 1280x720 RBB images. The input image is
 similar in size.
 
 
-Inputs
-------
+======
+INPUTS
+======
+
 input_image:
     A RGB stack
 
-Outputs
--------
+
+=======
+OUTPUTS
+=======
+
 boxes:
     HDF5 obj-masks for all the bounding-boxes that are eventually accepted
 
@@ -33,6 +39,7 @@ mask:
 
 visualization_boxes:
     a green outline is imposed on the original RGB around each obj-mask that is accepted
+
 
 -->
 <config>
