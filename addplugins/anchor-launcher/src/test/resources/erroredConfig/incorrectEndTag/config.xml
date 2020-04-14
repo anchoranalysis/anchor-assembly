@@ -7,7 +7,7 @@
 		  <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
 	</task>
 	 
-   <outputEnabled config-class="org.anchoranalysis.plugin.io.bean.output.allowed.SpecificOutputAllowed">
+   <outputEnabled config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
 	  	<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>stackCollection</item>
 			<item>objMaskCollection</item>
@@ -25,7 +25,7 @@
 	</outputEna2bled>
 	
 	
-	<stackCollectionOutputEnabled config-class="org.anchoranalysis.plugin.io.bean.output.allowed.SpecificOutputAllowed">
+	<stackCollectionOutputEnabled config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
 		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>chnlInput</item>
 			<item>stackEllipses</item>
@@ -33,7 +33,7 @@
 		</outputsAllowed>
 	</stackCollectionOutputEnabled>
 
-	<objMaskCollectionOutputEnabled config-class="org.anchoranalysis.plugin.io.bean.output.allowed.SpecificOutputAllowed">
+	<objMaskCollectionOutputEnabled config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
 		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>objsSgmn</item>
 		</outputsAllowed>
