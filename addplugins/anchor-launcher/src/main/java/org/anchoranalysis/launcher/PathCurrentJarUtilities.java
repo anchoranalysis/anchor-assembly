@@ -28,9 +28,10 @@ package org.anchoranalysis.launcher;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
 
 public class PathCurrentJarUtilities {
 
@@ -49,11 +50,14 @@ public class PathCurrentJarUtilities {
 		try {
 			pathURI = c.getProtectionDomain().getCodeSource().getLocation().toURI();
 		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
+			throw new AnchorFriendlyRuntimeException(
+				"An invalid URI was used in establishing the path to the current JAR",
+				e
+			);
 		}
 		Path path = Paths.get(pathURI);
 		
-		if (Files.isDirectory(path)) {
+		if (path.toFile().isDirectory()) {
 			// If it's a folder this is good enough, and we return it
 			return path;
 		} else {

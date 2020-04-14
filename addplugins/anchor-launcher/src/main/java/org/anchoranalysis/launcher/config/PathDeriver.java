@@ -28,7 +28,6 @@ package org.anchoranalysis.launcher.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
 
@@ -89,7 +88,7 @@ class PathDeriver {
 		
 		Path pathProperties = currentJARDir.resolve( pathRelativeProperties );
 		
-		if (!Files.exists(pathProperties)) {
+		if (!pathProperties.toFile().exists()) {
 			throw new ExperimentExecutionException(
 				String.format("Cannot find properties file at: %s", pathProperties)
 			);

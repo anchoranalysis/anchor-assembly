@@ -30,6 +30,8 @@ import org.apache.commons.io.FilenameUtils;
 
 class ExtensionUtilities {
 
+	private ExtensionUtilities() {}
+	
 	public static boolean hasXmlExtension( String path ) {
 		return FilenameUtils.getExtension(path).equalsIgnoreCase("xml");
 	}

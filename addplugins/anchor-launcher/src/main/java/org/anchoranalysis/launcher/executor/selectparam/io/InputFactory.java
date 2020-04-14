@@ -47,6 +47,8 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
  */
 public class InputFactory {
 
+	private InputFactory() {}
+	
 	public static SelectParam<Path> pathOrDirectoryOrGlobOrExtension( String[] args ) {
 
 		// If it contains a wildcard, assume its a glob

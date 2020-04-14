@@ -44,6 +44,8 @@ import org.apache.commons.cli.CommandLine;
  */
 public class SelectParamFactory {
 	
+	private SelectParamFactory() {}
+	
 	/**
 	 * Default option
 	 * 

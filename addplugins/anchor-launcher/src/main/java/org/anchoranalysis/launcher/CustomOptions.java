@@ -35,6 +35,9 @@ import org.apache.commons.cli.Option;
  *
  */
 class CustomOptions {
+	
+	private CustomOptions() {
+	}
 
 	public static Option multipleArguments(String optionName, String dscr) {
 		Option optionInput = new Option(optionName, true, dscr);

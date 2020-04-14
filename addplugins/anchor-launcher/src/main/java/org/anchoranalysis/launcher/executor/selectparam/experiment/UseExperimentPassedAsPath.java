@@ -52,7 +52,7 @@ class UseExperimentPassedAsPath extends SelectParam<Path> {
 	@Override
 	public Path select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
 		
-		if (Files.isDirectory(path)) {
+		if (path.toFile().isDirectory()) {
 			throw new ExperimentExecutionException("Please select a path to experiment FILE not a folder");
 		}
 		

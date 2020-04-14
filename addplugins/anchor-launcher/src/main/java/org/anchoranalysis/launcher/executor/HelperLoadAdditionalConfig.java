@@ -30,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.anchoranalysis.bean.BeanInstanceMap;
@@ -76,12 +77,14 @@ class HelperLoadAdditionalConfig {
 	 */
 	private static String ANCHOR_HOME_ENV_VAR_NAME = "ANCHOR_HOME";
 
+	private HelperLoadAdditionalConfig() {}
+	
 	public static BeanInstanceMap loadDefaultInstances( Path pathExecutionDirectory ) throws ExperimentExecutionException {
 	
 		Path pathHome = getAnchorHome(pathExecutionDirectory).resolve(ANCHOR_HOME_CONFIG).resolve(DEFAULT_INSTANCES_FILENAME).normalize();
 		Path pathUser = getAnchorUserDir().resolve(DEFAULT_INSTANCES_FILENAME).normalize();
 		
-		if (!Files.exists(pathHome) && !Files.exists(pathUser)) {
+		if (!pathHome.toFile().exists() && !pathUser.toFile().exists()) {
 			throw new ExperimentExecutionException(
 				String.format("Cannot find a config file for defaultBean instances, looking at:%n%s%n%s", pathHome, pathUser )
 			);
@@ -100,14 +103,16 @@ class HelperLoadAdditionalConfig {
 	 * @return the set of extensions (they should be without any period, and in lower-case) or null if the file doesn't exist
 	 * @throws ExperimentExecutionException
 	 */
-	public static Set<String> loadDefaultExtensions( Path pathExecutionDirectory ) throws ExperimentExecutionException {
+	public static Optional<Set<String>> loadDefaultExtensions( Path pathExecutionDirectory ) throws ExperimentExecutionException {
 		
 		Path path = getAnchorHome(pathExecutionDirectory).resolve(ANCHOR_HOME_CONFIG).resolve(DEFAULT_EXTENSIONS_FILENAME).normalize();
 		
-		if (Files.exists(path)) {
+		if (path.toFile().exists()) {
 			try {
 				StringSet setBean = BeanXmlLoader.loadBean(path, "bean");
-				return setBean.set();
+				return Optional.of(
+					setBean.set()
+				);
 				
 			} catch (BeanXmlException e) {
 				throw new ExperimentExecutionException(
@@ -117,11 +122,11 @@ class HelperLoadAdditionalConfig {
 			}			
 		}
 		
-		return null;
+		return Optional.empty();
 	}
 	
 	private static void addDefaultInstancesFromDir( Path path, BeanInstanceMap addToMap ) throws ExperimentExecutionException {
-		if (Files.exists(path)) {
+		if (path.toFile().exists()) {
 			try {
 				List<NamedBean<?>> listDefaults = BeanXmlLoader.loadBean(path, "bean");
 				addToMap.addFrom(listDefaults);
@@ -152,7 +157,7 @@ class HelperLoadAdditionalConfig {
 	
 	private static void addRootPathsFromDir( Path path, RootPathMap addToMap ) throws ExperimentExecutionException {
 		
-		if (Files.exists(path)) {
+		if (path.toFile().exists()) {
 			try {
 				addToMap.addFromXmlFile(path);
 			} catch (OperationFailedException e) {

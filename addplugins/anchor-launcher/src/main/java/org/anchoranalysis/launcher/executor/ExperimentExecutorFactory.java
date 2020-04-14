@@ -34,6 +34,8 @@ import org.apache.commons.cli.CommandLine;
 
 public class ExperimentExecutorFactory {
 
+	private ExperimentExecutorFactory() {}
+	
 	/**
 	 * Creates an experiment-executor from a command line that EITHER:
 	 *       uses a default-experiment
