@@ -32,7 +32,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
 import org.junit.Test;
 
 public class PrettyPathConverterTest {

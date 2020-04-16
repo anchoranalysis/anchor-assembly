@@ -32,8 +32,6 @@ import static org.junit.Assert.*;
 import java.nio.file.Path;
 
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.executor.ExperimentExecutorObj;
-import org.anchoranalysis.launcher.executor.ExperimentReader;
 import org.anchoranalysis.test.TestLoader;
 import org.junit.BeforeClass;
 import org.junit.Test;
