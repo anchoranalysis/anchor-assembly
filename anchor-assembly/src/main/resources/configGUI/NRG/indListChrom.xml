@@ -38,7 +38,7 @@
 <!--	<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.operator.Reference" id="shellRatioLessInnerRatio"/> -->
 			    		
 
-<!-- 	    		<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.ToThePowerOfConstant" constant="2.0" customName="owenTestFeature"> -->
+<!-- 	    		<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.ToThePowerOfConstant" value="2.0" customName="owenTestFeature"> -->
 <!-- 					<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.NumberPixelsAboveThreshold" threshold="25"/> -->
 <!-- 				</item> -->
 
