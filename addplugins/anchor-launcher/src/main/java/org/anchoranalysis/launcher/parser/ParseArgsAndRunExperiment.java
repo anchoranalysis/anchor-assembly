@@ -93,7 +93,7 @@ public class ParseArgsAndRunExperiment {
 	        // parse the command line arguments
 	        CommandLine line = parser.parse( options, args );
 	        
-	        if (maybePrintHelp(line, options, args, parserConfig.resources(), parserConfig.help())) {
+	        if (maybePrintHelp(line, options, parserConfig.resources(), parserConfig.help())) {
 	        	return;
 	        }
 	        
@@ -125,7 +125,7 @@ public class ParseArgsAndRunExperiment {
 	 * @return true if it prints the message, false otherwise
 	 * @throws IOException 
 	 */
-	private boolean maybePrintHelp( CommandLine line, Options options, String args[], ResourcesConfig resourcesConfig, HelpConfig helpConfig ) throws IOException {
+	private boolean maybePrintHelp( CommandLine line, Options options, ResourcesConfig resourcesConfig, HelpConfig helpConfig ) throws IOException {
 		if (line.hasOption(OPTION_HELP)) {
         	printHelp( options, resourcesConfig, helpConfig.getCommandName(), helpConfig.getFirstArgument() );
 		    return true;

@@ -28,8 +28,6 @@ package org.anchoranalysis.launcher;
 
 import java.nio.file.Path;
 
-import org.anchoranalysis.core.file.PathUtilities;
-
 public class FilePathResolver {
 
 	private Class<?> classInExecutingLoader;
@@ -48,7 +46,7 @@ public class FilePathResolver {
 	}
 	
 	private Path basePath() {
-		return PathUtilities.pathCurrentJAR( classInExecutingLoader );
+		return PathCurrentJarUtilities.pathCurrentJAR( classInExecutingLoader );
 	}
 
 	

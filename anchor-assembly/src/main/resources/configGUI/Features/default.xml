@@ -29,13 +29,13 @@
 		
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="meanIntensity">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-			<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.objmask.IntensityMean" nrgIndex="0"/>
+			<item config-class="org.anchoranalysis.plugin.image.feature.bean.obj.single.intensity.Intensity" nrgIndex="0"/>
 		</item>			
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="meanIntensity_maxSlice">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-			<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.objmask.IntensityMeanMaxSlice" nrgIndex="0"/>
+			<item config-class="org.anchoranalysis.plugin.image.feature.bean.obj.single.intensity.IntensityMeanMaxSlice" nrgIndex="0"/>
 		</item>			
 	</item>
 	

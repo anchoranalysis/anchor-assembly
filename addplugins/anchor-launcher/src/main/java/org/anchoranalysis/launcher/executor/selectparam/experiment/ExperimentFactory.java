@@ -43,6 +43,8 @@ import org.apache.commons.cli.CommandLine;
  */
 public class ExperimentFactory {
 
+	private ExperimentFactory() {}
+	
 	/**
 	 * Chooses either a path to the default-experiment or a path to a custom experiment.
 	 *  

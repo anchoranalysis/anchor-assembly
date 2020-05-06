@@ -35,7 +35,6 @@ import java.nio.file.Path;
 
 import org.anchoranalysis.bean.xml.BeanXmlLoader;
 import org.anchoranalysis.bean.xml.error.BeanXmlException;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.experiment.task.Task;
@@ -50,33 +49,32 @@ class ExperimentReader {
 		// Only accessible through static methods
 	}
 
-	public static Experiment readExperimentFromXML( Path configPath, ExperimentExecutionArguments ea ) throws ExperimentExecutionException {
-		return readBeanFromXML( configPath, ea, "experiment", true );
+	public static Experiment readExperimentFromXML( Path configPath ) throws ExperimentExecutionException {
+		return readBeanFromXML( configPath, "experiment", true );
 	}
 	
-	public static InputManager<InputFromManager> readInputManagerFromXML( Path configPath, ExperimentExecutionArguments ea ) throws ExperimentExecutionException {
-		return readBeanFromXML( configPath, ea, "bean", false );
+	public static InputManager<InputFromManager> readInputManagerFromXML( Path configPath ) throws ExperimentExecutionException {
+		return readBeanFromXML( configPath, "bean", false );
 	}
 	
-	public static OutputManager readOutputManagerFromXML( Path configPath, ExperimentExecutionArguments ea ) throws ExperimentExecutionException {
-		return readBeanFromXML( configPath, ea, "bean", false );
+	public static OutputManager readOutputManagerFromXML( Path configPath ) throws ExperimentExecutionException {
+		return readBeanFromXML( configPath, "bean", false );
 	}
 	
-	public static Task<InputFromManager,Object> readTaskFromXML( Path configPath, ExperimentExecutionArguments ea ) throws ExperimentExecutionException {
-		return readBeanFromXML( configPath, ea, "bean", false );
+	public static Task<InputFromManager,Object> readTaskFromXML( Path configPath ) throws ExperimentExecutionException {
+		return readBeanFromXML( configPath, "bean", false );
 	}
 	
 	/**
 	 * Read bean from xml
 	 * 
 	 * @param configPath the path where the xml file exists
-	 * @param ea experiment-arguments
 	 * @param xmlPath the xpath inside the xmlpath specifying the root-element
 	 * @param associateXml if TRUE, the xml is associated with the object (see BeanXmlLoader). if FALSE, it is not.
 	 * @return an object created from the read BeanXML
 	 * @throws ExperimentExecutionException
 	 */
-	private static <T> T readBeanFromXML( Path configPath, ExperimentExecutionArguments ea, String xmlPath, boolean associateXml ) throws ExperimentExecutionException {
+	private static <T> T readBeanFromXML( Path configPath, String xmlPath, boolean associateXml ) throws ExperimentExecutionException {
 
 		// To avoid any .. or . in error reporting
 		configPath = configPath.normalize();

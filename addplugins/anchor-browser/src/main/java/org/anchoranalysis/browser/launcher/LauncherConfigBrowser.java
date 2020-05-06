@@ -70,6 +70,7 @@ class LauncherConfigBrowser extends LauncherConfig {
 
 	@Override
 	public void addAdditionalOptions(Options options) {
+		// Nothing to do here for the browser
 	}
 
 	@Override
@@ -95,7 +96,7 @@ class LauncherConfigBrowser extends LauncherConfig {
 	
 	@Override
 	protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) {
-		
+		// Nothing to do here for the browser
 	}
 
 }

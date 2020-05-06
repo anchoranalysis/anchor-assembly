@@ -1,10 +1,10 @@
-package org.anchoranalysis.launcher.executor.selectparam.io;
+package org.anchoranalysis.launcher;
 
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,29 +26,33 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
  * #L%
  */
 
-import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.cli.Option;
 
-class ExtensionUtilities {
-
-	private ExtensionUtilities() {}
+/**
+ * Different types of arguments used by Anchor
+ * 
+ * @author owen
+ *
+ */
+class CustomOptions {
 	
-	public static boolean hasXmlExtension( String path ) {
-		return FilenameUtils.getExtension(path).equalsIgnoreCase("xml");
+	private CustomOptions() {
 	}
-		
-	public static boolean isFileExtension( String arg ) {
-		if (!arg.startsWith(".")) {
-			return false;
-		}
-		
-		if (arg.contains("/") || arg.contains("\\")) {
-			return false;
-		}
-		
-		if (arg.equals(".") || arg.equals("..")) {
-			return false;
-		}
-		
-		return true;
+
+	public static Option multipleArguments(String optionName, String dscr) {
+		Option optionInput = new Option(optionName, true, dscr);
+		optionInput.setArgs(Option.UNLIMITED_VALUES);
+		return optionInput;		
 	}
+	
+	public static Option optionalSingleArgument(String optionName, String dscr) {
+		Option option = new Option(optionName, true, dscr);
+		option.setOptionalArg(true);
+		return option;	
+	}
+	
+	public static Option requiredSingleArgument(String optionName, String dscr) {
+		return new Option(optionName, true, dscr);
+	}
+	
 }

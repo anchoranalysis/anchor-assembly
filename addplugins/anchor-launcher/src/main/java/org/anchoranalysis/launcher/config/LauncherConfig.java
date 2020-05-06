@@ -30,9 +30,9 @@ package org.anchoranalysis.launcher.config;
 
 import java.nio.file.Path;
 
-import org.anchoranalysis.core.file.PathUtilities;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.PathCurrentJarUtilities;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.ExperimentExecutorFactory;
 import org.apache.commons.cli.CommandLine;
@@ -60,7 +60,7 @@ public abstract class LauncherConfig {
 	
 	public ExperimentExecutor createExperimentExecutor(CommandLine line) throws ExperimentExecutionException {
 				
-		Path pathCurrentJARDir = PathUtilities.pathCurrentJAR( classInCurrentJar() );
+		Path pathCurrentJARDir = PathCurrentJarUtilities.pathCurrentJAR( classInCurrentJar() );
 		
 		Path pathDefaultExperiment = pathDefaultExperiment(pathCurrentJARDir); 
 		

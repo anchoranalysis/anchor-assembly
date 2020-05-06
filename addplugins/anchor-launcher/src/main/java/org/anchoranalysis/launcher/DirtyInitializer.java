@@ -70,6 +70,8 @@ public class DirtyInitializer {
             Long offset = (Long) staticFieldOffset.invoke(unsafe, loggerField);
             putObjectVolatile.invoke(unsafe, loggerClass, offset, null);
         } catch (Exception ignored) {
+        	// Deliberately empty as we wish to take no action when these exceptions are caught
+        	// (so as to ignore them)
         }
     }
 }

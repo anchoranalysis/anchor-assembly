@@ -41,6 +41,8 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
  */
 public class OutputFactory {
 
+	private OutputFactory() {}
+	
 	/** If the argument is a path to a directory, then this directory is set as the default. Otherwise the argument is treated like a path to BeanXML 
 	 * @throws CommandLineException  */
 	public static SelectParam<Path> pathOrDirectory( String[] arg, boolean input ) {

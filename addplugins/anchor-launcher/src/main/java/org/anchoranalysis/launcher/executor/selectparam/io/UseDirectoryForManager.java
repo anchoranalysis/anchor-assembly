@@ -30,6 +30,7 @@ import java.nio.file.Path;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
 
@@ -50,11 +51,15 @@ class UseDirectoryForManager extends SelectParam<Path> {
 	 *  
 	 * @param input iff TRUE, then we are replacing the input-manager, otherwise the output-manager
 	 */
-	public UseDirectoryForManager(Path directory, boolean input) {
+	public UseDirectoryForManager(Path directory, boolean input) throws CommandLineException {
 		super();
 		this.input = input;
 		this.directory = directory;
-		assert( directory.toFile().isDirectory() );
+		if ( !directory.toFile().isDirectory() ) {
+			throw new CommandLineException(
+				String.format("The path %s to UseDirectoryForManager must be a directory", directory)	
+			);
+		}
 	}
 
 

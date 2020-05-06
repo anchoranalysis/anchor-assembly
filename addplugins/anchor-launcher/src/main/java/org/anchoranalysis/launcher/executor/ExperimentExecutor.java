@@ -86,27 +86,25 @@ public class ExperimentExecutor {
 		
 		ExperimentExecutorObj delegate = new ExperimentExecutorObj(executionDir);
 				
-		if (defaultBehaviourString!=null) {
+		if (defaultBehaviourString!=null && areAllDefault()) {
 			// Special behaviour if everything has defaults
-			if (areAllDefault()) {
-				logger.logFormatted(
-					"%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.%n",
-					defaultBehaviourString,
-					ParseArgsAndRunExperiment.OPTION_HELP
-				);
-			}
+			logger.logFormatted(
+				"%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.%n",
+				defaultBehaviourString,
+				ParseArgsAndRunExperiment.OPTION_HELP
+			);
 		}
 		
-		Experiment experiment = loadExperimentFromPath(execArgs); 
+		Experiment experimentLoaded = loadExperimentFromPath(execArgs); 
 		
-		if (alwaysShowExperimentArgs || experiment.useDetailedLogging()) {
+		if (alwaysShowExperimentArgs || experimentLoaded.useDetailedLogging()) {
 			logger.log( describe() );
 		}
 		
 		setupModelDirectory(configDir, execArgs);
 
 		delegate.executeExperiment(
-			experiment,
+			experimentLoaded,
 			execArgs,
 			getInput().select( execArgs ),
 			getOutput().select( execArgs ),
@@ -173,7 +171,7 @@ public class ExperimentExecutor {
 	}
 	
 	private Experiment loadExperimentFromPath( ExperimentExecutionArguments execArgs ) throws ExperimentExecutionException {
-		return ExperimentReader.readExperimentFromXML( experiment.select(execArgs), execArgs);
+		return ExperimentReader.readExperimentFromXML( experiment.select(execArgs));
 	}
 	
 	public void setInput(SelectParam<Path> input) {

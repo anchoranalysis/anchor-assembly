@@ -1,6 +1,7 @@
 package org.anchoranalysis.launcher.executor;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.Set;
 
 import org.anchoranalysis.bean.xml.RegisterBeanFactories;
@@ -56,7 +57,7 @@ import org.anchoranalysis.io.output.bean.OutputManager;
  */
 class ExperimentExecutorObj {
 	
-	private static Set<String> defaultExtensions;
+	private static Optional<Set<String>> defaultExtensions = Optional.empty();
 	
 	public ExperimentExecutorObj( Path pathExecutionDirectory ) throws ExperimentExecutionException {
 		initializeIfNecessary(pathExecutionDirectory, true, true );
@@ -107,9 +108,9 @@ class ExperimentExecutorObj {
 	 */
 	public void executeExperiment( Experiment experiment, ExperimentExecutionArguments ea, Path pathInput, Path pathOutput, Path pathTask ) throws ExperimentExecutionException {		
 				
-		if (!ea.hasInputFilterExtensions() &&  defaultExtensions!=null) {
+		if (!ea.hasInputFilterExtensions() &&  defaultExtensions.isPresent()) {
 			// If no input-filter extensions have been specified and defaults are available, they are inserted in
-			ea.setInputFilterExtensions(defaultExtensions);
+			ea.setInputFilterExtensions(defaultExtensions.get());
 		}
 		
 		if (pathInput!=null) {
@@ -138,7 +139,7 @@ class ExperimentExecutorObj {
 	private void replaceInputManager( Experiment experiment, ExperimentExecutionArguments ea, Path pathInput ) throws ExperimentExecutionException {
 		
 		// As path could be a folder, we make sure we get a file
-		InputManager<InputFromManager> inputManager = ExperimentReader.readInputManagerFromXML(	pathInput, ea );
+		InputManager<InputFromManager> inputManager = ExperimentReader.readInputManagerFromXML(	pathInput );
 		
 		try {
 			if (experiment instanceof IReplaceInputManager) {
@@ -179,7 +180,7 @@ class ExperimentExecutorObj {
 	private void replaceOutputManager( Experiment experiment, ExperimentExecutionArguments ea, Path pathOutput ) throws ExperimentExecutionException {
 		
 		// As path could be a folder, we make sure we get a file
-		OutputManager outputManager = ExperimentReader.readOutputManagerFromXML(pathOutput, ea);
+		OutputManager outputManager = ExperimentReader.readOutputManagerFromXML(pathOutput);
 		
 		try {
 			if (experiment instanceof IReplaceOutputManager) {
@@ -221,7 +222,7 @@ class ExperimentExecutorObj {
 	private void replaceTask( Experiment experiment, ExperimentExecutionArguments ea, Path pathTask ) throws ExperimentExecutionException {
 		
 		// As path could be a folder, we make sure we get a file
-		Task<InputFromManager,Object> task = ExperimentReader.readTaskFromXML(pathTask, ea);
+		Task<InputFromManager,Object> task = ExperimentReader.readTaskFromXML(pathTask);
 		
 		try {
 			if (experiment instanceof IReplaceTask) {
