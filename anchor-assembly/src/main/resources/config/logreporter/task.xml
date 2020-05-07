@@ -13,7 +13,7 @@
           <!-- If it's debug mode, we also display the task to the console -->
           <item config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanRequireArguments">
                 <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
-                <requireArguments config-class="org.anchoranalysis.experiment.bean.RequireArguments" requiresDebug="true"/>
+                <requireArguments config-class="org.anchoranalysis.experiment.bean.require.RequireDebugMode"/>
           </item>
           
       </list>
