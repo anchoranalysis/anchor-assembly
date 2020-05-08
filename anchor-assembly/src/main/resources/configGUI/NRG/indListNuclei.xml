@@ -39,7 +39,7 @@
 					
 					<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.InvertedMax" max="10000">
 						<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.AsMark">
-							<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.mark.MarkEllipseCircumEstimate"/>
+							<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.mark.region.MarkEllipseCircumEstimate"/>
 						</item>
 					</item>
 				</list>
