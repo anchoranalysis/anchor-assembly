@@ -221,7 +221,7 @@ public class ExperimentReaderErrorReportingTest {
 			
 			// Some qualities we'd like the error message to have
 			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==8);
+			assertEquals(9, numberOfLines(output));
 			assertTrue( containsPathWithForwardSlashes(output,testPath) );			
 			assertTrue( output.contains("Cannot find included file") );
 			
@@ -352,7 +352,7 @@ public class ExperimentReaderErrorReportingTest {
 			
 			// Some qualities we'd like the error message to have
 			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==8);
+			assertEquals(9, numberOfLines(output));
 			assertTrue( containsPathWithForwardSlashes(output,testPath) );
 			assertTrue( output.contains("Including file would cause overflow") );
 			
