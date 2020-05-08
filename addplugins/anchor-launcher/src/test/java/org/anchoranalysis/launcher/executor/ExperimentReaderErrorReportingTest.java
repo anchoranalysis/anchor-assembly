@@ -56,291 +56,147 @@ public class ExperimentReaderErrorReportingTest {
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testNonExistentFilePath() throws ExperimentExecutionException {
-		
-		// We assume this path does not exist
-		String testPath = "a non-existent file path";
-		
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue( output.length()>0 );
-			assertTrue( numberOfLines(output)==1 );
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );
-			
-			throw e;
-		}
+		readExperiment(
+			"a non-existent config-name",
+			1
+		);
 	}
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testIncorrectEndTag() throws ExperimentExecutionException {
-		
-		String testPath = "erroredConfig/incorrectEndTag/config.xml";
-				
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==3);
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );			
-			
-			throw e;
-		}
+		readExperiment(
+			"incorrectEndTag",
+			3
+		);
 	}
 	
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testMissingRootTag() throws ExperimentExecutionException {
-		
-		String testPath = "erroredConfig/missingRootTag/config.xml";
-				
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==2);
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );			
-			assertTrue( output.contains("experiment") );		
-			throw e;
-		}
+		readExperiment(
+			"missingRootTag",
+			2,
+			"experiment"
+		);
 	}
-	
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testIncorrectClass() throws ExperimentExecutionException {
-		
-		String testPath = "erroredConfig/incorrectClass/config.xml";
-				
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==8);
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );			
-			assertTrue( output.contains("Please check spelling of config-class attributes") );
-			assertTrue( output.contains("ch.ethz.biol.cell.imageprocessing.io.task.ANonExistentClass"));
-			
-			throw e;
-		}
+		readExperiment(
+			"incorrectClass",
+			8,
+			new String[] {
+				"Please check spelling of config-class attributes",
+				"ch.ethz.biol.cell.imageprocessing.io.task.ANonExistentClass"
+			}
+		);
 	}
 	
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testIncorrectFactory() throws ExperimentExecutionException {
-		
-		String testPath = "erroredConfig/incorrectFactory/config.xml";
-				
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==7);
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );			
-			assertTrue( output.contains("Unknown bean factory") );
-			assertTrue( output.contains("nonExistentFactory"));
-			
-			throw e;
-		}
+		readExperiment(
+			"incorrectFactory",
+			7,
+			new String[] {
+				"Unknown bean factory",
+				"nonExistentFactory"
+			}
+		);
 	}
-	
-	
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testIncorrectClassNested() throws ExperimentExecutionException {
-		
-		String testPath = "erroredConfig/incorrectClassNested/config.xml";
-				
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==12);
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );			
-			assertTrue( output.contains("Please check spelling of config-class attributes") );
-			assertTrue( output.contains("ch.ethz.biol.cell.imageprocessing.chnl.provider.SomeNoneExistentClass"));
-			
-			throw e;
-		}
+		readExperiment(
+			"incorrectClassNested",
+			12,
+			new String[] {
+				"Please check spelling of config-class attributes",
+				"ch.ethz.biol.cell.imageprocessing.chnl.provider.SomeNoneExistentClass"
+			}
+		);
 	}
-	
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testIncorrectIncludeFile() throws ExperimentExecutionException {
-		
-		String testPath = "erroredConfig/incorrectIncludeFile/config.xml";
-				
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertEquals(9, numberOfLines(output));
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );			
-			assertTrue( output.contains("Cannot find included file") );
-			
-			throw e;
-		}
+		readExperiment(
+			"incorrectIncludeFile",
+			9,
+			"Cannot find included file"
+		);
 	}
-	
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testIncorrectIncludeFileNested() throws ExperimentExecutionException {
-		
-		String testPath = "erroredConfig/incorrectIncludeFileNested/config.xml";
-				
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==5);
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );			
-			assertTrue( output.contains("Cannot find included file") );
-			
-			throw e;
-		}
+		readExperiment(
+			"incorrectIncludeFileNested",
+			5,
+			"Cannot find included file"
+		);
 	}
-	
-	
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testMalformedXMLTag() throws ExperimentExecutionException {
-		
-		String testPath = "erroredConfig/malformedXMLTag/config.xml";
-				
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==6);
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );			
-			assertTrue( output.contains("/>") );
-			
-			throw e;
-		}
+		readExperiment(
+			"malformedXMLTag",
+			6,
+			"/>"
+		);
 	}
-	
-	
-	
+		
 	@Test(expected=ExperimentExecutionException.class)
 	public void testNonExistingBeanField() throws ExperimentExecutionException {
-		
-		String testPath = "erroredConfig/nonExistingBeanField/config.xml";
-				
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==12);
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );			
-			
-			throw e;
-		}
+		readExperiment(
+			"nonExistingBeanField",
+			12
+		);
 	}
-	
-	
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testMissingRequiredBeanField() throws ExperimentExecutionException {
-		
-		String testPath = "erroredConfig/missingRequiredBeanField/config.xml";
-				
-		Path experimentConfigFile = tl.resolveTestPath(testPath);
-
-		// Catch and display the output
-		try {
-			ExperimentReader.readExperimentFromXML(experimentConfigFile );
-		} catch (ExperimentExecutionException e) {
-		
-			String output = e.friendlyMessageHierarchy();
-			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertTrue(numberOfLines(output)==11);
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );
-			assertTrue( output.contains("stackProviderID") );
-			assertTrue( output.contains("ch.ethz.biol.cell.imageprocessing.chnl.provider.ChnlProviderStackReference") );
-			assertTrue( output.contains("must be non-null") );
-			
-			throw e;
-		}
+		readExperiment(
+			"missingRequiredBeanField",
+			11,
+			new String[] {
+				"stackProviderID",
+				"ch.ethz.biol.cell.imageprocessing.chnl.provider.ChnlProviderStackReference",
+				"must be non-null"
+			}
+		);
 	}
-	
-	
-	
 	
 	@Test(expected=ExperimentExecutionException.class)
 	public void testIncludeFileOverflow() throws ExperimentExecutionException {
+		readExperiment(
+			"includeFileOverflow",
+			9,
+			"Including file would cause overflow"
+		);
+	}
+	
+	
+	/** With no contains... */
+	private void readExperiment( String configName, int expectedNumberOfLines ) throws ExperimentExecutionException {
+		readExperiment(
+			configName,
+			expectedNumberOfLines,
+			new String[]{}
+		);
+	}
+	
+	/** With a single string as contains... */
+	private void readExperiment( String configName, int expectedNumberOfLines, String contains ) throws ExperimentExecutionException {
+		readExperiment(
+			configName,
+			expectedNumberOfLines,
+			new String[]{contains}
+		);
+	}
+	
+	/** With multiple strings as contains... */
+	private void readExperiment( String configName, int expectedNumberOfLines, String[] contains ) throws ExperimentExecutionException {
 		
-		String testPath = "erroredConfig/includeFileOverflow/config.xml";
-				
+		String testPath = testPathToConfig(configName);
 		Path experimentConfigFile = tl.resolveTestPath(testPath);
 
 		// Catch and display the output
@@ -350,18 +206,46 @@ public class ExperimentReaderErrorReportingTest {
 		
 			String output = e.friendlyMessageHierarchy();
 			
-			// Some qualities we'd like the error message to have
-			assertTrue(output.length()>0);
-			assertEquals(9, numberOfLines(output));
-			assertTrue( containsPathWithForwardSlashes(output,testPath) );
-			assertTrue( output.contains("Including file would cause overflow") );
-			
+			assertOutput(output, testPath, expectedNumberOfLines);
+			assertOutputContains(output, contains);
 			throw e;
 		}
 	}
-	
-	
 
+	
+	private static String testPathToConfig( String configName ) {
+		return String.format(
+			"erroredConfig/%s/config.xml",
+			configName
+		);
+	}
+	
+	/** 
+	 * Asserts that the output contains each item in an array
+	 * 
+	 * @param output the output of running the test
+	 * @param contains the array of items, each one should be contained in output, or else an assertion is thrown
+	 */
+	private void assertOutputContains( String output, String[] contains ) {
+		for (String str : contains) {
+			assertTrue( output.contains(str) );
+		}
+	}
+	
+	/**
+	 * Asserts the output has certain attributes
+	 * 
+	 * @param output the output of running the test
+	 * @param testPath the path used to form the input
+	 * @param expectedNumberOfLines expected number of lines in the error message
+	 */
+	private void assertOutput( String output, String testPath, int expectedNumberOfLines ) {
+		assertTrue(output.length()>0);
+		assertEquals(expectedNumberOfLines, numberOfLines(output));
+		assertTrue( containsPathWithForwardSlashes(output,testPath) );			
+	}
+	
+	
 	/**
 	 * The number of lines in a string (splitting by the current environments line seperator)
 	 * @param str a string with 0 or more lines
