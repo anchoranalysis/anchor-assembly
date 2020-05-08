@@ -4,8 +4,10 @@
 
     <logReporterTask config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
 
-	<task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask" suppressSubfolders="false" nrgParamsName="input_params">
-		  <namedDefinitions config-class="java.util.List" config-factory="include" filePath="config.xml"/>
+	<task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask" nrgParamsName="input_params">
+		  <define suppressSubfolders="false" config-class="org.anchoranalysis.mpp.sgmn.bean.define.DefineOutputterMPP">
+		  	<define config-class="java.util.List" config-factory="include" filePath="config.xml"/>
+		  </define>
 	</task>
 
 </experiment>
