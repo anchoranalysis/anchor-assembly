@@ -26,72 +26,33 @@
 <config>
 <bean config-class="java.util.List" config-factory="list">
 			
-		<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.Multiply" customName="multEdge">
-			<list config-class="java.util.List" config-factory="list">
-				
-					<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.Multiply">
-						<list config-class="java.util.List" config-factory="list">
+	<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.Multiply" customName="multEdge">
+		<list config-class="java.util.List" config-factory="list">
+			
+			<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.Multiply">
+				<list config-class="java.util.List" config-factory="list">
 
-							<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.Intensity" customName="intensityEdgeShell">
-											<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" regionID="1" index="2"/>
-										</item>
-							
-							<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.InvertedMax" max="10000">
-										<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.MarkEllipseCircumEstimate"/>
-							</item>
-						</list>
+					<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.ind.Intensity" customName="intensityEdgeShell">
+						<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.histogram.Sum"/>
+						<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" regionID="1" index="2"/>
 					</item>
-				<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.operator.Constant" value="1"/>
-			</list>
-		</item>
-
+					
+					<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.InvertedMax" max="10000">
+						<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.AsMark">
+							<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.mark.MarkEllipseCircumEstimate"/>
+						</item>
+					</item>
+				</list>
+			</item>
+			<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.operator.Constant" value="1"/>
+		</list>
+	</item>
  	
-	    		
-  		
-  		
-
-
-  	
-  			
- 		<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.Intensity" customName="intensityEdgeShell">
-	    	<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" regionID="1" index="2"/>
-	    </item>
-  			
-  	
-
-	
-																    					
-			    		
-		    		
-		    		
-		    		
-<!-- 		    		<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.Multiply" customName="volumeNormalized"> -->
-<!-- 						<list config-class="java.util.List" config-factory="list"> -->
-<!-- 							<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.operator.Constant" value="0.01"/> -->
-<!-- 						</list> -->
-<!-- 					</item> -->
-					
-<!-- 					<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.Multiply" customName="intensityNormalized"> -->
-<!-- 						<list config-class="java.util.List" config-factory="list"> -->
-<!-- 							<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.Intensity"> -->
-<!-- 								<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" shell="false" index="0"/> -->
-<!-- 							</item> -->
-<!-- 							<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.operator.Constant" value="1"/> -->
-<!-- 						</list> -->
-<!-- 					</item> -->
-		    		
-<!-- 		    		<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.NumberPixels" threshold="1"> -->
-<!-- 						<relationToThreshold config-class="ch.ethz.biol.cell.core.relation.GreaterThanBean"/> -->
-<!-- 						<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" shell="true" index="1"/> -->
-<!-- 					</item> -->
-					
-<!-- 					<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.NumberPixels" threshold="1"> -->
-<!-- 						<relationToThreshold config-class="ch.ethz.biol.cell.core.relation.GreaterThanBean"/> -->
-<!-- 						<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" shell="false" index="1"/> -->
-<!-- 					</item> -->
-		    		
-	
-
+ 			
+	<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.ind.Intensity" customName="intensityEdgeShell">
+    	<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" regionID="1" index="2"/>
+    	<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.histogram.Sum"/>
+    </item>
 
 </bean>
 </config>

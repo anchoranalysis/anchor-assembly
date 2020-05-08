@@ -26,11 +26,11 @@
 <config>
 <bean config-class="java.util.List" config-factory="list">
 
-	<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.IntensityMean" customName="intensityInside">
+	<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.ind.Intensity" customName="intensityInside">
 		<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" regionID="0" index="0"/>
 	</item>
 
-	<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.IntensityMean" customName="intensityInside">
+	<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.ind.Intensity" customName="intensityInside">
 		<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" regionID="1" index="0"/>
 	</item>   			
 
