@@ -109,7 +109,7 @@ public class ParseArgsAndRunExperiment {
 	        processExperimentShowErrors(line, parserConfig );
 			
 	    } catch( ParseException e ) {
-	        // oSomething went wrong
+	        // Something went wrong
 	    	logger.getLogReporter().logFormatted( "Parsing of command-line arguments failed.  Reason: %s%n", e.getMessage() );
 	    } catch (IOException e) {
 	    	logger.getErrorReporter().recordError(ParseArgsAndRunExperiment.class, e);
