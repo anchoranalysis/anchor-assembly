@@ -32,13 +32,13 @@
 			<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.Multiply">
 				<list config-class="java.util.List" config-factory="list">
 
-					<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.ind.Intensity" customName="intensityEdgeShell">
+					<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.memo.ind.Intensity" customName="intensityEdgeShell">
 						<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.histogram.Sum"/>
-						<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" regionID="1" index="2"/>
+						<region config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" regionID="1" index="2"/>
 					</item>
 					
 					<item config-class="org.anchoranalysis.plugin.operator.feature.bean.arithmetic.InvertedMax" max="10000">
-						<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.ind.AsMark">
+						<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.memo.ind.AsMark">
 							<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.mark.region.MarkEllipseCircumEstimate"/>
 						</item>
 					</item>
@@ -49,8 +49,8 @@
 	</item>
  	
  			
-	<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.ind.Intensity" customName="intensityEdgeShell">
-    	<pixelList config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" regionID="1" index="2"/>
+	<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.memo.ind.Intensity" customName="intensityEdgeShell">
+    	<region config-class="ch.ethz.biol.cell.mpp.mark.pixelstatisticsfrommark.Specific" regionID="1" index="2"/>
     	<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.histogram.Sum"/>
     </item>
 
