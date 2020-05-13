@@ -26,7 +26,7 @@
 <config>
 <bean config-class="org.anchoranalysis.feature.bean.list.FeatureList" config-factory="featureList">
 
-	<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.pair.OverlapRatio"/>
+	<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.memo.pair.overlap.OverlapRatio"/>
 
 </bean>
 </config>
