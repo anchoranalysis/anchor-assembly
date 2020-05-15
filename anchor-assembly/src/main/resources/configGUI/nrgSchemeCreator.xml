@@ -32,7 +32,7 @@
 		<list config-class="java.util.List" config-factory="list">
 			<item config-class="ch.ethz.biol.cell.mpp.pair.addcriteria.AddCriteriaFeatureRelationThreshold" threshold="0">
 				<relation config-class="ch.ethz.biol.cell.core.relation.GreaterThanBean"/>
-				<feature config-class="ch.ethz.biol.cell.mpp.nrg.feature.pair.Overlap" regionID="0" mip="false"/>
+				<feature config-class="org.anchoranalysis.plugin.mpp.feature.bean.memo.pair.overlap.Overlap" regionID="0" mip="false"/>
 			</item>	
 			<item config-class="ch.ethz.biol.cell.mpp.pair.addcriteria.AddCriteriaDistanceTo">
 				<threshold value="100" config-class="org.anchoranalysis.image.bean.unitvalue.distance.UnitValueDistanceVoxels"/>
