@@ -1,7 +1,7 @@
 <!-- Converts a stack of images into a montage -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask">
-	<define config-class="org.anchoranalysis.mpp.sgmn.bean.define.DefineOutputterMPP">
+	<define config-class="org.anchoranalysis.mpp.sgmn.bean.define.DefineOutputterMPP" suppressSubfolders="true">
 	    <define config-class="org.anchoranalysis.bean.define.Define" config-factory="define">
 	
 	        <namedStackProviderList config-class="java.util.List" config-factory="list">
