@@ -58,7 +58,7 @@ visualization_boxes:
 	            
 	            <!-- A binary mask of all the bounding-boxes merged together -->
 	            <item config-class="org.anchoranalysis.bean.NamedBean" name="mask">
-	                <item config-class="ch.ethz.biol.cell.imageprocessing.binaryimgchnl.provider.BinaryImgChnlProviderFromObjMasks">
+	                <item config-class="ch.ethz.biol.cell.imageprocessing.binaryimgchnl.provider.BinaryChnlProviderFromObjMasks">
 	                    <objs id="boxes" config-class="ch.ethz.biol.cell.imageprocessing.objmask.provider.ObjMaskProviderReference"/>
 	                </item>
 	            </item>
