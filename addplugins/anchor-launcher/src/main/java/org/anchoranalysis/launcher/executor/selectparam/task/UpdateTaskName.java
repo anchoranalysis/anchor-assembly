@@ -27,6 +27,7 @@ package org.anchoranalysis.launcher.executor.selectparam.task;
  */
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -51,7 +52,9 @@ class UpdateTaskName extends SelectParam<Path> {
 
 	@Override
 	public Path select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
-		eea.setTaskName(taskName);
+		eea.setTaskName(
+			Optional.of(taskName)
+		);
 		return delegate.select(eea);
 	}
 
