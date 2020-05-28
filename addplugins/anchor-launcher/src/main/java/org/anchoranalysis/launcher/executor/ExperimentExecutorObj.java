@@ -106,7 +106,13 @@ class ExperimentExecutorObj {
 	 * @param pathTask if non-null, the path to a task to replace the task specified in the experiment. If null, ignored.
 	 * @throws ExperimentExecutionException if the execution ends early
 	 */
-	public void executeExperiment( Experiment experiment, ExperimentExecutionArguments ea, Path pathInput, Path pathOutput, Path pathTask ) throws ExperimentExecutionException {		
+	public void executeExperiment(
+		Experiment experiment,
+		ExperimentExecutionArguments ea,
+		Path pathInput,
+		Path pathOutput,
+		Path pathTask
+	) throws ExperimentExecutionException {		
 				
 		if (!ea.hasInputFilterExtensions() &&  defaultExtensions.isPresent()) {
 			// If no input-filter extensions have been specified and defaults are available, they are inserted in
