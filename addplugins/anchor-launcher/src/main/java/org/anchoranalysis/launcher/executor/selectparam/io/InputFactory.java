@@ -31,8 +31,11 @@ import static org.anchoranalysis.launcher.executor.selectparam.io.PredicateUtili
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
@@ -49,80 +52,64 @@ public class InputFactory {
 
 	private InputFactory() {}
 	
-	public static SelectParam<Path> pathOrDirectoryOrGlobOrExtension( String[] args ) {
-
-		// If it contains a wildcard, assume its a glob
-		SelectParam<Path> selected = checkWildcard(args);
-		if (selected!=null) {
-			return selected;
-		}
-		
-		// If it ends with .xml, assumes it's an input-manager
-		selected = checkXmlExtension(args);
-		if (selected!=null) {
-			return selected;
-		}
-		
-		// If it begins with a period, and no slashes, then assume it's a file extension
-		selected = checkFileExtension(args);
-		if (selected!=null) {
-			return selected;
-		}
-				
+	public static SelectParam<Optional<Path>> pathOrDirectoryOrGlobOrExtension( String[] args ) {
 		List<Path> paths = pathFromArgs(args);
-		
-		// If it's a directory path, then use the directory to find inputs
-		selected = checkDirectory(paths);
-		if (selected!=null) {
-			return selected;
-		}
-				
-		// Otherwise assume it's a list of files to open
-		return new UseListFilesForManager(paths);
+		return OptionalUtilities.orFlat(
+			checkWildcard(args),			// If it contains a wildcard, assume its a glob
+			checkXmlExtension(args),		// If it ends with .xml, assumes it's an input-manager
+			checkFileExtension(args),		// If it begins with a period, and no slashes, then assume it's a file extension
+			checkDirectory(paths)			// If it's a directory path, then use the directory to find inputs
+		).orElseGet( ()->
+			new UseListFilesForManager(paths)
+		);
 	}
 	
-	private static SelectParam<Path> checkWildcard( String[] args ) {
-		if (anyHas(args, s->s.contains("*"))) {
-			if (args.length==1) {
-				return new UseAsGlob(args[0]);
-			} else {
-				throw new CommandLineException("Only a single wildcard argument is permitted to -i");
-			}
-		}
-		return null;
+	private static Optional<SelectParam<Optional<Path>>> checkWildcard( String[] args ) {
+		return check(
+			anyHas(args, s->s.contains("*")),
+			args.length==1,
+			() -> new UseAsGlob(args[0]),
+			"Only a single wildcard argument is permitted to -i"
+		);
 	}
 	
-	private static SelectParam<Path> checkFileExtension( String[] args ) {
-		if (anyHas(args, ExtensionUtilities::isFileExtension)) {
-			if (allHave(args, ExtensionUtilities::isFileExtension)) {
-				return new UseAsExtension(args);	
-			} else {
-				throw new CommandLineException("If a file-extension (e.g. .png) is specified, all other arguments to -i must also be file-extensions");
-			}
-		}
-		return null;
+	private static Optional<SelectParam<Optional<Path>>> checkFileExtension( String[] args ) {
+		return check(
+			anyHas(args, ExtensionUtilities::isFileExtension),
+			allHave(args, ExtensionUtilities::isFileExtension),
+			() -> new UseAsExtension(args),
+			"If a file-extension (e.g. .png) is specified, all other arguments to -i must also be file-extensions"
+		);
 	}
 	
-	private static SelectParam<Path> checkXmlExtension( String[] args ) {
-		if (anyHas(args, ExtensionUtilities::hasXmlExtension)) {
-			if (args.length==1) {
-				return new CustomManagerFromPath( PathConverter.pathFromArg(args[0]) );
-			} else {
-				throw new CommandLineException("Only a single BeanXML argument is permitted after -i (i.e. with a path with a .xml extension)");
-			}
-		}
-		return null;
+	private static Optional<SelectParam<Optional<Path>>> checkXmlExtension( String[] args ) {
+		return check(
+			anyHas(args, ExtensionUtilities::hasXmlExtension),
+			args.length==1,
+			() -> new CustomManagerFromPath( PathConverter.pathFromArg(args[0]) ),
+			"Only a single BeanXML argument is permitted after -i (i.e. with a path with a .xml extension)"
+		);
 	}
 	
-	private static SelectParam<Path> checkDirectory( List<Path> paths ) {
-		if (anyHas(paths, p->p.toFile().isDirectory())) {
-			if (paths.size()==1) {
-				return new UseDirectoryForManager(paths.get(0), true);
+	private static Optional<SelectParam<Optional<Path>>> checkDirectory( List<Path> paths ) {
+		return check(
+			anyHas(paths, p->p.toFile().isDirectory()),		
+			paths.size()==1,
+			() -> new UseDirectoryForManager(paths.get(0), true),
+			"Only a single argument is permitted after -i if it's a directory"
+		);
+	}
+	
+	
+	private static <T> Optional<T> check( boolean condition1, boolean condition2, Supplier<T> val, String errorMsg) {
+		if (condition1) {
+			if (condition2) {
+				return Optional.of(val.get());
 			} else {
-				throw new CommandLineException("Only a single argument is permitted after -i if it's a directory");
+				throw new CommandLineException(errorMsg);
 			}
 		}		
-		return null;
+		return Optional.empty();
 	}
 		
 	private static List<Path> pathFromArgs( String[] args ) {

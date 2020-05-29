@@ -29,6 +29,7 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.Optional;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -43,7 +44,7 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
  * @author Owen Feehan
  *
  */
-class UseAsGlob extends SelectParam<Path> {
+class UseAsGlob extends SelectParam<Optional<Path>> {
 
 	private String wildcardStr;
 	
@@ -58,15 +59,17 @@ class UseAsGlob extends SelectParam<Path> {
 	}
 
 	@Override
-	public Path select( ExperimentExecutionArguments eea ) {
+	public Optional<Path> select( ExperimentExecutionArguments eea ) {
 		
 		// Isolate a directory component, from the rest of the glob
 		// to allow matches like sdsds/sdsds/*.jpg
 		GlobWithDirectory gwd = GlobExtractor.extract(wildcardStr);
 		
-		if (gwd.getDirectory()!=null) {
-			eea.setInputDirectory( Paths.get(gwd.getDirectory()) );
-		}
+		gwd.getDirectory().ifPresent( dir->
+			eea.setInputDirectory(
+				Paths.get(dir)
+			)
+		);
 		
 		eea.setInputFilterGlob( gwd.getGlob() );
 		
@@ -74,7 +77,7 @@ class UseAsGlob extends SelectParam<Path> {
 		
 		eea.setInputFilterExtensions( new HashSet<String>() );
 		
-		return null;
+		return Optional.empty();
 	}
 
 	@Override

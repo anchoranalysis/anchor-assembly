@@ -28,6 +28,7 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
@@ -42,7 +43,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter
  * @author Owen Feehan
  *
  */
-class UseListFilesForManager extends SelectParam<Path> {
+class UseListFilesForManager extends SelectParam<Optional<Path>> {
 
 	private List<Path> paths;
 	
@@ -58,11 +59,11 @@ class UseListFilesForManager extends SelectParam<Path> {
 	}
 
 	@Override
-	public Path select( ExperimentExecutionArguments eea ) {
+	public Optional<Path> select( ExperimentExecutionArguments eea ) {
 
 		eea.setInputPaths(paths);
 		
-		return null;
+		return Optional.empty();
 	}
 
 	@Override

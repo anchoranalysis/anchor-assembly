@@ -27,6 +27,7 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
  */
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -41,7 +42,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter
  * @author Owen Feehan
  *
  */
-class UseDirectoryForManager extends SelectParam<Path> {
+class UseDirectoryForManager extends SelectParam<Optional<Path>> {
 
 	private boolean input = true;
 	private Path directory;
@@ -65,7 +66,7 @@ class UseDirectoryForManager extends SelectParam<Path> {
 
 
 	@Override
-	public Path select( ExperimentExecutionArguments eea ) {
+	public Optional<Path> select( ExperimentExecutionArguments eea ) {
 		
 		if (input) {
 			eea.setInputDirectory(directory);
@@ -73,7 +74,7 @@ class UseDirectoryForManager extends SelectParam<Path> {
 			eea.setOutputDirectory(directory);
 		}
 		
-		return null;
+		return Optional.empty();
 	}
 
 	@Override

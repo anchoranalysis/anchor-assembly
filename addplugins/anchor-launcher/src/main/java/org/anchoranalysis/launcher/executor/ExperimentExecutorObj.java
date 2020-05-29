@@ -7,6 +7,7 @@ import java.util.Set;
 import org.anchoranalysis.bean.xml.RegisterBeanFactories;
 import org.anchoranalysis.bean.xml.factory.AnchorDefaultBeanFactory;
 import org.anchoranalysis.core.error.OperationFailedException;
+import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
@@ -101,29 +102,38 @@ class ExperimentExecutorObj {
 	 * 
 	 * @param path a path to the file-system (can be a path to a file, or to a dolder)
 	 * @param ea experiment-arguments
-	 * @param pathInput if non-null, the path to an input-manager to replace the input-manager specified in the experiment. If null, ignored.
-	 * @param pathOutput if non-null, the path to an output-manager to replace the output-manager specified in the experiment. If null, ignored.
-	 * @param pathTask if non-null, the path to a task to replace the task specified in the experiment. If null, ignored.
+	 * @param pathInput if defined, the path to an input-manager to replace the input-manager specified in the experiment. If empty(), ignored.
+	 * @param pathOutput if defined, the path to an output-manager to replace the output-manager specified in the experiment. If empty(), ignored.
+	 * @param pathTask if defined, the path to a task to replace the task specified in the experiment. If empty(), ignored.
 	 * @throws ExperimentExecutionException if the execution ends early
 	 */
-	public void executeExperiment( Experiment experiment, ExperimentExecutionArguments ea, Path pathInput, Path pathOutput, Path pathTask ) throws ExperimentExecutionException {		
+	public void executeExperiment(
+		Experiment experiment,
+		ExperimentExecutionArguments ea,
+		Optional<Path> pathInput,
+		Optional<Path> pathOutput,
+		Optional<Path> pathTask
+	) throws ExperimentExecutionException {		
 				
 		if (!ea.hasInputFilterExtensions() &&  defaultExtensions.isPresent()) {
 			// If no input-filter extensions have been specified and defaults are available, they are inserted in
 			ea.setInputFilterExtensions(defaultExtensions.get());
 		}
 		
-		if (pathInput!=null) {
-			replaceInputManager(experiment, ea, pathInput);
-		}
+		OptionalUtilities.ifPresent(
+			pathInput,
+			path-> replaceInputManager(experiment, ea, path)
+		);
 		
-		if (pathOutput!=null) {
-			replaceOutputManager(experiment, ea, pathOutput);
-		}
+		OptionalUtilities.ifPresent(
+			pathOutput,
+			path-> replaceOutputManager(experiment, ea, path)
+		);
 		
-		if (pathTask!=null) {
-			replaceTask(experiment, ea, pathTask);
-		}
+		OptionalUtilities.ifPresent(
+			pathTask,
+			path -> replaceTask(experiment, ea, path)
+		);
 		
 		executeExperiment( experiment, ea );		
 	}

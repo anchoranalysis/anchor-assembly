@@ -30,6 +30,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
@@ -43,7 +44,7 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
  * @author Owen Feehan
  *
  */
-class UseAsExtension extends SelectParam<Path> {
+class UseAsExtension extends SelectParam<Optional<Path>> {
 
 	private String[] extensions;
 	
@@ -58,7 +59,7 @@ class UseAsExtension extends SelectParam<Path> {
 	}
 
 	@Override
-	public Path select( ExperimentExecutionArguments eea ) {
+	public Optional<Path> select( ExperimentExecutionArguments eea ) {
 		
 		// Remove the period from the left side
 		List<String> extWithoutPeriod = removeLeadingPeriod(extensions);
@@ -67,7 +68,7 @@ class UseAsExtension extends SelectParam<Path> {
 			new HashSet<>(extWithoutPeriod)
 		);
 		
-		return null;
+		return Optional.empty();
 	}
 	
 	private static List<String> removeLeadingPeriod( String[] exts ) {
