@@ -92,7 +92,7 @@ public class SelectParamFactory {
 		return ifOption(
 			line,
 			optionName,
-			args -> InputFactory.pathOrDirectoryOrGlobOrExtension(args)
+			InputFactory::pathOrDirectoryOrGlobOrExtension
 		);
 	}
 	
