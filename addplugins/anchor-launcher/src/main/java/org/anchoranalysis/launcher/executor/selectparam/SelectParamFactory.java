@@ -27,6 +27,7 @@ package org.anchoranalysis.launcher.executor.selectparam;
  */
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Function;
 
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -51,7 +52,7 @@ public class SelectParamFactory {
 	 * 
 	 * @return
 	 */
-	public static SelectParam<Path> useDefault() {
+	public static SelectParam<Optional<Path>> useDefault() {
 		return new UseDefaultManager();
 	}
 	
@@ -63,8 +64,12 @@ public class SelectParamFactory {
 	 * @param configDir path to the configuration-directory of anchor
 	 * @return an appropriate SelectParam object
 	 */
-	public static SelectParam<Path> pathOrTaskNameOrDefault( CommandLine line, String optionName, Path configDir ) {
-		return ifOption(line, optionName, args -> TaskFactory.pathOrTaskName(args, configDir) );
+	public static SelectParam<Optional<Path>> pathOrTaskNameOrDefault( CommandLine line, String optionName, Path configDir ) {
+		return ifOption(
+			line,
+			optionName,
+			args -> TaskFactory.pathOrTaskName(args, configDir)
+		);
 	}
 	
 	/**
@@ -80,11 +85,15 @@ public class SelectParamFactory {
 	 * @param optionName which option we consider
 	 * @return an appropriate SelectParam object
 	 */
-	public static SelectParam<Path> inputSelectParam(
+	public static SelectParam<Optional<Path>> inputSelectParam(
 		CommandLine line,
 		String optionName
 	) {
-		return ifOption(line, optionName, args -> InputFactory.pathOrDirectoryOrGlobOrExtension(args) );
+		return ifOption(
+			line,
+			optionName,
+			args -> InputFactory.pathOrDirectoryOrGlobOrExtension(args)
+		);
 	}
 	
 	
@@ -99,11 +108,15 @@ public class SelectParamFactory {
 	 * @param optionName which option we consider
 	 * @return an appropriate SelectParam object
 	 */
-	public static SelectParam<Path> outputSelectParam(
+	public static SelectParam<Optional<Path>> outputSelectParam(
 		CommandLine line,
 		String optionName
 	) {
-		return ifOption(line, optionName, arg -> OutputFactory.pathOrDirectory(arg, false) );
+		return ifOption(
+			line,
+			optionName,
+			arg -> OutputFactory.pathOrDirectory(arg, false)
+		);
 	}
 	
 	
@@ -123,9 +136,11 @@ public class SelectParamFactory {
 		return ExperimentFactory.defaultExperimentOrCustom(line, defaultExperiment);
 	}
 	
-	private static SelectParam<Path> ifOption(CommandLine line, String optionName, Function<String[],SelectParam<Path>> func ) {
+	private static SelectParam<Optional<Path>> ifOption(CommandLine line, String optionName, Function<String[],SelectParam<Optional<Path>>> func ) {
 		if (line.hasOption(optionName)) {
-        	return func.apply( line.getOptionValues(optionName) );
+        	return func.apply(
+        		line.getOptionValues(optionName)
+        	);
         	
         } else {
         	return new UseDefaultManager();

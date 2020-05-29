@@ -26,7 +26,6 @@ package org.anchoranalysis.launcher.executor.selectparam.task;
  * #L%
  */
 
-import java.nio.file.Path;
 import java.util.Optional;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
@@ -37,21 +36,21 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
  * Updates task-name AND delegates to another SelectParam<Path>
  * 
  * @author owen
- *
+ * @param <T> delegate-type for {@link SelectParam}
  */
-class UpdateTaskName extends SelectParam<Path> {
+class UpdateTaskName<T> extends SelectParam<T> {
 
-	private SelectParam<Path> delegate;
+	private SelectParam<T> delegate;
 	private String taskName;
 
-	public UpdateTaskName(SelectParam<Path> delegate, String taskName) {
+	public UpdateTaskName(SelectParam<T> delegate, String taskName) {
 		super();
 		this.delegate = delegate;
 		this.taskName = taskName;
 	}
 
 	@Override
-	public Path select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
+	public T select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
 		eea.setTaskName(
 			Optional.of(taskName)
 		);

@@ -29,6 +29,7 @@ package org.anchoranalysis.launcher.executor;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.anchoranalysis.core.log.LogReporter;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
@@ -50,11 +51,11 @@ public class ExperimentExecutor {
 			
 	private SelectParam<Path> experiment;
 	
-	private SelectParam<Path> input = SelectParamFactory.useDefault();
+	private SelectParam<Optional<Path>> input = SelectParamFactory.useDefault();
 
-	private SelectParam<Path> output = SelectParamFactory.useDefault();
+	private SelectParam<Optional<Path>> output = SelectParamFactory.useDefault();
 	
-	private SelectParam<Path> task = SelectParamFactory.useDefault();
+	private SelectParam<Optional<Path>> task = SelectParamFactory.useDefault();
 	
 	private Path configDir;
 	
@@ -138,7 +139,7 @@ public class ExperimentExecutor {
 		return experiment.isDefault() && input.isDefault() && output.isDefault() && task.isDefault();
 	}
 	
-	private void addToListIfNonDefault(SelectParam<Path> selectParam, String textDscr, List<String> list) throws ExperimentExecutionException {
+	private void addToListIfNonDefault(SelectParam<Optional<Path>> selectParam, String textDscr, List<String> list) throws ExperimentExecutionException {
 		if (!selectParam.isDefault()) {
 			list.add( String.format("%s %s", textDscr, selectParam.describe()) );
 		}
@@ -171,22 +172,24 @@ public class ExperimentExecutor {
 	}
 	
 	private Experiment loadExperimentFromPath( ExperimentExecutionArguments execArgs ) throws ExperimentExecutionException {
-		return ExperimentReader.readExperimentFromXML( experiment.select(execArgs));
+		return ExperimentReader.readExperimentFromXML(
+			experiment.select(execArgs)
+		);
 	}
 	
-	public void setInput(SelectParam<Path> input) {
+	public void setInput(SelectParam<Optional<Path>> input) {
 		this.input = input;
 	}
 
-	public void setOutput(SelectParam<Path> output) {
+	public void setOutput(SelectParam<Optional<Path>> output) {
 		this.output = output;
 	}
 
-	public SelectParam<Path> getInput() {
+	public SelectParam<Optional<Path>> getInput() {
 		return input;
 	}
 
-	public SelectParam<Path> getOutput() {
+	public SelectParam<Optional<Path>> getOutput() {
 		return output;
 	}
 
@@ -198,11 +201,11 @@ public class ExperimentExecutor {
 		return defaultBehaviourString;
 	}
 
-	public SelectParam<Path> getTask() {
+	public SelectParam<Optional<Path>> getTask() {
 		return task;
 	}
 
-	public void setTask(SelectParam<Path> task) {
+	public void setTask(SelectParam<Optional<Path>> task) {
 		this.task = task;
 	}
 
