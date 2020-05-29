@@ -32,6 +32,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import org.anchoranalysis.core.functional.OptionalUtilities;
@@ -67,7 +68,7 @@ public class InputFactory {
 		return check(
 			anyHas(args, s->s.contains("*")),
 			args.length==1,
-			new UseAsGlob(args[0]),
+			() -> new UseAsGlob(args[0]),
 			"Only a single wildcard argument is permitted to -i"
 		);
 	}
@@ -76,7 +77,7 @@ public class InputFactory {
 		return check(
 			anyHas(args, ExtensionUtilities::isFileExtension),
 			allHave(args, ExtensionUtilities::isFileExtension),
-			new UseAsExtension(args),
+			() -> new UseAsExtension(args),
 			"If a file-extension (e.g. .png) is specified, all other arguments to -i must also be file-extensions"
 		);
 	}
@@ -85,7 +86,7 @@ public class InputFactory {
 		return check(
 			anyHas(args, ExtensionUtilities::hasXmlExtension),
 			args.length==1,
-			new CustomManagerFromPath( PathConverter.pathFromArg(args[0]) ),
+			() -> new CustomManagerFromPath( PathConverter.pathFromArg(args[0]) ),
 			"Only a single BeanXML argument is permitted after -i (i.e. with a path with a .xml extension)"
 		);
 	}
@@ -94,16 +95,16 @@ public class InputFactory {
 		return check(
 			anyHas(paths, p->p.toFile().isDirectory()),		
 			paths.size()==1,
-			new UseDirectoryForManager(paths.get(0), true),
+			() -> new UseDirectoryForManager(paths.get(0), true),
 			"Only a single argument is permitted after -i if it's a directory"
 		);
 	}
 	
 	
-	private static <T> Optional<T> check( boolean condition1, boolean condition2, T val, String errorMsg) {
+	private static <T> Optional<T> check( boolean condition1, boolean condition2, Supplier<T> val, String errorMsg) {
 		if (condition1) {
 			if (condition2) {
-				return Optional.of(val);
+				return Optional.of(val.get());
 			} else {
 				throw new CommandLineException(errorMsg);
 			}
