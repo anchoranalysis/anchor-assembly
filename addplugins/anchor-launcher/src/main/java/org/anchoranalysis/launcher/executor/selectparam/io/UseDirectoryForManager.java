@@ -71,7 +71,9 @@ class UseDirectoryForManager extends SelectParam<Optional<Path>> {
 		if (input) {
 			eea.setInputDirectory(directory);
 		} else {
-			eea.setOutputDirectory(directory);
+			eea.setOutputDirectory(
+				Optional.of(directory)
+			);
 		}
 		
 		return Optional.empty();
