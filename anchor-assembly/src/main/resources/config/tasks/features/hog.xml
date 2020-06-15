@@ -25,13 +25,13 @@ An image, either grayscale or RGB.
 OUTPUTS
 =======
 
-csvAll:
-    a CSV file with each image's path, group (by default they are in the same group) and features
+features:
+    a CSV file with each image's name and HOG features
 
 -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeaturesImageTask">
-
+	
  	<listFeatures config-class="java.util.List" config-factory="list">
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="hog">
