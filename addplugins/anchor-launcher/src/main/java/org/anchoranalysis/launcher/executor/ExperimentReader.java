@@ -91,7 +91,7 @@ class ExperimentReader {
 			}
 	
 		} catch (BeanXmlException e) {
-			String errorMsg = String.format("An error occurred interpreting the bean XML at \"%s\"", configPath);
+			String errorMsg = String.format("An error occurred reading the experiment bean XML at \"%s\".%nPlease ensure this is validly-formatted BeanXML for an experiment.", configPath);
 			throw new ExperimentExecutionException(errorMsg,e);
 		}
 		

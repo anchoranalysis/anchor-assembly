@@ -1,0 +1,26 @@
+<!-- 
+===================
+TASK:   mean
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Calculates an image where each pixel contains the mean of that pixel-value across many images.
+
+======
+INPUTS
+======
+
+Grayscale or RGB images, all must be the same size.
+
+=======
+OUTPUTS
+=======
+
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.grouped.raster.GroupedMeanChnlTask"/>
+</config>
