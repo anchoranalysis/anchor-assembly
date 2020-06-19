@@ -61,8 +61,8 @@ public class ExperimentExecutor {
 	
 	private Path executionDir;
 	
-	// If non-null, a string is printed in the description if the default-experiment is used. If non-null this is ignored.
-	private String defaultBehaviourString;
+	/** If present, a string is printed in the description if the default-experiment is used, otherwise ignored. */
+	private Optional<String> defaultBehaviourString;
 	
 	/**
 	 * Constructor
@@ -87,11 +87,11 @@ public class ExperimentExecutor {
 		
 		ExperimentExecutorObj delegate = new ExperimentExecutorObj(executionDir);
 				
-		if (defaultBehaviourString!=null && areAllDefault()) {
+		if (defaultBehaviourString.isPresent() && areAllDefault()) {
 			// Special behaviour if everything has defaults
 			logger.logFormatted(
 				"%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.%n",
-				defaultBehaviourString,
+				defaultBehaviourString.get(),
 				ParseArgsAndRunExperiment.OPTION_HELP
 			);
 		}
@@ -193,12 +193,8 @@ public class ExperimentExecutor {
 		return output;
 	}
 
-	public void setDefaultBehaviourString(String defaultBehaviourString) {
+	public void setDefaultBehaviourString(Optional<String> defaultBehaviourString) {
 		this.defaultBehaviourString = defaultBehaviourString;
-	}
-
-	public String getDefaultBehaviourString() {
-		return defaultBehaviourString;
 	}
 
 	public SelectParam<Optional<Path>> getTask() {
