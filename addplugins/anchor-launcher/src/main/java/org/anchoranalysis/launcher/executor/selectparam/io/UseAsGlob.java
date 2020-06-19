@@ -44,7 +44,7 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
  * @author Owen Feehan
  *
  */
-class UseAsGlob extends SelectParam<Optional<Path>> {
+class UseAsGlob implements SelectParam<Optional<Path>> {
 
 	private String wildcardStr;
 	

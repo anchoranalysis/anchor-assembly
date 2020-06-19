@@ -39,7 +39,7 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
  * @author Owen Feehan
  *
  */
-public class CustomManagerFromPath extends SelectParam<Optional<Path>> {
+public class CustomManagerFromPath implements SelectParam<Optional<Path>> {
 
 	private Path path;
 

@@ -31,8 +31,10 @@ import java.nio.file.Paths;
 
 public class PrettyPathConverter {
 
+	private PrettyPathConverter() {}
+	
 	// If we have more than this in a relative-path, we show absolute paths instead
-	private static int MAX_DOUBLE_DOTS_CNT = 3;
+	private static final int MAX_DOUBLE_DOTS_CNT = 3;
 	
 	/** Converts to either a normalized absolute-path or relative-path depending on which is prettier to the user */
 	public static String prettyPath( String path ) {

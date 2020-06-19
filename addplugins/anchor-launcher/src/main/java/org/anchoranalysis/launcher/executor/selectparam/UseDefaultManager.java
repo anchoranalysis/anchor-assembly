@@ -39,7 +39,7 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
  * @author Owen Feehan
  *
  */
-public class UseDefaultManager extends SelectParam<Optional<Path>> {
+public class UseDefaultManager implements SelectParam<Optional<Path>> {
 
 	@Override
 	public Optional<Path> select( ExperimentExecutionArguments eea ) {

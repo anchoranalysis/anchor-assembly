@@ -122,17 +122,17 @@ class ExperimentExecutorObj {
 		
 		OptionalUtilities.ifPresent(
 			pathInput,
-			path-> replaceInputManager(experiment, ea, path)
+			path-> replaceInputManager(experiment, path)
 		);
 		
 		OptionalUtilities.ifPresent(
 			pathOutput,
-			path-> replaceOutputManager(experiment, ea, path)
+			path-> replaceOutputManager(experiment, path)
 		);
 		
 		OptionalUtilities.ifPresent(
 			pathTask,
-			path -> replaceTask(experiment, ea, path)
+			path -> replaceTask(experiment, path)
 		);
 		
 		executeExperiment( experiment, ea );		
@@ -142,11 +142,10 @@ class ExperimentExecutorObj {
 	 * Replaces the input-manager of an experiment with an input-manager declared at pathInput
 	 * 
 	 * @param experiment experiment whose input-manager will be replaced
-	 * @param ea experiment-arguments
 	 * @param pathInput a path to a BeanXML file defining the replacement input-manager
 	 * @throws ExperimentExecutionException
 	 */
-	private void replaceInputManager( Experiment experiment, ExperimentExecutionArguments ea, Path pathInput ) throws ExperimentExecutionException {
+	private void replaceInputManager( Experiment experiment, Path pathInput ) throws ExperimentExecutionException {
 		
 		// As path could be a folder, we make sure we get a file
 		InputManager<InputFromManager> inputManager = ExperimentReader.readInputManagerFromXML(	pathInput );
@@ -183,11 +182,10 @@ class ExperimentExecutorObj {
 	 * Replaces the output-manager of an experiment with an output-manager declared at pathOutput
 	 * 
 	 * @param experiment experiment whose input-manager will be replaced
-	 * @param ea experiment-arguments
 	 * @param pathOutput a path to a BeanXML file defining the replacement output-manager
 	 * @throws ExperimentExecutionException
 	 */
-	private void replaceOutputManager( Experiment experiment, ExperimentExecutionArguments ea, Path pathOutput ) throws ExperimentExecutionException {
+	private void replaceOutputManager( Experiment experiment, Path pathOutput ) throws ExperimentExecutionException {
 		
 		// As path could be a folder, we make sure we get a file
 		OutputManager outputManager = ExperimentReader.readOutputManagerFromXML(pathOutput);
@@ -224,12 +222,11 @@ class ExperimentExecutorObj {
 	 * Replaces the task of an experiment with an task declared at pathTask
 	 * 
 	 * @param experiment experiment whose input-task will be replaced
-	 * @param ea experiment-arguments
 	 * @param pathTask a path to a BeanXML file defining the replacement task
 	 * @throws ExperimentExecutionException
 	 */
 	@SuppressWarnings("unchecked")
-	private void replaceTask( Experiment experiment, ExperimentExecutionArguments ea, Path pathTask ) throws ExperimentExecutionException {
+	private void replaceTask( Experiment experiment, Path pathTask ) throws ExperimentExecutionException {
 		
 		// As path could be a folder, we make sure we get a file
 		Task<InputFromManager,Object> task = ExperimentReader.readTaskFromXML(pathTask);

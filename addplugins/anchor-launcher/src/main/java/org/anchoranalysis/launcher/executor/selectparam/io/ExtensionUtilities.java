@@ -37,18 +37,18 @@ class ExtensionUtilities {
 	}
 		
 	public static boolean isFileExtension( String arg ) {
-		if (!arg.startsWith(".")) {
-			return false;
-		}
-		
-		if (arg.contains("/") || arg.contains("\\")) {
-			return false;
-		}
-		
-		if (arg.equals(".") || arg.equals("..")) {
-			return false;
-		}
-		
-		return true;
+		return startsWithPeriod(".") && !isFileSeperator(arg) && !isDirectoryChange(arg);
+	}
+	
+	private static boolean startsWithPeriod(String arg) {
+		return arg.startsWith(".");	
+	}
+	
+	private static boolean isDirectoryChange(String arg) {
+		return arg.equals(".") || arg.equals("..");
+	}
+	
+	private static boolean isFileSeperator(String arg) {
+		return arg.contains("/") || arg.contains("\\");
 	}
 }

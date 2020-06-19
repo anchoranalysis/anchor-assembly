@@ -2,8 +2,6 @@ package org.anchoranalysis.launcher.executor;
 
 
 
-import java.nio.file.Files;
-
 /*
  * #%L
  * anchor-launcher
@@ -79,7 +77,7 @@ class ExperimentReader {
 		// To avoid any .. or . in error reporting
 		configPath = configPath.normalize();
 		
-		if (!Files.exists(configPath)) {
+		if (!configPath.toFile().exists()) {
 			throw new ExperimentExecutionException( String.format("Error: a file does not exist at \"%s\"", configPath) );
 		}
 		

@@ -51,7 +51,7 @@ public class Launch {
 	 * @param args command line application
 	 * @throws Exception whatever exceptions occur
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		LogErrorReporter logger = new LogErrorReporter( new ConsoleLogReporter() );
 		runCommandLineApp( args, new LauncherConfigCommandLine(), logger );
 	}

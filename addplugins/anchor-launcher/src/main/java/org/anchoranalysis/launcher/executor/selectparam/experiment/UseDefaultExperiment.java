@@ -32,7 +32,7 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
 
-class UseDefaultExperiment extends SelectParam<Path> {
+class UseDefaultExperiment implements SelectParam<Path> {
 
 	private Path defaultExperiment;
 	

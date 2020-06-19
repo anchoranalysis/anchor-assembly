@@ -83,7 +83,7 @@ public class ParseArgsAndRunExperiment {
 	 * @param args arguments from command-line
 	 * @params parserConfig a configuration for the command-line exector
 	 */
-	public void parseAndRun( String args[], LauncherConfig parserConfig ) {
+	public void parseAndRun( String[] args, LauncherConfig parserConfig ) {
 		
 		Options options = createOptions(parserConfig);
 		
@@ -178,7 +178,7 @@ public class ParseArgsAndRunExperiment {
 	 * Some operation is executed on an an experiment after considering the help/version options
 	 * 
 	 * @param line remaining-command line arguments after options are removed
-	 * @param logger TODO
+	 * @param logger logger
 	 * @throws ExperimentExecutionException if processing ends early
 	 */
 	private void processExperiment( CommandLine line, LogErrorReporter logger, LauncherConfig parserConfig ) throws ExperimentExecutionException {

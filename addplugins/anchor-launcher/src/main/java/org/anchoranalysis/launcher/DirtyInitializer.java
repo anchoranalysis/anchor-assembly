@@ -49,7 +49,6 @@ public class DirtyInitializer {
 	 * an application that will use the Anchor platform
 	 */
 	public static void dirtyInitialization() {
-		// TODO move this functionality into a plugin loading framework (e.g. OSGI bundles, Apache Felix) 
 		ConfigureBioformatsLogging.instance().makeSureConfigured();
 		disableAccessWarnings();
 	}

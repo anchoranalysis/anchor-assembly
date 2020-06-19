@@ -31,6 +31,8 @@ import java.nio.file.Paths;
 
 public class PathConverter {
 
+	private PathConverter() {}
+	
 	public static Path pathFromArg( String arg ) {
 		return Paths.get(arg).toAbsolutePath();
 	}

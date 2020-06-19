@@ -48,33 +48,33 @@ class HelperLoadAdditionalConfig {
 	/**
 	 * Name of anchor subdirectory in user directory
 	 */
-	private static String ANCHOR_USER_SUBDIR = ".anchor/";
+	private static final String ANCHOR_USER_SUBDIR = ".anchor/";
 	
 	/**
 	 * Name of anchor config subdirectory in home directory
 	 */
-	private static String ANCHOR_HOME_CONFIG = "config/";
+	private static final String ANCHOR_HOME_CONFIG = "config/";
 
 	/**
 	 * Filename (relative to anchor root) for default instances config file
 	 */
-	private static String DEFAULT_INSTANCES_FILENAME = "defaultBeans.xml";
+	private static final String DEFAULT_INSTANCES_FILENAME = "defaultBeans.xml";
 	
 	/**
 	 * Filename (relative to anchor root) for default extensions
 	 */
-	private static String DEFAULT_EXTENSIONS_FILENAME = "defaultInputExtensions.xml";
+	private static final String DEFAULT_EXTENSIONS_FILENAME = "defaultInputExtensions.xml";
 	
 	/**
 	 * Filename (relative to anchor root) for root path map
 	 */
-	private static String ROOT_PATH_MAP_FILENAME = "rootPaths.xml";
+	private static final String ROOT_PATH_MAP_FILENAME = "rootPaths.xml";
 	
 	/**
 	 * Name of the environment variable that indicates the ANCHOR home directory
 	 * (i.e. directory in which bin/ exists, from which Anchor is executed)
 	 */
-	private static String ANCHOR_HOME_ENV_VAR_NAME = "ANCHOR_HOME";
+	private static final String ANCHOR_HOME_ENV_VAR_NAME = "ANCHOR_HOME";
 
 	private HelperLoadAdditionalConfig() {}
 	
