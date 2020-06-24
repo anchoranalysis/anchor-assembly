@@ -38,7 +38,7 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
  * @author owen
  * @param <T> delegate-type for {@link SelectParam}
  */
-class UpdateTaskName<T> extends SelectParam<T> {
+class UpdateTaskName<T> implements SelectParam<T> {
 
 	private SelectParam<T> delegate;
 	private String taskName;

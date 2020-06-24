@@ -26,8 +26,6 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
  * #L%
  */
 
-import static org.anchoranalysis.launcher.executor.selectparam.io.PredicateUtilities.*;
-
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
@@ -66,7 +64,7 @@ public class InputFactory {
 	
 	private static Optional<SelectParam<Optional<Path>>> checkWildcard( String[] args ) {
 		return check(
-			anyHas(args, s->s.contains("*")),
+			Arrays.stream(args).anyMatch(s->s.contains("*")),
 			args.length==1,
 			() -> new UseAsGlob(args[0]),
 			"Only a single wildcard argument is permitted to -i"
@@ -75,8 +73,8 @@ public class InputFactory {
 	
 	private static Optional<SelectParam<Optional<Path>>> checkFileExtension( String[] args ) {
 		return check(
-			anyHas(args, ExtensionUtilities::isFileExtension),
-			allHave(args, ExtensionUtilities::isFileExtension),
+			Arrays.stream(args).anyMatch(ExtensionUtilities::isFileExtension),
+			Arrays.stream(args).allMatch(ExtensionUtilities::isFileExtension),
 			() -> new UseAsExtension(args),
 			"If a file-extension (e.g. .png) is specified, all other arguments to -i must also be file-extensions"
 		);
@@ -84,7 +82,7 @@ public class InputFactory {
 	
 	private static Optional<SelectParam<Optional<Path>>> checkXmlExtension( String[] args ) {
 		return check(
-			anyHas(args, ExtensionUtilities::hasXmlExtension),
+			Arrays.stream(args).anyMatch(ExtensionUtilities::hasXmlExtension),
 			args.length==1,
 			() -> new CustomManagerFromPath( PathConverter.pathFromArg(args[0]) ),
 			"Only a single BeanXML argument is permitted after -i (i.e. with a path with a .xml extension)"
@@ -93,7 +91,7 @@ public class InputFactory {
 	
 	private static Optional<SelectParam<Optional<Path>>> checkDirectory( List<Path> paths ) {
 		return check(
-			anyHas(paths, p->p.toFile().isDirectory()),		
+			paths.stream().anyMatch(p->p.toFile().isDirectory()),		
 			paths.size()==1,
 			() -> new UseDirectoryForManager(paths.get(0), true),
 			"Only a single argument is permitted after -i if it's a directory"

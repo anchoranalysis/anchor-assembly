@@ -42,7 +42,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter
  * @author Owen Feehan
  *
  */
-class UseDirectoryForManager extends SelectParam<Optional<Path>> {
+class UseDirectoryForManager implements SelectParam<Optional<Path>> {
 
 	private boolean input = true;
 	private Path directory;
@@ -52,7 +52,7 @@ class UseDirectoryForManager extends SelectParam<Optional<Path>> {
 	 *  
 	 * @param input iff TRUE, then we are replacing the input-manager, otherwise the output-manager
 	 */
-	public UseDirectoryForManager(Path directory, boolean input) throws CommandLineException {
+	public UseDirectoryForManager(Path directory, boolean input) {
 		super();
 		this.input = input;
 		this.directory = directory;
@@ -71,7 +71,9 @@ class UseDirectoryForManager extends SelectParam<Optional<Path>> {
 		if (input) {
 			eea.setInputDirectory(directory);
 		} else {
-			eea.setOutputDirectory(directory);
+			eea.setOutputDirectory(
+				Optional.of(directory)
+			);
 		}
 		
 		return Optional.empty();

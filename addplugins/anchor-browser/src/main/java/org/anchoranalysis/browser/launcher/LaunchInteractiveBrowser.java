@@ -44,7 +44,7 @@ public class LaunchInteractiveBrowser {
 	 * @param args command line application
 	 * @throws Exception whatever exceptions occur
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 				
 		LogErrorReporter logger = createLogErrorReporter();
 		Launch.runCommandLineApp(args, new LauncherConfigBrowser(), logger );

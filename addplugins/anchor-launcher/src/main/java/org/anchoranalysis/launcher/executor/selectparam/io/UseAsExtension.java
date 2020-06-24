@@ -44,7 +44,7 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
  * @author Owen Feehan
  *
  */
-class UseAsExtension extends SelectParam<Optional<Path>> {
+class UseAsExtension implements SelectParam<Optional<Path>> {
 
 	private String[] extensions;
 	

@@ -43,7 +43,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter
  * @author Owen Feehan
  *
  */
-class UseListFilesForManager extends SelectParam<Optional<Path>> {
+class UseListFilesForManager implements SelectParam<Optional<Path>> {
 
 	private List<Path> paths;
 	

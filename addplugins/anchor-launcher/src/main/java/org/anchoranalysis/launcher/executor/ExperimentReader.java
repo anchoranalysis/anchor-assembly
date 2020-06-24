@@ -2,8 +2,6 @@ package org.anchoranalysis.launcher.executor;
 
 
 
-import java.nio.file.Files;
-
 /*
  * #%L
  * anchor-launcher
@@ -79,7 +77,7 @@ class ExperimentReader {
 		// To avoid any .. or . in error reporting
 		configPath = configPath.normalize();
 		
-		if (!Files.exists(configPath)) {
+		if (!configPath.toFile().exists()) {
 			throw new ExperimentExecutionException( String.format("Error: a file does not exist at \"%s\"", configPath) );
 		}
 		
@@ -91,7 +89,7 @@ class ExperimentReader {
 			}
 	
 		} catch (BeanXmlException e) {
-			String errorMsg = String.format("An error occurred interpreting the bean XML at \"%s\"", configPath);
+			String errorMsg = String.format("An error occurred reading the experiment bean XML at \"%s\".%nPlease ensure this is validly-formatted BeanXML for an experiment.", configPath);
 			throw new ExperimentExecutionException(errorMsg,e);
 		}
 		

@@ -39,7 +39,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter
  * @author Owen Feehan
  *
  */
-class UseExperimentPassedAsPath extends SelectParam<Path> {
+class UseExperimentPassedAsPath implements SelectParam<Path> {
 
 	private Path path;
 		

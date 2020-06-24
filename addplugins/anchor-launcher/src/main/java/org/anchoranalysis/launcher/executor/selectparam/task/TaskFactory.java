@@ -41,6 +41,8 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
  *
  */
 public class TaskFactory {
+	
+	private TaskFactory() {}
 
 	/** If the argument a name (no extension, no root, no special-chars apart from forward-slashes), then construct an automatic path to the tasks
 	 *  in the configuration directory. Otherwise treat as path to BeanXML */

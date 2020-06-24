@@ -11,6 +11,8 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import static org.anchoranalysis.launcher.CustomOptions.*;
 
+import java.util.Optional;
+
 /*
  * #%L
  * anchor-browser
@@ -139,6 +141,8 @@ class LauncherConfigCommandLine extends LauncherConfig {
 		template.setTask(
 			SelectParamFactory.pathOrTaskNameOrDefault(line, OPTION_TASK, template.getConfigDir() )
 		);
-		template.setDefaultBehaviourString( "Searching recursively for image files. CTRL+C cancels" );
+		template.setDefaultBehaviourString(
+			Optional.of("Searching recursively for image files. CTRL+C cancels")
+		);
 	}
 }
