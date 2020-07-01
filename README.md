@@ -4,6 +4,7 @@ This is part of the source-distribution for the [Anchor Image Analysis](http://w
 
 It creates an [Anchor distribution](https://www.anchoranalysis.org/developer_guide_anchor_distribution.html) by collating JARs and other files across repositories.
 
+
 ## What is Anchor?
 
 Anchor is a platform for image analysis, developed by [Owen Feehan](http://www.owenfeehan.com) at:
@@ -18,10 +19,10 @@ Anchor is a platform for image analysis, developed by [Owen Feehan](http://www.o
 Please consider:
 
 * the [user guide](https://www.anchoranalysis.org/user_guide.html)
-* the [developer guide](https://www.anchoranalysis.org/developer_guide.html)
+* the [developer guide](https://www.anchoranalysis.org/developer_guide.html), especially [anchor-assembly](https://www.anchoranalysis.org/developer_guide_repositories_anchor_assembly.html) for an overview of all modules in this repository.
 
 Before reading the source code, please:
 
-* Understand Maven and [multi-module projects](https://www.anchoranalysis.org/developer_guide_building_anchor.html).
+* Understand Maven and [multi-module projects](https://www.anchoranalysis.org/developer_guide_environment_maven.html).
 * Consider Anchor's [architecture](https://www.anchoranalysis.org/developer_guide_architecture_overview.html).
-* Consider the role of each [module](https://www.anchoranalysis.org/developer_guide_architecture_modules.html) in the repository.
+* Consider the role of each [module](https://www.anchoranalysis.org/developer_guide_repositories_anchor.html) in the repository.
