@@ -51,7 +51,7 @@ public class ExperimentReaderErrorReportingTest {
 		
 	@BeforeClass
     public static void setUp() throws Exception {
-        ExperimentExecutorObj.initializeIfNecessary(tl.getRoot(), false, false );
+        ExperimentExecutorAfter.initializeIfNecessary(tl.getRoot(), false, false );
     }
 	
 	@Test(expected=ExperimentExecutionException.class)
