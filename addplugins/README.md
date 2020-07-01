@@ -1,8 +1,9 @@
-# anchor-browser
+# addplugins
 
-The `anchor-gui` command-line application for the [Anchor GUI application](/user_guide_advanced_gui.html).
+Adds plugins as dependencies for the two modules in this directory.
 
-The configuration of the browser exists in BeanXML and is added during the assembly phase in the [anchor-assembly](/developer_guide_repositories_anchor_assembly.html) repository.
+- [anchor-browser](https://github.com/anchoranalysis/anchor-assembly/tree/master/addplugins/anchor-browser)
+- [anchor-launcher](https://github.com/anchoranalysis/anchor-assembly/tree/master/addplugins/anchor-launcher)
 
 ## What is Anchor?
 

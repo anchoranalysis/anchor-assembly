@@ -29,32 +29,32 @@
 		
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="meanIntensity">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-			<item config-class="org.anchoranalysis.plugin.image.feature.bean.obj.single.intensity.Intensity" nrgIndex="0"/>
+			<item config-class="org.anchoranalysis.plugin.image.feature.bean.object.single.intensity.Intensity" nrgIndex="0"/>
 		</item>			
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="meanIntensity_maxSlice">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-			<item config-class="org.anchoranalysis.plugin.image.feature.bean.obj.single.intensity.IntensityMeanMaxSlice" nrgIndex="0"/>
+			<item config-class="org.anchoranalysis.plugin.image.feature.bean.object.single.intensity.IntensityMeanMaxSlice" nrgIndex="0"/>
 		</item>			
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="volume_pixels">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-			<item config-class="org.anchoranalysis.image.feature.bean.objmask.NumVoxels"/>
+			<item config-class="org.anchoranalysis.image.feature.bean.object.single.NumberVoxels"/>
 		</item>			
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="area_pixels">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-			<item config-class="org.anchoranalysis.image.feature.bean.objmask.NumVoxels" mip="true"/>
+			<item config-class="org.anchoranalysis.image.feature.bean.object.single.NumberVoxels" mip="true"/>
 		</item>			
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="volume_microns_cubed">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
 			<item config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalVolume" unitType="µm^3">
-				<item config-class="org.anchoranalysis.image.feature.bean.objmask.NumVoxels"/>
+				<item config-class="org.anchoranalysis.image.feature.bean.object.single.NumberVoxels"/>
 			</item>
 		</item>			
 	</item>
@@ -62,7 +62,7 @@
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="area_microns_sq">
 		<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
 			<item config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalAreaXY" unitType="µm^2">
-				<item config-class="org.anchoranalysis.image.feature.bean.objmask.NumVoxels" mip="true"/>
+				<item config-class="org.anchoranalysis.image.feature.bean.object.single.NumberVoxels" mip="true"/>
 			</item>
 		</item>			
 	</item>
