@@ -30,7 +30,9 @@ features:
 
 -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeaturesImageTask">
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.ExportFeaturesTask">
+	
+	<source config-class="org.anchoranalysis.plugin.image.task.bean.feature.source.FromImage"/>
 	
  	<features config-class="java.util.List" config-factory="list">
 		
