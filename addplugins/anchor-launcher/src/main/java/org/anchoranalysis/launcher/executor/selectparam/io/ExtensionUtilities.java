@@ -28,9 +28,11 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
 
 import org.apache.commons.io.FilenameUtils;
 
-class ExtensionUtilities {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-	private ExtensionUtilities() {}
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
+class ExtensionUtilities {
 	
 	public static boolean hasXmlExtension( String path ) {
 		return FilenameUtils.getExtension(path).equalsIgnoreCase("xml");
