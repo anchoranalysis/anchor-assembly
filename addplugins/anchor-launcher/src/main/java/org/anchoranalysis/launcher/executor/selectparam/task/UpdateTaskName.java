@@ -35,7 +35,7 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 /**
  * Updates task-name AND delegates to another SelectParam<Path>
  * 
- * @author owen
+ * @author Owen Feehan
  * @param <T> delegate-type for {@link SelectParam}
  */
 class UpdateTaskName<T> implements SelectParam<T> {

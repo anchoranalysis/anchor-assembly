@@ -37,7 +37,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
 /**
  * SelectParam<Path> factory for outputs
  * 
- * @author owen
+ * @author Owen Feehan
  *
  */
 public class OutputFactory {

@@ -39,7 +39,7 @@
     <logReporterTask filePath="logreporter/task.xml" config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBean" config-factory="include"/>   
   
     <!-- Executes in parallel normally, but sequentially when in debug-mode -->
-    <taskProcessor keepProcessorsFree="1" config-class="org.anchoranalysis.experiment.bean.processor.DebugDependentProcessor" supressExceptions="true">
+    <taskProcessor keepProcessorsFree="1" config-class="org.anchoranalysis.experiment.bean.processor.DebugDependentProcessor" suppressExceptions="true">
 	  
         <task config-class="org.anchoranalysis.mpp.io.bean.task.ConvertNamedChnlsInputTask">
             <!--  Default task -->

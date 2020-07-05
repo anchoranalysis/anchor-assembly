@@ -38,7 +38,7 @@ import org.apache.commons.cli.Options;
 /**
  * A command-line interface for launching the GUI browser
  * 
- * @author owen
+ * @author Owen Feehan
  *
  */
 class LauncherConfigBrowser extends LauncherConfig {
