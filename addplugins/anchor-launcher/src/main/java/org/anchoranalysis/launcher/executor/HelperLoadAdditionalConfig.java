@@ -42,7 +42,11 @@ import org.anchoranalysis.core.error.OperationFailedException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.io.bean.root.RootPathMap;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 // Loads additional configuration (for executing an experiment) from the filesystem
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 class HelperLoadAdditionalConfig {
 
 	/**
@@ -75,8 +79,6 @@ class HelperLoadAdditionalConfig {
 	 * (i.e. directory in which bin/ exists, from which Anchor is executed)
 	 */
 	private static final String ANCHOR_HOME_ENV_VAR_NAME = "ANCHOR_HOME";
-
-	private HelperLoadAdditionalConfig() {}
 	
 	public static BeanInstanceMap loadDefaultInstances( Path pathExecutionDirectory ) throws ExperimentExecutionException {
 	

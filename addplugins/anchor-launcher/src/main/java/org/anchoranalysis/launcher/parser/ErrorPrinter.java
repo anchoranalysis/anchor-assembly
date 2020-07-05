@@ -58,7 +58,6 @@ class ErrorPrinter {
 	 * Prints an exception to the file-system as an error log
 	 * 
 	 * @param cause the exception that occurred to cause the error
-	 * @throws IOException input-output errors that occur with the log
 	 */
 	public static void printErrorLog( ExperimentExecutionException cause, Path errorLogPath ) {
 		try {

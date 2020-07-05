@@ -30,7 +30,7 @@
     <!--  Export Graph NRG Time Series -->
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" outputName="nrgBreakdownTime">
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.GraphFromCfgNRGInstantState" width="500" height="300">
-                <graphDefinition config-class="org.anchoranalysis.anchor.mpp.graph.bean.GraphDefinitionBarNRGBreakdown" showDomainAxis="false"/>
+                <graphDefinition config-class="org.anchoranalysis.anchor.mpp.plot.bean.GraphDefinitionBarNRGBreakdown" showDomainAxis="false"/>
             </createRasterGenerator>
         </item>
         
@@ -42,13 +42,13 @@
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCSVStatistic" incrementSize="1000" outputName="dynamicCfgSize">
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.GraphCfgSizeDynamicallyDrawnFromCSVStatistic" width="500" height="300">
-                <graphDefinition config-class="org.anchoranalysis.gui.graph.definition.line.GraphDefinitionLineIterVsCfgSize"/>
+                <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.GraphDefinitionLineIterVsCfgSize"/>
             </createRasterGenerator>
         </item>
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCSVStatistic" incrementSize="1000" outputName="dynamicNRG">
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.GraphNRGDynamicallyDrawnFromCSVStatistic" width="500" height="300">
-                <graphDefinition config-class="org.anchoranalysis.gui.graph.definition.line.GraphDefinitionLineIterVsNRG"/>
+                <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.GraphDefinitionLineIterVsNRG"/>
             </createRasterGenerator>
             
         <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
@@ -104,13 +104,13 @@
                             </item>
                                                 
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.dynamically.GraphCfgSizeDynamicallyDrawnFromCfgNRGInstantState" width="400" height="200">
-                                <graphDefinition config-class="org.anchoranalysis.gui.graph.definition.line.GraphDefinitionLineIterVsCfgSize">
-                                    <graphColorScheme config-class="org.anchoranalysis.anchor.graph.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.GraphDefinitionLineIterVsCfgSize">
+                                    <graphColorScheme config-class="org.anchoranalysis.anchor.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                 </graphDefinition>
                             </item>
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.dynamically.GraphCfgSizeDynamicallyDrawnFromCfgNRGInstantState" width="400" height="200">
-                                <graphDefinition config-class="org.anchoranalysis.gui.graph.definition.line.GraphDefinitionLineIterVsNRG">
-                                    <graphColorScheme config-class="org.anchoranalysis.anchor.graph.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.GraphDefinitionLineIterVsNRG">
+                                    <graphColorScheme config-class="org.anchoranalysis.anchor.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                 </graphDefinition>
                             </item>
                         </createRasterGeneratorList>
@@ -175,8 +175,8 @@
 
                             <item index="1" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
                                 <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.dynamically.GraphCfgSizeDynamicallyDrawnFromCfgNRGInstantState" width="700" height="400">
-                                    <graphDefinition config-class="org.anchoranalysis.gui.graph.definition.line.GraphDefinitionLineIterVsNRG" minMaxIgnoreBeforeIndex="100">
-                                        <graphColorScheme config-class="org.anchoranalysis.anchor.graph.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                    <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.GraphDefinitionLineIterVsNRG" minMaxIgnoreBeforeIndex="100">
+                                        <graphColorScheme config-class="org.anchoranalysis.anchor.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                     </graphDefinition>
                                 </item>
                             </item>
@@ -255,8 +255,8 @@
         
 
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.dynamically.GraphCfgSizeDynamicallyDrawnFromCfgNRGInstantState" width="400" height="200">
-                                <graphDefinition config-class="org.anchoranalysis.gui.graph.definition.line.GraphDefinitionLineIterVsNRG">
-                                    <graphColorScheme config-class="org.anchoranalysis.anchor.graph.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.GraphDefinitionLineIterVsNRG">
+                                    <graphColorScheme config-class="org.anchoranalysis.anchor.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                 </graphDefinition>
                             </item>
                         </createRasterGeneratorList>

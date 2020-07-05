@@ -49,7 +49,6 @@ public class Launch {
 	 * Entry point for command-line application
 	 * 
 	 * @param args command line application
-	 * @throws Exception whatever exceptions occur
 	 */
 	public static void main(String[] args) {
 		LogErrorReporter logger = new LogErrorReporter( new ConsoleLogReporter() );

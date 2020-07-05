@@ -48,19 +48,19 @@ import org.anchoranalysis.io.output.bean.OutputManager;
  */
 
 /**
- * Executes an experiment in different ways - AFTER an experiment object exists.
+ * Executes an experiment in different ways - AFTER an experiment bean exists.
  * 
- * We do not print any error messages to the console, but throw any errors in the form of ExperimentExecutionException which
- * can be translated elsewhere into nice error messages
+ * <p>We do not print any error messages to the console, but throw any errors in the form of ExperimentExecutionException which
+ * can be translated elsewhere into nice error messages</p>
  * 
  * @author Owen Feehan
  *
  */
-class ExperimentExecutorObj {
+class ExperimentExecutorAfter {
 	
 	private static Optional<Set<String>> defaultExtensions = Optional.empty();
 	
-	public ExperimentExecutorObj( Path pathExecutionDirectory ) throws ExperimentExecutionException {
+	public ExperimentExecutorAfter( Path pathExecutionDirectory ) throws ExperimentExecutionException {
 		initializeIfNecessary(pathExecutionDirectory, true, true );
 		// Only accessible through static methods
 	}

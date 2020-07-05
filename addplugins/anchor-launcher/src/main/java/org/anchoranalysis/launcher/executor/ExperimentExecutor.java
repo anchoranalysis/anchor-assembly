@@ -40,9 +40,15 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.anchoranalysis.launcher.parser.ParseArgsAndRunExperiment;
 
 /**
- * Determines where the files passed the ExperimentExecutor are loaded from
- *  - where the input-manager or output-manager is found
- *  - different other execution arguments
+ * Determines where the files passed the ExperimentExecutor are loaded from.
+ * 
+ * <div>
+ * This can be:
+ * <ul>
+ * <li>where the input-manager or output-manager is found</li>
+ * <li>different other execution arguments</li>
+ * </ul>
+ * </div>
  *  
  * @author Owen Feehan
  *
@@ -85,7 +91,7 @@ public class ExperimentExecutor {
 	 */
 	public void executeExperiment( ExperimentExecutionArguments execArgs, boolean alwaysShowExperimentArgs, LogReporter logger ) throws ExperimentExecutionException {
 		
-		ExperimentExecutorObj delegate = new ExperimentExecutorObj(executionDir);
+		ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDir);
 				
 		if (defaultBehaviourString.isPresent() && areAllDefault()) {
 			// Special behaviour if everything has defaults
@@ -141,7 +147,9 @@ public class ExperimentExecutor {
 	
 	private void addToListIfNonDefault(SelectParam<Optional<Path>> selectParam, String textDscr, List<String> list) throws ExperimentExecutionException {
 		if (!selectParam.isDefault()) {
-			list.add( String.format("%s %s", textDscr, selectParam.describe()) );
+			list.add(
+				String.format("%s %s", textDscr, selectParam.describe())
+			);
 		}
 	}
 	
@@ -159,14 +167,8 @@ public class ExperimentExecutor {
 	private static String collapseIntoOneLine( List<String> list ) {
 		StringBuilder sb = new StringBuilder();
 		for( int i=0; i<list.size(); i++) {
-			String item = list.get(i);
-			
-			if (i==0) {
-				sb.append(" with ");
-			} else {
-				sb.append(" and ");
-			}
-			sb.append( item );
+			sb.append( i==0 ? " with " : " and ");
+			sb.append( list.get(i) );
 		}
 		return sb.toString();
 	}

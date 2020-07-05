@@ -51,7 +51,7 @@ public class ExperimentReaderErrorReportingTest {
 		
 	@BeforeClass
     public static void setUp() throws Exception {
-        ExperimentExecutorObj.initializeIfNecessary(tl.getRoot(), false, false );
+        ExperimentExecutorAfter.initializeIfNecessary(tl.getRoot(), false, false );
     }
 	
 	@Test(expected=ExperimentExecutionException.class)
@@ -66,7 +66,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testIncorrectEndTag() throws ExperimentExecutionException {
 		readExperiment(
 			"incorrectEndTag",
-			3
+			4
 		);
 	}
 	
@@ -75,7 +75,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testMissingRootTag() throws ExperimentExecutionException {
 		readExperiment(
 			"missingRootTag",
-			2,
+			3,
 			"experiment"
 		);
 	}
@@ -84,7 +84,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testIncorrectClass() throws ExperimentExecutionException {
 		readExperiment(
 			"incorrectClass",
-			8,
+			9,
 			new String[] {
 				"Please check spelling of config-class attributes",
 				"ch.ethz.biol.cell.imageprocessing.io.task.ANonExistentClass"
@@ -97,7 +97,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testIncorrectFactory() throws ExperimentExecutionException {
 		readExperiment(
 			"incorrectFactory",
-			7,
+			8,
 			new String[] {
 				"Unknown bean factory",
 				"nonExistentFactory"
@@ -109,7 +109,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testIncorrectClassNested() throws ExperimentExecutionException {
 		readExperiment(
 			"incorrectClassNested",
-			12,
+			13,
 			new String[] {
 				"Please check spelling of config-class attributes",
 				"ch.ethz.biol.cell.imageprocessing.chnl.provider.SomeNoneExistentClass"
@@ -121,7 +121,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testIncorrectIncludeFile() throws ExperimentExecutionException {
 		readExperiment(
 			"incorrectIncludeFile",
-			9,
+			10,
 			"Cannot find included file"
 		);
 	}
@@ -130,7 +130,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testIncorrectIncludeFileNested() throws ExperimentExecutionException {
 		readExperiment(
 			"incorrectIncludeFileNested",
-			5,
+			6,
 			"Cannot find included file"
 		);
 	}
@@ -139,7 +139,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testMalformedXMLTag() throws ExperimentExecutionException {
 		readExperiment(
 			"malformedXMLTag",
-			6,
+			7,
 			"/>"
 		);
 	}
@@ -148,7 +148,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testNonExistingBeanField() throws ExperimentExecutionException {
 		readExperiment(
 			"nonExistingBeanField",
-			12
+			13
 		);
 	}
 	
@@ -156,7 +156,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testMissingRequiredBeanField() throws ExperimentExecutionException {
 		readExperiment(
 			"missingRequiredBeanField",
-			11,
+			12,
 			new String[] {
 				"stackProviderID",
 				"ch.ethz.biol.cell.imageprocessing.chnl.provider.ChnlProviderStackReference",
@@ -169,7 +169,7 @@ public class ExperimentReaderErrorReportingTest {
 	public void testIncludeFileOverflow() throws ExperimentExecutionException {
 		readExperiment(
 			"includeFileOverflow",
-			9,
+			10,
 			"Including file would cause overflow"
 		);
 	}

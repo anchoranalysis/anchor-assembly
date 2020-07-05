@@ -39,7 +39,7 @@ import org.apache.commons.cli.CommandLine;
 /**
  * SelectParam<Path> factory for experiments
  * 
- * @author owen
+ * @author Owen Feehan
  */
 public class ExperimentFactory {
 

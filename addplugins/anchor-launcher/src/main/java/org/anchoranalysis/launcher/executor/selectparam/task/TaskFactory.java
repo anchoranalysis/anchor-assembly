@@ -37,7 +37,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
 /**
  * SelectParam<Path> factory for tasks
  * 
- * @author owen
+ * @author Owen Feehan
  *
  */
 public class TaskFactory {

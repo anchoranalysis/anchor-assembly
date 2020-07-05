@@ -1,10 +1,15 @@
 package org.anchoranalysis.browser.launcher;
 
+import java.util.stream.Stream;
+
 import org.anchoranalysis.core.log.LogErrorReporter;
 import org.anchoranalysis.experiment.log.ConsoleLogReporter;
 import org.anchoranalysis.experiment.log.LogReporterList;
 import org.anchoranalysis.experiment.log.SimpleTextFileLogReporter;
 import org.anchoranalysis.launcher.Launch;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /*
  * #%L
@@ -31,32 +36,26 @@ import org.anchoranalysis.launcher.Launch;
  * THE SOFTWARE.
  * #L%
  */
-
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 public class LaunchInteractiveBrowser {
-
-	private LaunchInteractiveBrowser() {
-		// Class should only be accessed through static methods
-	}
 	
 	/**
 	 * Entry point for command-line application
 	 * 
 	 * @param args command line application
-	 * @throws Exception whatever exceptions occur
 	 */
 	public static void main(String[] args) {
-				
 		LogErrorReporter logger = createLogErrorReporter();
 		Launch.runCommandLineApp(args, new LauncherConfigBrowser(), logger );
 	}
 	
 	private static LogErrorReporter createLogErrorReporter() {
-		
-		LogReporterList list = new LogReporterList();
-		list.add( new ConsoleLogReporter() );
-		list.add( new SimpleTextFileLogReporter("anchorGUI.log") );
+		LogReporterList list = new LogReporterList(
+			Stream.of(
+				new ConsoleLogReporter(),
+				new SimpleTextFileLogReporter("anchorGUI.log")
+			)
+		);
 		return new LogErrorReporter(list);
 	}
-
-
 }

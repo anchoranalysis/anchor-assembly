@@ -31,7 +31,7 @@ import org.apache.commons.cli.Option;
 /**
  * Different types of arguments used by Anchor
  * 
- * @author owen
+ * @author Owen Feehan
  *
  */
 class CustomOptions {
