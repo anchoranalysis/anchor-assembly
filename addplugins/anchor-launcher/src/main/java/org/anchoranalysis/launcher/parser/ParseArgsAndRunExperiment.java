@@ -32,7 +32,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
-import org.anchoranalysis.core.log.LogErrorReporter;
+import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
@@ -66,14 +66,14 @@ public class ParseArgsAndRunExperiment {
 	/**
 	 * For reporting messages on what goes wrong
 	 */
-	private LogErrorReporter logger;
+	private Logger logger;
 
 	/**
 	 * 
 	 * @param logger a logger where error messages outputted to
 	 * @param newlinesBeforeError if TRUE, then some extra newlines are inserted before error messages
 	 */
-	public ParseArgsAndRunExperiment( LogErrorReporter logger ) {
+	public ParseArgsAndRunExperiment( Logger logger ) {
 		this.logger = logger;
 	}
 	
@@ -110,12 +110,12 @@ public class ParseArgsAndRunExperiment {
 			
 	    } catch( ParseException e ) {
 	        // Something went wrong
-	    	logger.getLogReporter().logFormatted( "Parsing of command-line arguments failed.  Reason: %s%n", e.getMessage() );
+	    	logger.messageLogger().logFormatted( "Parsing of command-line arguments failed.  Reason: %s%n", e.getMessage() );
 	    } catch (IOException e) {
-	    	logger.getErrorReporter().recordError(ParseArgsAndRunExperiment.class, e);
-	    	logger.getLogReporter().logFormatted( "An I/O error occurred.  Reason: %s%n", e.getMessage() );
+	    	logger.errorReporter().recordError(ParseArgsAndRunExperiment.class, e);
+	    	logger.messageLogger().logFormatted( "An I/O error occurred.  Reason: %s%n", e.getMessage() );
 		} catch (AnchorFriendlyRuntimeException e) {
-			logger.getLogReporter().logFormatted( e.friendlyMessageHierarchy() );
+			logger.messageLogger().logFormatted( e.friendlyMessageHierarchy() );
 		}
 	}
 	
@@ -158,16 +158,16 @@ public class ParseArgsAndRunExperiment {
 		} catch (ExperimentExecutionException e) {
 	    	
 			if (parserConfig.newlinesBeforeError()) {
-				logger.getLogReporter().logFormatted("%n");
+				logger.messageLogger().logFormatted("%n");
 			}
 			
 	    	// Let's print a simple (non-word wrapped message) to the console
-			logger.getLogReporter().log( e.friendlyMessageHierarchy() );
+			logger.messageLogger().log( e.friendlyMessageHierarchy() );
 	    	
 	    	// Unless it's enabled, we record a more detailed error log to the file-system
 	    	if (line.hasOption(OPTION_LOG_ERROR)) {
 	    		Path errorLogPath = Paths.get(line.getOptionValue(OPTION_LOG_ERROR) );
-	    		logger.getLogReporter().logFormatted("Logging error in \"%s\"%n", errorLogPath.toAbsolutePath() );
+	    		logger.messageLogger().logFormatted("Logging error in \"%s\"%n", errorLogPath.toAbsolutePath() );
 	    		ErrorPrinter.printErrorLog(e, errorLogPath);
 	    	}
 	    }
@@ -181,12 +181,12 @@ public class ParseArgsAndRunExperiment {
 	 * @param logger logger
 	 * @throws ExperimentExecutionException if processing ends early
 	 */
-	private void processExperiment( CommandLine line, LogErrorReporter logger, LauncherConfig parserConfig ) throws ExperimentExecutionException {
+	private void processExperiment( CommandLine line, Logger logger, LauncherConfig parserConfig ) throws ExperimentExecutionException {
         
         parserConfig.createExperimentExecutor(line).executeExperiment(
         	parserConfig.createArguments(line),
         	line.hasOption(OPTION_SHOW_EXPERIMENT_ARGUMENTS),
-        	logger.getLogReporter()
+        	logger.messageLogger()
         );
 	}
 	

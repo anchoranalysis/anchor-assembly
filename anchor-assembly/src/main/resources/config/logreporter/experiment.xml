@@ -2,22 +2,18 @@
 <config>
 <!--
     When we are in detailed-reporting mode, then we show details of the experiment on the console and log it
-    When not, we assume the details are relevant only to the screen
+    When not, we assume the details are relevant only to the console.
 -->
-<bean config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanSwitchDetailedLogging">
+<bean config-class="org.anchoranalysis.experiment.bean.log.SwitchDetailedLogging">
       
-   <detailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+   <whenDetailed config-class="org.anchoranalysis.experiment.bean.log.ToMultiple">
        <list config-class="java.util.List" config-factory="list">
-           <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
-           <item config-class="org.anchoranalysis.experiment.bean.logreporter.TextFileLogReporterBean"/>
+           <item config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
+           <item config-class="org.anchoranalysis.experiment.bean.log.ToTextFile" outputName="experiment_log"/>
        </list>
-   </detailed>
- 
-   <notDetailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
-       <list config-class="java.util.List" config-factory="list">
-           <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
-       </list>
-   </notDetailed>
+   </whenDetailed>
+   
+   <whenNot config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
    
  </bean>
 </config>

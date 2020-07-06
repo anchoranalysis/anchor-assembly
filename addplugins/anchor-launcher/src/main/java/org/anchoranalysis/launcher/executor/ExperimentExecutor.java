@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.anchoranalysis.core.log.LogReporter;
+import org.anchoranalysis.core.log.MessageLogger;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
@@ -89,7 +89,7 @@ public class ExperimentExecutor {
 	 * 
 	 * @throws ExperimentExecutionException if the execution ends early
 	 */
-	public void executeExperiment( ExperimentExecutionArguments execArgs, boolean alwaysShowExperimentArgs, LogReporter logger ) throws ExperimentExecutionException {
+	public void executeExperiment( ExperimentExecutionArguments execArgs, boolean alwaysShowExperimentArgs, MessageLogger logger ) throws ExperimentExecutionException {
 		
 		ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDir);
 				
