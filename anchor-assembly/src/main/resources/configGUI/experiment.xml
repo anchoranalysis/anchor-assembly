@@ -39,18 +39,18 @@
 
 	  </output>
 	  
-	  <logReporterExperiment config-class="org.anchoranalysis.experiment.bean.log.ToMultiple">
+	  <logExperiment config-class="org.anchoranalysis.experiment.bean.log.ToMultiple">
 	  	<list config-class="java.util.List" config-factory="list">
 	  		<item config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
 	  		<item config-class="org.anchoranalysis.experiment.bean.log.ToTextFile" outputName="experiment_log"/>
 	  	</list>
-	  </logReporterExperiment>
+	  </logExperiment>
 
-      <logReporterTask config-class="org.anchoranalysis.experiment.bean.log.ToMultiple">
+      <logTask config-class="org.anchoranalysis.experiment.bean.log.ToMultiple">
         <list config-class="java.util.List" config-factory="list">
             <item config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
         </list>
-      </logReporterTask>
+      </logTask>
               	  
 	  <taskProcessor config-class="org.anchoranalysis.experiment.bean.processor.SequentialProcessor" suppressExceptions="true">
 		  <task config-class="org.anchoranalysis.gui.interactivebrowser.launch.InteractiveBrowserTask">
