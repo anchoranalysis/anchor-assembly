@@ -31,8 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-
+import org.anchoranalysis.core.functional.FunctionalUtilities;
 import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
@@ -97,8 +96,7 @@ public class InputFactory {
 			"Only a single argument is permitted after -i if it's a directory"
 		);
 	}
-	
-	
+		
 	private static <T> Optional<T> check( boolean condition1, boolean condition2, Supplier<T> val, String errorMsg) {
 		if (condition1) {
 			if (condition2) {
@@ -111,8 +109,6 @@ public class InputFactory {
 	}
 		
 	private static List<Path> pathFromArgs( String[] args ) {
-		return Arrays.stream(args)
-				.map( PathConverter::pathFromArg )
-				.collect( Collectors.toList() );
+		return FunctionalUtilities.mapToList(args, PathConverter::pathFromArg);
 	}
 }
