@@ -12,7 +12,7 @@
           
           <!-- If it's debug mode, we also display the task to the console -->
           <item config-class="org.anchoranalysis.experiment.bean.log.OnlyIf">
-                <logReporter config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
+                <log config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
                 <requireArguments config-class="org.anchoranalysis.experiment.bean.require.RequireDebugMode"/>
           </item>
           

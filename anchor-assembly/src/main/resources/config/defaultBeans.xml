@@ -14,9 +14,5 @@
 		<item config-class="org.anchoranalysis.io.ij.bean.writer.IJTiffWriter"/>
 	</item>
 	
-	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.moviewriter.MovieWriter">
-		<item config-class="org.anchoranalysis.plugin.io.bean.moviewriter.LociAVIWriter"/>
-	</item>
-	
 </bean>
 </config>
