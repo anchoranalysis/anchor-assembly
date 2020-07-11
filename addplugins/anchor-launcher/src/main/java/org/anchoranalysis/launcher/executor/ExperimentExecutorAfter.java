@@ -115,19 +115,19 @@ class ExperimentExecutorAfter {
 		Optional<Path> pathTask
 	) throws ExperimentExecutionException {		
 				
-		if (!ea.hasInputFilterExtensions() &&  defaultExtensions.isPresent()) {
+		if (!ea.hasInputFilterExtensions() && defaultExtensions.isPresent()) {
 			// If no input-filter extensions have been specified and defaults are available, they are inserted in
-			ea.setInputFilterExtensions(defaultExtensions.get());
+			ea.setInputFilterExtensions(defaultExtensions);
 		}
 		
 		OptionalUtilities.ifPresent(
 			pathInput,
-			path-> replaceInputManager(experiment, path)
+			path -> replaceInputManager(experiment, path)
 		);
 		
 		OptionalUtilities.ifPresent(
 			pathOutput,
-			path-> replaceOutputManager(experiment, path)
+			path -> replaceOutputManager(experiment, path)
 		);
 		
 		OptionalUtilities.ifPresent(
@@ -175,9 +175,7 @@ class ExperimentExecutorAfter {
 			);
 		}
 	}
-	
-	
-	
+		
 	/**
 	 * Replaces the output-manager of an experiment with an output-manager declared at pathOutput
 	 * 
@@ -215,9 +213,7 @@ class ExperimentExecutorAfter {
 			);
 		}
 	}
-	
-	
-	
+		
 	/**
 	 * Replaces the task of an experiment with an task declared at pathTask
 	 * 
@@ -256,8 +252,7 @@ class ExperimentExecutorAfter {
 			);
 		}
 	}
-	
-	
+		
 	/**
 	 * Executes an experiment
 	 * 

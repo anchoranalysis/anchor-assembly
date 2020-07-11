@@ -65,7 +65,9 @@ class UseAsExtension implements SelectParam<Optional<Path>> {
 		List<String> extWithoutPeriod = removeLeadingPeriod(extensions);
 		
 		eea.setInputFilterExtensions(
-			new HashSet<>(extWithoutPeriod)
+			Optional.of(
+				new HashSet<>(extWithoutPeriod)
+			)
 		);
 		
 		return Optional.empty();

@@ -65,17 +65,17 @@ class UseAsGlob implements SelectParam<Optional<Path>> {
 		// to allow matches like sdsds/sdsds/*.jpg
 		GlobWithDirectory gwd = GlobExtractor.extract(wildcardStr);
 		
-		gwd.getDirectory().ifPresent( dir->
-			eea.setInputDirectory(
-				Paths.get(dir)
-			)
+		eea.setInputDirectory(
+			gwd.getDirectory().map(Paths::get)
+		);
+		eea.setInputFilterGlob(
+			Optional.of(gwd.getGlob())
 		);
 		
-		eea.setInputFilterGlob( gwd.getGlob() );
-		
 		// An empty set, means no filter check is applied
-		
-		eea.setInputFilterExtensions( new HashSet<String>() );
+		eea.setInputFilterExtensions(
+			Optional.of(new HashSet<String>())
+		);
 		
 		return Optional.empty();
 	}
