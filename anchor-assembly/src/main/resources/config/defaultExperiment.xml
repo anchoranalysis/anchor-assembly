@@ -34,9 +34,9 @@
 
     <output filePath="io/defaultOutputManager.xml" config-class="org.anchoranalysis.io.output.bean.OutputManager" config-factory="include"/>
 
-    <logReporterExperiment filePath="logreporter/experiment.xml" config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBean" config-factory="include"/>
+    <logExperiment filePath="logreporter/experiment.xml" config-class="org.anchoranalysis.experiment.bean.log.LoggingDestination" config-factory="include"/>
 
-    <logReporterTask filePath="logreporter/task.xml" config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBean" config-factory="include"/>   
+    <logTask filePath="logreporter/task.xml" config-class="org.anchoranalysis.experiment.bean.log.LoggingDestination" config-factory="include"/>   
   
     <!-- Executes in parallel normally, but sequentially when in debug-mode -->
     <taskProcessor keepProcessorsFree="1" config-class="org.anchoranalysis.experiment.bean.processor.DebugDependentProcessor" suppressExceptions="true">

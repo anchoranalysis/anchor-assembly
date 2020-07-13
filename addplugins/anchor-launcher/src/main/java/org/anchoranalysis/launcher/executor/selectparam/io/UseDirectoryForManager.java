@@ -69,7 +69,9 @@ class UseDirectoryForManager implements SelectParam<Optional<Path>> {
 	public Optional<Path> select( ExperimentExecutionArguments eea ) {
 		
 		if (input) {
-			eea.setInputDirectory(directory);
+			eea.setInputDirectory(
+				Optional.of(directory)
+			);
 		} else {
 			eea.setOutputDirectory(
 				Optional.of(directory)

@@ -2,10 +2,11 @@ package org.anchoranalysis.browser.launcher;
 
 import java.util.stream.Stream;
 
-import org.anchoranalysis.core.log.LogErrorReporter;
-import org.anchoranalysis.experiment.log.ConsoleLogReporter;
-import org.anchoranalysis.experiment.log.LogReporterList;
-import org.anchoranalysis.experiment.log.SimpleTextFileLogReporter;
+import org.anchoranalysis.core.error.reporter.ErrorReporterIntoLog;
+import org.anchoranalysis.core.log.Logger;
+import org.anchoranalysis.experiment.log.ConsoleMessageLogger;
+import org.anchoranalysis.experiment.log.MessageLoggerList;
+import org.anchoranalysis.experiment.log.reporter.TextFileMessageLogger;
 import org.anchoranalysis.launcher.Launch;
 
 import lombok.AccessLevel;
@@ -45,17 +46,22 @@ public class LaunchInteractiveBrowser {
 	 * @param args command line application
 	 */
 	public static void main(String[] args) {
-		LogErrorReporter logger = createLogErrorReporter();
+		Logger logger = createLogErrorReporter();
 		Launch.runCommandLineApp(args, new LauncherConfigBrowser(), logger );
 	}
 	
-	private static LogErrorReporter createLogErrorReporter() {
-		LogReporterList list = new LogReporterList(
+	private static Logger createLogErrorReporter() {
+		ConsoleMessageLogger consoleLogger = new ConsoleMessageLogger();
+		
+		MessageLoggerList list = new MessageLoggerList(
 			Stream.of(
-				new ConsoleLogReporter(),
-				new SimpleTextFileLogReporter("anchorGUI.log")
+				consoleLogger,
+				new TextFileMessageLogger(
+					"anchorGUI.log",
+					new ErrorReporterIntoLog(consoleLogger)
+				)
 			)
 		);
-		return new LogErrorReporter(list);
+		return new Logger(list);
 	}
 }

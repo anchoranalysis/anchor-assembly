@@ -31,13 +31,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.anchoranalysis.core.log.LogReporter;
+import org.anchoranalysis.core.log.MessageLogger;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.anchoranalysis.launcher.parser.ParseArgsAndRunExperiment;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * Determines where the files passed the ExperimentExecutor are loaded from.
@@ -53,43 +58,40 @@ import org.anchoranalysis.launcher.parser.ParseArgsAndRunExperiment;
  * @author Owen Feehan
  *
  */
+@RequiredArgsConstructor(access=AccessLevel.PACKAGE)
 public class ExperimentExecutor {
-			
-	private SelectParam<Path> experiment;
 	
+	// START REQUIRED ARGUMENTS
+	/** the experiment to run */
+	private final SelectParam<Path> experiment;
+	
+	/** the directory where configuration files are stored */
+	@Getter
+	private final Path configDir;
+	
+	/** the directory from which the experiment is executed */
+	private final Path executionDir;
+	// END REQUIRED ARGUMENTS
+	
+	@Getter @Setter
 	private SelectParam<Optional<Path>> input = SelectParamFactory.useDefault();
 
+	@Getter @Setter
 	private SelectParam<Optional<Path>> output = SelectParamFactory.useDefault();
 	
+	@Getter @Setter
 	private SelectParam<Optional<Path>> task = SelectParamFactory.useDefault();
 	
-	private Path configDir;
-	
-	private Path executionDir;
-	
 	/** If present, a string is printed in the description if the default-experiment is used, otherwise ignored. */
-	private Optional<String> defaultBehaviourString;
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param experiment the experiment to run
-	 * @param configDir the directory where configuration files are stored
-	 * @param executionDir the directory from which the experiment is executed
-	 */
-	ExperimentExecutor( SelectParam<Path> experiment, Path configDir, Path executionDir) {
-		super();
-		this.experiment = experiment;
-		this.configDir = configDir;
-		this.executionDir = executionDir;
-	}
+	@Setter
+	private Optional<String> defaultBehaviourString = Optional.empty();
 
 	/**
 	 * Executes an experiment after finding a single experiment XML file, and reading the experiment from this file 
 	 * 
 	 * @throws ExperimentExecutionException if the execution ends early
 	 */
-	public void executeExperiment( ExperimentExecutionArguments execArgs, boolean alwaysShowExperimentArgs, LogReporter logger ) throws ExperimentExecutionException {
+	public void executeExperiment( ExperimentExecutionArguments execArgs, boolean alwaysShowExperimentArgs, MessageLogger logger ) throws ExperimentExecutionException {
 		
 		ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDir);
 				
@@ -177,37 +179,5 @@ public class ExperimentExecutor {
 		return ExperimentReader.readExperimentFromXML(
 			experiment.select(execArgs)
 		);
-	}
-	
-	public void setInput(SelectParam<Optional<Path>> input) {
-		this.input = input;
-	}
-
-	public void setOutput(SelectParam<Optional<Path>> output) {
-		this.output = output;
-	}
-
-	public SelectParam<Optional<Path>> getInput() {
-		return input;
-	}
-
-	public SelectParam<Optional<Path>> getOutput() {
-		return output;
-	}
-
-	public void setDefaultBehaviourString(Optional<String> defaultBehaviourString) {
-		this.defaultBehaviourString = defaultBehaviourString;
-	}
-
-	public SelectParam<Optional<Path>> getTask() {
-		return task;
-	}
-
-	public void setTask(SelectParam<Optional<Path>> task) {
-		this.task = task;
-	}
-
-	public Path getConfigDir() {
-		return configDir;
 	}
 }

@@ -2,7 +2,7 @@
 <bean>
 <experiment config-class="org.anchoranalysis.anchor.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" folderOutput="../output/" inputName="stackInput">
 
-    <logReporterTask config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+    <logTask config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
 
 	<task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask" nrgParamsName="input_params">
 		  <define suppressSubfolders="false" config-class="org.anchoranalysis.mpp.sgmn.bean.define.DefineOutputterMPP">

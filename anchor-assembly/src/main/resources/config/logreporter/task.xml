@@ -4,26 +4,22 @@
  When we are in detailed-reporting mode, then we show details of the experiment on the console BUT
     not individual tasks, as this would be information overload
 -->     
-<bean config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanSwitchDetailedLogging">
+<bean config-class="org.anchoranalysis.experiment.bean.log.SwitchDetailedLogging">
 
-  <detailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
+  <whenDetailed config-class="org.anchoranalysis.experiment.bean.log.ToMultiple">
       <list config-class="java.util.List" config-factory="list">
-          <item config-class="org.anchoranalysis.experiment.bean.logreporter.FailureOnlyTextFileLogReporterBean"/>
+          <item outputName="job_log" config-class="org.anchoranalysis.experiment.bean.log.ToTextFileOnlyIfFailure"/>
           
           <!-- If it's debug mode, we also display the task to the console -->
-          <item config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanRequireArguments">
-                <logReporter config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
+          <item config-class="org.anchoranalysis.experiment.bean.log.OnlyIf">
+                <log config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
                 <requireArguments config-class="org.anchoranalysis.experiment.bean.require.RequireDebugMode"/>
           </item>
           
       </list>
-  </detailed>
+  </whenDetailed>
 
-  <notDetailed config-class="org.anchoranalysis.experiment.bean.logreporter.LogReporterBeanList">
-      <list config-class="java.util.List" config-factory="list">
-          <item config-class="org.anchoranalysis.experiment.bean.logreporter.ConsoleLogReporterBean"/>
-      </list>
-  </notDetailed>
+  <whenNot config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
   
 </bean>
 </config>
