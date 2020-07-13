@@ -31,7 +31,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-import org.anchoranalysis.core.functional.FunctionalUtilities;
+
+import org.anchoranalysis.core.functional.FunctionalList;
 import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
@@ -109,6 +110,6 @@ public class InputFactory {
 	}
 		
 	private static List<Path> pathFromArgs( String[] args ) {
-		return FunctionalUtilities.mapToList(args, PathConverter::pathFromArg);
+		return FunctionalList.mapToList(args, PathConverter::pathFromArg);
 	}
 }
