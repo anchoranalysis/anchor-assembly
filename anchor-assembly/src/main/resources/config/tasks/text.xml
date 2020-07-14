@@ -58,14 +58,14 @@ visualization_boxes:
 	            
 	            <!-- A binary mask of all the bounding-boxes merged together -->
 	            <item config-class="org.anchoranalysis.bean.NamedBean" name="mask">
-	                <item config-class="ch.ethz.biol.cell.imageprocessing.binaryimgchnl.provider.BinaryChnlProviderFromObjMasks">
+	                <item config-class="ch.ethz.biol.cell.imageprocessing.binaryimgchnl.provider.BinaryChnlProviderFromObjects">
 	                    <objects id="boxes" config-class="ch.ethz.biol.cell.imageprocessing.objmask.provider.ObjMaskProviderReference"/>
 	                </item>
 	            </item>
 	        
 	            <!-- Visualization of the bounding-boxes on top of the original image -->
 	            <item config-class="org.anchoranalysis.bean.NamedBean" name="visualization_boxes">
-					<item outline="true" config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderRGBFromObjMask">
+					<item outline="true" config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.ColoredObjectsOnStack">
 						<stackBackground config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
 						<objects id="boxes" config-class="ch.ethz.biol.cell.imageprocessing.objmask.provider.ObjMaskProviderReference"/>
 						<colorSetGenerator config-class="org.anchoranalysis.io.bean.color.generator.ColorSetGeneratorRGBColor">
