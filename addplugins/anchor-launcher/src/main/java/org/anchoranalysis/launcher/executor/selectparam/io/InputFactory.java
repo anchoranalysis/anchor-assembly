@@ -39,6 +39,9 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
 import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 
 /**
  * SelectParam<Path> factory for inputs
@@ -46,9 +49,8 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
  * @author Owen Feehan
  *
  */
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 public class InputFactory {
-
-	private InputFactory() {}
 	
 	public static SelectParam<Optional<Path>> pathOrDirectoryOrGlobOrExtension( String[] args ) {
 		List<Path> paths = pathFromArgs(args);
