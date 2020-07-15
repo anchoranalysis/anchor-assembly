@@ -47,7 +47,7 @@ import org.junit.Test;
  */
 public class ExperimentReaderErrorReportingTest {
 
-	private static TestLoader tl = TestLoader.createFromMavenWorkingDir();
+	private static TestLoader tl = TestLoader.createFromMavenWorkingDirectory();
 		
 	@BeforeClass
     public static void setUp() throws Exception {
