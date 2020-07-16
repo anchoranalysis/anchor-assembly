@@ -1,4 +1,3 @@
-/* (C)2020 */
 package org.anchoranalysis.launcher;
 
 import java.lang.reflect.Field;
