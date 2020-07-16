@@ -1,10 +1,8 @@
-package org.anchoranalysis.launcher.executor.selectparam;
-
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,35 +23,33 @@ package org.anchoranalysis.launcher.executor.selectparam;
  * THE SOFTWARE.
  * #L%
  */
+/* (C)2020 */
+package org.anchoranalysis.launcher.executor.selectparam;
 
 import java.nio.file.Path;
 import java.util.Optional;
-
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 
-
 /**
  * Uses whatever default-manager exists
- * 
- * @author Owen Feehan
  *
+ * @author Owen Feehan
  */
 public class UseDefaultManager implements SelectParam<Optional<Path>> {
 
-	@Override
-	public Optional<Path> select( ExperimentExecutionArguments eea ) {
-		return Optional.empty();
-	}
+    @Override
+    public Optional<Path> select(ExperimentExecutionArguments eea) {
+        return Optional.empty();
+    }
 
-	@Override
-	public boolean isDefault() {
-		return true;
-	}
+    @Override
+    public boolean isDefault() {
+        return true;
+    }
 
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return "default manager on current working directory";
-	}
-
+    @Override
+    public String describe() throws ExperimentExecutionException {
+        return "default manager on current working directory";
+    }
 }

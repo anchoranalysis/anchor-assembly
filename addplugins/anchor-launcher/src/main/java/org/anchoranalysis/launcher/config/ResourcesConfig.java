@@ -1,3 +1,4 @@
+/* (C)2020 */
 package org.anchoranalysis.launcher.config;
 
 /*-
@@ -12,10 +13,10 @@ package org.anchoranalysis.launcher.config;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,40 +29,45 @@ package org.anchoranalysis.launcher.config;
 
 public class ResourcesConfig {
 
-	// Which class-loader to use for loading resources
-	private ClassLoader classLoader;
+    // Which class-loader to use for loading resources
+    private ClassLoader classLoader;
 
-	private String versionFooter;
-	private String mavenProperties;
-	private String usageHeader;
-	private String usageFooter;
-	
-	public ResourcesConfig(ClassLoader classLoader, String versionFooter, String mavenProperties, String usageHeader, String usageFooter) {
-		super();
-		this.classLoader = classLoader;
-		this.versionFooter = versionFooter;
-		this.mavenProperties = mavenProperties;
-		this.usageHeader = usageHeader;
-		this.usageFooter = usageFooter;
-	}
-	
-	public String getVersionFooter() {
-		return versionFooter;
-	}
+    private String versionFooter;
+    private String mavenProperties;
+    private String usageHeader;
+    private String usageFooter;
 
-	public String getMavenProperties() {
-		return mavenProperties;
-	}
+    public ResourcesConfig(
+            ClassLoader classLoader,
+            String versionFooter,
+            String mavenProperties,
+            String usageHeader,
+            String usageFooter) {
+        super();
+        this.classLoader = classLoader;
+        this.versionFooter = versionFooter;
+        this.mavenProperties = mavenProperties;
+        this.usageHeader = usageHeader;
+        this.usageFooter = usageFooter;
+    }
 
-	public String getUsageHeader() {
-		return usageHeader;
-	}
+    public String getVersionFooter() {
+        return versionFooter;
+    }
 
-	public String getUsageFooter() {
-		return usageFooter;
-	}
-	
-	public ClassLoader getClassLoader() {
-		return classLoader;
-	}
+    public String getMavenProperties() {
+        return mavenProperties;
+    }
+
+    public String getUsageHeader() {
+        return usageHeader;
+    }
+
+    public String getUsageFooter() {
+        return usageFooter;
+    }
+
+    public ClassLoader getClassLoader() {
+        return classLoader;
+    }
 }

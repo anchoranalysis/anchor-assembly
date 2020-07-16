@@ -1,10 +1,8 @@
-package org.anchoranalysis.launcher.executor.selectparam.io;
-
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,32 +23,33 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
  * THE SOFTWARE.
  * #L%
  */
-
-import org.apache.commons.io.FilenameUtils;
+/* (C)2020 */
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 class ExtensionUtilities {
-	
-	public static boolean hasXmlExtension( String path ) {
-		return FilenameUtils.getExtension(path).equalsIgnoreCase("xml");
-	}
-		
-	public static boolean isFileExtension( String arg ) {
-		return startsWithPeriod(".") && !isFileSeperator(arg) && !isDirectoryChange(arg);
-	}
-	
-	private static boolean startsWithPeriod(String arg) {
-		return arg.startsWith(".");	
-	}
-	
-	private static boolean isDirectoryChange(String arg) {
-		return arg.equals(".") || arg.equals("..");
-	}
-	
-	private static boolean isFileSeperator(String arg) {
-		return arg.contains("/") || arg.contains("\\");
-	}
+
+    public static boolean hasXmlExtension(String path) {
+        return FilenameUtils.getExtension(path).equalsIgnoreCase("xml");
+    }
+
+    public static boolean isFileExtension(String arg) {
+        return startsWithPeriod(".") && !isFileSeperator(arg) && !isDirectoryChange(arg);
+    }
+
+    private static boolean startsWithPeriod(String arg) {
+        return arg.startsWith(".");
+    }
+
+    private static boolean isDirectoryChange(String arg) {
+        return arg.equals(".") || arg.equals("..");
+    }
+
+    private static boolean isFileSeperator(String arg) {
+        return arg.contains("/") || arg.contains("\\");
+    }
 }

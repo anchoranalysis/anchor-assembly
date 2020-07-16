@@ -1,3 +1,4 @@
+/* (C)2020 */
 package org.anchoranalysis.launcher;
 
 /*-
@@ -12,10 +13,10 @@ package org.anchoranalysis.launcher;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,29 +31,26 @@ import org.apache.commons.cli.Option;
 
 /**
  * Different types of arguments used by Anchor
- * 
- * @author Owen Feehan
  *
+ * @author Owen Feehan
  */
 class CustomOptions {
-	
-	private CustomOptions() {
-	}
 
-	public static Option multipleArguments(String optionName, String dscr) {
-		Option optionInput = new Option(optionName, true, dscr);
-		optionInput.setArgs(Option.UNLIMITED_VALUES);
-		return optionInput;		
-	}
-	
-	public static Option optionalSingleArgument(String optionName, String dscr) {
-		Option option = new Option(optionName, true, dscr);
-		option.setOptionalArg(true);
-		return option;	
-	}
-	
-	public static Option requiredSingleArgument(String optionName, String dscr) {
-		return new Option(optionName, true, dscr);
-	}
-	
+    private CustomOptions() {}
+
+    public static Option multipleArguments(String optionName, String dscr) {
+        Option optionInput = new Option(optionName, true, dscr);
+        optionInput.setArgs(Option.UNLIMITED_VALUES);
+        return optionInput;
+    }
+
+    public static Option optionalSingleArgument(String optionName, String dscr) {
+        Option option = new Option(optionName, true, dscr);
+        option.setOptionalArg(true);
+        return option;
+    }
+
+    public static Option requiredSingleArgument(String optionName, String dscr) {
+        return new Option(optionName, true, dscr);
+    }
 }

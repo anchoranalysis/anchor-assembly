@@ -1,22 +1,8 @@
-package org.anchoranalysis.browser.launcher;
-
-import java.util.stream.Stream;
-
-import org.anchoranalysis.core.error.reporter.ErrorReporterIntoLog;
-import org.anchoranalysis.core.log.Logger;
-import org.anchoranalysis.experiment.log.ConsoleMessageLogger;
-import org.anchoranalysis.experiment.log.MessageLoggerList;
-import org.anchoranalysis.experiment.log.reporter.TextFileMessageLogger;
-import org.anchoranalysis.launcher.Launch;
-
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
-/*
+/*-
  * #%L
  * anchor-browser
  * %%
- * Copyright (C) 2016 ETH Zurich, University of Zurich, Owen Feehan
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,31 +23,41 @@ import lombok.NoArgsConstructor;
  * THE SOFTWARE.
  * #L%
  */
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+/* (C)2020 */
+package org.anchoranalysis.browser.launcher;
+
+import java.util.stream.Stream;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.anchoranalysis.core.error.reporter.ErrorReporterIntoLog;
+import org.anchoranalysis.core.log.Logger;
+import org.anchoranalysis.experiment.log.ConsoleMessageLogger;
+import org.anchoranalysis.experiment.log.MessageLoggerList;
+import org.anchoranalysis.experiment.log.reporter.TextFileMessageLogger;
+import org.anchoranalysis.launcher.Launch;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LaunchInteractiveBrowser {
-	
-	/**
-	 * Entry point for command-line application
-	 * 
-	 * @param args command line application
-	 */
-	public static void main(String[] args) {
-		Logger logger = createLogErrorReporter();
-		Launch.runCommandLineApp(args, new LauncherConfigBrowser(), logger );
-	}
-	
-	private static Logger createLogErrorReporter() {
-		ConsoleMessageLogger consoleLogger = new ConsoleMessageLogger();
-		
-		MessageLoggerList list = new MessageLoggerList(
-			Stream.of(
-				consoleLogger,
-				new TextFileMessageLogger(
-					"anchorGUI.log",
-					new ErrorReporterIntoLog(consoleLogger)
-				)
-			)
-		);
-		return new Logger(list);
-	}
+
+    /**
+     * Entry point for command-line application
+     *
+     * @param args command line application
+     */
+    public static void main(String[] args) {
+        Logger logger = createLogErrorReporter();
+        Launch.runCommandLineApp(args, new LauncherConfigBrowser(), logger);
+    }
+
+    private static Logger createLogErrorReporter() {
+        ConsoleMessageLogger consoleLogger = new ConsoleMessageLogger();
+
+        MessageLoggerList list =
+                new MessageLoggerList(
+                        Stream.of(
+                                consoleLogger,
+                                new TextFileMessageLogger(
+                                        "anchorGUI.log", new ErrorReporterIntoLog(consoleLogger))));
+        return new Logger(list);
+    }
 }

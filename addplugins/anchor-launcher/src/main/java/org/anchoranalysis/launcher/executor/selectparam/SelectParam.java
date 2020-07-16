@@ -1,10 +1,8 @@
-package org.anchoranalysis.launcher.executor.selectparam;
-
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +23,8 @@ package org.anchoranalysis.launcher.executor.selectparam;
  * THE SOFTWARE.
  * #L%
  */
+/* (C)2020 */
+package org.anchoranalysis.launcher.executor.selectparam;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -32,22 +32,25 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 /** Different methods of selecting a object T that is used as a parameter for the experiment */
 public interface SelectParam<T> {
 
-	/** Retrieves the parameter
-	 * 
-	 *  Note that the ExperimentExecutionArguments might be modified during this operation
-	 *   (e.g. adding a directory parameter )
-	 *  */
-	T select( ExperimentExecutionArguments eea ) throws ExperimentExecutionException;
-	
-	/**
-	 * Returns TRUE iff this is the default option that occurs without any additional user effort
-	 * @return
-	 */
-	boolean isDefault();
-	
-	/**
-	 * Returns a string that can be displayed to the user to describe this particular SelectParan
-	 * @return
-	 */
-	String describe() throws ExperimentExecutionException;
+    /**
+     * Retrieves the parameter
+     *
+     * <p>Note that the ExperimentExecutionArguments might be modified during this operation (e.g.
+     * adding a directory parameter )
+     */
+    T select(ExperimentExecutionArguments eea) throws ExperimentExecutionException;
+
+    /**
+     * Returns TRUE iff this is the default option that occurs without any additional user effort
+     *
+     * @return
+     */
+    boolean isDefault();
+
+    /**
+     * Returns a string that can be displayed to the user to describe this particular SelectParan
+     *
+     * @return
+     */
+    String describe() throws ExperimentExecutionException;
 }

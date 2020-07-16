@@ -1,10 +1,8 @@
-package org.anchoranalysis.launcher.executor.selectparam.path;
-
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,44 +23,41 @@ package org.anchoranalysis.launcher.executor.selectparam.path;
  * THE SOFTWARE.
  * #L%
  */
+/* (C)2020 */
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
 import java.util.Optional;
-
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
  * Loads a custom-manager from a path
- * 
- * @author Owen Feehan
  *
+ * @author Owen Feehan
  */
 public class CustomManagerFromPath implements SelectParam<Optional<Path>> {
 
-	private Path path;
+    private Path path;
 
-	public CustomManagerFromPath(Path path) {
-		super();
-		this.path = path;
-	}
+    public CustomManagerFromPath(Path path) {
+        super();
+        this.path = path;
+    }
 
-	@Override
-	public Optional<Path> select( ExperimentExecutionArguments eea ) {
-		return Optional.of(path);
-	}
+    @Override
+    public Optional<Path> select(ExperimentExecutionArguments eea) {
+        return Optional.of(path);
+    }
 
-	@Override
-	public boolean isDefault() {
-		return false;
-	}
+    @Override
+    public boolean isDefault() {
+        return false;
+    }
 
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return String.format(
-			"from %s",
-			PrettyPathConverter.prettyPath(path)
-		);
-	}
+    @Override
+    public String describe() throws ExperimentExecutionException {
+        return String.format("from %s", PrettyPathConverter.prettyPath(path));
+    }
 }

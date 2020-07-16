@@ -1,10 +1,8 @@
-package org.anchoranalysis.launcher.executor.selectparam.task;
-
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,45 +23,44 @@ package org.anchoranalysis.launcher.executor.selectparam.task;
  * THE SOFTWARE.
  * #L%
  */
+/* (C)2020 */
+package org.anchoranalysis.launcher.executor.selectparam.task;
 
 import java.util.Optional;
-
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
  * Updates task-name AND delegates to another SelectParam<Path>
- * 
+ *
  * @author Owen Feehan
  * @param <T> delegate-type for {@link SelectParam}
  */
 class UpdateTaskName<T> implements SelectParam<T> {
 
-	private SelectParam<T> delegate;
-	private String taskName;
+    private SelectParam<T> delegate;
+    private String taskName;
 
-	public UpdateTaskName(SelectParam<T> delegate, String taskName) {
-		super();
-		this.delegate = delegate;
-		this.taskName = taskName;
-	}
+    public UpdateTaskName(SelectParam<T> delegate, String taskName) {
+        super();
+        this.delegate = delegate;
+        this.taskName = taskName;
+    }
 
-	@Override
-	public T select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
-		eea.setTaskName(
-			Optional.of(taskName)
-		);
-		return delegate.select(eea);
-	}
+    @Override
+    public T select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
+        eea.setTaskName(Optional.of(taskName));
+        return delegate.select(eea);
+    }
 
-	@Override
-	public boolean isDefault() {
-		return delegate.isDefault();
-	}
+    @Override
+    public boolean isDefault() {
+        return delegate.isDefault();
+    }
 
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return delegate.describe();
-	}
+    @Override
+    public String describe() throws ExperimentExecutionException {
+        return delegate.describe();
+    }
 }

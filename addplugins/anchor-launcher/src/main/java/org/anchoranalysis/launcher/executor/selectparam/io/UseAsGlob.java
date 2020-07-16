@@ -1,10 +1,8 @@
-package org.anchoranalysis.launcher.executor.selectparam.io;
-
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,68 +23,61 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
  * THE SOFTWARE.
  * #L%
  */
+/* (C)2020 */
+package org.anchoranalysis.launcher.executor.selectparam.io;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Optional;
-
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.io.glob.GlobExtractor;
 import org.anchoranalysis.io.glob.GlobExtractor.GlobWithDirectory;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
-
 /**
  * Uses the path directory as a manager
- * 
- * @author Owen Feehan
  *
+ * @author Owen Feehan
  */
 class UseAsGlob implements SelectParam<Optional<Path>> {
 
-	private String wildcardStr;
-	
-	/**
-	 * Constructor
-	 *  
-	 * @param wildcardStr string containing a wildcard
-	 */
-	public UseAsGlob(String wildcardStr) {
-		super();
-		this.wildcardStr = wildcardStr;
-	}
+    private String wildcardStr;
 
-	@Override
-	public Optional<Path> select( ExperimentExecutionArguments eea ) {
-		
-		// Isolate a directory component, from the rest of the glob
-		// to allow matches like sdsds/sdsds/*.jpg
-		GlobWithDirectory gwd = GlobExtractor.extract(wildcardStr);
-		
-		eea.setInputDirectory(
-			gwd.getDirectory().map(Paths::get)
-		);
-		eea.setInputFilterGlob(
-			Optional.of(gwd.getGlob())
-		);
-		
-		// An empty set, means no filter check is applied
-		eea.setInputFilterExtensions(
-			Optional.of(new HashSet<String>())
-		);
-		
-		return Optional.empty();
-	}
+    /**
+     * Constructor
+     *
+     * @param wildcardStr string containing a wildcard
+     */
+    public UseAsGlob(String wildcardStr) {
+        super();
+        this.wildcardStr = wildcardStr;
+    }
 
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return wildcardStr;
-	}
+    @Override
+    public Optional<Path> select(ExperimentExecutionArguments eea) {
 
-	@Override
-	public boolean isDefault() {
-		return false;
-	}
+        // Isolate a directory component, from the rest of the glob
+        // to allow matches like sdsds/sdsds/*.jpg
+        GlobWithDirectory gwd = GlobExtractor.extract(wildcardStr);
+
+        eea.setInputDirectory(gwd.getDirectory().map(Paths::get));
+        eea.setInputFilterGlob(Optional.of(gwd.getGlob()));
+
+        // An empty set, means no filter check is applied
+        eea.setInputFilterExtensions(Optional.of(new HashSet<String>()));
+
+        return Optional.empty();
+    }
+
+    @Override
+    public String describe() throws ExperimentExecutionException {
+        return wildcardStr;
+    }
+
+    @Override
+    public boolean isDefault() {
+        return false;
+    }
 }

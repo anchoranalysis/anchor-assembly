@@ -1,3 +1,4 @@
+/* (C)2020 */
 package org.anchoranalysis.launcher.config;
 
 /*-
@@ -12,10 +13,10 @@ package org.anchoranalysis.launcher.config;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,29 +29,33 @@ package org.anchoranalysis.launcher.config;
 
 public class HelpConfig {
 
-	/**
-	 * What the application command is described as in the help message e.g.&nbsp;anchor or anchorGUI
-	 * @return a word describing the application command (for the help message)
-	 */
-	private String commandName;
-		
-	/**
-	 * What the application argument is described as in the help message e.g.&nbsp;experimentFile.xml
-	 * @return a word describing the application arguments (for the help message)
-	 */
-	private String firstArgument;
-	
-	public HelpConfig(String commandName, String firstArgument) {
-		super();
-		this.commandName = commandName;
-		this.firstArgument = firstArgument;
-	}
-	
-	public String getCommandName() {
-		return commandName;
-	}
+    /**
+     * What the application command is described as in the help message e.g.&nbsp;anchor or
+     * anchorGUI
+     *
+     * @return a word describing the application command (for the help message)
+     */
+    private String commandName;
 
-	public String getFirstArgument() {
-		return firstArgument;
-	}	
+    /**
+     * What the application argument is described as in the help message
+     * e.g.&nbsp;experimentFile.xml
+     *
+     * @return a word describing the application arguments (for the help message)
+     */
+    private String firstArgument;
+
+    public HelpConfig(String commandName, String firstArgument) {
+        super();
+        this.commandName = commandName;
+        this.firstArgument = firstArgument;
+    }
+
+    public String getCommandName() {
+        return commandName;
+    }
+
+    public String getFirstArgument() {
+        return firstArgument;
+    }
 }

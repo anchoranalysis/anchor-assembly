@@ -1,3 +1,4 @@
+/* (C)2020 */
 package org.anchoranalysis.launcher;
 
 /*-
@@ -12,10 +13,10 @@ package org.anchoranalysis.launcher;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -31,12 +32,10 @@ import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
 /** An exception thrown at run-time while processing command-line args */
 public class CommandLineException extends AnchorFriendlyRuntimeException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /** */
+    private static final long serialVersionUID = 1L;
 
-	public CommandLineException(String message) {
-		super(message);
-	}
+    public CommandLineException(String message) {
+        super(message);
+    }
 }

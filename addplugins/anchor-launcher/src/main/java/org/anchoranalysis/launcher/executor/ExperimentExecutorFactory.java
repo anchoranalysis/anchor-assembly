@@ -1,12 +1,8 @@
-package org.anchoranalysis.launcher.executor;
-
-import java.nio.file.Path;
-
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,32 +23,36 @@ import java.nio.file.Path;
  * THE SOFTWARE.
  * #L%
  */
+/* (C)2020 */
+package org.anchoranalysis.launcher.executor;
 
+import java.nio.file.Path;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.apache.commons.cli.CommandLine;
 
 public class ExperimentExecutorFactory {
 
-	private ExperimentExecutorFactory() {}
-	
-	/**
-	 * Creates an experiment-executor from a command line that EITHER:
-	 *       uses a default-experiment
-	 *    OR accepts a path passed as the first command-line argument
-	 *    
-	 * @param line the command-line arguments
-	 * @param defaultExperiment path to the default-experiment
-	 * @param configDir path to the configuration directory
-	 * @param executionDir path from which experiment is executed (i.e. the bin/ directory typically)
-	 * @return
-	 * @throws ExperimentExecutionException
-	 */
-	public static ExperimentExecutor create( CommandLine line, Path defaultExperiment, Path configDir, Path executionDir ) throws ExperimentExecutionException {
-		return new ExperimentExecutor(
-			SelectParamFactory.experimentSelectParam(line, defaultExperiment),
-			configDir,
-			executionDir
-		);
-	}
+    private ExperimentExecutorFactory() {}
+
+    /**
+     * Creates an experiment-executor from a command line that EITHER: uses a default-experiment OR
+     * accepts a path passed as the first command-line argument
+     *
+     * @param line the command-line arguments
+     * @param defaultExperiment path to the default-experiment
+     * @param configDir path to the configuration directory
+     * @param executionDir path from which experiment is executed (i.e. the bin/ directory
+     *     typically)
+     * @return
+     * @throws ExperimentExecutionException
+     */
+    public static ExperimentExecutor create(
+            CommandLine line, Path defaultExperiment, Path configDir, Path executionDir)
+            throws ExperimentExecutionException {
+        return new ExperimentExecutor(
+                SelectParamFactory.experimentSelectParam(line, defaultExperiment),
+                configDir,
+                executionDir);
+    }
 }

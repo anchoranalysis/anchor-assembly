@@ -1,10 +1,8 @@
-package org.anchoranalysis.launcher;
-
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,29 +23,29 @@ package org.anchoranalysis.launcher;
  * THE SOFTWARE.
  * #L%
  */
+/* (C)2020 */
+package org.anchoranalysis.launcher;
 
 import java.nio.file.Path;
 
 public class FilePathResolver {
 
-	private Class<?> classInExecutingLoader;
+    private Class<?> classInExecutingLoader;
 
-	public FilePathResolver(Class<?> classInExecutingLoader) {
-		super();
-		this.classInExecutingLoader = classInExecutingLoader;
-	}
-		
-	public Path resolvePathToCurrentJar( Path pathRelative ) {
-		return basePath().resolve(pathRelative);
-	}
-	
-	public Path resolvePathToCurrentJar( String pathRelative ) {
-		return basePath().resolve(pathRelative);
-	}
-	
-	private Path basePath() {
-		return PathCurrentJarUtilities.pathCurrentJAR( classInExecutingLoader );
-	}
+    public FilePathResolver(Class<?> classInExecutingLoader) {
+        super();
+        this.classInExecutingLoader = classInExecutingLoader;
+    }
 
-	
+    public Path resolvePathToCurrentJar(Path pathRelative) {
+        return basePath().resolve(pathRelative);
+    }
+
+    public Path resolvePathToCurrentJar(String pathRelative) {
+        return basePath().resolve(pathRelative);
+    }
+
+    private Path basePath() {
+        return PathCurrentJarUtilities.pathCurrentJAR(classInExecutingLoader);
+    }
 }

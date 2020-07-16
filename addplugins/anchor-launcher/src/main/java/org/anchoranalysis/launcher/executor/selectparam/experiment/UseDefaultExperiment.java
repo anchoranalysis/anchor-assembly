@@ -1,10 +1,8 @@
-package org.anchoranalysis.launcher.executor.selectparam.experiment;
-
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +23,8 @@ package org.anchoranalysis.launcher.executor.selectparam.experiment;
  * THE SOFTWARE.
  * #L%
  */
+/* (C)2020 */
+package org.anchoranalysis.launcher.executor.selectparam.experiment;
 
 import java.nio.file.Path;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
@@ -34,28 +34,26 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter
 
 class UseDefaultExperiment implements SelectParam<Path> {
 
-	private Path defaultExperiment;
-	
-	public UseDefaultExperiment(Path defaultExperiment) {
-		super();
-		this.defaultExperiment = defaultExperiment;
-	}
-	
-	@Override
-	public Path select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
-		return defaultExperiment;
-	}
+    private Path defaultExperiment;
 
-	@Override
-	public boolean isDefault() {
-		return true;
-	}
+    public UseDefaultExperiment(Path defaultExperiment) {
+        super();
+        this.defaultExperiment = defaultExperiment;
+    }
 
-	@Override
-	public String describe() throws ExperimentExecutionException {
-		return String.format(
-			"default experiment (%s)",
-			PrettyPathConverter.prettyPath( defaultExperiment )
-		);
-	}
+    @Override
+    public Path select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
+        return defaultExperiment;
+    }
+
+    @Override
+    public boolean isDefault() {
+        return true;
+    }
+
+    @Override
+    public String describe() throws ExperimentExecutionException {
+        return String.format(
+                "default experiment (%s)", PrettyPathConverter.prettyPath(defaultExperiment));
+    }
 }

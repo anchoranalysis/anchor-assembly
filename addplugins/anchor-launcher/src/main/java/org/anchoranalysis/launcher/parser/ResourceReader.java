@@ -1,16 +1,8 @@
-package org.anchoranalysis.launcher.parser;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-
-import org.apache.commons.io.IOUtils;
-
-/*
+/*-
  * #%L
- * anchor-browser
+ * anchor-launcher
  * %%
- * Copyright (C) 2016 ETH Zurich, University of Zurich, Owen Feehan
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,28 +23,33 @@ import org.apache.commons.io.IOUtils;
  * THE SOFTWARE.
  * #L%
  */
+/* (C)2020 */
+package org.anchoranalysis.launcher.parser;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import org.apache.commons.io.IOUtils;
 
 class ResourceReader {
-	
-	private ResourceReader() {
-		// Only accessible through static methods
-	}
-	
-	/**
-	 * Reads a string from a resource, or displays an error message
-	 * 
-	 * @param resourceFileName the file-name to identify the resource (in the root directory)
-	 * @param cl class-loader where resource is found
-	 */
-	public static String readStringFromResource( String resourceFileName, ClassLoader cl ) throws IOException {
-		InputStream helpDisplayResource = cl.getResourceAsStream( resourceFileName);
-		if (helpDisplayResource!=null) {
-	    	return IOUtils.toString(
-		      helpDisplayResource,
-		      StandardCharsets.UTF_8
-		    );
-	    } else {
-	    	return resourceFileName + " is missing, so cannot display.";
-	    }		
-	}
+
+    private ResourceReader() {
+        // Only accessible through static methods
+    }
+
+    /**
+     * Reads a string from a resource, or displays an error message
+     *
+     * @param resourceFileName the file-name to identify the resource (in the root directory)
+     * @param cl class-loader where resource is found
+     */
+    public static String readStringFromResource(String resourceFileName, ClassLoader cl)
+            throws IOException {
+        InputStream helpDisplayResource = cl.getResourceAsStream(resourceFileName);
+        if (helpDisplayResource != null) {
+            return IOUtils.toString(helpDisplayResource, StandardCharsets.UTF_8);
+        } else {
+            return resourceFileName + " is missing, so cannot display.";
+        }
+    }
 }
