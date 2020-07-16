@@ -1,102 +1,96 @@
+/*-
+ * #%L
+ * anchor-browser
+ * %%
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
 package org.anchoranalysis.browser.launcher;
 
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.launcher.config.HelpConfig;
-import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
+import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
-/*
- * #%L
- * anchor-browser
- * %%
- * Copyright (C) 2016 ETH Zurich, University of Zurich, Owen Feehan
- * %%
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- * #L%
- */
-
-
 /**
  * A command-line interface for launching the GUI browser
- * 
- * @author Owen Feehan
  *
+ * @author Owen Feehan
  */
 class LauncherConfigBrowser extends LauncherConfig {
-	
-	/**
-	 * A path relative to the current JAR where a properties file can be found
-	 */
-	private static final String PATH_RELATIVE_PROPERTIES = "anchorGUI.properties";
 
-	private static final String RESOURCE_VERSION_FOOTER =  "org/anchoranalysis/browser/launcher/versionFooterDisplayMessage.txt";
-	private static final String RESOURCE_USAGE_HEADER =  "org/anchoranalysis/browser/launcher/usageHeaderDisplayMessage.txt";
-	private static final String RESOURCE_USAGE_FOOTER =  "org/anchoranalysis/browser/launcher/usageFooterDisplayMessage.txt";
-	private static final String RESOURCE_MAVEN_PROPERTIES = "META-INF/maven/org.anchoranalysis.anchor/anchor-browser/pom.properties";
+    /** A path relative to the current JAR where a properties file can be found */
+    private static final String PATH_RELATIVE_PROPERTIES = "anchorGUI.properties";
 
-	@Override
-	public ExperimentExecutionArguments createArguments( CommandLine line ) {
-		 return new ExperimentExecutionArguments();
-	}
+    private static final String RESOURCE_VERSION_FOOTER =
+            "org/anchoranalysis/browser/launcher/versionFooterDisplayMessage.txt";
+    private static final String RESOURCE_USAGE_HEADER =
+            "org/anchoranalysis/browser/launcher/usageHeaderDisplayMessage.txt";
+    private static final String RESOURCE_USAGE_FOOTER =
+            "org/anchoranalysis/browser/launcher/usageFooterDisplayMessage.txt";
+    private static final String RESOURCE_MAVEN_PROPERTIES =
+            "META-INF/maven/org.anchoranalysis.anchor/anchor-browser/pom.properties";
 
-	@Override
-	protected Class<?> classInCurrentJar() {
-		return LauncherConfigBrowser.class;
-	}
+    @Override
+    public ExperimentExecutionArguments createArguments(CommandLine line) {
+        return new ExperimentExecutionArguments();
+    }
 
-	@Override
-	public boolean newlinesBeforeError() {
-		return true;
-	}
+    @Override
+    protected Class<?> classInCurrentJar() {
+        return LauncherConfigBrowser.class;
+    }
 
-	@Override
-	public void addAdditionalOptions(Options options) {
-		// Nothing to do here for the browser
-	}
+    @Override
+    public boolean newlinesBeforeError() {
+        return true;
+    }
 
-	@Override
-	public ResourcesConfig resources() {
-		return new ResourcesConfig(
-			getClass().getClassLoader(),
-			RESOURCE_VERSION_FOOTER,
-			RESOURCE_MAVEN_PROPERTIES,
-			RESOURCE_USAGE_HEADER,
-			RESOURCE_USAGE_FOOTER
-		);
-	}
+    @Override
+    public void addAdditionalOptions(Options options) {
+        // Nothing to do here for the browser
+    }
 
-	@Override
-	public HelpConfig help() {
-		return new HelpConfig("anchorGUI", "configFile.xml");
-	}
+    @Override
+    public ResourcesConfig resources() {
+        return new ResourcesConfig(
+                getClass().getClassLoader(),
+                RESOURCE_VERSION_FOOTER,
+                RESOURCE_MAVEN_PROPERTIES,
+                RESOURCE_USAGE_HEADER,
+                RESOURCE_USAGE_FOOTER);
+    }
 
-	@Override
-	protected String pathRelativeProperties() {
-		return PATH_RELATIVE_PROPERTIES;
-	}
-	
-	@Override
-	protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) {
-		// Nothing to do here for the browser
-	}
+    @Override
+    public HelpConfig help() {
+        return new HelpConfig("anchorGUI", "configFile.xml");
+    }
 
+    @Override
+    protected String pathRelativeProperties() {
+        return PATH_RELATIVE_PROPERTIES;
+    }
+
+    @Override
+    protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) {
+        // Nothing to do here for the browser
+    }
 }

@@ -1,6 +1,6 @@
 # anchor-assembly
 
-A project to combine Anchor JARs into a distribution (.tar.gz) that 
+A project to combine Anchor JARs into a distribution (.tar.gz) that
 forms a useful functioning version of system
 - binaries
 - documentation

@@ -53,6 +53,29 @@
 		
    	</repositories>
 	
+	    <build>
+        
+            <plugins>
+				
+				<plugin>
+				    <groupId>org.codehaus.mojo</groupId>
+				    <artifactId>license-maven-plugin</artifactId>
+				    <version>${license-maven-plugin.version}</version>
+				    <configuration>
+				        <licenseName>gpl_v3</licenseName>
+						<includes>
+							<include>**/*.java</include>
+						</includes>
+        				        
+				    </configuration>
+				</plugin>
+				
+
+	
+            </plugins>
+			
+		</build>
+		
     <dependencies>
         <dependency>
 		  <groupId>junit</groupId>

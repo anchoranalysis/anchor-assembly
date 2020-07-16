@@ -1,36 +1,28 @@
-package org.anchoranalysis.launcher.executor;
-
-
-
-/*
+/*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2016 ETH Zurich, University of Zurich, Owen Feehan
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
 
+package org.anchoranalysis.launcher.executor;
 
 import java.nio.file.Path;
-
 import org.anchoranalysis.bean.xml.BeanXmlLoader;
 import org.anchoranalysis.bean.xml.error.BeanXmlException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -40,60 +32,66 @@ import org.anchoranalysis.io.bean.input.InputManager;
 import org.anchoranalysis.io.input.InputFromManager;
 import org.anchoranalysis.io.output.bean.OutputManager;
 
-
 class ExperimentReader {
-	
-	private ExperimentReader() {
-		// Only accessible through static methods
-	}
 
-	public static Experiment readExperimentFromXML( Path configPath ) throws ExperimentExecutionException {
-		return readBeanFromXML( configPath, "experiment", true );
-	}
-	
-	public static InputManager<InputFromManager> readInputManagerFromXML( Path configPath ) throws ExperimentExecutionException {
-		return readBeanFromXML( configPath, "bean", false );
-	}
-	
-	public static OutputManager readOutputManagerFromXML( Path configPath ) throws ExperimentExecutionException {
-		return readBeanFromXML( configPath, "bean", false );
-	}
-	
-	public static Task<InputFromManager,Object> readTaskFromXML( Path configPath ) throws ExperimentExecutionException {
-		return readBeanFromXML( configPath, "bean", false );
-	}
-	
-	/**
-	 * Read bean from xml
-	 * 
-	 * @param configPath the path where the xml file exists
-	 * @param xmlPath the xpath inside the xmlpath specifying the root-element
-	 * @param associateXml if TRUE, the xml is associated with the object (see BeanXmlLoader). if FALSE, it is not.
-	 * @return an object created from the read BeanXML
-	 * @throws ExperimentExecutionException
-	 */
-	private static <T> T readBeanFromXML( Path configPath, String xmlPath, boolean associateXml ) throws ExperimentExecutionException {
+    private ExperimentReader() {
+        // Only accessible through static methods
+    }
 
-		// To avoid any .. or . in error reporting
-		configPath = configPath.normalize();
-		
-		if (!configPath.toFile().exists()) {
-			throw new ExperimentExecutionException( String.format("Error: a file does not exist at \"%s\"", configPath) );
-		}
-		
-		try {
-			if (associateXml) {
-				return BeanXmlLoader.loadBeanAssociatedXml(configPath, xmlPath);
-			} else {
-				return BeanXmlLoader.loadBean(configPath, xmlPath);
-			}
-	
-		} catch (BeanXmlException e) {
-			String errorMsg = String.format("An error occurred reading the experiment bean XML at \"%s\".%nPlease ensure this is validly-formatted BeanXML for an experiment.", configPath);
-			throw new ExperimentExecutionException(errorMsg,e);
-		}
-		
-	}
+    public static Experiment readExperimentFromXML(Path configPath)
+            throws ExperimentExecutionException {
+        return readBeanFromXML(configPath, "experiment", true);
+    }
 
+    public static InputManager<InputFromManager> readInputManagerFromXML(Path configPath)
+            throws ExperimentExecutionException {
+        return readBeanFromXML(configPath, "bean", false);
+    }
 
+    public static OutputManager readOutputManagerFromXML(Path configPath)
+            throws ExperimentExecutionException {
+        return readBeanFromXML(configPath, "bean", false);
+    }
+
+    public static Task<InputFromManager, Object> readTaskFromXML(Path configPath)
+            throws ExperimentExecutionException {
+        return readBeanFromXML(configPath, "bean", false);
+    }
+
+    /**
+     * Read bean from xml
+     *
+     * @param configPath the path where the xml file exists
+     * @param xmlPath the xpath inside the xmlpath specifying the root-element
+     * @param associateXml if TRUE, the xml is associated with the object (see BeanXmlLoader). if
+     *     FALSE, it is not.
+     * @return an object created from the read BeanXML
+     * @throws ExperimentExecutionException
+     */
+    private static <T> T readBeanFromXML(Path configPath, String xmlPath, boolean associateXml)
+            throws ExperimentExecutionException {
+
+        // To avoid any .. or . in error reporting
+        configPath = configPath.normalize();
+
+        if (!configPath.toFile().exists()) {
+            throw new ExperimentExecutionException(
+                    String.format("Error: a file does not exist at \"%s\"", configPath));
+        }
+
+        try {
+            if (associateXml) {
+                return BeanXmlLoader.loadBeanAssociatedXml(configPath, xmlPath);
+            } else {
+                return BeanXmlLoader.loadBean(configPath, xmlPath);
+            }
+
+        } catch (BeanXmlException e) {
+            String errorMsg =
+                    String.format(
+                            "An error occurred reading the experiment bean XML at \"%s\".%nPlease ensure this is validly-formatted BeanXML for an experiment.",
+                            configPath);
+            throw new ExperimentExecutionException(errorMsg, e);
+        }
+    }
 }

@@ -35,11 +35,11 @@
 		</outputsAllowed>
 	</stackCollectionOutputEnabled>
 
-	<objMaskCollectionOutputEnabled config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
+	<objects config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
 		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>objsSgmn</item>
 		</outputsAllowed>
-	</objMaskCollectionOutputEnabled>
+	</objects>
 	
 </experiment>
 </config>

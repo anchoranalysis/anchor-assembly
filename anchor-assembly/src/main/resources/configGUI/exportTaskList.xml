@@ -57,25 +57,25 @@
     <!-- increment size previously 1000 -->
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1" outputName="rgbOutline">
             <createRasterGenerator index="0" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
-                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState"/>
             </createRasterGenerator>
             <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
         </item>
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskMergedCfgNRGInstantState" incrementSize="1" outputName="rgbOutlineMerged">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState" mip="true" colorFromIter="true"/>
+            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true" colorFromIter="true"/>
             <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
         </item>
         
         
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" startAtEnd="true" outputName="rgbOutlineBackward">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState" mip="true"/>
+            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true"/>
             <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
         </item>
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1" startAtEnd="true" outputName="rgbOutlineLast">
-            <createRasterGenerator backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+            <createRasterGenerator backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState"/>
                     <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
                 </item>
                 
@@ -95,7 +95,7 @@
                         </arrangeRaster>
                         
                         <createRasterGeneratorList config-class="java.util.List" config-factory="list">
-                            <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+                            <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState"/>
         
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.CfgSizeStringFromCfgNRGInstantState">
                                 <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" width="45" height="50" fontSize="28" fontName="SansSerif" bold="true">
@@ -149,7 +149,7 @@
                         <createRasterGeneratorList config-class="java.util.List" config-factory="list">
                         
                             <item index="2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
-                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState"/>
                             </item>
                             
                             <item index="2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
@@ -161,7 +161,7 @@
                             </item>
                             
                             <item index="1" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
-                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState"/>
                             </item>
 
                             
@@ -182,7 +182,7 @@
                             </item>
 
                             <item index="0" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
-                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState"/>
+                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState"/>
                             </item>
                             
                                                         
@@ -219,7 +219,7 @@
                 </arrangeRaster>
                 
                 <createRasterGeneratorList config-class="java.util.List" config-factory="list">
-                    <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState" mip="true"/>
+                    <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true"/>
 
                     <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.CfgSizeStringFromCfgNRGInstantState">
                         <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" width="70" height="100" fontSize="28" fontName="SansSerif" bold="true">
@@ -234,7 +234,7 @@
     
     
         <item outputName="combinedNuc2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" startAtEnd="true" limitIterations="1">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState" mip="true"/>
+            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true"/>
                     <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
                 </item>
                 
@@ -251,7 +251,7 @@
                         </arrangeRaster>
                         
                         <createRasterGeneratorList config-class="java.util.List" config-factory="list">
-                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjMaskWriterFromCfgNRGInstantState" mip="true"/>
+                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true"/>
         
 
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.dynamically.GraphCfgSizeDynamicallyDrawnFromCfgNRGInstantState" width="400" height="200">
