@@ -32,11 +32,15 @@ import java.io.PrintWriter;
 import java.nio.file.Path;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * Displays some common error messages to the user
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 class ErrorPrinter {
 
     /**
@@ -45,10 +49,8 @@ class ErrorPrinter {
      */
     private static final int ERROR_LOG_WRAP_MESSAGE = 200;
 
-    private ErrorPrinter() {}
-
     public static void printTooManyArguments() {
-        System.err.println(
+        System.err.println(		// NOSONAR
                 "Please only pass a single experiment-file as an argument. Multiple files are not allowed");
     }
 
