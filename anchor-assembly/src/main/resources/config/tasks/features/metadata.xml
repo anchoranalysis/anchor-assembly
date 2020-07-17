@@ -1,0 +1,156 @@
+<!-- 
+===================
+TASK:   metadata
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Extracts some basic metadata/size properties of the image as features.
+
+These are:
+- voxel data-type maximum value (i.e. bit depth)
+- size of image dimensions in X, Y, Z, both in voxels and in physical measurements
+(only different if a file format defines a physical-pixel-size)
+- pixel physical size in X, Y, Z (i.e. resolution)
+- area (XY), both in square pixels and in physical measurements
+- volume (XYZ), both in cubic voxels and in physical measurements
+
+Note, these features can be calculated without reading any voxels from the image, so should calculate
+more quickly than intensity-based features.
+
+======
+INPUTS
+======
+
+An image, either grayscale or RGB.
+
+
+=======
+OUTPUTS
+=======
+
+features:
+    a CSV file with each image's name and HOG features
+
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.ExportFeaturesTask">
+	
+	<source config-class="org.anchoranalysis.plugin.image.task.bean.feature.source.FromImage"/>
+	
+ 	<features config-class="java.util.List" config-factory="list">
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="voxelDataTypeMaxValue">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.stack.intensity.DataTypeMaxIntensity"/>
+			</item>			
+		</item>
+	
+	
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeXVoxels">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="x"/>
+			</item>			
+		</item>
+	
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeYVoxels">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="y"/>
+			</item>			
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeZVoxels">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="z"/>
+			</item>			
+		</item>
+				
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeXMicrons">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item unitType="µm" config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalDistance">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="x"/>
+					<directionVector x="1" y="0" z="0" config-class="org.anchoranalysis.image.bean.orientation.DirectionVectorBean"/>
+				</item>
+			</item>
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeYMicrons">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item unitType="µm" config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalDistance">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="y"/>
+					<directionVector x="0" y="1" z="0" config-class="org.anchoranalysis.image.bean.orientation.DirectionVectorBean"/>
+				</item>
+			</item>
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeZMicrons">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item unitType="µm" config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalDistance">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="z"/>
+					<directionVector x="0" y="0" z="1" config-class="org.anchoranalysis.image.bean.orientation.DirectionVectorBean"/>
+				</item>
+			</item>
+		</item>
+		
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="voxelSizeXMicrons">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item unitTypeTo="µm" config-class="org.anchoranalysis.plugin.operator.feature.physical.ConvertUnits">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.VoxelPhysicalSize" axis="x"/>
+				</item>
+			</item>			
+		</item>
+	
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="voxelSizeYMicrons">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item unitTypeTo="µm" config-class="org.anchoranalysis.plugin.operator.feature.physical.ConvertUnits">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.VoxelPhysicalSize" axis="y"/>
+				</item>
+			</item>			
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="voxelSizeZMicrons">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item unitTypeTo="µm" config-class="org.anchoranalysis.plugin.operator.feature.physical.ConvertUnits">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.VoxelPhysicalSize" axis="z"/>
+				</item>
+			</item>			
+		</item>
+		
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="areaSquareVoxels">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Area"/>	
+			</item>
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="volumeCubicVoxels">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Volume"/>	
+			</item>
+		</item>
+		
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="areaSquareMicrons">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalAreaXY" unitType="µm^2">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Area"/>	
+				</item>
+			</item>			
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="volumeCubicMicrons">
+			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+				<item config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalVolume" unitType="µm^3">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Volume"/>
+				</item>
+			</item>			
+		</item>
+		
+	</features>
+
+</bean>
+</config>
