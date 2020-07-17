@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
  *
  * @author Owen Feehan
  */
-@NoArgsConstructor(access=AccessLevel.NONE)
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 public class OutputFactory {
 
     /**
