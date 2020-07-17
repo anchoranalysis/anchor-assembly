@@ -31,15 +31,16 @@ import org.anchoranalysis.launcher.executor.selectparam.io.InputFactory;
 import org.anchoranalysis.launcher.executor.selectparam.io.OutputFactory;
 import org.anchoranalysis.launcher.executor.selectparam.task.TaskFactory;
 import org.apache.commons.cli.CommandLine;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Creates an appropriate SelectParam based upon the options passed to the command-line
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 public class SelectParamFactory {
-
-    private SelectParamFactory() {}
 
     /**
      * Default option

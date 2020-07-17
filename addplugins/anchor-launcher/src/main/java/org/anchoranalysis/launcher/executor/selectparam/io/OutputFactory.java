@@ -28,15 +28,16 @@ import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
 import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * SelectParam<Path> factory for outputs
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access=AccessLevel.NONE)
 public class OutputFactory {
-
-    private OutputFactory() {}
 
     /**
      * If the argument is a path to a directory, then this directory is set as the default.
