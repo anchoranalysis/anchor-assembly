@@ -26,17 +26,16 @@ import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.log.ConsoleMessageLogger;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.parser.ParseArgsAndRunExperiment;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * A command-line interface used for launching experiments
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 public class Launch {
-
-    private Launch() {
-        // Class should only be accessed through static methods
-    }
 
     /**
      * Entry point for command-line application

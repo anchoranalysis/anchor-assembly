@@ -49,23 +49,17 @@ features:
 			</item>			
 		</item>
 	
-	
-		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeXVoxels">
-			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-				<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="x"/>
-			</item>			
-		</item>
-	
-		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeYVoxels">
-			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-				<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="y"/>
-			</item>			
-		</item>
-		
-		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeZVoxels">
-			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-				<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="z"/>
-			</item>			
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeVoxels">
+			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
+				<feature config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="x"/>
+				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="axis">
+<!-- 					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSetCommaSeperated"/> -->
+
+						<values config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
+							<item></item>
+						</values>
+				</permutation>
+			</item>
 		</item>
 				
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeXMicrons">
