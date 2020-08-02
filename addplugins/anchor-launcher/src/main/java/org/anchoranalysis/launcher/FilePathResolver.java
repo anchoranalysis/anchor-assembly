@@ -23,15 +23,12 @@
 package org.anchoranalysis.launcher;
 
 import java.nio.file.Path;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class FilePathResolver {
 
     private Class<?> classInExecutingLoader;
-
-    public FilePathResolver(Class<?> classInExecutingLoader) {
-        super();
-        this.classInExecutingLoader = classInExecutingLoader;
-    }
 
     public Path resolvePathToCurrentJar(Path pathRelative) {
         return basePath().resolve(pathRelative);

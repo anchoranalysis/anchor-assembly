@@ -25,6 +25,8 @@ package org.anchoranalysis.launcher.executor.selectparam;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Function;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.experiment.ExperimentFactory;
 import org.anchoranalysis.launcher.executor.selectparam.io.InputFactory;
@@ -37,9 +39,8 @@ import org.apache.commons.cli.CommandLine;
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SelectParamFactory {
-
-    private SelectParamFactory() {}
 
     /**
      * Default option

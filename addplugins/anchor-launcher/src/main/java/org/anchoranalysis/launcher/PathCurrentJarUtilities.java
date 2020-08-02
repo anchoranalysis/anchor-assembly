@@ -26,11 +26,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PathCurrentJarUtilities {
-
-    private PathCurrentJarUtilities() {}
 
     /**
      * Determines the path to the current jar directory (or folder with class files) so we can

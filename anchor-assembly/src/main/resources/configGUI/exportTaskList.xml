@@ -50,8 +50,7 @@
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.GraphNRGDynamicallyDrawnFromCSVStatistic" width="500" height="300">
                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.GraphDefinitionLineIterVsNRG"/>
             </createRasterGenerator>
-            
-        <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
+
     </item>
 
     <!-- increment size previously 1000 -->
@@ -59,25 +58,21 @@
             <createRasterGenerator index="0" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
                 <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState"/>
             </createRasterGenerator>
-            <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
         </item>
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskMergedCfgNRGInstantState" incrementSize="1" outputName="rgbOutlineMerged">
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true" colorFromIter="true"/>
-            <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
         </item>
         
         
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" startAtEnd="true" outputName="rgbOutlineBackward">
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true"/>
-            <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
         </item>
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1" startAtEnd="true" outputName="rgbOutlineLast">
             <createRasterGenerator backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState"/>
-                    <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
-                </item>
+        </item>
                 
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" outputName="combined" incrementSize="1">
                 
@@ -116,7 +111,6 @@
                         </createRasterGeneratorList>
 
             </createRasterGenerator>
-            <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
         </item>
         
         
@@ -130,17 +124,14 @@
                             <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="0">
                                     <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
-                                    <!--<arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>-->
                                 </item>
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="1">
-                                    <!--<arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>-->
                                     <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
                                 </item>
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="1" col="0">
                                     <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>
                                 </item>
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="1" col="1">
-                                    <!--<arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>-->
                                     <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
                                 </item>
                             </cells>
@@ -197,7 +188,6 @@
                         </createRasterGeneratorList>
 
             </createRasterGenerator>
-            <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
         </item>
         
         
@@ -228,15 +218,13 @@
                     </item>
                 </createRasterGeneratorList>
             </createRasterGenerator>
-        <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
     </item>
     
     
     
         <item outputName="combinedNuc2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" startAtEnd="true" limitIterations="1">
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true"/>
-                    <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
-                </item>
+        </item>
                 
                 <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" outputName="combined2" incrementSize="100">
                 
@@ -261,7 +249,6 @@
                             </item>
                         </createRasterGeneratorList>
                 </createRasterGenerator>
-            <sequenceFactory config-class="org.anchoranalysis.io.generator.bean.sequence.factory.SubfolderGeneratorSequenceFactory"/>
         </item>
       </list>   
   </bean>

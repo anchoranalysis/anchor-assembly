@@ -24,6 +24,8 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
 
 import java.nio.file.Path;
 import java.util.Optional;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
@@ -34,9 +36,8 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class OutputFactory {
-
-    private OutputFactory() {}
 
     /**
      * If the argument is a path to a directory, then this directory is set as the default.

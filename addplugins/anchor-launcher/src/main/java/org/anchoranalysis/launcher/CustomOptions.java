@@ -22,6 +22,8 @@ package org.anchoranalysis.launcher;
  * #L%
  */
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.cli.Option;
 
 /**
@@ -29,9 +31,8 @@ import org.apache.commons.cli.Option;
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 class CustomOptions {
-
-    private CustomOptions() {}
 
     public static Option multipleArguments(String optionName, String dscr) {
         Option optionInput = new Option(optionName, true, dscr);
