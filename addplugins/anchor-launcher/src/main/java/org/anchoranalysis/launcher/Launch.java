@@ -22,19 +22,19 @@
 
 package org.anchoranalysis.launcher;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.log.ConsoleMessageLogger;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.parser.ParseArgsAndRunExperiment;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /**
  * A command-line interface used for launching experiments
  *
  * @author Owen Feehan
  */
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Launch {
 
     /**

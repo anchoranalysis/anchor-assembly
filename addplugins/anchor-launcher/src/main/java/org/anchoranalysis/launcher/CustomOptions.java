@@ -22,16 +22,16 @@ package org.anchoranalysis.launcher;
  * #L%
  */
 
-import org.apache.commons.cli.Option;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.cli.Option;
 
 /**
  * Different types of arguments used by Anchor
  *
  * @author Owen Feehan
  */
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 class CustomOptions {
 
     public static Option multipleArguments(String optionName, String dscr) {

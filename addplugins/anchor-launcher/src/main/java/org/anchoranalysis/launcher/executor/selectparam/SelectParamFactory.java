@@ -25,21 +25,21 @@ package org.anchoranalysis.launcher.executor.selectparam;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Function;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.experiment.ExperimentFactory;
 import org.anchoranalysis.launcher.executor.selectparam.io.InputFactory;
 import org.anchoranalysis.launcher.executor.selectparam.io.OutputFactory;
 import org.anchoranalysis.launcher.executor.selectparam.task.TaskFactory;
 import org.apache.commons.cli.CommandLine;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /**
  * Creates an appropriate SelectParam based upon the options passed to the command-line
  *
  * @author Owen Feehan
  */
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SelectParamFactory {
 
     /**

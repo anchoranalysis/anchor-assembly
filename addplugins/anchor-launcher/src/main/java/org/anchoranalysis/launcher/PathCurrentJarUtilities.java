@@ -26,11 +26,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
 
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PathCurrentJarUtilities {
 
     /**
