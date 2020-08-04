@@ -27,14 +27,15 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Properties;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 class PathDeriver {
 
     /** A property that indicates a relative path to a default properties file */
     private static final String PROPERTY_PATH_RELATIVE_DEFAULT_EXPERIMENT =
             "default.config.path.relative";
-
-    private PathDeriver() {}
 
     /**
      * Path to default-experiment

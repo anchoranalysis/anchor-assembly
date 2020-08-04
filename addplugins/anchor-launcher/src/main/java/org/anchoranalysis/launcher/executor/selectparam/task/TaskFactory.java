@@ -28,15 +28,16 @@ import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
 import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * SelectParam<Path> factory for tasks
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 public class TaskFactory {
-
-    private TaskFactory() {}
 
     /**
      * If the argument a name (no extension, no root, no special-chars apart from forward-slashes),

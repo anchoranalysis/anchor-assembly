@@ -28,15 +28,16 @@ import java.nio.file.Paths;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.apache.commons.cli.CommandLine;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * SelectParam<Path> factory for experiments
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 public class ExperimentFactory {
-
-    private ExperimentFactory() {}
 
     /**
      * Chooses either a path to the default-experiment or a path to a custom experiment.

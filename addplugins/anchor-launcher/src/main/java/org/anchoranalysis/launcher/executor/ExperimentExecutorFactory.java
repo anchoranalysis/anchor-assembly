@@ -26,10 +26,11 @@ import java.nio.file.Path;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.apache.commons.cli.CommandLine;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 public class ExperimentExecutorFactory {
-
-    private ExperimentExecutorFactory() {}
 
     /**
      * Creates an experiment-executor from a command line that EITHER: uses a default-experiment OR
