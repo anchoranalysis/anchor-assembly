@@ -36,7 +36,9 @@
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCfgNRGInstantState" incrementSize="1000" outputName="textCfgSize">
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.CfgSizeStringFromCfgNRGInstantState">
-                <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" width="200" height="100" fontSize="36"/>
+                <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" fontSize="36">
+                	<size width="200" height="100" config-class="org.anchoranalysis.image.bean.size.SizeXY"/>
+                </stringGenerator>
             </createRasterGenerator>
         </item>
         
@@ -93,7 +95,8 @@
                             <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState"/>
         
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.CfgSizeStringFromCfgNRGInstantState">
-                                <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" width="45" height="50" fontSize="28" fontName="SansSerif" bold="true">
+                                <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
+                                    <size width="45" height="50" config-class="org.anchoranalysis.image.bean.size.SizeXY"/>
                                     <fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="255" green="255" blue="255"/>
                                 </stringGenerator>
                             </item>
@@ -145,7 +148,8 @@
                             
                             <item index="2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
                                 <item prefix="Proposed Segments: size=" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.CfgSizeStringFromCfgNRGInstantState">
-                                    <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" width="500" height="50" fontSize="28" fontName="SansSerif" bold="true">
+                                    <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
+                                        <size width="500" height="50" config-class="org.anchoranalysis.image.bean.size.SizeXY"/>
                                         <fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="0" green="255" blue="255"/>
                                     </stringGenerator>
                                 </item>
@@ -158,7 +162,8 @@
                             
                             <item index="2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
                                 <item text="Proposed Ellipse" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.ConstantStringRasterGenerator">
-                                    <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" width="500" height="50" fontSize="28" fontName="SansSerif" bold="true">
+                                    <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
+                                        <size width="500" height="50" config-class="org.anchoranalysis.image.bean.size.SizeXY"/>
                                         <fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="0" green="255" blue="255"/>
                                     </stringGenerator>
                                 </item>
@@ -179,7 +184,8 @@
                                                         
                             <item index="2" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
                                 <item text="Best-Fitting Ellipse" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.ConstantStringRasterGenerator">
-                                    <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" width="500" height="50" fontSize="28" fontName="SansSerif" bold="true">
+                                    <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
+                                    	<size width="500" height="50" config-class="org.anchoranalysis.image.bean.size.SizeXY"/>
                                         <fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="0" green="255" blue="255"/>
                                     </stringGenerator>
                                 </item>
@@ -198,9 +204,6 @@
             
                 <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
                     <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
-<!--                        <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="0">-->
-<!--                            <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>-->
-<!--                        </item>-->
                     <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="0">
                             <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
                         </item>
@@ -212,7 +215,8 @@
                     <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true"/>
 
                     <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.CfgSizeStringFromCfgNRGInstantState">
-                        <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" width="70" height="100" fontSize="28" fontName="SansSerif" bold="true">
+                        <stringGenerator config-class="org.anchoranalysis.image.io.generator.raster.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
+                            <size width="70" height="100" config-class="org.anchoranalysis.image.bean.size.SizeXY"/>
                             <fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="255" green="255" blue="255"/>
                         </stringGenerator>
                     </item>
