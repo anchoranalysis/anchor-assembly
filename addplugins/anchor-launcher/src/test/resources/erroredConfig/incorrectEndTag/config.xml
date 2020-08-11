@@ -12,7 +12,7 @@
    <outputEnabled config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
 	  	<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>stackCollection</item>
-			<item>objMaskCollection</item>
+			<item>objects</item>
 			<item>cfgCollection</item>
 			<item>log</item>
 			<item>errors</item>
@@ -20,7 +20,7 @@
 			<item>job_log</item>
 			<item>manifest</item>
 			<item>manifestExperiment</item>
-			<item>objMaskCollection</item>
+			<item>objects</item>
 			<item>nrgStack</item>
 			<item>nrgStackParams</item>
 		</outputsAllowed>
