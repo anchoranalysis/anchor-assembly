@@ -62,11 +62,11 @@ features:
 			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
 				<feature unitType="µm" config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalDistance">
 					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="x"/>
-					<directionVector axis="x" config-class="org.anchoranalysis.image.bean.orientation.AxisAlignedUnitVector"/>
+					<direction axis="x" config-class="org.anchoranalysis.image.bean.orientation.AxisAlignedUnitVector"/>
 				</feature>
 				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="item.axis">
 					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
-					<additionalPropertyPaths items="directionVector.axis" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
+					<additionalPropertyPaths items="direction.axis" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
 				</permutation>
 			</item>
 		</item>
