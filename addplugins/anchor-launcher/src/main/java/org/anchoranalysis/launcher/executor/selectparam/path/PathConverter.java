@@ -27,7 +27,7 @@ import java.nio.file.Paths;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PathConverter {
 
     public static Path pathFromArg(String arg) {

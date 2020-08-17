@@ -26,11 +26,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Properties;
-import org.anchoranalysis.experiment.ExperimentExecutionException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.anchoranalysis.experiment.ExperimentExecutionException;
 
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 class PathDeriver {
 
     /** A property that indicates a relative path to a default properties file */
