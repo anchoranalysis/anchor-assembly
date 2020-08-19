@@ -52,7 +52,7 @@ visualization_boxes:
 	            <!-- The bounding boxes (as ObjMasks) -->
 	            <item config-class="org.anchoranalysis.bean.NamedBean" name="boxes">
 	                <item minConfidence="0.1" suppressIntersectionOverUnionAbove="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.provider.text.SegmentText">
-	                  <stackProvider config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
+	                  <stack config-class="org.anchoranalysis.plugin.image.bean.stack.provider.FromInput"/>
 	                </item>
 	            </item>
 	            
@@ -65,12 +65,12 @@ visualization_boxes:
 	        
 	            <!-- Visualization of the bounding-boxes on top of the original image -->
 	            <item config-class="org.anchoranalysis.bean.NamedBean" name="visualization_boxes">
-					<item outline="true" config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.ColoredObjectsOnStack">
-						<stackBackground config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
+					<item config-class="org.anchoranalysis.plugin.image.bean.stack.provider.color.ColoredObjects">
+						<stackBackground config-class="org.anchoranalysis.plugin.image.bean.stack.provider.FromInput"/>
 						<objects id="boxes" config-class="org.anchoranalysis.plugin.image.bean.object.provider.Reference"/>
-						<colorSetGenerator config-class="org.anchoranalysis.io.bean.color.generator.ColorSetGeneratorRGBColor">
+						<colors config-class="org.anchoranalysis.io.bean.color.generator.ColorSetGeneratorRGBColor">
 						    <rgbColor red="0" green="255" blue="0" config-class="org.anchoranalysis.io.bean.color.RGBColorBean"/>
-						</colorSetGenerator>
+						</colors>
 					</item>
 	            </item>
 	

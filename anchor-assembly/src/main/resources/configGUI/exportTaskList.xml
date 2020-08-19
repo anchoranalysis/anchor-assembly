@@ -80,16 +80,16 @@
                 
                     <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.CombinedFromCfgNRGInstantState">
                     
-                        <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
+                        <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
                             <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="0">
-                                    <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
                                 </item>
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="1">
-                                    <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
+                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
                                 </item>
                             </cells>
-                        </arrangeRaster>
+                        </arrange>
                         
                         <createRasterGeneratorList config-class="java.util.List" config-factory="list">
                             <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState"/>
@@ -123,22 +123,22 @@
                 
                     <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.Combined">
                     
-                        <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
+                        <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
                             <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="0">
-                                    <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
                                 </item>
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="1">
-                                    <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
                                 </item>
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="1" col="0">
-                                    <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>
+                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>
                                 </item>
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="1" col="1">
-                                    <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
                                 </item>
                             </cells>
-                        </arrangeRaster>
+                        </arrange>
                         
                         <createRasterGeneratorList config-class="java.util.List" config-factory="list">
                         
@@ -202,14 +202,14 @@
         
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.CombinedFromCfgNRGInstantState">
             
-                <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
+                <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
                     <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
                     <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="0">
-                            <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
+                            <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
                         </item>
 
                     </cells>
-                </arrangeRaster>
+                </arrange>
                 
                 <createRasterGeneratorList config-class="java.util.List" config-factory="list">
                     <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true"/>
@@ -234,13 +234,13 @@
                 
                     <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.CombinedFromCfgNRGInstantState">
                     
-                        <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="1" numCols="2">
+                        <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="1" numCols="2">
                             <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
                                 <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="1">
-                                    <arrangeRaster config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
+                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
                                 </item>
                             </cells>
-                        </arrangeRaster>
+                        </arrange>
                         
                         <createRasterGeneratorList config-class="java.util.List" config-factory="list">
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.cfgnrginstantstate.ObjectWriterFromCfgNRGInstantState" mip="true"/>
