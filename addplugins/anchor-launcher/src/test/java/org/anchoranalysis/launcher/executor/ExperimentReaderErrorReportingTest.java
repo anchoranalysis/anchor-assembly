@@ -87,7 +87,7 @@ public class ExperimentReaderErrorReportingTest {
                 13,
                 new String[] {
                     "Please check spelling of config-class attributes",
-                    "ch.ethz.biol.cell.imageprocessing.chnl.provider.SomeNoneExistentClass"
+                    "ch.ethz.biol.cell.imageprocessing.channel.provider.SomeNoneExistentClass"
                 });
     }
 
@@ -118,7 +118,7 @@ public class ExperimentReaderErrorReportingTest {
                 12,
                 new String[] {
                     "stackProviderID",
-                    "ch.ethz.biol.cell.imageprocessing.chnl.provider.ChnlProviderStackReference",
+                    "ch.ethz.biol.cell.imageprocessing.channel.provider.ChannelProviderStackReference",
                     "must be non-null"
                 });
     }
