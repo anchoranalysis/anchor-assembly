@@ -10,7 +10,7 @@
 	</item>
     
     <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.image.ImageSize"/>
-    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.image.NumberChnls"/>
+    <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.image.NumberChannels"/>
     <item config-class="org.anchoranalysis.plugin.io.bean.summarizer.image.BitDepth"/>
 
         
