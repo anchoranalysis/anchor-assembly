@@ -40,7 +40,7 @@
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterMulti"/>
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterFromAnnotation"/>
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterGroup"/>
-			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterNRGSchemeCreator"/>
+			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterEnergySchemeCreator"/>
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterFileCreatorList"/>
 		</beanImporters>
 		
