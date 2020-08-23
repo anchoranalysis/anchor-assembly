@@ -7,7 +7,7 @@
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="Second">
-		<item stackProviderID="stackInput"  config-class="ch.ethz.biol.cell.imageprocessing.chnl.provider.SomeNoneExistentClass"/>
+		<item stackProviderID="stackInput"  config-class="org.anchoranalysis.SomeNoneExistentClass"/>
 	</item>
 	
 

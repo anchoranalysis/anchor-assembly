@@ -2,7 +2,7 @@
 <config>
 <experiment config-class="org.anchoranalysis.anchor.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" folderOutput="../output/" inputName="stackInput">
 
-	<task config-class="ch.ethz.biol.cell.imageprocessing.io.task.ANonExistentClass"/>
+	<task config-class="org.anchoranalysis.ANonExistentClass"/>
 	
 </experiment>
 </config>

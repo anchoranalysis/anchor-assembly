@@ -44,7 +44,7 @@
 					</item>
 				</list>
 			</item>
-			<item config-class="ch.ethz.biol.cell.mpp.nrg.feature.operator.Constant" value="1"/>
+			<item config-class="org.anchoranalysis.feature.bean.operator.Constant" value="1"/>
 		</list>
 	</item>
  	

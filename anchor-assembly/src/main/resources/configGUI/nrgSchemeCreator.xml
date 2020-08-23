@@ -31,7 +31,7 @@
 	<pairAddCriteria config-class="org.anchoranalysis.anchor.mpp.feature.addcriteria.AddCriteriaOr">
 		<list config-class="java.util.List" config-factory="list">
 			<item config-class="org.anchoranalysis.plugin.mpp.bean.addcriteria.AddCriteriaFeatureRelationThreshold" threshold="0">
-				<relation config-class="ch.ethz.biol.cell.core.relation.GreaterThanBean"/>
+				<relation config-class="org.anchoranalysis.bean.shared.relation.GreaterThanBean"/>
 				<feature config-class="org.anchoranalysis.plugin.mpp.feature.bean.memo.pair.overlap.Overlap" regionID="0" mip="false"/>
 			</item>	
 			<item config-class="org.anchoranalysis.plugin.mpp.bean.addcriteria.AddCriteriaDistanceTo">
