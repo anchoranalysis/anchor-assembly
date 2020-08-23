@@ -37,6 +37,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import lombok.RequiredArgsConstructor;
 
 /**
  * A general parser for command-line applications that have the following attributes 1. a help
@@ -47,6 +48,7 @@ import org.apache.commons.cli.ParseException;
  *
  * @author Owen Feehan
  */
+@RequiredArgsConstructor
 public class ParseArgsAndRunExperiment {
 
     // START: Options
@@ -56,17 +58,10 @@ public class ParseArgsAndRunExperiment {
     private static final String OPTION_SHOW_EXPERIMENT_ARGUMENTS = "sa";
     // END: Options
 
+    // START REQUIRED ARGUMENTS
     /** For reporting messages on what goes wrong */
-    private Logger logger;
-
-    /**
-     * @param logger a logger where error messages outputted to
-     * @param newlinesBeforeError if TRUE, then some extra newlines are inserted before error
-     *     messages
-     */
-    public ParseArgsAndRunExperiment(Logger logger) {
-        this.logger = logger;
-    }
+    private final Logger logger;
+    // END REQUIRED ARGUMENTS
 
     /**
      * Parses the arguments to a command-line experiment and runs an experiment

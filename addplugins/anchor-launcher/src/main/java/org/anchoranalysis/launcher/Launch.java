@@ -51,7 +51,7 @@ public class Launch {
      * Runs a command-line app, by parsing arguments
      *
      * @param args args from command-line application
-     * @param parser a parser for this command-line application
+     * @param parserConfig a parser for this command-line application
      */
     public static void runCommandLineApp(
             String[] args, LauncherConfig parserConfig, Logger logger) {

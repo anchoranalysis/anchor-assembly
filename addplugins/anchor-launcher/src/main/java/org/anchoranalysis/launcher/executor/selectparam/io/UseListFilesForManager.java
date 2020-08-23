@@ -43,7 +43,7 @@ class UseListFilesForManager implements SelectParam<Optional<Path>> {
     /**
      * Constructor
      *
-     * @param input iff TRUE, then we are replacing the input-manager, otherwise the output-manager
+     * @param paths
      */
     public UseListFilesForManager(List<Path> paths) {
         super();

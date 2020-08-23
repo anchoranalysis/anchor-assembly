@@ -102,8 +102,8 @@ class ExperimentExecutorAfter {
     /**
      * Executes an experiment, possibly replacing the input and output manager
      *
-     * @param path a path to the file-system (can be a path to a file, or to a dolder)
-     * @param ea experiment-arguments
+     * @param experiment the experiment to execute
+     * @param executionArguments experiment-arguments
      * @param pathInput if defined, the path to an input-manager to replace the input-manager
      *     specified in the experiment. If empty(), ignored.
      * @param pathOutput if defined, the path to an output-manager to replace the output-manager
@@ -114,16 +114,16 @@ class ExperimentExecutorAfter {
      */
     public void executeExperiment(
             Experiment experiment,
-            ExperimentExecutionArguments ea,
+            ExperimentExecutionArguments executionArguments,
             Optional<Path> pathInput,
             Optional<Path> pathOutput,
             Optional<Path> pathTask)
             throws ExperimentExecutionException {
 
-        if (!ea.hasInputFilterExtensions() && defaultExtensions.isPresent()) {
+        if (!executionArguments.hasInputFilterExtensions() && defaultExtensions.isPresent()) {
             // If no input-filter extensions have been specified and defaults are available, they
             // are inserted in
-            ea.setInputFilterExtensions(defaultExtensions);
+            executionArguments.setInputFilterExtensions(defaultExtensions);
         }
 
         OptionalUtilities.ifPresent(pathInput, path -> replaceInputManager(experiment, path));
@@ -132,7 +132,7 @@ class ExperimentExecutorAfter {
 
         OptionalUtilities.ifPresent(pathTask, path -> replaceTask(experiment, path));
 
-        executeExperiment(experiment, ea);
+        executeExperiment(experiment, executionArguments);
     }
 
     /**

@@ -31,25 +31,17 @@ import java.util.stream.Collectors;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import lombok.AllArgsConstructor;
 
 /**
  * Uses the path directory as a manager
  *
  * @author Owen Feehan
  */
+@AllArgsConstructor
 class UseAsExtension implements SelectParam<Optional<Path>> {
 
     private String[] extensions;
-
-    /**
-     * Constructor
-     *
-     * @param wildcardStr string containing a wildcard
-     */
-    public UseAsExtension(String[] extensions) {
-        super();
-        this.extensions = extensions;
-    }
 
     @Override
     public Optional<Path> select(ExperimentExecutionArguments eea) {
