@@ -63,7 +63,6 @@ class ExperimentExecutorAfter {
     /**
      * Initialises our factories if not already done
      *
-     * @param gui is the gui allowed on certain factories
      * @param pathExecutionDirectory a path to a directory from which the JAR is launched (typically
      *     the bin/ directory)
      * @param includeRootPaths if TRUE, a root bank is sought among the configurations and loaded
@@ -242,16 +241,15 @@ class ExperimentExecutorAfter {
     /**
      * Executes an experiment
      *
-     * @param experimentsPath a path to a XML file describing an Experiment, or else to a path to a
-     *     folder containing Experiment files
-     * @param ea additional arguments that describe the Experiment
+     * @param experiment the experiment to execute
+     * @param executionArguments additional arguments that describe the Experiment
      * @throws ExperimentExecutionException if the experiment cannot be executed
      */
-    private void executeExperiment(Experiment experiment, ExperimentExecutionArguments ea)
+    private void executeExperiment(Experiment experiment, ExperimentExecutionArguments executionArguments)
             throws ExperimentExecutionException {
 
         try {
-            experiment.doExperiment(ea);
+            experiment.doExperiment(executionArguments);
 
         } catch (ExperimentExecutionException e) {
             throw new ExperimentExecutionException("Experiment execution ended with failure", e);
