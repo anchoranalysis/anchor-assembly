@@ -30,7 +30,7 @@
     <!--  Export Graph NRG Time Series -->
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskMarks" incrementSize="1000" outputName="nrgBreakdownTime">
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.PlotEnergy" width="500" height="300">
-                <graphDefinition config-class="org.anchoranalysis.anchor.mpp.plot.bean.BarPlotEnergyBreakdown" showDomainAxis="false"/>
+                <graphDefinition config-class="org.anchoranalysis.gui.plot.bean.BarPlotEnergyBreakdown" showDomainAxis="false"/>
             </createRasterGenerator>
         </item>
         
@@ -103,12 +103,12 @@
                                                 
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks" width="400" height="200">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotNumberMarks">
-                                    <graphColorScheme config-class="org.anchoranalysis.anchor.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                    <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                 </graphDefinition>
                             </item>
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks" width="400" height="200">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy">
-                                    <graphColorScheme config-class="org.anchoranalysis.anchor.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                    <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                 </graphDefinition>
                             </item>
                         </createRasterGeneratorList>
@@ -172,7 +172,7 @@
                             <item index="1" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
                                 <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks" width="700" height="400">
                                     <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy" minMaxIgnoreBeforeIndex="100">
-                                        <graphColorScheme config-class="org.anchoranalysis.anchor.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                        <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                     </graphDefinition>
                                 </item>
                             </item>
@@ -248,7 +248,7 @@
 
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks" width="400" height="200">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy">
-                                    <graphColorScheme config-class="org.anchoranalysis.anchor.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                    <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                 </graphDefinition>
                             </item>
                         </createRasterGeneratorList>
