@@ -26,9 +26,9 @@
   -->
 
 <config>
-<bean config-class="org.anchoranalysis.anchor.mpp.feature.bean.energy.scheme.EnergySchemeCreatorByElement">
+<bean config-class="org.anchoranalysis.mpp.feature.bean.energy.scheme.EnergySchemeCreatorByElement">
 							
-	<pairAddCriteria config-class="org.anchoranalysis.anchor.mpp.feature.addcriteria.AddCriteriaOr">
+	<pairAddCriteria config-class="org.anchoranalysis.mpp.feature.addcriteria.AddCriteriaOr">
 		<list config-class="java.util.List" config-factory="list">
 			<item config-class="org.anchoranalysis.plugin.mpp.bean.addcriteria.AddCriteriaFeatureRelationThreshold" threshold="0">
 				<relation config-class="org.anchoranalysis.bean.shared.relation.GreaterThanBean"/>
