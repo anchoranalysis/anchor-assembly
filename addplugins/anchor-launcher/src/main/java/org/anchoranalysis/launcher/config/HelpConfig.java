@@ -25,7 +25,8 @@ import lombok.Value;
  * #L%
  */
 
-@Value @AllArgsConstructor
+@Value
+@AllArgsConstructor
 public class HelpConfig {
 
     /**

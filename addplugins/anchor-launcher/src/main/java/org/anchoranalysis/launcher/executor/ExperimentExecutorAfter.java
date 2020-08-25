@@ -245,7 +245,8 @@ class ExperimentExecutorAfter {
      * @param executionArguments additional arguments that describe the Experiment
      * @throws ExperimentExecutionException if the experiment cannot be executed
      */
-    private void executeExperiment(Experiment experiment, ExperimentExecutionArguments executionArguments)
+    private void executeExperiment(
+            Experiment experiment, ExperimentExecutionArguments executionArguments)
             throws ExperimentExecutionException {
 
         try {

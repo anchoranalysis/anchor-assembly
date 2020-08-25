@@ -25,6 +25,7 @@ package org.anchoranalysis.launcher.parser;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import lombok.RequiredArgsConstructor;
 import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
 import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -37,7 +38,6 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import lombok.RequiredArgsConstructor;
 
 /**
  * A general parser for command-line applications that have the following attributes 1. a help

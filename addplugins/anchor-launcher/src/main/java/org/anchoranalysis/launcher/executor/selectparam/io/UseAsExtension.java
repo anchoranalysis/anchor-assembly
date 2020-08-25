@@ -28,10 +28,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
-import lombok.AllArgsConstructor;
 
 /**
  * Uses the path directory as a manager
