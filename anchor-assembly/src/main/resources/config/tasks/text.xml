@@ -43,30 +43,32 @@ visualization_boxes:
 
 -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask">
+<bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SegmentInstanceTask">
+	<segment minConfidence="0.1" suppressIntersectionOverUnionAbove="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SegmentText"/>
+</bean>
+
+<!-- <bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask">
 	<define config-class="org.anchoranalysis.mpp.segment.bean.define.DefineOutputterMPP" suppressSubfolders="true">
 	    <define config-class="org.anchoranalysis.bean.define.Define" config-factory="define">
 	
-	        <objects config-class="java.util.List" config-factory="list">
+	        <list config-class="java.util.List" config-factory="list">
 	
-	            <!-- The bounding boxes (as ObjMasks) -->
 	            <item config-class="org.anchoranalysis.bean.NamedBean" name="boxes">
-	                <item minConfidence="0.1" suppressIntersectionOverUnionAbove="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.provider.text.SegmentText">
-	                  <stack config-class="org.anchoranalysis.plugin.image.bean.stack.provider.FromInput"/>
+	            	<item config-class="org.anchoranalysis.plugin.image.bean.object.provider.segment.SegmentStack">
+		                <segment minConfidence="0.1" suppressIntersectionOverUnionAbove="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SegmentText"/>
+						<stack config-class="org.anchoranalysis.plugin.image.bean.stack.provider.FromInput"/>
 	                </item>
 	            </item>
 	            
-	            <!-- A binary mask of all the bounding-boxes merged together -->
 	            <item config-class="org.anchoranalysis.bean.NamedBean" name="mask">
 	                <item config-class="org.anchoranalysis.plugin.image.bean.mask.provider.convert.FromObjects">
 	                    <objects id="boxes" config-class="org.anchoranalysis.plugin.image.bean.object.provider.Reference"/>
 	                </item>
 	            </item>
 	        
-	            <!-- Visualization of the bounding-boxes on top of the original image -->
 	            <item config-class="org.anchoranalysis.bean.NamedBean" name="visualization_boxes">
 					<item config-class="org.anchoranalysis.plugin.image.bean.stack.provider.color.ColoredObjects">
-						<stackBackground config-class="org.anchoranalysis.plugin.image.bean.stack.provider.FromInput"/>
+						<background config-class="org.anchoranalysis.plugin.image.bean.stack.provider.FromInput"/>
 						<objects id="boxes" config-class="org.anchoranalysis.plugin.image.bean.object.provider.Reference"/>
 						<colors config-class="org.anchoranalysis.io.bean.color.generator.ColorSetGeneratorRGBColor">
 						    <rgbColor red="0" green="255" blue="0" config-class="org.anchoranalysis.io.bean.color.RGBColorBean"/>
@@ -74,9 +76,10 @@ visualization_boxes:
 					</item>
 	            </item>
 	
-	        </objects>
+	        </list>
 	
 	    </define>
     </define>
-</bean>
+</bean>-->
+
 </config>
