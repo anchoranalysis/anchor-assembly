@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <config>
-<experiment config-class="org.anchoranalysis.anchor.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" folderOutput="../output/" inputName="stackInput">
+<experiment config-class="org.anchoranalysis.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" folderOutput="../output/" inputName="stackInput">
 
-	<task config-class="org.anchoranalysis.anchor.plugin.quick.bean.experiment.QuickExperiment" config-factory="nonExistentFactory"/>
+	<task config-class="org.anchoranalysis.plugin.quick.bean.experiment.QuickExperiment" config-factory="nonExistentFactory"/>
 	
 </experiment>
 </config>
