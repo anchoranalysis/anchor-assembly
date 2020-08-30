@@ -3,6 +3,8 @@ package org.anchoranalysis.launcher;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import org.anchoranalysis.io.bioformats.ConfigureBioformatsLogging;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /*
  * #%L
@@ -32,11 +34,8 @@ import org.anchoranalysis.io.bioformats.ConfigureBioformatsLogging;
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 public class DirtyInitializer {
-
-    private DirtyInitializer() {
-        // Only accessible through static methods
-    }
 
     /**
      * Dirty initialisation work done that must be done every time we initialise an application that
