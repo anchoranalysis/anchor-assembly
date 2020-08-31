@@ -7,7 +7,7 @@
 	        <namedStackProviderList config-class="java.util.List" config-factory="list">
 	        
 	            <item config-class="org.anchoranalysis.bean.NamedBean" name="montage">
-			        <item config-class="org.anchoranalysis.plugin.ij.bean.stack.provider.MontageSlices">
+			        <item config-class="org.anchoranalysis.plugin.imagej.bean.stack.provider.MontageSlices">
 			          <stack config-class="org.anchoranalysis.plugin.image.bean.stack.provider.FromInput"/>
 			        </item>
 			    </item>
