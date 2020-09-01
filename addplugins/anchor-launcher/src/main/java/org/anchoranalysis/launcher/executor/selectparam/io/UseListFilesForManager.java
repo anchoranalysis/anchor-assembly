@@ -52,8 +52,8 @@ class UseListFilesForManager implements SelectParam<Optional<Path>> {
     }
 
     @Override
-    public Optional<Path> select(ExperimentExecutionArguments eea) {
-        eea.setInputPaths(paths);
+    public Optional<Path> select(ExperimentExecutionArguments executionArguments) {
+        executionArguments.setInputPaths(paths);
         return Optional.empty();
     }
 

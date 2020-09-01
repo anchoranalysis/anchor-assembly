@@ -43,7 +43,7 @@ class UseExperimentPassedAsPath implements SelectParam<Path> {
     }
 
     @Override
-    public Path select(ExperimentExecutionArguments eea) throws ExperimentExecutionException {
+    public Path select(ExperimentExecutionArguments executionArguments) throws ExperimentExecutionException {
 
         if (path.toFile().isDirectory()) {
             throw new ExperimentExecutionException(

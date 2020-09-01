@@ -52,17 +52,17 @@ class UseAsGlob implements SelectParam<Optional<Path>> {
     }
 
     @Override
-    public Optional<Path> select(ExperimentExecutionArguments eea) {
+    public Optional<Path> select(ExperimentExecutionArguments executionArguments) {
 
         // Isolate a directory component, from the rest of the glob
         // to allow matches like sdsds/sdsds/*.jpg
         GlobWithDirectory gwd = GlobExtractor.extract(wildcardStr);
 
-        eea.setInputDirectory(gwd.getDirectory().map(Paths::get));
-        eea.setInputFilterGlob(Optional.of(gwd.getGlob()));
+        executionArguments.setInputDirectory(gwd.getDirectory().map(Paths::get));
+        executionArguments.setInputFilterGlob(Optional.of(gwd.getGlob()));
 
         // An empty set, means no filter check is applied
-        eea.setInputFilterExtensions(Optional.of(new HashSet<String>()));
+        executionArguments.setInputFilterExtensions(Optional.of(new HashSet<String>()));
 
         return Optional.empty();
     }

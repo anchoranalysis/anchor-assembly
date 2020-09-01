@@ -29,7 +29,8 @@ import lombok.NoArgsConstructor;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
-import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
+import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgumentException;
+import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 
 /**
  * SelectParam<Path> factory for outputs
@@ -52,12 +53,16 @@ public class OutputFactory {
                     "More than one argument was passed to -o. Only one is allowed!");
         }
 
-        Path path = PathConverter.pathFromArg(arg[0]);
-
-        if (path.toFile().isDirectory()) {
-            return new UseDirectoryForManager(path, input);
-        } else {
-            return new CustomManagerFromPath(path);
+        try {
+            Path path = ArgumentConverter.pathFromArgument(arg[0]);
+    
+            if (path.toFile().isDirectory()) {
+                return new UseDirectoryForManager(path, input);
+            } else {
+                return new CustomManagerFromPath(path);
+            }
+        } catch (InvalidPathArgumentException e) {
+            throw e.toCommandLineException();
         }
     }
 }

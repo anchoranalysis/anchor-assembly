@@ -44,18 +44,18 @@ class UseAsExtension implements SelectParam<Optional<Path>> {
     private String[] extensions;
 
     @Override
-    public Optional<Path> select(ExperimentExecutionArguments eea) {
+    public Optional<Path> select(ExperimentExecutionArguments executionArguments) {
 
         // Remove the period from the left side
-        List<String> extWithoutPeriod = removeLeadingPeriod(extensions);
+        List<String> extensionWithoutPeriod = removeLeadingPeriod(extensions);
 
-        eea.setInputFilterExtensions(Optional.of(new HashSet<>(extWithoutPeriod)));
+        executionArguments.setInputFilterExtensions(Optional.of(new HashSet<>(extensionWithoutPeriod)));
 
         return Optional.empty();
     }
 
-    private static List<String> removeLeadingPeriod(String[] exts) {
-        return Arrays.stream(exts).map(s -> s.substring(1)).collect(Collectors.toList());
+    private static List<String> removeLeadingPeriod(String[] extensionsWithPeriod) {
+        return Arrays.stream(extensionsWithPeriod).map(extension -> extension.substring(1)).collect(Collectors.toList());
     }
 
     @Override

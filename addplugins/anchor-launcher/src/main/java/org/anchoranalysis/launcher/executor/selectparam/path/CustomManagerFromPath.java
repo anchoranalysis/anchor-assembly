@@ -43,7 +43,7 @@ public class CustomManagerFromPath implements SelectParam<Optional<Path>> {
     }
 
     @Override
-    public Optional<Path> select(ExperimentExecutionArguments eea) {
+    public Optional<Path> select(ExperimentExecutionArguments executionArguments) {
         return Optional.of(path);
     }
 

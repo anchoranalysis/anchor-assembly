@@ -22,15 +22,34 @@
 
 package org.anchoranalysis.launcher.executor.selectparam.path;
 
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * 
+ * Converts string passed as arguments.
+ * 
+ * @author Owen Feehan
+ *
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class PathConverter {
+public class ArgumentConverter {
 
-    public static Path pathFromArg(String arg) {
-        return Paths.get(arg).toAbsolutePath();
+    /**
+     * Converts the string passed as a command-line argument to a path.
+     *  
+     * @param argument the string to convert
+     * @return the path
+     * @throws InvalidPathArgumentException if the argument is not a valid path.
+     */
+    public static Path pathFromArgument(String argument) throws InvalidPathArgumentException {
+        try {
+            return Paths.get(argument).toAbsolutePath();
+        } catch (InvalidPathException e) {
+            throw new InvalidPathArgumentException(argument, e);
+        }
     }
 }
