@@ -45,23 +45,23 @@ import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InputFactory {
 
-    public static SelectParam<Optional<Path>> pathOrDirectoryOrGlobOrExtension(String[] args) throws InvalidPathArgumentException {
-        List<Path> paths = pathFromArguments(args);
+    public static SelectParam<Optional<Path>> pathOrDirectoryOrGlobOrExtension(String[] arguments) throws InvalidPathArgumentException {
+        List<Path> paths = pathFromArguments(arguments);
         return OptionalUtilities.orFlat(
-                        checkWildcard(args),
-                        checkXmlExtension(args),
-                        checkFileExtension(args), 
+                        checkWildcard(arguments),
+                        checkXmlExtension(arguments),
+                        checkFileExtension(arguments), 
                         checkDirectory(paths) 
                         )
                 .orElseGet(() -> new UseListFilesForManager(paths));
     }
 
     /** If it contains a wildcard, assume its a glob */
-    private static Optional<SelectParam<Optional<Path>>> checkWildcard(String[] args) throws InvalidPathArgumentException {
+    private static Optional<SelectParam<Optional<Path>>> checkWildcard(String[] arguments) throws InvalidPathArgumentException {
         return check(
-                Arrays.stream(args).anyMatch(s -> s.contains("*")),
-                args.length == 1,
-                () -> new UseAsGlob(args[0]),
+                Arrays.stream(arguments).anyMatch(s -> s.contains("*")),
+                arguments.length == 1,
+                () -> new UseAsGlob(arguments[0]),
                 "Only a single wildcard argument is permitted to -i");
     }
 

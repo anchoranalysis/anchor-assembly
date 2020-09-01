@@ -46,15 +46,15 @@ public class OutputFactory {
      *
      * @throws CommandLineException
      */
-    public static SelectParam<Optional<Path>> pathOrDirectory(String[] arg, boolean input) {
+    public static SelectParam<Optional<Path>> pathOrDirectory(String[] arguments, boolean input) {
 
-        if (arg.length > 1) {
+        if (arguments.length > 1) {
             throw new CommandLineException(
                     "More than one argument was passed to -o. Only one is allowed!");
         }
 
         try {
-            Path path = ArgumentConverter.pathFromArgument(arg[0]);
+            Path path = ArgumentConverter.pathFromArgument(arguments[0]);
     
             if (path.toFile().isDirectory()) {
                 return new UseDirectoryForManager(path, input);
