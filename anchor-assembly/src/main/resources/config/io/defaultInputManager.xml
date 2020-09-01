@@ -1,5 +1,5 @@
 <config>
-<bean config-class="org.anchoranalysis.plugin.io.bean.input.chnl.NamedChnls">
+<bean config-class="org.anchoranalysis.plugin.io.bean.input.channel.NamedChannels">
     <!-- In debug-mode, a single file is selected as input -->
    <fileInput config-class="org.anchoranalysis.plugin.io.bean.input.filter.FilterIfDebug">
    

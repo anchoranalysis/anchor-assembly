@@ -1,8 +1,8 @@
 <!-- Converts an image into default output format (usually TIFF) -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.format.FormatConverterTask">
-    <chnlConversionStyle config-class="org.anchoranalysis.plugin.image.task.bean.chnl.conversionstyle.RGB">
-        <fallback config-class="org.anchoranalysis.plugin.image.task.bean.chnl.conversionstyle.IndependentChnls"/>
-    </chnlConversionStyle>
+    <channelConversionStyle config-class="org.anchoranalysis.plugin.image.task.bean.format.convert.RGB">
+        <fallback config-class="org.anchoranalysis.plugin.image.task.bean.format.convert.IndependentChannels"/>
+    </channelConversionStyle>
 </bean>
 </config>

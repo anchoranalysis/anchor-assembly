@@ -1,5 +1,8 @@
 package org.anchoranalysis.launcher.config;
 
+import lombok.AllArgsConstructor;
+import lombok.Value;
+
 /*-
  * #%L
  * anchor-launcher
@@ -22,35 +25,19 @@ package org.anchoranalysis.launcher.config;
  * #L%
  */
 
+@Value
+@AllArgsConstructor
 public class HelpConfig {
 
     /**
      * What the application command is described as in the help message e.g.&nbsp;anchor or
      * anchorGUI
-     *
-     * @return a word describing the application command (for the help message)
      */
     private String commandName;
 
     /**
      * What the application argument is described as in the help message
      * e.g.&nbsp;experimentFile.xml
-     *
-     * @return a word describing the application arguments (for the help message)
      */
     private String firstArgument;
-
-    public HelpConfig(String commandName, String firstArgument) {
-        super();
-        this.commandName = commandName;
-        this.firstArgument = firstArgument;
-    }
-
-    public String getCommandName() {
-        return commandName;
-    }
-
-    public String getFirstArgument() {
-        return firstArgument;
-    }
 }

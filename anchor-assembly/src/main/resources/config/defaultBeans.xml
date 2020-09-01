@@ -11,7 +11,7 @@
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.rasterwriter.RasterWriter">
-		<item config-class="org.anchoranalysis.io.ij.bean.writer.IJTiffWriter"/>
+		<item config-class="org.anchoranalysis.io.imagej.bean.raster.writer.Tiff"/>
 	</item>
 	
 </bean>

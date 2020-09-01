@@ -27,7 +27,7 @@ An image for each channel (resized to 1024x768), containing the mean of that cha
 
 -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.image.task.bean.grouped.raster.GroupedMeanChnlTask">
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.grouped.raster.GroupedMeanChannelTask">
 	<resizeTo width="1024" height="768" config-class="org.anchoranalysis.image.bean.size.SizeXY"/>
 </bean>
 </config>

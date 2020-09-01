@@ -24,5 +24,5 @@ An image for each channel, containing the mean of that channel across all images
 
 -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.image.task.bean.grouped.raster.GroupedMeanChnlTask"/>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.grouped.raster.GroupedMeanChannelTask"/>
 </config>

@@ -24,10 +24,11 @@ package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PrettyPathConverter {
-
-    private PrettyPathConverter() {}
 
     // If we have more than this in a relative-path, we show absolute paths instead
     private static final int MAX_DOUBLE_DOTS_CNT = 3;

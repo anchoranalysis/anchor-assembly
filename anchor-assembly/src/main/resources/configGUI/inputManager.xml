@@ -36,11 +36,11 @@
 	<importerSettings config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterSettings">
 		<beanImporters config-class="java.util.List" config-factory="list">
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterDirect"/>
-			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterFromNamedChnls"/>
+			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterFromNamedChannels"/>
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterMulti"/>
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterFromAnnotation"/>
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterGroup"/>
-			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterNRGSchemeCreator"/>
+			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterEnergySchemeCreator"/>
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.importer.ImporterFileCreatorList"/>
 		</beanImporters>
 		
@@ -48,7 +48,7 @@
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.type.XMLBean"/>
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.type.Manifest"/>
 			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.type.RasterAsStack"/>
-			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.type.RasterAsChnlCollection"/>
+			<item config-class="org.anchoranalysis.gui.interactivebrowser.openfile.type.RasterAsChannels"/>
 		</openFileImporters>
 		
 	</importerSettings>

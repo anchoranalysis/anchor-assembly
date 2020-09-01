@@ -24,10 +24,11 @@ package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PathConverter {
-
-    private PathConverter() {}
 
     public static Path pathFromArg(String arg) {
         return Paths.get(arg).toAbsolutePath();

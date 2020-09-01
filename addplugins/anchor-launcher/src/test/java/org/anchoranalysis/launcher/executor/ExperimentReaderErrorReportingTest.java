@@ -70,7 +70,7 @@ public class ExperimentReaderErrorReportingTest {
                 9,
                 new String[] {
                     "Please check spelling of config-class attributes",
-                    "ch.ethz.biol.cell.imageprocessing.io.task.ANonExistentClass"
+                    "org.anchoranalysis.ANonExistentClass"
                 });
     }
 
@@ -87,7 +87,7 @@ public class ExperimentReaderErrorReportingTest {
                 13,
                 new String[] {
                     "Please check spelling of config-class attributes",
-                    "ch.ethz.biol.cell.imageprocessing.chnl.provider.SomeNoneExistentClass"
+                    "org.anchoranalysis.SomeNoneExistentClass"
                 });
     }
 
@@ -118,7 +118,7 @@ public class ExperimentReaderErrorReportingTest {
                 12,
                 new String[] {
                     "stackProviderID",
-                    "ch.ethz.biol.cell.imageprocessing.chnl.provider.ChnlProviderStackReference",
+                    "org.anchoranalysis.plugin.image.bean.channel.provider.FromStack",
                     "must be non-null"
                 });
     }

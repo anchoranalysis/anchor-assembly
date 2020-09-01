@@ -25,6 +25,7 @@ package org.anchoranalysis.launcher.parser;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import lombok.RequiredArgsConstructor;
 import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
 import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -47,6 +48,7 @@ import org.apache.commons.cli.ParseException;
  *
  * @author Owen Feehan
  */
+@RequiredArgsConstructor
 public class ParseArgsAndRunExperiment {
 
     // START: Options
@@ -56,17 +58,10 @@ public class ParseArgsAndRunExperiment {
     private static final String OPTION_SHOW_EXPERIMENT_ARGUMENTS = "sa";
     // END: Options
 
+    // START REQUIRED ARGUMENTS
     /** For reporting messages on what goes wrong */
-    private Logger logger;
-
-    /**
-     * @param logger a logger where error messages outputted to
-     * @param newlinesBeforeError if TRUE, then some extra newlines are inserted before error
-     *     messages
-     */
-    public ParseArgsAndRunExperiment(Logger logger) {
-        this.logger = logger;
-    }
+    private final Logger logger;
+    // END REQUIRED ARGUMENTS
 
     /**
      * Parses the arguments to a command-line experiment and runs an experiment

@@ -37,7 +37,7 @@ features:
 
 -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.image.task.bean.ExportFeaturesTask">
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeaturesTask">
 	
 	<source config-class="org.anchoranalysis.plugin.image.task.bean.feature.source.FromImage"/>
 	
@@ -51,7 +51,7 @@ features:
 	
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeVoxels">
 			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
-				<feature config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="x"/>
+				<feature config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Extent" axis="x"/>
 				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="axis">
 					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
 				</permutation>
@@ -61,12 +61,12 @@ features:
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeMicrons">
 			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
 				<feature unitType="µm" config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalDistance">
-					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Extent" axis="x"/>
-					<directionVector axis="x" config-class="org.anchoranalysis.image.bean.orientation.AxisAlignedUnitVector"/>
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Extent" axis="x"/>
+					<direction axis="x" config-class="org.anchoranalysis.image.bean.orientation.AxisAlignedUnitVector"/>
 				</feature>
 				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="item.axis">
 					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
-					<additionalPropertyPaths items="directionVector.axis" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
+					<additionalPropertyPaths items="direction.axis" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
 				</permutation>
 			</item>
 		</item>
@@ -74,7 +74,7 @@ features:
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="voxelSizeMicrons">
 			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
 				<feature unitTypeTo="µm" config-class="org.anchoranalysis.plugin.operator.feature.physical.ConvertUnits">
-					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.VoxelPhysicalSize" axis="x"/>
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.VoxelPhysicalSize" axis="x"/>
 				</feature>
 				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="item.axis">
 					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
@@ -84,13 +84,13 @@ features:
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="areaSquareVoxels">
 			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-				<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Area"/>	
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Area"/>	
 			</item>
 		</item>
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="volumeCubicVoxels">
 			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
-				<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Volume"/>	
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Volume"/>	
 			</item>
 		</item>
 		
@@ -98,7 +98,7 @@ features:
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="areaSquareMicrons">
 			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
 				<item config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalAreaXY" unitType="µm^2">
-					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Area"/>	
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Area"/>	
 				</item>
 			</item>			
 		</item>
@@ -106,7 +106,7 @@ features:
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="volumeCubicMicrons">
 			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
 				<item config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalVolume" unitType="µm^3">
-					<item config-class="org.anchoranalysis.plugin.image.feature.bean.nrg.dimensions.Volume"/>
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Volume"/>
 				</item>
 			</item>			
 		</item>

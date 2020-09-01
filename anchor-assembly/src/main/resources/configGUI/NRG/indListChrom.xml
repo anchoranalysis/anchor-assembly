@@ -27,11 +27,11 @@
 <bean config-class="java.util.List" config-factory="list">
 
 	<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.memo.ind.Intensity" customName="intensityInside">
-		<region config-class="org.anchoranalysis.plugin.mpp.bean.mark.region.Specific" regionID="0" index="0"/>
+		<region config-class="org.anchoranalysis.plugin.mpp.bean.region.Specific" regionID="0" index="0"/>
 	</item>
 
 	<item config-class="org.anchoranalysis.plugin.mpp.feature.bean.memo.ind.Intensity" customName="intensityInside">
-		<region config-class="org.anchoranalysis.plugin.mpp.bean.mark.region.Specific" regionID="1" index="0"/>
+		<region config-class="org.anchoranalysis.plugin.mpp.bean.region.Specific" regionID="1" index="0"/>
 	</item>
 	   			
 </bean>

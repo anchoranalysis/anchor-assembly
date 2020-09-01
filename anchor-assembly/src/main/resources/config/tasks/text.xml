@@ -31,52 +31,19 @@ input_image:
 OUTPUTS
 =======
 
-boxes:
-    HDF5 obj-masks for all the bounding-boxes that are eventually accepted
+objects:
+    HDF5 object-masks for all the bounding-boxes that are eventually accepted
 
 mask:
-    a binary-raster combining all the obj-masks above together
+    a binary-mask combining all the object-masks in an image
 
-visualization_boxes:
-    a green outline is imposed on the original RGB around each obj-mask that is accepted
+outline:
+    a green outline imposed on the original RGB around each object-mask
 
 
 -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask">
-	<define config-class="org.anchoranalysis.mpp.sgmn.bean.define.DefineOutputterMPP" suppressSubfolders="true">
-	    <define config-class="org.anchoranalysis.bean.define.Define" config-factory="define">
-	
-	        <objects config-class="java.util.List" config-factory="list">
-	
-	            <!-- The bounding boxes (as ObjMasks) -->
-	            <item config-class="org.anchoranalysis.bean.NamedBean" name="boxes">
-	                <item minConfidence="0.1" suppressIntersectionOverUnionAbove="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.provider.text.SegmentText">
-	                  <stackProvider config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
-	                </item>
-	            </item>
-	            
-	            <!-- A binary mask of all the bounding-boxes merged together -->
-	            <item config-class="org.anchoranalysis.bean.NamedBean" name="mask">
-	                <item config-class="ch.ethz.biol.cell.imageprocessing.binaryimgchnl.provider.BinaryChnlProviderFromObjects">
-	                    <objects id="boxes" config-class="org.anchoranalysis.plugin.image.bean.object.provider.Reference"/>
-	                </item>
-	            </item>
-	        
-	            <!-- Visualization of the bounding-boxes on top of the original image -->
-	            <item config-class="org.anchoranalysis.bean.NamedBean" name="visualization_boxes">
-					<item outline="true" config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.ColoredObjectsOnStack">
-						<stackBackground config-class="ch.ethz.biol.cell.imageprocessing.stack.provider.StackProviderInput"/>
-						<objects id="boxes" config-class="org.anchoranalysis.plugin.image.bean.object.provider.Reference"/>
-						<colorSetGenerator config-class="org.anchoranalysis.io.bean.color.generator.ColorSetGeneratorRGBColor">
-						    <rgbColor red="0" green="255" blue="0" config-class="org.anchoranalysis.io.bean.color.RGBColorBean"/>
-						</colorSetGenerator>
-					</item>
-	            </item>
-	
-	        </objects>
-	
-	    </define>
-    </define>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.segment.SegmentInstanceWithModelTask">
+	<segment minConfidence="0.1" suppressIntersectionOverUnionAbove="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SegmentText"/>
 </bean>
 </config>

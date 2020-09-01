@@ -41,7 +41,7 @@
     <!-- Executes in parallel normally, but sequentially when in debug-mode -->
     <taskProcessor keepProcessorsFree="1" config-class="org.anchoranalysis.experiment.bean.processor.DebugDependentProcessor" suppressExceptions="true">
 	  
-        <task config-class="org.anchoranalysis.mpp.io.bean.task.ConvertNamedChnlsInputTask">
+        <task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.ConvertNamedChannelsTask">
             <!--  Default task -->
             <task filePath="tasks/summarizePaths.xml" config-class="org.anchoranalysis.experiment.task.Task" config-factory="include"/>
         </task>

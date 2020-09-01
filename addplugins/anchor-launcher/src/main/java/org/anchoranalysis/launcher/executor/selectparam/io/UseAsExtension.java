@@ -28,6 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
@@ -37,19 +38,10 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
  *
  * @author Owen Feehan
  */
+@AllArgsConstructor
 class UseAsExtension implements SelectParam<Optional<Path>> {
 
     private String[] extensions;
-
-    /**
-     * Constructor
-     *
-     * @param wildcardStr string containing a wildcard
-     */
-    public UseAsExtension(String[] extensions) {
-        super();
-        this.extensions = extensions;
-    }
 
     @Override
     public Optional<Path> select(ExperimentExecutionArguments eea) {

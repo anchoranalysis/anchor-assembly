@@ -3,11 +3,11 @@
 <bean config-class="java.util.List" config-factory="list">
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="First">
-		<item stackProviderID="stackInput" chnlIndex="0" config-class="ch.ethz.biol.cell.imageprocessing.chnl.provider.ChnlProviderStackReference"/>
+		<item stackProviderID="stackInput"  config-class="org.anchoranalysis.plugin.image.bean.channel.provider.FromStack"/>
 	</item>
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="Second">
-		<item stackProviderID="stackInput" chnlIndex="0" config-class="ch.ethz.biol.cell.imageprocessing.chnl.provider.SomeNoneExistentClass"/>
+		<item stackProviderID="stackInput"  config-class="org.anchoranalysis.SomeNoneExistentClass"/>
 	</item>
 	
 

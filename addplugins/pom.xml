@@ -57,7 +57,7 @@
 	 
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
-		  <artifactId>anchor-plugin-ij</artifactId>
+		  <artifactId>anchor-plugin-imagej</artifactId>
 		  <version>0.0.8-SNAPSHOT</version>
 		</dependency>
 		
@@ -99,7 +99,7 @@
 
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
-		  <artifactId>anchor-plugin-mpp-sgmn</artifactId>
+		  <artifactId>anchor-plugin-mpp-segment</artifactId>
 		  <version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		

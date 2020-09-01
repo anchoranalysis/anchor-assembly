@@ -1,39 +1,36 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <config>
-<experiment config-class="org.anchoranalysis.anchor.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" folderOutput="../output/" inputName="stackInput">
+<experiment config-class="org.anchoranalysis.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" folderOutput="../output/" inputName="stackInput">
 
-	<task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask" nrgParamsName="input_params">
-		  <define suppressSubfolders="false" config-class="org.anchoranalysis.mpp.sgmn.bean.define.DefineOutputterMPP">
-		  	<define config-class="java.util.List" config-factory="include" filePath="namedDefinitions/namedDefinitions.xml"/>
-		  </define>
-		  <log config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
+	<task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask" energyParamsName="input_params">
+		  <define suppressSubfolders="false" config-class="org.anchoranalysis.mpp.segment.bean.define.DefineOutputterMPP"/>
 	</task>
 	 
    <outputEnabled config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
 	  	<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
-			<item>stackCollection</item>
-			<item>objMaskCollection</item>
-			<item>cfgCollection</item>
+			<item>stacks</item>
+			<item>objects</item>
+			<item>marks</item>
 			<item>log</item>
 			<item>errors</item>
 			<item>experiment_log</item>
 			<item>job_log</item>
 			<item>manifest</item>
 			<item>manifestExperiment</item>
-			<item>objMaskCollection</item>
-			<item>nrgStack</item>
-			<item>nrgStackParams</item>
+			<item>objects</item>
+			<item>energyStack</item>
+			<item>energyStackParams</item>
 		</outputsAllowed>
-	</outputEna2bled>
+	</outputEnabled2>
 	
 	
-	<stackCollectionOutputEnabled config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
+	<stacksOutputEnabled config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
 		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>chnlInput</item>
 			<item>stackEllipses</item>
 			<item>stackObjs</item>
 		</outputsAllowed>
-	</stackCollectionOutputEnabled>
+	</stacksOutputEnabled>
 
 	<objects config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
 		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
