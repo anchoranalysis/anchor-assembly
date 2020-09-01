@@ -38,7 +38,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgument
 import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 
 /**
- * SelectParam<Path> factory for inputs
+ * {@code SelectParam<Path>} factory for inputs.
  *
  * @author Owen Feehan
  */

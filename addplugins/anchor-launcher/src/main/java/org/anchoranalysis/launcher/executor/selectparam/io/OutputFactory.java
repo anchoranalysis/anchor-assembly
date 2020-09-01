@@ -33,7 +33,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgument
 import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 
 /**
- * SelectParam<Path> factory for outputs
+ * {@code SelectParam<Path>} factory for outputs.
  *
  * @author Owen Feehan
  */
@@ -42,7 +42,8 @@ public class OutputFactory {
 
     /**
      * If the argument is a path to a directory, then this directory is set as the default.
-     * Otherwise the argument is treated like a path to BeanXML
+     * 
+     * <p>Otherwise the argument is treated like a path to BeanXML.
      *
      * @throws CommandLineException
      */

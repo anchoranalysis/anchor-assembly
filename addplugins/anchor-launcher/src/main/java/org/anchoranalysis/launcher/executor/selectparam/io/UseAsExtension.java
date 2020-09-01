@@ -34,7 +34,7 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
- * Uses the path directory as a manager
+ * Uses the path directory as a manager.
  *
  * @author Owen Feehan
  */
