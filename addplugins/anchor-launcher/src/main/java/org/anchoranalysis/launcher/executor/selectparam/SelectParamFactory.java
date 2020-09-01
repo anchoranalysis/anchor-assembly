@@ -24,13 +24,14 @@ package org.anchoranalysis.launcher.executor.selectparam;
 
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.function.Function;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.anchoranalysis.core.functional.function.CheckedFunction;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.experiment.ExperimentFactory;
 import org.anchoranalysis.launcher.executor.selectparam.io.InputFactory;
 import org.anchoranalysis.launcher.executor.selectparam.io.OutputFactory;
+import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgumentException;
 import org.anchoranalysis.launcher.executor.selectparam.task.TaskFactory;
 import org.apache.commons.cli.CommandLine;
 
@@ -81,7 +82,11 @@ public class SelectParamFactory {
      */
     public static SelectParam<Optional<Path>> inputSelectParam(
             CommandLine line, String optionName) {
-        return ifOption(line, optionName, InputFactory::pathOrDirectoryOrGlobOrExtension);
+        try {
+            return ifOption(line, optionName, InputFactory::pathOrDirectoryOrGlobOrExtension);
+        } catch (InvalidPathArgumentException e) {
+            throw e.toCommandLineException();
+        }
     }
 
     /**
@@ -119,10 +124,10 @@ public class SelectParamFactory {
         return ExperimentFactory.defaultExperimentOrCustom(line, defaultExperiment);
     }
 
-    private static SelectParam<Optional<Path>> ifOption(
+    private static <E extends Exception> SelectParam<Optional<Path>> ifOption(
             CommandLine line,
             String optionName,
-            Function<String[], SelectParam<Optional<Path>>> func) {
+            CheckedFunction<String[], SelectParam<Optional<Path>>, E> func) throws E {
         if (line.hasOption(optionName)) {
             return func.apply(line.getOptionValues(optionName));
 

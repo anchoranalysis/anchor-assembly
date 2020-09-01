@@ -52,8 +52,8 @@ class UseListFilesForManager implements SelectParam<Optional<Path>> {
     }
 
     @Override
-    public Optional<Path> select(ExperimentExecutionArguments eea) {
-        eea.setInputPaths(paths);
+    public Optional<Path> select(ExperimentExecutionArguments executionArguments) {
+        executionArguments.setInputPaths(paths);
         return Optional.empty();
     }
 
@@ -68,8 +68,8 @@ class UseListFilesForManager implements SelectParam<Optional<Path>> {
     }
 
     private void checkNoDirectories(List<Path> paths) {
-        for (Path p : paths) {
-            assert (!p.toFile().isDirectory());
+        for (Path path : paths) {
+            assert (!path.toFile().isDirectory());
         }
     }
 }

@@ -29,10 +29,11 @@ import lombok.NoArgsConstructor;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
-import org.anchoranalysis.launcher.executor.selectparam.path.PathConverter;
+import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgumentException;
+import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 
 /**
- * SelectParam<Path> factory for outputs
+ * {@code SelectParam<Path>} factory for outputs.
  *
  * @author Owen Feehan
  */
@@ -41,23 +42,28 @@ public class OutputFactory {
 
     /**
      * If the argument is a path to a directory, then this directory is set as the default.
-     * Otherwise the argument is treated like a path to BeanXML
+     * 
+     * <p>Otherwise the argument is treated like a path to BeanXML.
      *
      * @throws CommandLineException
      */
-    public static SelectParam<Optional<Path>> pathOrDirectory(String[] arg, boolean input) {
+    public static SelectParam<Optional<Path>> pathOrDirectory(String[] arguments, boolean input) {
 
-        if (arg.length > 1) {
+        if (arguments.length > 1) {
             throw new CommandLineException(
                     "More than one argument was passed to -o. Only one is allowed!");
         }
 
-        Path path = PathConverter.pathFromArg(arg[0]);
-
-        if (path.toFile().isDirectory()) {
-            return new UseDirectoryForManager(path, input);
-        } else {
-            return new CustomManagerFromPath(path);
+        try {
+            Path path = ArgumentConverter.pathFromArgument(arguments[0]);
+    
+            if (path.toFile().isDirectory()) {
+                return new UseDirectoryForManager(path, input);
+            } else {
+                return new CustomManagerFromPath(path);
+            }
+        } catch (InvalidPathArgumentException e) {
+            throw e.toCommandLineException();
         }
     }
 }
