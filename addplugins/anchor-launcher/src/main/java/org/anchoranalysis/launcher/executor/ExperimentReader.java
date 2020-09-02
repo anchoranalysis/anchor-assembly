@@ -63,8 +63,8 @@ class ExperimentReader {
      *
      * @param configPath the path where the xml file exists
      * @param xmlPath the xpath inside the xmlpath specifying the root-element
-     * @param associateXml if TRUE, the xml is associated with the object (see BeanXmlLoader). if
-     *     FALSE, it is not.
+     * @param associateXml if true, the xml is associated with the object (see BeanXmlLoader). if
+     *     false, it is not.
      * @return an object created from the read BeanXML
      * @throws ExperimentExecutionException
      */
