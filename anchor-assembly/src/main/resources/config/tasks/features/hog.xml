@@ -38,7 +38,7 @@ features:
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="hog">
 			<item config-class="org.anchoranalysis.plugin.opencv.bean.feature.HOGDescriptor">
-				<resizeTo width="64" height="64" config-class="org.anchoranalysis.image.bean.size.SizeXY"/>
+				<resizeTo width="64" height="64" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
 			</item>			
 		</item>
 		
