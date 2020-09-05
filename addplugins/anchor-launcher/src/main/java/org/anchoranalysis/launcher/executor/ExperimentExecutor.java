@@ -96,7 +96,8 @@ public class ExperimentExecutor {
             // Special behaviour if everything has defaults
             logger.logFormatted(
                     "%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.%n",
-                    defaultBehaviourString.get(), ParseArgumentsAndRunExperiment.OPTION_HELP); // NOSONAR
+                    defaultBehaviourString.get(),
+                    ParseArgumentsAndRunExperiment.OPTION_HELP); // NOSONAR
         }
 
         Experiment experimentLoaded = loadExperimentFromPath(execArgs);

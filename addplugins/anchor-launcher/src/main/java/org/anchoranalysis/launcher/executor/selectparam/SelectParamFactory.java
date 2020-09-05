@@ -127,7 +127,8 @@ public class SelectParamFactory {
     private static <E extends Exception> SelectParam<Optional<Path>> ifOption(
             CommandLine line,
             String optionName,
-            CheckedFunction<String[], SelectParam<Optional<Path>>, E> func) throws E {
+            CheckedFunction<String[], SelectParam<Optional<Path>>, E> func)
+            throws E {
         if (line.hasOption(optionName)) {
             return func.apply(line.getOptionValues(optionName));
 

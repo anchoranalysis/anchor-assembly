@@ -29,18 +29,16 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * 
  * Converts string passed as arguments.
- * 
- * @author Owen Feehan
  *
+ * @author Owen Feehan
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ArgumentConverter {
 
     /**
      * Converts the string passed as a command-line argument to a path.
-     *  
+     *
      * @param argument the string to convert
      * @return the path
      * @throws InvalidPathArgumentException if the argument is not a valid path.

@@ -38,7 +38,8 @@ class UseDefaultExperiment implements SelectParam<Path> {
     }
 
     @Override
-    public Path select(ExperimentExecutionArguments executionArguments) throws ExperimentExecutionException {
+    public Path select(ExperimentExecutionArguments executionArguments)
+            throws ExperimentExecutionException {
         return defaultExperiment;
     }
 

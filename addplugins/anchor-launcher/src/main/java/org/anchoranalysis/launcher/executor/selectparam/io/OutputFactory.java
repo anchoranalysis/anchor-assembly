@@ -28,9 +28,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
 import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgumentException;
-import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 
 /**
  * {@code SelectParam<Path>} factory for outputs.
@@ -42,7 +42,7 @@ public class OutputFactory {
 
     /**
      * If the argument is a path to a directory, then this directory is set as the default.
-     * 
+     *
      * <p>Otherwise the argument is treated like a path to BeanXML.
      *
      * @throws CommandLineException
@@ -56,7 +56,7 @@ public class OutputFactory {
 
         try {
             Path path = ArgumentConverter.pathFromArgument(arguments[0]);
-    
+
             if (path.toFile().isDirectory()) {
                 return new UseDirectoryForManager(path, input);
             } else {

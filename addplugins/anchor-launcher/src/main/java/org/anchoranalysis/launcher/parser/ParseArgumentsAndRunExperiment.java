@@ -41,14 +41,16 @@ import org.apache.commons.cli.ParseException;
 
 /**
  * A general parser for command-line applications with certain attributes.
- * 
+ *
  * <p>Namely:
+ *
  * <ol>
- * <li>a help option, that prints help information
- * <li>a version option, that prints version information
- * <li>a logError option, that records certain errors (parsing errors) in a log-file with more detail
- * <li>and take an argument of a single path that represents an experiment BeanXML file (or path to a folder
- * containing experiment BeanXML)
+ *   <li>a help option, that prints help information
+ *   <li>a version option, that prints version information
+ *   <li>a logError option, that records certain errors (parsing errors) in a log-file with more
+ *       detail
+ *   <li>and take an argument of a single path that represents an experiment BeanXML file (or path
+ *       to a folder containing experiment BeanXML)
  * </ol>
  *
  * @author Owen Feehan

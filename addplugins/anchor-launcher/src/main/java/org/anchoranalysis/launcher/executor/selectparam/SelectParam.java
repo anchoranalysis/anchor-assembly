@@ -25,18 +25,18 @@ package org.anchoranalysis.launcher.executor.selectparam;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 
-/** 
+/**
  * Different methods of selecting a object {@code T} that is used as a parameter for an experiment.
- * 
+ *
  * @param <T> object-type that is used as a parameter for an experiment.
- * */
+ */
 public interface SelectParam<T> {
 
     /**
      * Retrieves the parameter.
      *
-     * <p>Note that the {@link ExperimentExecutionArguments} might be modified during this operation (e.g.
-     * adding a directory parameter).
+     * <p>Note that the {@link ExperimentExecutionArguments} might be modified during this operation
+     * (e.g. adding a directory parameter).
      */
     T select(ExperimentExecutionArguments executionArguments) throws ExperimentExecutionException;
 
