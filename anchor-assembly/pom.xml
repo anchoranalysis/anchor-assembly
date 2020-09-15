@@ -79,6 +79,7 @@
 									  <classPath>
 										<mainClass>org.anchoranalysis.launcher.Launch</mainClass>
 										<postCp>%EXEDIR%/*.jar;%EXEDIR%/../lib/*.jar</postCp>
+										<addDependencies>false</addDependencies>
 									  </classPath>
 									  
 									  <jre>
@@ -107,6 +108,7 @@
 									  <classPath>
 										<mainClass>org.anchoranalysis.browser.launcher.LaunchInteractiveBrowser</mainClass>
 										<postCp>%EXEDIR%/*.jar;%EXEDIR%/../lib/*.jar</postCp>
+										<addDependencies>false</addDependencies>
 									  </classPath>
 									  
 									  <jre>
