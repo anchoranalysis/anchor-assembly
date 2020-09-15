@@ -205,7 +205,7 @@ public class ExperimentReaderErrorReportingTest {
      *
      * @param search the string to search
      * @param path path to search for (String.contains method)
-     * @return TRUE if path is contained within search, after it is converted to forward slashes
+     * @return true if path is contained within search, after it is converted to forward slashes
      */
     private boolean containsPathWithForwardSlashes(String search, String path) {
         String searchConvert = search.replace("\\", "/");

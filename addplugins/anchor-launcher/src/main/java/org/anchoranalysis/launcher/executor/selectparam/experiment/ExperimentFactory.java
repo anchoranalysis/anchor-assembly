@@ -32,7 +32,7 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.apache.commons.cli.CommandLine;
 
 /**
- * SelectParam<Path> factory for experiments
+ * {@code SelectParam<Path>} factory for experiments.
  *
  * @author Owen Feehan
  */

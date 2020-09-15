@@ -43,7 +43,7 @@ class UseDirectoryForManager implements SelectParam<Optional<Path>> {
     /**
      * Constructor
      *
-     * @param input iff TRUE, then we are replacing the input-manager, otherwise the output-manager
+     * @param input iff true, then we are replacing the input-manager, otherwise the output-manager
      */
     public UseDirectoryForManager(Path directory, boolean input) {
         super();

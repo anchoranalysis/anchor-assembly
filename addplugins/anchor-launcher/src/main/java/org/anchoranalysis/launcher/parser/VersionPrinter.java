@@ -76,7 +76,7 @@ class VersionPrinter {
      *
      * @param cl class-loader where resource is found
      * @param footerResourcePath resource-path (with class-loader) to a displayed footer message.
-     *     Ignored if NULL
+     *     Ignored if null
      * @param versionResourcePath resource-path (with class-loader) to obtain the version of the
      *     software
      * @throws IOException if it's not possible to determine the version number

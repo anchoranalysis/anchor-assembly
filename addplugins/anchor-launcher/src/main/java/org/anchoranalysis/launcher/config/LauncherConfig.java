@@ -40,7 +40,7 @@ public abstract class LauncherConfig {
     public abstract HelpConfig help();
 
     /**
-     * if TRUE, then some extra newlines are inserted before error messages
+     * if true, then some extra newlines are inserted before error messages
      *
      * <p>This useful for the GUI client in Windows due to WinRun4j running as a Windows app, and
      * not as a shell app. This changes how output is displayed;

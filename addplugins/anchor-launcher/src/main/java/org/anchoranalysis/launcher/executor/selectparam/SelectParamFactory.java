@@ -36,7 +36,7 @@ import org.anchoranalysis.launcher.executor.selectparam.task.TaskFactory;
 import org.apache.commons.cli.CommandLine;
 
 /**
- * Creates an appropriate SelectParam based upon the options passed to the command-line
+ * Creates an appropriate {@link SelectParam} based upon the options passed to the command-line.
  *
  * @author Owen Feehan
  */
@@ -69,10 +69,10 @@ public class SelectParamFactory {
      * Can point to either:
      *
      * <ol>
-     *   <li>a path ending in .xml -> assumed to BeanXML for an input manager
-     *   <li>a directory -> set as an the inputDirectory in the input-context
+     *   <li>a path ending in <i>.xml</i>, assumed to BeanXML for an input manager
+     *   <li>a directory, set as an the inputDirectory in the input-context
      *   <li>a string with a wild-card, assumed to be a glob, set into the input-context as a glob
-     *   <li>a string with a period, and without any forward or backwards slashes -> set into the
+     *   <li>a string with a period and without any forward or backwards slashes, set into the
      *       input-context as an extension to match
      * </ol>
      *
@@ -93,8 +93,8 @@ public class SelectParamFactory {
      * Can point to either:
      *
      * <ol>
-     *   <li>a path ending in .xml -> assumed to BeanXML for an output manager
-     *   <li>a directory -> set as the outputDirectory in the input-context
+     *   <li>a path ending in <i>.xml</i>, assumed to BeanXML for an output manager
+     *   <li>a directory, set as the outputDirectory in the input-context
      * </ol>
      *
      * @param line command-line to consider if certain options have been selected or not
@@ -110,8 +110,8 @@ public class SelectParamFactory {
      * Can point to either:
      *
      * <ol>
-     *   <li>a path ending in .xml -> assumed to BeanXML for an experiment
-     *   <li>nothing -> then default experiment is used
+     *   <li>a path ending in <i>.xml</i>, assumed to BeanXML for an experiment
+     *   <li>nothing, then default experiment is used
      * </ol>
      *
      * @param line command-line to consider if certain options have been selected or not
@@ -127,7 +127,8 @@ public class SelectParamFactory {
     private static <E extends Exception> SelectParam<Optional<Path>> ifOption(
             CommandLine line,
             String optionName,
-            CheckedFunction<String[], SelectParam<Optional<Path>>, E> func) throws E {
+            CheckedFunction<String[], SelectParam<Optional<Path>>, E> func)
+            throws E {
         if (line.hasOption(optionName)) {
             return func.apply(line.getOptionValues(optionName));
 

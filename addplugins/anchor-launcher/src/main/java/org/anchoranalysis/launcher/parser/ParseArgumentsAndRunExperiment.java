@@ -40,16 +40,23 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- * A general parser for command-line applications that have the following attributes 1. a help
- * option, that prints help information 2. a version option, that prints version information 3. a
- * logError option, that records certain errors (parsing errors) in a log-file with more detail 3.
- * take an argument of a single path that represents an experiment BeanXML file (or path to a folder
- * containing such)
+ * A general parser for command-line applications with certain attributes.
+ *
+ * <p>Namely:
+ *
+ * <ol>
+ *   <li>a help option, that prints help information
+ *   <li>a version option, that prints version information
+ *   <li>a logError option, that records certain errors (parsing errors) in a log-file with more
+ *       detail
+ *   <li>and take an argument of a single path that represents an experiment BeanXML file (or path
+ *       to a folder containing experiment BeanXML)
+ * </ol>
  *
  * @author Owen Feehan
  */
 @RequiredArgsConstructor
-public class ParseArgsAndRunExperiment {
+public class ParseArgumentsAndRunExperiment {
 
     // START: Options
     public static final String OPTION_HELP = "h";
@@ -67,7 +74,7 @@ public class ParseArgsAndRunExperiment {
      * Parses the arguments to a command-line experiment and runs an experiment
      *
      * @param args arguments from command-line
-     * @params parserConfig a configuration for the command-line exector
+     * @param parserConfig a configuration for the command-line exector
      */
     public void parseAndRun(String[] args, LauncherConfig parserConfig) {
 
@@ -101,7 +108,7 @@ public class ParseArgsAndRunExperiment {
                             "Parsing of command-line arguments failed.  Reason: %s%n",
                             e.getMessage());
         } catch (IOException e) {
-            logger.errorReporter().recordError(ParseArgsAndRunExperiment.class, e);
+            logger.errorReporter().recordError(ParseArgumentsAndRunExperiment.class, e);
             logger.messageLogger()
                     .logFormatted("An I/O error occurred.  Reason: %s%n", e.getMessage());
         } catch (AnchorFriendlyRuntimeException e) {

@@ -65,7 +65,7 @@ class ExperimentExecutorAfter {
      *
      * @param pathExecutionDirectory a path to a directory from which the JAR is launched (typically
      *     the bin/ directory)
-     * @param includeRootPaths if TRUE, a root bank is sought among the configurations and loaded
+     * @param includeRootPaths if true, a root bank is sought among the configurations and loaded
      * @throws ExperimentExecutionException
      */
     static void initializeIfNecessary(

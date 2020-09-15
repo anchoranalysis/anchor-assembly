@@ -33,9 +33,9 @@ import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.core.functional.function.CheckedSupplier;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
 import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgumentException;
-import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 
 /**
  * {@code SelectParam<Path>} factory for inputs.
@@ -45,19 +45,20 @@ import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InputFactory {
 
-    public static SelectParam<Optional<Path>> pathOrDirectoryOrGlobOrExtension(String[] arguments) throws InvalidPathArgumentException {
+    public static SelectParam<Optional<Path>> pathOrDirectoryOrGlobOrExtension(String[] arguments)
+            throws InvalidPathArgumentException {
         List<Path> paths = pathFromArguments(arguments);
         return OptionalUtilities.orFlat(
                         checkWildcard(arguments),
                         checkXmlExtension(arguments),
-                        checkFileExtension(arguments), 
-                        checkDirectory(paths) 
-                        )
+                        checkFileExtension(arguments),
+                        checkDirectory(paths))
                 .orElseGet(() -> new UseListFilesForManager(paths));
     }
 
     /** If it contains a wildcard, assume its a glob */
-    private static Optional<SelectParam<Optional<Path>>> checkWildcard(String[] arguments) throws InvalidPathArgumentException {
+    private static Optional<SelectParam<Optional<Path>>> checkWildcard(String[] arguments)
+            throws InvalidPathArgumentException {
         return check(
                 Arrays.stream(arguments).anyMatch(s -> s.contains("*")),
                 arguments.length == 1,
@@ -66,7 +67,8 @@ public class InputFactory {
     }
 
     /** If it begins with a period, and no slashes, then assume it's a file extension */
-    private static Optional<SelectParam<Optional<Path>>> checkFileExtension(String[] args) throws InvalidPathArgumentException {
+    private static Optional<SelectParam<Optional<Path>>> checkFileExtension(String[] args)
+            throws InvalidPathArgumentException {
         return check(
                 Arrays.stream(args).anyMatch(ExtensionUtilities::isFileExtension),
                 Arrays.stream(args).allMatch(ExtensionUtilities::isFileExtension),
@@ -75,7 +77,8 @@ public class InputFactory {
     }
 
     /** If an argument end with .xml, assumes it's an input-manager */
-    private static Optional<SelectParam<Optional<Path>>> checkXmlExtension(String[] args) throws InvalidPathArgumentException {
+    private static Optional<SelectParam<Optional<Path>>> checkXmlExtension(String[] args)
+            throws InvalidPathArgumentException {
         return check(
                 Arrays.stream(args).anyMatch(ExtensionUtilities::hasXmlExtension),
                 args.length == 1,
@@ -84,7 +87,8 @@ public class InputFactory {
     }
 
     /** If it's a directory path, then use the directory to find inputs */
-    private static Optional<SelectParam<Optional<Path>>> checkDirectory(List<Path> paths) throws InvalidPathArgumentException {
+    private static Optional<SelectParam<Optional<Path>>> checkDirectory(List<Path> paths)
+            throws InvalidPathArgumentException {
         return check(
                 paths.stream().anyMatch(path -> path.toFile().isDirectory()),
                 paths.size() == 1,
@@ -93,7 +97,11 @@ public class InputFactory {
     }
 
     private static <T> Optional<T> check(
-            boolean condition1, boolean condition2, CheckedSupplier<T,InvalidPathArgumentException> val, String errorMessage) throws InvalidPathArgumentException {
+            boolean condition1,
+            boolean condition2,
+            CheckedSupplier<T, InvalidPathArgumentException> val,
+            String errorMessage)
+            throws InvalidPathArgumentException {
         if (condition1) {
             if (condition2) {
                 return Optional.of(val.get());
@@ -105,6 +113,7 @@ public class InputFactory {
     }
 
     private static List<Path> pathFromArguments(String[] args) throws InvalidPathArgumentException {
-        return FunctionalList.mapToList(args, InvalidPathArgumentException.class, ArgumentConverter::pathFromArgument);
+        return FunctionalList.mapToList(
+                args, InvalidPathArgumentException.class, ArgumentConverter::pathFromArgument);
     }
 }

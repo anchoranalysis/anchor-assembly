@@ -2,9 +2,9 @@ package org.anchoranalysis.launcher;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import org.anchoranalysis.io.bioformats.ConfigureBioformatsLogging;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.anchoranalysis.io.bioformats.ConfigureBioformatsLogging;
 
 /*
  * #%L
@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
  *
  * @author Owen Feehan
  */
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DirtyInitializer {
 
     /**

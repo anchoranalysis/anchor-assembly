@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.log.ConsoleMessageLogger;
 import org.anchoranalysis.launcher.config.LauncherConfig;
-import org.anchoranalysis.launcher.parser.ParseArgsAndRunExperiment;
+import org.anchoranalysis.launcher.parser.ParseArgumentsAndRunExperiment;
 
 /**
  * A command-line interface used for launching experiments
@@ -56,6 +56,6 @@ public class Launch {
     public static void runCommandLineApp(
             String[] args, LauncherConfig parserConfig, Logger logger) {
         DirtyInitializer.dirtyInitialization();
-        new ParseArgsAndRunExperiment(logger).parseAndRun(args, parserConfig);
+        new ParseArgumentsAndRunExperiment(logger).parseAndRun(args, parserConfig);
     }
 }

@@ -49,13 +49,16 @@ class UseAsExtension implements SelectParam<Optional<Path>> {
         // Remove the period from the left side
         List<String> extensionWithoutPeriod = removeLeadingPeriod(extensions);
 
-        executionArguments.setInputFilterExtensions(Optional.of(new HashSet<>(extensionWithoutPeriod)));
+        executionArguments.setInputFilterExtensions(
+                Optional.of(new HashSet<>(extensionWithoutPeriod)));
 
         return Optional.empty();
     }
 
     private static List<String> removeLeadingPeriod(String[] extensionsWithPeriod) {
-        return Arrays.stream(extensionsWithPeriod).map(extension -> extension.substring(1)).collect(Collectors.toList());
+        return Arrays.stream(extensionsWithPeriod)
+                .map(extension -> extension.substring(1))
+                .collect(Collectors.toList());
     }
 
     @Override

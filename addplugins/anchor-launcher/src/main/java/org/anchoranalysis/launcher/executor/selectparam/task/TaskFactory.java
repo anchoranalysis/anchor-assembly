@@ -28,9 +28,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
 import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgumentException;
-import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
 
 /**
  * A factory that creates {@code SelectParam<Optional<Path>>} as required for tasks.
@@ -70,7 +70,10 @@ public class TaskFactory {
         return configDir.resolve("tasks").resolve(arg + ".xml");
     }
 
-    /** Check if it contains only a restricted set of characters... alphaNumeric, hyphen, underscore, forward-slash. */
+    /**
+     * Check if it contains only a restricted set of characters... alphaNumeric, hyphen, underscore,
+     * forward-slash.
+     */
     private static boolean isTaskName(String arg) {
         return arg.matches("^[a-zA-Z0-9_\\-\\/]+$");
     }
