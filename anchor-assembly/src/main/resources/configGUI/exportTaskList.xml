@@ -29,7 +29,8 @@
                 
     <!--  Export Graph NRG Time Series -->
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskMarks" incrementSize="1000" outputName="nrgBreakdownTime">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.PlotEnergy" width="500" height="300">
+            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.PlotEnergy">
+            	<size width="500" height="300" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                 <graphDefinition config-class="org.anchoranalysis.gui.plot.bean.BarPlotEnergyBreakdown" showDomainAxis="false"/>
             </createRasterGenerator>
         </item>
@@ -43,13 +44,15 @@
         </item>
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCSVStatistic" incrementSize="1000" outputName="dynamicCfgSize">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.PlotNumberMarks" width="500" height="300">
+            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.PlotNumberMarks">
+                <size width="500" height="300" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotNumberMarks"/>
             </createRasterGenerator>
         </item>
         
         <item config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskCSVStatistic" incrementSize="1000" outputName="dynamicNRG">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.PlotEnergy" width="500" height="300">
+            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.PlotEnergy">
+                <size width="500" height="300" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy"/>
             </createRasterGenerator>
 
@@ -101,15 +104,17 @@
                                 </stringGenerator>
                             </item>
                                                 
-                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks" width="400" height="200">
+                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotNumberMarks">
                                     <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                 </graphDefinition>
+                                <size width="400" height="200" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                             </item>
-                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks" width="400" height="200">
+                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy">
                                     <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                 </graphDefinition>
+                                <size width="400" height="200" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                             </item>
                         </createRasterGeneratorList>
 
@@ -170,10 +175,11 @@
                             </item>
 
                             <item index="1" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.DemuxDualState">
-                                <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks" width="700" height="400">
+                                <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
                                     <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy" minMaxIgnoreBeforeIndex="100">
                                         <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                     </graphDefinition>
+                                    <size width="700" height="400" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                                 </item>
                             </item>
 
@@ -246,10 +252,11 @@
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects" mip="true"/>
         
 
-                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks" width="400" height="200">
+                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy">
                                     <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
                                 </graphDefinition>
+                                <size width="400" height="200" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                             </item>
                         </createRasterGeneratorList>
                 </createRasterGenerator>
