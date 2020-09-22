@@ -171,7 +171,7 @@ public class ParseArgumentsAndRunExperiment {
             // Let's print a simple (non-word wrapped message) to the console
             logger.messageLogger().log(e.friendlyMessageHierarchy());
 
-            // Unless it's enabled, we record a more detailed error log to the file-system
+            // Unless it's enabled, we record a more detailed error log to the filesystem
             if (line.hasOption(OPTION_LOG_ERROR)) {
                 Path errorLogPath = Paths.get(line.getOptionValue(OPTION_LOG_ERROR));
                 logger.messageLogger()

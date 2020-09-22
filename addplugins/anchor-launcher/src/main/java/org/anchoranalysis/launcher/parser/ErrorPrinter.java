@@ -50,7 +50,7 @@ class ErrorPrinter {
     }
 
     /**
-     * Prints an exception to the file-system as an error log
+     * Prints an exception to the filesystem as an error log
      *
      * @param cause the exception that occurred to cause the error
      */
