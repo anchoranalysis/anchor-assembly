@@ -29,31 +29,40 @@ import org.anchoranalysis.core.error.reporter.ErrorReporterIntoLog;
 import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.log.ConsoleMessageLogger;
 import org.anchoranalysis.experiment.log.MessageLoggerList;
+import org.anchoranalysis.experiment.log.reporter.StatefulMessageLogger;
 import org.anchoranalysis.experiment.log.reporter.TextFileMessageLogger;
 import org.anchoranalysis.launcher.Launch;
 
+/**
+ * Command-line application for launching the anchor GUI application, otherwise known as interactive-browser.
+ * 
+ * @author Owen Feehan
+ *
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LaunchInteractiveBrowser {
 
+    private static final String LOG_FILE_PATH = "anchorGUI.log";
+    
     /**
      * Entry point for command-line application
      *
      * @param args command line application
      */
     public static void main(String[] args) {
-        Logger logger = createLogErrorReporter();
+        Logger logger = createLogger();
         Launch.runCommandLineApp(args, new LauncherConfigBrowser(), logger);
     }
 
-    private static Logger createLogErrorReporter() {
-        ConsoleMessageLogger consoleLogger = new ConsoleMessageLogger();
+    private static Logger createLogger() {
+        StatefulMessageLogger consoleLogger = new ConsoleMessageLogger();
 
+        StatefulMessageLogger textLogger = new TextFileMessageLogger(
+                LOG_FILE_PATH, new ErrorReporterIntoLog(consoleLogger));
+        
         MessageLoggerList list =
                 new MessageLoggerList(
-                        Stream.of(
-                                consoleLogger,
-                                new TextFileMessageLogger(
-                                        "anchorGUI.log", new ErrorReporterIntoLog(consoleLogger))));
+                        Stream.of(consoleLogger,textLogger));
         return new Logger(list);
     }
 }
