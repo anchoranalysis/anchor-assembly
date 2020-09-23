@@ -2,6 +2,7 @@
 <config>
 <bean config-class="java.util.List" config-factory="list">
 
+	<!-- Read images using Bioformats -->
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.rasterreader.RasterReader">
 		<item config-class="org.anchoranalysis.io.bioformats.bean.BioformatsReader">
 			<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceBitsPerPixel" bitsPerPixel="8">
@@ -10,6 +11,7 @@
 		</item>
 	</item>
 	
+	<!-- Write PNG for single or three-channeled images using OpenCV, or else write TIFFs using ImageJ -->
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.rasterwriter.RasterWriter">
 		<item config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.MultiplexWriter">
 			<writer config-class="org.anchoranalysis.io.imagej.bean.raster.writer.Tiff"/>
