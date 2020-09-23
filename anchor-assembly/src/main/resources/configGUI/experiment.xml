@@ -54,7 +54,7 @@
               	  
 	  <taskProcessor config-class="org.anchoranalysis.experiment.bean.processor.SequentialProcessor" suppressExceptions="true">
 		  <task config-class="org.anchoranalysis.gui.interactivebrowser.launch.InteractiveBrowserTask">
-	  		  <exportTaskList filePath="exportTaskList.xml" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskList" config-factory="include"/>
+	  		  <exportTaskList filePath="exportTaskList.xml" config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskList" config-factory="include"/>
     		</task>
     	</taskProcessor>
 	</experiment>
