@@ -33,7 +33,7 @@
 
   	  <experimentIdentifier name="TestInteractiveBrowserExperiment" version="1.0" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierConstant"/>
 
-	  <output config-class="org.anchoranalysis.io.output.bean.OutputManagerPermissive" silentlyDeleteExisting="true">
+	  <output config-class="org.anchoranalysis.io.output.bean.manager.OutputManagerPermissive" silentlyDeleteExisting="true">
 	  
 		  <filePathPrefixer filePath="ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.bean.filepath.prefixer.FilePathPrefixer" config-factory="include"/>
 
