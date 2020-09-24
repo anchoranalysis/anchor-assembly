@@ -106,13 +106,13 @@
                                                 
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotNumberMarks">
-                                    <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                    <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroud"/>
                                 </graphDefinition>
                                 <size width="400" height="200" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                             </item>
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy">
-                                    <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                    <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroud"/>
                                 </graphDefinition>
                                 <size width="400" height="200" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                             </item>
@@ -177,7 +177,7 @@
                             <item index="1" config-class="org.anchoranalysis.gui.export.bean.task.DemuxDualState">
                                 <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
                                     <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy" minMaxIgnoreBeforeIndex="100">
-                                        <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                        <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroud"/>
                                     </graphDefinition>
                                     <size width="700" height="400" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                                 </item>
@@ -254,7 +254,7 @@
 
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy">
-                                    <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroudGraphColorScheme"/>
+                                    <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroud"/>
                                 </graphDefinition>
                                 <size width="400" height="200" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                             </item>
