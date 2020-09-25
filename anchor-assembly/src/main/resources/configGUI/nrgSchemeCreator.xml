@@ -40,7 +40,7 @@
 		</list>
 	</pairAddCriteria>
 					    
-   	<elemPairCreator config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefine">
+   	<elemPairCreator config-class="org.anchoranalysis.feature.bean.list.Define">
    		<list config-class="java.util.List" config-factory="listInclude">
 		 	<include>
 <!-- 	  	 		<item config-class="java.util.List" config-factory="include" filePath="NRG/pairListChrom.xml"/> -->
@@ -49,7 +49,7 @@
   		</list>
    	</elemPairCreator>
 			    	
-   	<elemIndCreator config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefine">
+   	<elemIndCreator config-class="org.anchoranalysis.feature.bean.list.Define">
    		<list config-class="java.util.List" config-factory="listInclude">
 			<include>
 <!-- 	  	 		<item config-class="java.util.List" config-factory="include" filePath="NRG/indListChrom.xml"/> -->

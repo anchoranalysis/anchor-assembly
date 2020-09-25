@@ -44,7 +44,7 @@ features:
  	<features config-class="java.util.List" config-factory="list">
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="voxelDataTypeMaxValue">
-			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
 				<item config-class="org.anchoranalysis.plugin.image.feature.bean.stack.intensity.DataTypeMaxIntensity"/>
 			</item>			
 		</item>
@@ -83,20 +83,20 @@ features:
 		</item>
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="areaSquareVoxels">
-			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
 				<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Area"/>	
 			</item>
 		</item>
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="volumeCubicVoxels">
-			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
 				<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Volume"/>	
 			</item>
 		</item>
 		
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="areaSquareMicrons">
-			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
 				<item config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalAreaXY" unitType="µm^2">
 					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Area"/>	
 				</item>
@@ -104,7 +104,7 @@ features:
 		</item>
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="volumeCubicMicrons">
-			<item config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefineSingle">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
 				<item config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalVolume" unitType="µm^3">
 					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Volume"/>
 				</item>
