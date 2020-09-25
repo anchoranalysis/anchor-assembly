@@ -10,10 +10,10 @@ import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
-import org.anchoranalysis.experiment.io.IReplaceInputManager;
-import org.anchoranalysis.experiment.io.IReplaceOutputManager;
-import org.anchoranalysis.experiment.io.IReplaceTask;
-import org.anchoranalysis.experiment.task.Task;
+import org.anchoranalysis.experiment.bean.task.Task;
+import org.anchoranalysis.experiment.io.ReplaceInputManager;
+import org.anchoranalysis.experiment.io.ReplaceOutputManager;
+import org.anchoranalysis.experiment.io.ReplaceTask;
 import org.anchoranalysis.image.bean.RegisterBeanFactoriesImage;
 import org.anchoranalysis.image.io.bean.RegisterBeanFactoriesIO;
 import org.anchoranalysis.io.bean.input.InputManager;
@@ -149,14 +149,14 @@ class ExperimentExecutorAfter {
                 ExperimentReader.readInputManagerFromXML(pathInput);
 
         try {
-            if (experiment instanceof IReplaceInputManager) {
-                IReplaceInputManager experimentCasted = (IReplaceInputManager) experiment;
+            if (experiment instanceof ReplaceInputManager) {
+                ReplaceInputManager experimentCasted = (ReplaceInputManager) experiment;
                 experimentCasted.replaceInputManager(inputManager);
             } else {
                 throw new ExperimentExecutionException(
                         String.format(
                                 "To override the input of an experiment, it must implement %s.%nThe current experiment does not: %s",
-                                IReplaceInputManager.class.getName(),
+                                ReplaceInputManager.class.getName(),
                                 experiment.getClass().getName()));
             }
 
@@ -183,14 +183,14 @@ class ExperimentExecutorAfter {
         OutputManager outputManager = ExperimentReader.readOutputManagerFromXML(pathOutput);
 
         try {
-            if (experiment instanceof IReplaceOutputManager) {
-                IReplaceOutputManager experimentCasted = (IReplaceOutputManager) experiment;
+            if (experiment instanceof ReplaceOutputManager) {
+                ReplaceOutputManager experimentCasted = (ReplaceOutputManager) experiment;
                 experimentCasted.replaceOutputManager(outputManager);
             } else {
                 throw new ExperimentExecutionException(
                         String.format(
                                 "To override the output of an experiment, it must implement %s.%nThe current experiment does not: %s",
-                                IReplaceOutputManager.class.getName(),
+                                ReplaceOutputManager.class.getName(),
                                 experiment.getClass().getName()));
             }
 
@@ -218,15 +218,15 @@ class ExperimentExecutorAfter {
         Task<InputFromManager, Object> task = ExperimentReader.readTaskFromXML(pathTask);
 
         try {
-            if (experiment instanceof IReplaceTask) {
-                IReplaceTask<InputFromManager, Object> experimentCasted =
-                        (IReplaceTask<InputFromManager, Object>) experiment;
+            if (experiment instanceof ReplaceTask) {
+                ReplaceTask<InputFromManager, Object> experimentCasted =
+                        (ReplaceTask<InputFromManager, Object>) experiment;
                 experimentCasted.replaceTask(task);
             } else {
                 throw new ExperimentExecutionException(
                         String.format(
                                 "To override the task of an experiment, it must implement %s.%nThe current experiment does not: %s",
-                                IReplaceTask.class.getName(), experiment.getClass().getName()));
+                                ReplaceTask.class.getName(), experiment.getClass().getName()));
             }
 
         } catch (OperationFailedException e) {

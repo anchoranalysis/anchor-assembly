@@ -29,8 +29,8 @@ import org.anchoranalysis.core.error.reporter.ErrorReporterIntoLog;
 import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.log.ConsoleMessageLogger;
 import org.anchoranalysis.experiment.log.MessageLoggerList;
-import org.anchoranalysis.experiment.log.reporter.StatefulMessageLogger;
-import org.anchoranalysis.experiment.log.reporter.TextFileMessageLogger;
+import org.anchoranalysis.experiment.log.StatefulMessageLogger;
+import org.anchoranalysis.experiment.log.TextFileMessageLogger;
 import org.anchoranalysis.launcher.Launch;
 
 /**

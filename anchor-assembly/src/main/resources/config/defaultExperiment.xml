@@ -43,7 +43,7 @@
 	  
         <task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.ConvertNamedChannelsTask">
             <!--  Default task -->
-            <task filePath="tasks/summarizePaths.xml" config-class="org.anchoranalysis.experiment.task.Task" config-factory="include"/>
+            <task filePath="tasks/summarizePaths.xml" config-class="org.anchoranalysis.experiment.bean.task.Task" config-factory="include"/>
         </task>
 	  		  
     </taskProcessor>
