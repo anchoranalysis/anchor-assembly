@@ -15,8 +15,8 @@
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.rasterwriter.RasterWriter">
 		<item config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.MultiplexWriter">
 			<writer config-class="org.anchoranalysis.io.imagej.bean.raster.writer.Tiff"/>
-			<whenRGB extension="png" config-class="org.anchoranalysis.plugin.opencv.bean.OpenCVWriter"/>
-			<whenOneOrThreeChannels extension="png" config-class="org.anchoranalysis.plugin.opencv.bean.OpenCVWriter"/>
+			<whenRGB config-class="org.anchoranalysis.io.imagej.bean.raster.writer.PNG"/>
+			<whenOneOrThreeChannels config-class="org.anchoranalysis.io.imagej.bean.raster.writer.PNG"/>
 		</item>
 	</item>
 	

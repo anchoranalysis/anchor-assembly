@@ -190,7 +190,6 @@ public class ParseArgumentsAndRunExperiment {
      */
     private void processExperiment(CommandLine line, Logger logger, LauncherConfig parserConfig)
             throws ExperimentExecutionException {
-
         parserConfig
                 .createExperimentExecutor(line)
                 .executeExperiment(
