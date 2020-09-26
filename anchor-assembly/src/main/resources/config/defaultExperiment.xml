@@ -32,7 +32,7 @@
 
     <experimentIdentifier day="false" time="true" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierAuto"/>
 
-    <output filePath="io/defaultOutputManager.xml" config-class="org.anchoranalysis.io.output.bean.manager.OutputManager" config-factory="include"/>
+    <output filePath="io/defaultOutputManager.xml" config-class="org.anchoranalysis.io.output.bean.OutputManager" config-factory="include"/>
 
     <logExperiment filePath="logreporter/experiment.xml" config-class="org.anchoranalysis.experiment.bean.log.LoggingDestination" config-factory="include"/>
 
