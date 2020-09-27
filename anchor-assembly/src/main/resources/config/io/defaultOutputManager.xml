@@ -5,7 +5,7 @@
         <filePathPrefixer config-class="org.anchoranalysis.plugin.io.bean.filepath.prefixer.FromDescriptiveName"/>
     </filePathPrefixer>
 
-	<outputsEnabled config-class="org.anchoranalysis.io.output.bean.allowed.rules.PermissiveExcept">
+	<outputsEnabled config-class="org.anchoranalysis.io.output.bean.rules.PermissiveExcept">
 	    <except config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 	      <item>manifest</item>
 	      <item>manifestExperiment</item>
