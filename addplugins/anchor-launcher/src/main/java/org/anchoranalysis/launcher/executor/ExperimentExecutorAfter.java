@@ -250,7 +250,7 @@ class ExperimentExecutorAfter {
             throws ExperimentExecutionException {
 
         try {
-            experiment.doExperiment(executionArguments);
+            experiment.executeExperiment(executionArguments);
 
         } catch (ExperimentExecutionException e) {
             throw new ExperimentExecutionException("Experiment execution ended with failure", e);

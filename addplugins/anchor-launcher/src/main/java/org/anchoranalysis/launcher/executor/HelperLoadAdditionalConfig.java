@@ -80,7 +80,7 @@ class HelperLoadAdditionalConfig {
                             "Cannot find a config file for defaultBean instances, looking at:%n%s%n%s",
                             pathHome, pathUser));
         }
-        
+
         BeanInstanceMap map = new BeanInstanceMap();
         addDefaultInstancesFromDir(pathHome, map);
         addDefaultInstancesFromDir(pathUser, map);

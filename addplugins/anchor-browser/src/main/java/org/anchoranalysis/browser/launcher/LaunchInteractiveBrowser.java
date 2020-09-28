@@ -34,16 +34,16 @@ import org.anchoranalysis.experiment.log.TextFileMessageLogger;
 import org.anchoranalysis.launcher.Launch;
 
 /**
- * Command-line application for launching the anchor GUI application, otherwise known as interactive-browser.
- * 
- * @author Owen Feehan
+ * Command-line application for launching the anchor GUI application, otherwise known as
+ * interactive-browser.
  *
+ * @author Owen Feehan
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LaunchInteractiveBrowser {
 
     private static final String LOG_FILE_PATH = "anchorGUI.log";
-    
+
     /**
      * Entry point for command-line application
      *
@@ -57,12 +57,10 @@ public class LaunchInteractiveBrowser {
     private static Logger createLogger() {
         StatefulMessageLogger consoleLogger = new ConsoleMessageLogger();
 
-        StatefulMessageLogger textLogger = new TextFileMessageLogger(
-                LOG_FILE_PATH, new ErrorReporterIntoLog(consoleLogger));
-        
-        MessageLoggerList list =
-                new MessageLoggerList(
-                        Stream.of(consoleLogger,textLogger));
+        StatefulMessageLogger textLogger =
+                new TextFileMessageLogger(LOG_FILE_PATH, new ErrorReporterIntoLog(consoleLogger));
+
+        MessageLoggerList list = new MessageLoggerList(Stream.of(consoleLogger, textLogger));
         return new Logger(list);
     }
 }
