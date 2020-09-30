@@ -1,6 +1,6 @@
 <!-- Converts a stack of images into a montage -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask">
+<bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.DevelopMultiInput">
 	<define config-class="org.anchoranalysis.mpp.segment.bean.define.DefineOutputterMPP" suppressSubfolders="true">
 	    <define config-class="org.anchoranalysis.bean.define.Define" config-factory="define">
 	
