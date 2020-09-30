@@ -83,13 +83,13 @@
                 
                     <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.CombinedMarks">
                     
-                        <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
+                        <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="2" numCols="2">
                             <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
-                                <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="0">
-                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+                                <item config-class="org.anchoranalysis.image.bean.spatial.arrange.Cell" row="0" col="0">
+                                    <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Overlay" horizontalAlign="left" verticalAlign="top"/>
                                 </item>
-                                <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="1">
-                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
+                                <item config-class="org.anchoranalysis.image.bean.spatial.arrange.Cell" row="0" col="1">
+                                    <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="2" numCols="1"/>
                                 </item>
                             </cells>
                         </arrange>
@@ -128,19 +128,19 @@
                 
                     <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.Combined">
                     
-                        <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
+                        <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="2" numCols="2">
                             <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
-                                <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="0">
-                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+                                <item config-class="org.anchoranalysis.image.bean.spatial.arrange.Cell" row="0" col="0">
+                                    <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Overlay" horizontalAlign="left" verticalAlign="top"/>
                                 </item>
-                                <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="1">
-                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+                                <item config-class="org.anchoranalysis.image.bean.spatial.arrange.Cell" row="0" col="1">
+                                    <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Overlay" horizontalAlign="left" verticalAlign="top"/>
                                 </item>
-                                <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="1" col="0">
-                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="1" numCols="1"/>
+                                <item config-class="org.anchoranalysis.image.bean.spatial.arrange.Cell" row="1" col="0">
+                                    <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="1" numCols="1"/>
                                 </item>
-                                <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="1" col="1">
-                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterOverlay" horizontalAlign="left" verticalAlign="top"/>
+                                <item config-class="org.anchoranalysis.image.bean.spatial.arrange.Cell" row="1" col="1">
+                                    <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Overlay" horizontalAlign="left" verticalAlign="top"/>
                                 </item>
                             </cells>
                         </arrange>
@@ -208,10 +208,10 @@
         
             <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.CombinedMarks">
             
-                <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="2">
+                <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="2" numCols="2">
                     <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
-                    <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="0">
-                            <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
+                    <item config-class="org.anchoranalysis.image.bean.spatial.arrange.Cell" row="0" col="0">
+                            <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="2" numCols="1"/>
                         </item>
 
                     </cells>
@@ -240,10 +240,10 @@
                 
                     <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.CombinedMarks">
                     
-                        <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="1" numCols="2">
+                        <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="1" numCols="2">
                             <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
-                                <item config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterCell" row="0" col="1">
-                                    <arrange config-class="org.anchoranalysis.image.bean.arrangeraster.ArrangeRasterTile" numRows="2" numCols="1"/>
+                                <item config-class="org.anchoranalysis.image.bean.spatial.arrange.Cell" row="0" col="1">
+                                    <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="2" numCols="1"/>
                                 </item>
                             </cells>
                         </arrange>
