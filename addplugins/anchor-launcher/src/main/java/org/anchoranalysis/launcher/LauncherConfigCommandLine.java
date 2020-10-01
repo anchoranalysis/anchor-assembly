@@ -22,9 +22,8 @@
 
 package org.anchoranalysis.launcher;
 
-import static org.anchoranalysis.launcher.CustomOptions.*;
-
 import java.util.Optional;
+import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.config.HelpConfig;
@@ -32,6 +31,8 @@ import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
+import org.anchoranalysis.launcher.options.CommandLineOptions;
+import org.anchoranalysis.launcher.options.ExtractArguments;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -41,13 +42,6 @@ import org.apache.commons.cli.Options;
  * @author Owen Feehan
  */
 class LauncherConfigCommandLine extends LauncherConfig {
-
-    // START: Options
-    private static final String OPTION_DEBUG = "d";
-    private static final String OPTION_INPUT = "i";
-    private static final String OPTION_OUTPUT = "o";
-    private static final String OPTION_TASK = "t";
-    // END: Options
 
     // START: Resource PATHs
     private static final String RESOURCE_VERSION_FOOTER =
@@ -66,18 +60,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
     /** Adds additional options unique to this implementation */
     @Override
     public void addAdditionalOptions(Options options) {
-
-        options.addOption(optionalSingleArgument(OPTION_DEBUG, "enables debug mode"));
-
-        options.addOption(
-                multipleArguments(
-                        OPTION_INPUT,
-                        "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML"));
-
-        options.addOption(
-                requiredSingleArgument(OPTION_OUTPUT, "an output-directory OR path to BeanXML"));
-
-        options.addOption(requiredSingleArgument(OPTION_TASK, "a task-name OR path to BeanXML"));
+        CommandLineOptions.addAdditionalOptions(options);
     }
 
     @Override
@@ -91,12 +74,14 @@ class LauncherConfigCommandLine extends LauncherConfig {
     }
 
     @Override
-    public ExperimentExecutionArguments createArguments(CommandLine line) {
-        ExperimentExecutionArguments ea = new ExperimentExecutionArguments();
-        if (line.hasOption(OPTION_DEBUG)) {
-            ea.activateDebugMode(line.getOptionValue(OPTION_DEBUG));
-        }
-        return ea;
+    public ExperimentExecutionArguments createArguments(CommandLine line) throws ExperimentExecutionException {
+        ExperimentExecutionArguments arguments = new ExperimentExecutionArguments();
+        
+        ExtractArguments extract = new ExtractArguments(line);
+        extract.single(CommandLineOptions.SHORT_OPTION_DEBUG, true).ifPresent(arguments::activateDebugMode);
+        OptionalUtilities.ifPresent( extract.single(CommandLineOptions.SHORT_OPTION_OUTPUT_ADD, true), outputs ->
+            arguments.assignAdditionalOutputs( AdditionalOutputsFactory.parseFrom(outputs, CommandLineOptions.SHORT_OPTION_OUTPUT_ADD)) );
+        return arguments;
     }
 
     @Override
@@ -122,11 +107,11 @@ class LauncherConfigCommandLine extends LauncherConfig {
     @Override
     protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line)
             throws ExperimentExecutionException {
-        template.setInput(SelectParamFactory.inputSelectParam(line, OPTION_INPUT));
-        template.setOutput(SelectParamFactory.outputSelectParam(line, OPTION_OUTPUT));
+        template.setInput(SelectParamFactory.inputSelectParam(line, CommandLineOptions.SHORT_OPTION_INPUT));
+        template.setOutput(SelectParamFactory.outputSelectParam(line, CommandLineOptions.SHORT_OPTION_OUTPUT));
         template.setTask(
                 SelectParamFactory.pathOrTaskNameOrDefault(
-                        line, OPTION_TASK, template.getConfigDir()));
+                        line, CommandLineOptions.SHORT_OPTION_TASK, template.getConfigDir()));
         template.setDefaultBehaviourString(
                 Optional.of("Searching recursively for image files. CTRL+C cancels"));
     }

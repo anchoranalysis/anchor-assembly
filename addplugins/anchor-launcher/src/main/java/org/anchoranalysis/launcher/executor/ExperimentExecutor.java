@@ -36,7 +36,7 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
-import org.anchoranalysis.launcher.parser.ParseArgumentsAndRunExperiment;
+import org.anchoranalysis.launcher.options.CommandLineOptions;
 
 /**
  * Determines where the files passed the ExperimentExecutor are loaded from.
@@ -97,7 +97,7 @@ public class ExperimentExecutor {
             logger.logFormatted(
                     "%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.%n",
                     defaultBehaviourString.get(), // NOSONAR
-                    ParseArgumentsAndRunExperiment.OPTION_HELP);
+                    CommandLineOptions.SHORT_OPTION_HELP);
         }
 
         Experiment experimentLoaded = loadExperimentFromPath(execArgs);
