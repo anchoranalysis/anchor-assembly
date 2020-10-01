@@ -31,7 +31,8 @@ import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
-import org.anchoranalysis.launcher.options.ExtractArguments;
+import org.anchoranalysis.launcher.options.CommandLineExtracter;
+import org.anchoranalysis.launcher.options.outputs.ProcessOutputOptions;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -85,10 +86,11 @@ class LauncherConfigCommandLine extends LauncherConfig {
     public ExperimentExecutionArguments createArguments(CommandLine line) throws ExperimentExecutionException {
         ExperimentExecutionArguments arguments = new ExperimentExecutionArguments();
         
-        ExtractArguments extract = new ExtractArguments(line);
+        CommandLineExtracter extract = new CommandLineExtracter(line);
         extract.ifPresentSingle(CommandLineOptions.SHORT_OPTION_DEBUG, arguments::activateDebugMode);
-        extract.ifPresentSingle(CommandLineOptions.SHORT_OPTION_OUTPUT_ADD, outputs ->
-            addAdditionalOutputs(arguments, outputs) );
+        
+        ProcessOutputOptions.maybeAddOutputs(extract, arguments);
+        
         return arguments;
     }
     
@@ -122,9 +124,5 @@ class LauncherConfigCommandLine extends LauncherConfig {
                         line, CommandLineOptions.SHORT_OPTION_TASK, template.getConfigDir()));
         template.setDefaultBehaviourString(
                 Optional.of(BEHAVIOUR_MESSAGE_FOR_DEFAULT_EXPERIMENT));
-    }
-    
-    private void addAdditionalOutputs(ExperimentExecutionArguments arguments, String outputsCommaSeparated) throws ExperimentExecutionException {
-        arguments.assignAdditionalOutputs( AdditionalOutputsFactory.parseFrom(outputsCommaSeparated, CommandLineOptions.SHORT_OPTION_OUTPUT_ADD));
     }
 }

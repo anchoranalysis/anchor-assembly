@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher;
+package org.anchoranalysis.launcher.options.outputs;
 
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.io.output.enabled.OutputEnabledMutable;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
  *
  */
 @NoArgsConstructor(access=AccessLevel.PRIVATE)
-class AdditionalOutputsFactory {
+class AdditionalOutputsParser {
 
     /** 
      * What element separates the first-level output from the second-level output.

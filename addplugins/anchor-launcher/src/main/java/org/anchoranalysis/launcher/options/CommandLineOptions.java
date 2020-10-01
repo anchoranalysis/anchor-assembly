@@ -25,7 +25,8 @@ public class CommandLineOptions {
     public static final String SHORT_OPTION_DEBUG = "d";
     public static final String SHORT_OPTION_INPUT = "i";
     public static final String SHORT_OPTION_OUTPUT = "o";
-    public static final String SHORT_OPTION_OUTPUT_ADD = "oa";
+    public static final String SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL = "oe";
+    public static final String SHORT_OPTION_OUTPUT_ENABLE_ALL = "oa";
     public static final String SHORT_OPTION_TASK = "t";
     
     private static final String LONG_OPTION_HELP = "help";
@@ -36,7 +37,8 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_DEBUG = "debug";
     private static final String LONG_OPTION_INPUT = "input";
     private static final String LONG_OPTION_OUTPUT = "output";
-    private static final String LONG_OPTION_OUTPUT_ADD = "outputAdd";
+    private static final String LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL = "outputEnable";
+    private static final String LONG_OPTION_OUTPUT_ENABLE_ALL = "outputEnableAll";
     private static final String LONG_OPTION_TASK = "task";
     // END: Options
     
@@ -65,7 +67,9 @@ public class CommandLineOptions {
         options.addOption(
                 requiredSingleArgument(SHORT_OPTION_OUTPUT, LONG_OPTION_OUTPUT, "an output-directory OR path to BeanXML"));
 
-        options.addOption(optionalSingleArgument(SHORT_OPTION_OUTPUT_ADD, LONG_OPTION_OUTPUT_ADD, "enables additional output(s)"));
+        options.addOption(optionalSingleArgument(SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL, LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL, "enables specific additional output(s)"));
+        
+        options.addOption(SHORT_OPTION_OUTPUT_ENABLE_ALL, LONG_OPTION_OUTPUT_ENABLE_ALL, false, "enables all outputs");
         
         options.addOption(requiredSingleArgument(SHORT_OPTION_TASK, LONG_OPTION_TASK, "a task-name OR path to BeanXML"));
         

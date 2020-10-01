@@ -8,16 +8,26 @@ import org.apache.commons.cli.CommandLine;
 import lombok.AllArgsConstructor;
 
 /**
- * Extracts options with one or more arguments as {@link Optional}.
+ * Adds methods to {@link CommandLine} for querying and extracting options, with and without arguments.
  * 
  * @author Owen Feehan
  *
  */
 @AllArgsConstructor
-public class ExtractArguments {
+public class CommandLineExtracter {
     
     /** The command-line from which options are extracted. */
     private CommandLine line;
+    
+    /**
+     * Identical to {@link CommandLine#hasOption}.
+     *  
+     * @param option short-name of option
+     * @return true iff option exists on the command-line, irrespective of if arguments are present or not
+     */
+    public boolean hasOption(String option) {
+        return line.hasOption(option);
+    }
     
     /**
      * Executes a {@link Consumer} if an option is present.
@@ -37,7 +47,7 @@ public class ExtractArguments {
      * @return the single-argument if the option is present
      */
     private Optional<String> single(String optionName, boolean convertNullToEmptyString) {
-        if (line.hasOption(optionName)) {
+        if (hasOption(optionName)) {
             String element = line.getOptionValue(optionName);
             if (element!=null) {
                 return Optional.of(element);
