@@ -26,6 +26,7 @@ public class CommandLineOptions {
     public static final String SHORT_OPTION_INPUT = "i";
     public static final String SHORT_OPTION_OUTPUT = "o";
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL = "oe";
+    public static final String SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL = "od";
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ALL = "oa";
     public static final String SHORT_OPTION_TASK = "t";
     
@@ -38,6 +39,7 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_INPUT = "input";
     private static final String LONG_OPTION_OUTPUT = "output";
     private static final String LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL = "outputEnable";
+    private static final String LONG_OPTION_OUTPUT_DISABLE_ADDITIONAL = "outputDisable";
     private static final String LONG_OPTION_OUTPUT_ENABLE_ALL = "outputEnableAll";
     private static final String LONG_OPTION_TASK = "task";
     // END: Options
@@ -64,14 +66,20 @@ public class CommandLineOptions {
                         LONG_OPTION_INPUT,
                         "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML"));
 
-        options.addOption(
-                requiredSingleArgument(SHORT_OPTION_OUTPUT, LONG_OPTION_OUTPUT, "an output-directory OR path to BeanXML"));
-
-        options.addOption(optionalSingleArgument(SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL, LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL, "enables specific additional output(s)"));
-        
-        options.addOption(SHORT_OPTION_OUTPUT_ENABLE_ALL, LONG_OPTION_OUTPUT_ENABLE_ALL, false, "enables all outputs");
+        addOutputOptions(options);
         
         options.addOption(requiredSingleArgument(SHORT_OPTION_TASK, LONG_OPTION_TASK, "a task-name OR path to BeanXML"));
+    }
+    
+    private static void addOutputOptions(Options options) {
+
+        options.addOption(
+                requiredSingleArgument(SHORT_OPTION_OUTPUT, LONG_OPTION_OUTPUT, "an output-directory OR path to BeanXML"));
         
+        options.addOption(optionalSingleArgument(SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL, LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL, "enables specific additional output(s)"));
+        
+        options.addOption(optionalSingleArgument(SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL, LONG_OPTION_OUTPUT_DISABLE_ADDITIONAL, "disables specific additional output(s)"));
+        
+        options.addOption(SHORT_OPTION_OUTPUT_ENABLE_ALL, LONG_OPTION_OUTPUT_ENABLE_ALL, false, "enables all outputs");        
     }
 }
