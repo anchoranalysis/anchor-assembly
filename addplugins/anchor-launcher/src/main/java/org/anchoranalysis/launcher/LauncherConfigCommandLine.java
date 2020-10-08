@@ -30,8 +30,8 @@ import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
-import org.anchoranalysis.launcher.options.CommandLineOptions;
 import org.anchoranalysis.launcher.options.CommandLineExtracter;
+import org.anchoranalysis.launcher.options.CommandLineOptions;
 import org.anchoranalysis.launcher.options.outputs.ProcessOutputOptions;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -53,18 +53,21 @@ class LauncherConfigCommandLine extends LauncherConfig {
     private static final String RESOURCE_USAGE_FOOTER =
             "org/anchoranalysis/launcher/usageFooterDisplayMessage.txt";
     // END: Resource PATHs
-    
-    /** The default first-argument passed as an experiment, if none is specified on the command line. */
+
+    /**
+     * The default first-argument passed as an experiment, if none is specified on the command line.
+     */
     private static final String DEFAULT_FIRST_ARGUMENT = "experimentFile.xml";
 
     /** The name of the command as printed in the help. */
     private static final String COMMAND_NAME = "anchor";
-    
+
     /** A path relative to the current JAR where a properties file can be found */
     private static final String PATH_RELATIVE_PROPERTIES = "anchor.properties";
 
     /** a string is printed in the description if the default-experiment is used. */
-    private static final String BEHAVIOUR_MESSAGE_FOR_DEFAULT_EXPERIMENT = "Searching recursively for image files. CTRL+C cancels";
+    private static final String BEHAVIOUR_MESSAGE_FOR_DEFAULT_EXPERIMENT =
+            "Searching recursively for image files. CTRL+C cancels";
 
     /** Adds additional options unique to this implementation */
     @Override
@@ -83,17 +86,19 @@ class LauncherConfigCommandLine extends LauncherConfig {
     }
 
     @Override
-    public ExperimentExecutionArguments createArguments(CommandLine line) throws ExperimentExecutionException {
+    public ExperimentExecutionArguments createArguments(CommandLine line)
+            throws ExperimentExecutionException {
         ExperimentExecutionArguments arguments = new ExperimentExecutionArguments();
-        
+
         CommandLineExtracter extract = new CommandLineExtracter(line);
-        extract.ifPresentSingle(CommandLineOptions.SHORT_OPTION_DEBUG, arguments::activateDebugMode);
-        
+        extract.ifPresentSingle(
+                CommandLineOptions.SHORT_OPTION_DEBUG, arguments::activateDebugMode);
+
         new ProcessOutputOptions(extract, arguments).maybeAddOutputs();
-        
+
         return arguments;
     }
-    
+
     @Override
     protected Class<?> classInCurrentJar() {
         return LauncherConfigCommandLine.class;
@@ -117,12 +122,13 @@ class LauncherConfigCommandLine extends LauncherConfig {
     @Override
     protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line)
             throws ExperimentExecutionException {
-        template.setInput(SelectParamFactory.inputSelectParam(line, CommandLineOptions.SHORT_OPTION_INPUT));
-        template.setOutput(SelectParamFactory.outputSelectParam(line, CommandLineOptions.SHORT_OPTION_OUTPUT));
+        template.setInput(
+                SelectParamFactory.inputSelectParam(line, CommandLineOptions.SHORT_OPTION_INPUT));
+        template.setOutput(
+                SelectParamFactory.outputSelectParam(line, CommandLineOptions.SHORT_OPTION_OUTPUT));
         template.setTask(
                 SelectParamFactory.pathOrTaskNameOrDefault(
                         line, CommandLineOptions.SHORT_OPTION_TASK, template.getConfigDir()));
-        template.setDefaultBehaviourString(
-                Optional.of(BEHAVIOUR_MESSAGE_FOR_DEFAULT_EXPERIMENT));
+        template.setDefaultBehaviourString(Optional.of(BEHAVIOUR_MESSAGE_FOR_DEFAULT_EXPERIMENT));
     }
 }

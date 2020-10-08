@@ -8,12 +8,12 @@
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -24,17 +24,17 @@ package org.anchoranalysis.launcher.options;
 import static org.anchoranalysis.launcher.options.CustomArgumentOptions.multipleArguments;
 import static org.anchoranalysis.launcher.options.CustomArgumentOptions.optionalSingleArgument;
 import static org.anchoranalysis.launcher.options.CustomArgumentOptions.requiredSingleArgument;
-import org.apache.commons.cli.Options;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.cli.Options;
 
 /**
  * All command-line options used by the launcher.
- * 
- * @author Owen Feehan
  *
+ * @author Owen Feehan
  */
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CommandLineOptions {
 
     // START: Options
@@ -42,7 +42,7 @@ public class CommandLineOptions {
     public static final String SHORT_OPTION_VERSION = "v";
     public static final String SHORT_OPTION_LOG_ERROR = "l";
     public static final String SHORT_OPTION_SHOW_EXPERIMENT_ARGUMENTS = "sa";
-    
+
     public static final String SHORT_OPTION_DEBUG = "d";
     public static final String SHORT_OPTION_INPUT = "i";
     public static final String SHORT_OPTION_OUTPUT = "o";
@@ -50,12 +50,12 @@ public class CommandLineOptions {
     public static final String SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL = "od";
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ALL = "oa";
     public static final String SHORT_OPTION_TASK = "t";
-    
+
     private static final String LONG_OPTION_HELP = "help";
     private static final String LONG_OPTION_VERSION = "version";
     private static final String LONG_OPTION_LOG_ERROR = "logError";
     private static final String LONG_OPTION_SHOW_EXPERIMENT_ARGUMENTS = "showArguments";
-    
+
     private static final String LONG_OPTION_DEBUG = "debug";
     private static final String LONG_OPTION_INPUT = "input";
     private static final String LONG_OPTION_OUTPUT = "output";
@@ -64,22 +64,36 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_OUTPUT_ENABLE_ALL = "outputEnableAll";
     private static final String LONG_OPTION_TASK = "task";
     // END: Options
-    
+
     public static void addBasicOptions(Options options) {
-        options.addOption(SHORT_OPTION_HELP, LONG_OPTION_HELP, false, "print this message and exit");
-
-        options.addOption(SHORT_OPTION_VERSION, LONG_OPTION_VERSION, false, "print version information and exit");
-
-        // This logs the errors in greater detail
-        options.addOption(SHORT_OPTION_LOG_ERROR, LONG_OPTION_LOG_ERROR, true, "log BeanXML parsing errors to file");
+        options.addOption(
+                SHORT_OPTION_HELP, LONG_OPTION_HELP, false, "print this message and exit");
 
         options.addOption(
-                SHORT_OPTION_SHOW_EXPERIMENT_ARGUMENTS, LONG_OPTION_SHOW_EXPERIMENT_ARGUMENTS, false, "print experiment path arguments");
+                SHORT_OPTION_VERSION,
+                LONG_OPTION_VERSION,
+                false,
+                "print version information and exit");
+
+        // This logs the errors in greater detail
+        options.addOption(
+                SHORT_OPTION_LOG_ERROR,
+                LONG_OPTION_LOG_ERROR,
+                true,
+                "log BeanXML parsing errors to file");
+
+        options.addOption(
+                SHORT_OPTION_SHOW_EXPERIMENT_ARGUMENTS,
+                LONG_OPTION_SHOW_EXPERIMENT_ARGUMENTS,
+                false,
+                "print experiment path arguments");
     }
-    
+
     public static void addAdditionalOptions(Options options) {
 
-        options.addOption(optionalSingleArgument(SHORT_OPTION_DEBUG, LONG_OPTION_DEBUG, "enables debug mode"));
+        options.addOption(
+                optionalSingleArgument(
+                        SHORT_OPTION_DEBUG, LONG_OPTION_DEBUG, "enables debug mode"));
 
         options.addOption(
                 multipleArguments(
@@ -88,19 +102,36 @@ public class CommandLineOptions {
                         "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML"));
 
         addOutputOptions(options);
-        
-        options.addOption(requiredSingleArgument(SHORT_OPTION_TASK, LONG_OPTION_TASK, "a task-name OR path to BeanXML"));
+
+        options.addOption(
+                requiredSingleArgument(
+                        SHORT_OPTION_TASK, LONG_OPTION_TASK, "a task-name OR path to BeanXML"));
     }
-    
+
     private static void addOutputOptions(Options options) {
 
         options.addOption(
-                requiredSingleArgument(SHORT_OPTION_OUTPUT, LONG_OPTION_OUTPUT, "an output-directory OR path to BeanXML"));
-        
-        options.addOption(optionalSingleArgument(SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL, LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL, "enables specific additional output(s)"));
-        
-        options.addOption(optionalSingleArgument(SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL, LONG_OPTION_OUTPUT_DISABLE_ADDITIONAL, "disables specific additional output(s)"));
-        
-        options.addOption(SHORT_OPTION_OUTPUT_ENABLE_ALL, LONG_OPTION_OUTPUT_ENABLE_ALL, false, "enables all outputs");        
+                requiredSingleArgument(
+                        SHORT_OPTION_OUTPUT,
+                        LONG_OPTION_OUTPUT,
+                        "an output-directory OR path to BeanXML"));
+
+        options.addOption(
+                optionalSingleArgument(
+                        SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL,
+                        LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL,
+                        "enables specific additional output(s)"));
+
+        options.addOption(
+                optionalSingleArgument(
+                        SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL,
+                        LONG_OPTION_OUTPUT_DISABLE_ADDITIONAL,
+                        "disables specific additional output(s)"));
+
+        options.addOption(
+                SHORT_OPTION_OUTPUT_ENABLE_ALL,
+                LONG_OPTION_OUTPUT_ENABLE_ALL,
+                false,
+                "enables all outputs");
     }
 }

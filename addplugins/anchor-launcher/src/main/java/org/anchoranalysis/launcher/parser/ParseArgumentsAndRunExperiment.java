@@ -167,7 +167,8 @@ public class ParseArgumentsAndRunExperiment {
 
             // Unless it's enabled, we record a more detailed error log to the filesystem
             if (line.hasOption(CommandLineOptions.SHORT_OPTION_LOG_ERROR)) {
-                Path errorLogPath = Paths.get(line.getOptionValue(CommandLineOptions.SHORT_OPTION_LOG_ERROR));
+                Path errorLogPath =
+                        Paths.get(line.getOptionValue(CommandLineOptions.SHORT_OPTION_LOG_ERROR));
                 logger.messageLogger()
                         .logFormatted("Logging error in \"%s\"%n", errorLogPath.toAbsolutePath());
                 ErrorPrinter.printErrorLog(e, errorLogPath);
