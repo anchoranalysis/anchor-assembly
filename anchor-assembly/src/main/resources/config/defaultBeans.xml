@@ -11,12 +11,24 @@
 		</item>
 	</item>
 	
-	<!-- Write PNG for single or three-channeled images using OpenCV, or else write TIFFs using ImageJ -->
+	<!-- Write PNGs (for single or three-channeled 2D images) or Tiffs (for single or three-channeled 3D images) or OME-TIFFs for everything else. -->
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.rasterwriter.RasterWriter">
-		<item config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.MultiplexWriter">
-			<writer config-class="org.anchoranalysis.io.imagej.bean.raster.writer.Tiff"/>
-			<whenRGB config-class="org.anchoranalysis.io.imagej.bean.raster.writer.PNG"/>
-			<whenOneOrThreeChannels config-class="org.anchoranalysis.io.imagej.bean.raster.writer.PNG"/>
+		<item config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.BranchChannels">
+			
+			<!--  Catch all writer that can support almost any combination of channels / stacks  -->
+			<writer config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.bioformats.OMETiff"/>
+
+			<!-- If it's guaranteed to be RGB (three channels) use a PNG if guaranteed to be 2D, or a TIFF otherwise -->
+			<whenRGB config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.BranchStack">
+				<writerAlways2D config-class="org.anchoranalysis.io.imagej.bean.raster.writer.PNG"/>
+				<writerElse config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.bioformats.Tiff"/>
+			</whenRGB>
+			
+			<!-- Likewise if it's guaranteed to be one or three channels, use a PNG if guranteed to be 2D, or a TIFF otherwise -->
+			<whenOneOrThreeChannels config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.BranchStack">
+				<writerAlways2D config-class="org.anchoranalysis.io.imagej.bean.raster.writer.PNG"/>
+				<writerElse config-class="org.anchoranalysis.plugin.io.bean.rasterwriter.bioformats.Tiff"/>
+			</whenOneOrThreeChannels>
 		</item>
 	</item>
 	
