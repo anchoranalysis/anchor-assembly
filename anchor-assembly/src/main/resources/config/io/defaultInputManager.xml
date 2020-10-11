@@ -7,19 +7,19 @@
         <input config-class="org.anchoranalysis.plugin.io.bean.input.file.Files">
 	   
 		      <!-- First, we try to get a list of paths (from the input-context) if it exists -->
-		      <fileProvider config-class="org.anchoranalysis.io.bean.provider.file.SpecificPathList">
+		      <filesProvider config-class="org.anchoranalysis.io.bean.files.provider.SpecificPathList">
 		      
 		          <!-- If that's not there, then we try with a FileSet.
 		            As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
-		          <fallback acceptDirectoryErrors="true" ignoreHidden="true" recursive="true" config-class="org.anchoranalysis.io.bean.provider.file.SearchDirectory">
+		          <fallback acceptDirectoryErrors="true" ignoreHidden="true" recursive="true" config-class="org.anchoranalysis.io.bean.files.provider.SearchDirectory">
 		              
 		              <!-- As no extensions or glob are defined, they are both populated from the input-context -->
-		              <matcher config-class="org.anchoranalysis.io.bean.file.matcher.MatchExtensions">
-		                  <matcher config-class="org.anchoranalysis.io.bean.file.matcher.MatchGlob"/>
+		              <matcher config-class="org.anchoranalysis.io.bean.path.matcher.MatchExtensions">
+		                  <matcher config-class="org.anchoranalysis.io.bean.path.matcher.MatchGlob"/>
 		              </matcher>
 		              
 		          </fallback>
-		      </fileProvider>
+		      </filesProvider>
 	   </input>
 	   
 	   
