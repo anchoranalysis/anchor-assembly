@@ -100,7 +100,7 @@
                             <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.NumberMarksAsText">
                                 <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
                                     <size width="45" height="50" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
-                                    <fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="255" green="255" blue="255"/>
+                                    <fontColor config-class="org.anchoranalysis.bean.shared.color.RGBColorBean" red="255" green="255" blue="255"/>
                                 </stringGenerator>
                             </item>
                                                 
@@ -155,7 +155,7 @@
                                 <item prefix="Proposed Segments: size=" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.NumberMarksAsText">
                                     <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
                                         <size width="500" height="50" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
-                                        <fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="0" green="255" blue="255"/>
+                                        <fontColor config-class="org.anchoranalysis.bean.shared.color.RGBColorBean" red="0" green="255" blue="255"/>
                                     </stringGenerator>
                                 </item>
                             </item>
@@ -169,7 +169,7 @@
                                 <item text="Proposed Ellipse" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.ConstantStringRasterGenerator">
                                     <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
                                         <size width="500" height="50" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
-                                        <fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="0" green="255" blue="255"/>
+                                        <fontColor config-class="org.anchoranalysis.bean.shared.color.RGBColorBean" red="0" green="255" blue="255"/>
                                     </stringGenerator>
                                 </item>
                             </item>
@@ -192,7 +192,7 @@
                                 <item text="Best-Fitting Ellipse" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.ConstantStringRasterGenerator">
                                     <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
                                     	<size width="500" height="50" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
-                                        <fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="0" green="255" blue="255"/>
+                                        <fontColor config-class="org.anchoranalysis.bean.shared.color.RGBColorBean" red="0" green="255" blue="255"/>
                                     </stringGenerator>
                                 </item>
                             </item>
@@ -223,7 +223,7 @@
                     <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.NumberMarksAsText">
                         <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
                             <size width="70" height="100" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
-                            <fontColor config-class="org.anchoranalysis.io.bean.color.RGBColorBean" red="255" green="255" blue="255"/>
+                            <fontColor config-class="org.anchoranalysis.bean.shared.color.RGBColorBean" red="255" green="255" blue="255"/>
                         </stringGenerator>
                     </item>
                 </createRasterGeneratorList>

@@ -29,8 +29,8 @@ import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.io.path.glob.GlobExtractor;
-import org.anchoranalysis.io.path.glob.GlobExtractor.GlobWithDirectory;
+import org.anchoranalysis.io.path.GlobExtractor;
+import org.anchoranalysis.io.path.GlobExtractor.GlobWithDirectory;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
