@@ -24,64 +24,64 @@
   #L%
   -->
  <config>
- <bean config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskList">
+ <bean config-class="org.anchoranalysis.plugin.gui.bean.export.task.ExportTaskList">
     <list config-class="java.util.List" config-factory="list">
                 
     <!--  Export Graph NRG Time Series -->
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMarks" incrementSize="1000" outputName="nrgBreakdownTime">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.PlotEnergy">
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.Marks" incrementSize="1000" outputName="nrgBreakdownTime">
+            <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.plot.Energy">
             	<size width="500" height="300" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                 <graphDefinition config-class="org.anchoranalysis.gui.plot.bean.BarPlotEnergyBreakdown" showDomainAxis="false"/>
-            </createRasterGenerator>
+            </stack>
         </item>
         
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMarks" incrementSize="1000" outputName="textCfgSize">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.NumberMarksAsText">
-                <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="36">
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.Marks" incrementSize="1000" outputName="textCfgSize">
+            <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.text.NumberMarks">
+                <textStyle config-class="org.anchoranalysis.image.io.bean.generator.TextStyle" fontSize="36">
                 	<size width="200" height="100" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                 </stringGenerator>
-            </createRasterGenerator>
+            </stack>
         </item>
         
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskCSVStatistic" incrementSize="1000" outputName="dynamicCfgSize">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.PlotNumberMarks">
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.StatisticFromCSV" incrementSize="1000" outputName="dynamicCfgSize">
+            <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.plot.NumberMarks">
                 <size width="500" height="300" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotNumberMarks"/>
-            </createRasterGenerator>
+            </stack>
         </item>
         
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskCSVStatistic" incrementSize="1000" outputName="dynamicNRG">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.csvstatistic.PlotEnergy">
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.StatisticFromCSV" incrementSize="1000" outputName="dynamicNRG">
+            <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.plot.csv.Energy">
                 <size width="500" height="300" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy"/>
-            </createRasterGenerator>
+            </stack>
 
     </item>
 
     <!-- increment size previously 1000 -->
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMarks" incrementSize="1" outputName="rgbOutline">
-            <createRasterGenerator index="0" config-class="org.anchoranalysis.gui.export.bean.task.DemuxDualState">
-                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects"/>
-            </createRasterGenerator>
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.Marks" incrementSize="1" outputName="rgbOutline">
+            <stack index="0" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.DemuxDualState">
+                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects"/>
+            </stack>
         </item>
         
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMergedMarks" incrementSize="1" outputName="rgbOutlineMerged">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects" mip="true" colorFromIter="true"/>
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.ExportTaskMergedMarks" incrementSize="1" outputName="rgbOutlineMerged">
+            <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects" mip="true" colorFromIter="true"/>
         </item>
         
         
         
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMarks" incrementSize="1000" startAtEnd="true" outputName="rgbOutlineBackward">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects" mip="true"/>
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.Marks" incrementSize="1000" startAtEnd="true" outputName="rgbOutlineBackward">
+            <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects" mip="true"/>
         </item>
         
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMarks" incrementSize="1" startAtEnd="true" outputName="rgbOutlineLast">
-            <createRasterGenerator backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects"/>
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.Marks" incrementSize="1" startAtEnd="true" outputName="rgbOutlineLast">
+            <stack backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects"/>
         </item>
                 
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMarks" outputName="combined" incrementSize="1">
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.Marks" outputName="combined" incrementSize="1">
                 
-                    <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.CombinedMarks">
+                    <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.CombinedMarks">
                     
                         <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="2" numCols="2">
                             <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
@@ -95,22 +95,22 @@
                         </arrange>
                         
                         <createRasterGeneratorList config-class="java.util.List" config-factory="list">
-                            <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects"/>
+                            <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects"/>
         
-                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.NumberMarksAsText">
-                                <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
+                            <item config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.text.NumberMarks">
+                                <textStyle config-class="org.anchoranalysis.image.io.bean.generator.TextStyle" fontSize="28" fontName="SansSerif" bold="true">
                                     <size width="45" height="50" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                                     <fontColor config-class="org.anchoranalysis.bean.shared.color.RGBColorBean" red="255" green="255" blue="255"/>
                                 </stringGenerator>
                             </item>
                                                 
-                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
+                            <item config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.plot.energybreakdown.NumberMarks">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotNumberMarks">
                                     <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroud"/>
                                 </graphDefinition>
                                 <size width="400" height="200" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                             </item>
-                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
+                            <item config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.plot.energybreakdown.NumberMarks">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy">
                                     <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroud"/>
                                 </graphDefinition>
@@ -118,15 +118,15 @@
                             </item>
                         </createRasterGeneratorList>
 
-            </createRasterGenerator>
+            </stack>
         </item>
         
         
         
         
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMarks" outputName="combinedCornea" incrementSize="10">
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.Marks" outputName="combinedCornea" incrementSize="10">
                 
-                    <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.Combined">
+                    <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.Combined">
                     
                         <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="2" numCols="2">
                             <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
@@ -147,35 +147,35 @@
                         
                         <createRasterGeneratorList config-class="java.util.List" config-factory="list">
                         
-                            <item index="2" config-class="org.anchoranalysis.gui.export.bean.task.DemuxDualState">
-                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects"/>
+                            <item index="2" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.DemuxDualState">
+                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects"/>
                             </item>
                             
-                            <item index="2" config-class="org.anchoranalysis.gui.export.bean.task.DemuxDualState">
-                                <item prefix="Proposed Segments: size=" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.NumberMarksAsText">
-                                    <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
+                            <item index="2" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.DemuxDualState">
+                                <item prefix="Proposed Segments: size=" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.text.NumberMarks">
+                                    <textStyle config-class="org.anchoranalysis.image.io.bean.generator.TextStyle" fontSize="28" fontName="SansSerif" bold="true">
                                         <size width="500" height="50" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                                         <fontColor config-class="org.anchoranalysis.bean.shared.color.RGBColorBean" red="0" green="255" blue="255"/>
                                     </stringGenerator>
                                 </item>
                             </item>
                             
-                            <item index="1" config-class="org.anchoranalysis.gui.export.bean.task.DemuxDualState">
-                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects"/>
+                            <item index="1" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.DemuxDualState">
+                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects"/>
                             </item>
 
                             
-                            <item index="2" config-class="org.anchoranalysis.gui.export.bean.task.DemuxDualState">
-                                <item text="Proposed Ellipse" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.ConstantStringRasterGenerator">
-                                    <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
+                            <item index="2" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.DemuxDualState">
+                                <item text="Proposed Ellipse" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.text.ConstantText">
+                                    <textStyle config-class="org.anchoranalysis.image.io.bean.generator.TextStyle" fontSize="28" fontName="SansSerif" bold="true">
                                         <size width="500" height="50" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                                         <fontColor config-class="org.anchoranalysis.bean.shared.color.RGBColorBean" red="0" green="255" blue="255"/>
                                     </stringGenerator>
                                 </item>
                             </item>
 
-                            <item index="1" config-class="org.anchoranalysis.gui.export.bean.task.DemuxDualState">
-                                <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
+                            <item index="1" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.DemuxDualState">
+                                <item config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.plot.energybreakdown.NumberMarks">
                                     <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy" minMaxIgnoreBeforeIndex="100">
                                         <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroud"/>
                                     </graphDefinition>
@@ -183,14 +183,14 @@
                                 </item>
                             </item>
 
-                            <item index="0" config-class="org.anchoranalysis.gui.export.bean.task.DemuxDualState">
-                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects"/>
+                            <item index="0" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.DemuxDualState">
+                                <item backgroundStackName="nrgChnl-0" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects"/>
                             </item>
                             
                                                         
-                            <item index="2" config-class="org.anchoranalysis.gui.export.bean.task.DemuxDualState">
-                                <item text="Best-Fitting Ellipse" config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.ConstantStringRasterGenerator">
-                                    <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
+                            <item index="2" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.DemuxDualState">
+                                <item text="Best-Fitting Ellipse" config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.text.ConstantText">
+                                    <textStyle config-class="org.anchoranalysis.image.io.bean.generator.TextStyle" fontSize="28" fontName="SansSerif" bold="true">
                                     	<size width="500" height="50" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                                         <fontColor config-class="org.anchoranalysis.bean.shared.color.RGBColorBean" red="0" green="255" blue="255"/>
                                     </stringGenerator>
@@ -199,14 +199,14 @@
 
                         </createRasterGeneratorList>
 
-            </createRasterGenerator>
+            </stack>
         </item>
         
         
         
-        <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMarks" outputName="combinedNuc" incrementSize="100">
+        <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.Marks" outputName="combinedNuc" incrementSize="100">
         
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.CombinedMarks">
+            <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.CombinedMarks">
             
                 <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="2" numCols="2">
                     <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
@@ -218,27 +218,27 @@
                 </arrange>
                 
                 <createRasterGeneratorList config-class="java.util.List" config-factory="list">
-                    <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects" mip="true"/>
+                    <item config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects" mip="true"/>
 
-                    <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.NumberMarksAsText">
-                        <stringGenerator config-class="org.anchoranalysis.image.io.bean.generator.StringRasterGenerator" fontSize="28" fontName="SansSerif" bold="true">
+                    <item config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.text.NumberMarks">
+                        <textStyle config-class="org.anchoranalysis.image.io.bean.generator.TextStyle" fontSize="28" fontName="SansSerif" bold="true">
                             <size width="70" height="100" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                             <fontColor config-class="org.anchoranalysis.bean.shared.color.RGBColorBean" red="255" green="255" blue="255"/>
                         </stringGenerator>
                     </item>
                 </createRasterGeneratorList>
-            </createRasterGenerator>
+            </stack>
     </item>
     
     
     
-        <item outputName="combinedNuc2" config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMarks" incrementSize="1000" startAtEnd="true" limitIterations="1">
-            <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects" mip="true"/>
+        <item outputName="combinedNuc2" config-class="org.anchoranalysis.plugin.gui.bean.export.task.Marks" incrementSize="1000" startAtEnd="true" limitIterations="1">
+            <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects" mip="true"/>
         </item>
                 
-                <item config-class="org.anchoranalysis.gui.export.bean.task.ExportTaskMarks" outputName="combined2" incrementSize="100">
+                <item config-class="org.anchoranalysis.plugin.gui.bean.export.task.Marks" outputName="combined2" incrementSize="100">
                 
-                    <createRasterGenerator config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.CombinedMarks">
+                    <stack config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.CombinedMarks">
                     
                         <arrange config-class="org.anchoranalysis.image.bean.spatial.arrange.Tile" numRows="1" numCols="2">
                             <cells config-class="java.util.List" config-factory="arrangeRasterCellList">
@@ -249,17 +249,17 @@
                         </arrange>
                         
                         <createRasterGeneratorList config-class="java.util.List" config-factory="list">
-                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.DrawObjects" mip="true"/>
+                            <item config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.energybreakdown.DrawObjects" mip="true"/>
         
 
-                            <item config-class="org.anchoranalysis.plugin.gui.bean.createrastergenerator.energybreakdown.dynamically.PlotNumberMarks">
+                            <item config-class="org.anchoranalysis.plugin.gui.bean.export.derivestack.plot.energybreakdown.NumberMarks">
                                 <graphDefinition config-class="org.anchoranalysis.gui.plot.definition.line.LinePlotIterationVsEnergy">
                                     <graphColorScheme config-class="org.anchoranalysis.plot.bean.colorscheme.BlackBackgroud"/>
                                 </graphDefinition>
                                 <size width="400" height="200" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
                             </item>
                         </createRasterGeneratorList>
-                </createRasterGenerator>
+                </stack>
         </item>
       </list>   
   </bean>
