@@ -29,7 +29,7 @@
 
 <experiment config-class="org.anchoranalysis.experiment.bean.io.InputOutputExperiment">
 
-	 <input filePath="inputManager.xml" config-class="org.anchoranalysis.io.bean.input.InputManager" config-factory="include"/>
+	 <input filePath="inputManager.xml" config-class="org.anchoranalysis.io.input.bean.InputManager" config-factory="include"/>
 
   	  <experimentIdentifier name="TestInteractiveBrowserExperiment" version="1.0" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierConstant"/>
 

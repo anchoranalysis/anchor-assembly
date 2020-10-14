@@ -28,7 +28,7 @@
 <config>
 <experiment config-class="org.anchoranalysis.experiment.bean.io.InputOutputExperiment">
 
-    <input filePath="io/defaultInputManager.xml" config-class="org.anchoranalysis.io.bean.input.InputManager" config-factory="include"/>
+    <input filePath="io/defaultInputManager.xml" config-class="org.anchoranalysis.io.input.bean.InputManager" config-factory="include"/>
 
     <experimentIdentifier day="false" time="true" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierAuto"/>
 

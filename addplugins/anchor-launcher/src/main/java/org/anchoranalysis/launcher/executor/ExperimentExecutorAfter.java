@@ -16,8 +16,8 @@ import org.anchoranalysis.experiment.io.ReplaceOutputManager;
 import org.anchoranalysis.experiment.io.ReplaceTask;
 import org.anchoranalysis.image.bean.RegisterBeanFactoriesImage;
 import org.anchoranalysis.image.io.bean.RegisterBeanFactoriesIO;
-import org.anchoranalysis.io.bean.input.InputManager;
 import org.anchoranalysis.io.input.InputFromManager;
+import org.anchoranalysis.io.input.bean.InputManager;
 import org.anchoranalysis.io.output.bean.OutputManager;
 
 /*
