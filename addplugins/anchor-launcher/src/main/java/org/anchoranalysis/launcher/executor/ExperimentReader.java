@@ -27,9 +27,9 @@ import org.anchoranalysis.bean.xml.BeanXmlLoader;
 import org.anchoranalysis.bean.xml.error.BeanXmlException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
-import org.anchoranalysis.experiment.task.Task;
-import org.anchoranalysis.io.bean.input.InputManager;
+import org.anchoranalysis.experiment.bean.task.Task;
 import org.anchoranalysis.io.input.InputFromManager;
+import org.anchoranalysis.io.input.bean.InputManager;
 import org.anchoranalysis.io.output.bean.OutputManager;
 
 class ExperimentReader {

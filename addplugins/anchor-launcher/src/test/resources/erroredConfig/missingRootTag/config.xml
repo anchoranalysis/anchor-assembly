@@ -2,7 +2,7 @@
 <rootTagDoesNotMatter>
 <missingExperimentTagHere config-class="org.anchoranalysis.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" folderOutput="../output/" inputName="stackInput">
 
-	<task config-class="org.anchoranalysis.experiment.bean.task.HelloWorldTask"/>
+	<task config-class="org.anchoranalysis.experiment.bean.task.HelloWorld"/>
 	
 </missingExperimentTagHere>
 </rootTagDoesNotMatter>

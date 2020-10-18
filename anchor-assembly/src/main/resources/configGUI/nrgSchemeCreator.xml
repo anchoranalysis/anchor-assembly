@@ -35,12 +35,12 @@
 				<feature config-class="org.anchoranalysis.plugin.mpp.feature.bean.memo.pair.overlap.Overlap" regionID="0" mip="false"/>
 			</item>	
 			<item config-class="org.anchoranalysis.plugin.mpp.bean.addcriteria.AddCriteriaDistanceTo">
-				<threshold value="100" config-class="org.anchoranalysis.image.bean.unitvalue.distance.UnitValueDistanceVoxels"/>
+				<threshold value="100" config-class="org.anchoranalysis.image.bean.unitvalue.distance.DistanceVoxels"/>
 			</item>
 		</list>
 	</pairAddCriteria>
 					    
-   	<elemPairCreator config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefine">
+   	<elemPairCreator config-class="org.anchoranalysis.feature.bean.list.Define">
    		<list config-class="java.util.List" config-factory="listInclude">
 		 	<include>
 <!-- 	  	 		<item config-class="java.util.List" config-factory="include" filePath="NRG/pairListChrom.xml"/> -->
@@ -49,7 +49,7 @@
   		</list>
    	</elemPairCreator>
 			    	
-   	<elemIndCreator config-class="org.anchoranalysis.feature.bean.list.FeatureListProviderDefine">
+   	<elemIndCreator config-class="org.anchoranalysis.feature.bean.list.Define">
    		<list config-class="java.util.List" config-factory="listInclude">
 			<include>
 <!-- 	  	 		<item config-class="java.util.List" config-factory="include" filePath="NRG/indListChrom.xml"/> -->

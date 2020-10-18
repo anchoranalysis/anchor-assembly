@@ -32,6 +32,7 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
+import org.anchoranalysis.launcher.options.CommandLineOptions;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -57,13 +58,6 @@ import org.apache.commons.cli.ParseException;
  */
 @RequiredArgsConstructor
 public class ParseArgumentsAndRunExperiment {
-
-    // START: Options
-    public static final String OPTION_HELP = "h";
-    private static final String OPTION_VERSION = "v";
-    private static final String OPTION_LOG_ERROR = "l";
-    private static final String OPTION_SHOW_EXPERIMENT_ARGUMENTS = "sa";
-    // END: Options
 
     // START REQUIRED ARGUMENTS
     /** For reporting messages on what goes wrong */
@@ -128,7 +122,7 @@ public class ParseArgumentsAndRunExperiment {
             ResourcesConfig resourcesConfig,
             HelpConfig helpConfig)
             throws IOException {
-        if (line.hasOption(OPTION_HELP)) {
+        if (line.hasOption(CommandLineOptions.SHORT_OPTION_HELP)) {
             printHelp(
                     options,
                     resourcesConfig,
@@ -141,7 +135,7 @@ public class ParseArgumentsAndRunExperiment {
 
     private boolean maybePrintVersion(CommandLine line, ResourcesConfig resources)
             throws IOException {
-        if (line.hasOption(OPTION_VERSION)) {
+        if (line.hasOption(CommandLineOptions.SHORT_OPTION_VERSION)) {
             VersionPrinter.printVersion(
                     resources.getClassLoader(),
                     resources.getVersionFooter(),
@@ -171,9 +165,10 @@ public class ParseArgumentsAndRunExperiment {
             // Let's print a simple (non-word wrapped message) to the console
             logger.messageLogger().log(e.friendlyMessageHierarchy());
 
-            // Unless it's enabled, we record a more detailed error log to the file-system
-            if (line.hasOption(OPTION_LOG_ERROR)) {
-                Path errorLogPath = Paths.get(line.getOptionValue(OPTION_LOG_ERROR));
+            // Unless it's enabled, we record a more detailed error log to the filesystem
+            if (line.hasOption(CommandLineOptions.SHORT_OPTION_LOG_ERROR)) {
+                Path errorLogPath =
+                        Paths.get(line.getOptionValue(CommandLineOptions.SHORT_OPTION_LOG_ERROR));
                 logger.messageLogger()
                         .logFormatted("Logging error in \"%s\"%n", errorLogPath.toAbsolutePath());
                 ErrorPrinter.printErrorLog(e, errorLogPath);
@@ -190,12 +185,11 @@ public class ParseArgumentsAndRunExperiment {
      */
     private void processExperiment(CommandLine line, Logger logger, LauncherConfig parserConfig)
             throws ExperimentExecutionException {
-
         parserConfig
                 .createExperimentExecutor(line)
                 .executeExperiment(
                         parserConfig.createArguments(line),
-                        line.hasOption(OPTION_SHOW_EXPERIMENT_ARGUMENTS),
+                        line.hasOption(CommandLineOptions.SHORT_OPTION_SHOW_EXPERIMENT_ARGUMENTS),
                         logger.messageLogger());
     }
 
@@ -238,17 +232,7 @@ public class ParseArgumentsAndRunExperiment {
     private Options createOptions(LauncherConfig parserConfig) {
 
         Options options = new Options();
-
-        options.addOption(OPTION_HELP, false, "print this message and exit");
-
-        options.addOption(OPTION_VERSION, false, "print version information and exit");
-
-        // This logs the errors in greater detail
-        options.addOption(OPTION_LOG_ERROR, true, "log BeanXML parsing errors to file");
-
-        options.addOption(
-                OPTION_SHOW_EXPERIMENT_ARGUMENTS, false, "print experiment path arguments");
-
+        CommandLineOptions.addBasicOptions(options);
         parserConfig.addAdditionalOptions(options);
 
         return options;

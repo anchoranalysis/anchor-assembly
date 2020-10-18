@@ -28,7 +28,7 @@
 <config>
 <experiment config-class="org.anchoranalysis.experiment.bean.io.InputOutputExperiment">
 
-    <input filePath="io/defaultInputManager.xml" config-class="org.anchoranalysis.io.bean.input.InputManager" config-factory="include"/>
+    <input filePath="io/defaultInputManager.xml" config-class="org.anchoranalysis.io.input.bean.InputManager" config-factory="include"/>
 
     <experimentIdentifier day="false" time="true" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierAuto"/>
 
@@ -41,9 +41,9 @@
     <!-- Executes in parallel normally, but sequentially when in debug-mode -->
     <taskProcessor keepProcessorsFree="1" config-class="org.anchoranalysis.experiment.bean.processor.DebugDependentProcessor" suppressExceptions="true">
 	  
-        <task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.ConvertNamedChannelsTask">
+        <task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.ConvertNamedChannels">
             <!--  Default task -->
-            <task filePath="tasks/summarizePaths.xml" config-class="org.anchoranalysis.experiment.task.Task" config-factory="include"/>
+            <task filePath="tasks/summarizePaths.xml" config-class="org.anchoranalysis.experiment.bean.task.Task" config-factory="include"/>
         </task>
 	  		  
     </taskProcessor>

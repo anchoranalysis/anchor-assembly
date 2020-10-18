@@ -29,13 +29,13 @@
 
 <experiment config-class="org.anchoranalysis.experiment.bean.io.InputOutputExperiment">
 
-	 <input filePath="inputManager.xml" config-class="org.anchoranalysis.io.bean.input.InputManager" config-factory="include"/>
+	 <input filePath="inputManager.xml" config-class="org.anchoranalysis.io.input.bean.InputManager" config-factory="include"/>
 
   	  <experimentIdentifier name="TestInteractiveBrowserExperiment" version="1.0" config-class="org.anchoranalysis.experiment.bean.identifier.ExperimentIdentifierConstant"/>
 
-	  <output config-class="org.anchoranalysis.io.output.bean.OutputManagerPermissive" silentlyDeleteExisting="true">
+	  <output config-class="org.anchoranalysis.io.output.bean.OutputManager" silentlyDeleteExisting="true">
 	  
-		  <filePathPrefixer filePath="ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.bean.filepath.prefixer.FilePathPrefixer" config-factory="include"/>
+		  <filePathPrefixer filePath="ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.output.path.PathPrefixer" config-factory="include"/>
 
 	  </output>
 	  
@@ -54,7 +54,7 @@
               	  
 	  <taskProcessor config-class="org.anchoranalysis.experiment.bean.processor.SequentialProcessor" suppressExceptions="true">
 		  <task config-class="org.anchoranalysis.gui.interactivebrowser.launch.InteractiveBrowserTask">
-	  		  <exportTaskList filePath="exportTaskList.xml" config-class="org.anchoranalysis.plugin.gui.bean.exporttask.ExportTaskList" config-factory="include"/>
+	  		  <exportTaskList filePath="exportTaskList.xml" config-class="org.anchoranalysis.plugin.gui.bean.export.task.ExportTaskList" config-factory="include"/>
     		</task>
     	</taskProcessor>
 	</experiment>

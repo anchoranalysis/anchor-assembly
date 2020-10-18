@@ -44,9 +44,9 @@ import org.apache.commons.cli.CommandLine;
 public class SelectParamFactory {
 
     /**
-     * Default option
+     * Use default manager.
      *
-     * @return
+     * @return a manager that uses the default path.
      */
     public static SelectParam<Optional<Path>> useDefault() {
         return new UseDefaultManager();

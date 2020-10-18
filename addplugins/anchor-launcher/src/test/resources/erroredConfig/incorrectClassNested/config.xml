@@ -4,14 +4,14 @@
 
     <logTask config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
 
-	<task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.SharedObjectsMultiInputTask" energyParamsName="input_params">
+	<task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.Develop" energyParamsName="input_params">
 		  <define suppressSubfolders="false" config-class="org.anchoranalysis.mpp.segment.bean.define.DefineOutputterMPP">
 		  	  <define config-class="java.util.List" config-factory="include" filePath="namedDefinitions.xml"/>
 		  </define>
 	</task>
 	 
-   <outputEnabled config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
-	  	<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
+   <outputEnabled config-class="org.anchoranalysis.io.output.bean.enabled.SpecificEnabled">
+	  	<outputsEnabled config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>stacks</item>
 			<item>objects</item>
 			<item>marks</item>
@@ -24,22 +24,22 @@
 			<item>objects</item>
 			<item>energyStack</item>
 			<item>energyStackParams</item>
-		</outputsAllowed>
+		</outputsEnabled>
 	</outputEnabled>
 	
 	
-	<stacksOutputEnabled config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
-		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
+	<stacksOutputEnabled config-class="org.anchoranalysis.io.output.bean.enabled.SpecificEnabled">
+		<outputsEnabled config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>chnlInput</item>
 			<item>stackEllipses</item>
 			<item>stackObjs</item>
-		</outputsAllowed>
+		</outputsEnabled>
 	</stacksOutputEnabled>
 
-	<objects config-class="org.anchoranalysis.io.output.bean.allowed.SpecificOutputAllowed">
-		<outputsAllowed config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
+	<objects config-class="org.anchoranalysis.io.output.bean.enabled.SpecificEnabled">
+		<outputsEnabled config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 			<item>objsSgmn</item>
-		</outputsAllowed>
+		</outputsEnabled>
 	</objects>
 	
 </experiment>

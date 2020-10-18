@@ -43,6 +43,9 @@
         <outputDirectory></outputDirectory>
         <fileMode>0644</fileMode>
         <lineEnding>lf</lineEnding>
+        <excludes>
+		<exclude>*.formatted</exclude>
+		</excludes>
      </fileSet>
      
      
@@ -51,6 +54,9 @@
         <outputDirectory>config</outputDirectory>
         <fileMode>0644</fileMode>
         <lineEnding>lf</lineEnding>
+        <excludes>
+		<exclude>*.formatted</exclude>
+		</excludes>
      </fileSet>
      
      <fileSet>
@@ -58,6 +64,9 @@
         <outputDirectory>configGUI</outputDirectory>
         <fileMode>0644</fileMode>
         <lineEnding>lf</lineEnding>
+        <excludes>
+		<exclude>*.formatted</exclude>
+		</excludes>
      </fileSet>
      
      <fileSet>
@@ -65,6 +74,9 @@
         <outputDirectory>config</outputDirectory>
         <fileMode>0644</fileMode>
         <lineEnding>lf</lineEnding>
+        <excludes>
+		<exclude>*.formatted</exclude>
+		</excludes>
      </fileSet>
      
      <fileSet>
@@ -110,6 +122,9 @@
         </includes>
         <fileMode>0755</fileMode>
          <lineEnding>lf</lineEnding>
+		<excludes>
+		<exclude>*.formatted</exclude>
+		</excludes>         
      </fileSet>
     <!--  We put this last, as it seems to use the last fileMode as the default for the next -->
      

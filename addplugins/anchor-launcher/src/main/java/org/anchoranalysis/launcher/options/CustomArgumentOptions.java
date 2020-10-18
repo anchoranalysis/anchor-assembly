@@ -1,4 +1,4 @@
-package org.anchoranalysis.launcher;
+package org.anchoranalysis.launcher.options;
 
 /*-
  * #%L
@@ -27,26 +27,29 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.cli.Option;
 
 /**
- * Different types of arguments used by Anchor
+ * Different types of options used by Anchor that required an argument(s).
  *
  * @author Owen Feehan
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class CustomOptions {
+class CustomArgumentOptions {
 
-    public static Option multipleArguments(String optionName, String dscr) {
-        Option optionInput = new Option(optionName, true, dscr);
+    public static Option multipleArguments(
+            String optionName, String longOptionName, String description) {
+        Option optionInput = new Option(optionName, longOptionName, true, description);
         optionInput.setArgs(Option.UNLIMITED_VALUES);
         return optionInput;
     }
 
-    public static Option optionalSingleArgument(String optionName, String dscr) {
-        Option option = new Option(optionName, true, dscr);
+    public static Option optionalSingleArgument(
+            String optionName, String longOptionName, String description) {
+        Option option = new Option(optionName, longOptionName, true, description);
         option.setOptionalArg(true);
         return option;
     }
 
-    public static Option requiredSingleArgument(String optionName, String dscr) {
-        return new Option(optionName, true, dscr);
+    public static Option requiredSingleArgument(
+            String shortOptionName, String longOptionName, String description) {
+        return new Option(shortOptionName, longOptionName, true, description);
     }
 }

@@ -30,7 +30,7 @@ features:
 
 -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeaturesTask">
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeatures">
 	
 	<source config-class="org.anchoranalysis.plugin.image.task.bean.feature.source.FromImage"/>
 	

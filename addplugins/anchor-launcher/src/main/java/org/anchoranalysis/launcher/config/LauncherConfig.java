@@ -47,7 +47,8 @@ public abstract class LauncherConfig {
      */
     public abstract boolean newlinesBeforeError();
 
-    public abstract ExperimentExecutionArguments createArguments(CommandLine line);
+    public abstract ExperimentExecutionArguments createArguments(CommandLine line)
+            throws ExperimentExecutionException;
 
     public abstract void addAdditionalOptions(Options options);
 

@@ -37,7 +37,7 @@ import org.anchoranalysis.bean.xml.BeanXmlLoader;
 import org.anchoranalysis.bean.xml.error.BeanXmlException;
 import org.anchoranalysis.core.error.OperationFailedException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.io.bean.root.RootPathMap;
+import org.anchoranalysis.plugin.io.input.path.RootPathMap;
 
 // Loads additional configuration (for executing an experiment) from the filesystem
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

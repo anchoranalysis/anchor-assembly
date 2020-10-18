@@ -4,22 +4,22 @@
    <fileInput config-class="org.anchoranalysis.plugin.io.bean.input.filter.FilterIfDebug">
    
    
-        <input config-class="org.anchoranalysis.plugin.io.bean.input.file.Files">
+        <input config-class="org.anchoranalysis.plugin.io.bean.input.files.NamedFiles">
 	   
 		      <!-- First, we try to get a list of paths (from the input-context) if it exists -->
-		      <fileProvider config-class="org.anchoranalysis.io.bean.provider.file.SpecificPathList">
+		      <filesProvider config-class="org.anchoranalysis.io.input.bean.files.SpecificPathList">
 		      
 		          <!-- If that's not there, then we try with a FileSet.
 		            As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
-		          <fallback acceptDirectoryErrors="true" ignoreHidden="true" recursive="true" config-class="org.anchoranalysis.io.bean.provider.file.SearchDirectory">
+		          <fallback acceptDirectoryErrors="true" ignoreHidden="true" recursive="true" config-class="org.anchoranalysis.io.input.bean.files.SearchDirectory">
 		              
 		              <!-- As no extensions or glob are defined, they are both populated from the input-context -->
-		              <matcher config-class="org.anchoranalysis.io.bean.file.matcher.MatchExtensions">
-		                  <matcher config-class="org.anchoranalysis.io.bean.file.matcher.MatchGlob"/>
+		              <matcher config-class="org.anchoranalysis.io.input.bean.path.matcher.MatchExtensions">
+		                  <matcher config-class="org.anchoranalysis.io.input.bean.path.matcher.MatchGlob"/>
 		              </matcher>
 		              
 		          </fallback>
-		      </fileProvider>
+		      </filesProvider>
 	   </input>
 	   
 	   
