@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.anchoranalysis.core.functional.function.CheckedFunction;
+import org.anchoranalysis.core.functional.checked.CheckedFunction;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.experiment.ExperimentFactory;
 import org.anchoranalysis.launcher.executor.selectparam.io.InputFactory;

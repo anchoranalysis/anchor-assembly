@@ -22,7 +22,7 @@
 package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.InvalidPathException;
-import org.anchoranalysis.core.error.friendly.AnchorFriendlyCheckedException;
+import org.anchoranalysis.core.exception.friendly.AnchorFriendlyCheckedException;
 import org.anchoranalysis.launcher.CommandLineException;
 
 /**

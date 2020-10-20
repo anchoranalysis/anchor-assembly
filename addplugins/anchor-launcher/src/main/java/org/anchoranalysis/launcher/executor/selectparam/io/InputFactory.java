@@ -30,7 +30,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.core.functional.FunctionalList;
 import org.anchoranalysis.core.functional.OptionalUtilities;
-import org.anchoranalysis.core.functional.function.CheckedSupplier;
+import org.anchoranalysis.core.functional.checked.CheckedSupplier;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;

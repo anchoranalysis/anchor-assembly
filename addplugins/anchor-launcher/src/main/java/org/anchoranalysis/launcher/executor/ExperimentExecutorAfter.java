@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 import org.anchoranalysis.bean.xml.RegisterBeanFactories;
 import org.anchoranalysis.bean.xml.factory.AnchorDefaultBeanFactory;
-import org.anchoranalysis.core.error.OperationFailedException;
+import org.anchoranalysis.core.exception.OperationFailedException;
 import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;

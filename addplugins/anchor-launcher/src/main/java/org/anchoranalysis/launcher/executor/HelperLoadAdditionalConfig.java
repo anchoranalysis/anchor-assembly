@@ -35,7 +35,7 @@ import org.anchoranalysis.bean.StringSet;
 import org.anchoranalysis.bean.error.BeanMisconfiguredException;
 import org.anchoranalysis.bean.xml.BeanXmlLoader;
 import org.anchoranalysis.bean.xml.error.BeanXmlException;
-import org.anchoranalysis.core.error.OperationFailedException;
+import org.anchoranalysis.core.exception.OperationFailedException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.plugin.io.input.path.RootPathMap;
 
