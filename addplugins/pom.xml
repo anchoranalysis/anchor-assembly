@@ -49,11 +49,6 @@
 		</dependency>
 	
 		<!-- Plugins we wish to 'add' to the modules -->
-		<dependency>
-		  <groupId>${project.groupId}</groupId>
-		  <artifactId>anchor-plugin-eth</artifactId>
-		  <version>0.0.8-SNAPSHOT</version>
-		</dependency>
 	 
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
