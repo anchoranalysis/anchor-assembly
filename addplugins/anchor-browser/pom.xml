@@ -45,12 +45,7 @@
 		  <artifactId>anchor-plugin-gui-annotation</artifactId>
 		  <version>0.0.1-SNAPSHOT</version>
 		</dependency>	
-		
-		<dependency>
-		  <groupId>${project.groupId}</groupId>
-		  <artifactId>anchor-plugin-gui-export</artifactId>
-		  <version>0.0.1-SNAPSHOT</version>
-		</dependency>			
+	
 		
   </dependencies>
 	
