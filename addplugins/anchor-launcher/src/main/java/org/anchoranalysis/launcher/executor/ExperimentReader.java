@@ -24,7 +24,7 @@ package org.anchoranalysis.launcher.executor;
 
 import java.nio.file.Path;
 import org.anchoranalysis.bean.xml.BeanXmlLoader;
-import org.anchoranalysis.bean.xml.error.BeanXmlException;
+import org.anchoranalysis.bean.xml.exception.BeanXmlException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.experiment.bean.task.Task;

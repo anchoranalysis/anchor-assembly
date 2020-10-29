@@ -33,19 +33,19 @@ class ExtensionUtilities {
         return FilenameUtils.getExtension(path).equalsIgnoreCase("xml");
     }
 
-    public static boolean isFileExtension(String arg) {
-        return startsWithPeriod(".") && !isFileSeperator(arg) && !isDirectoryChange(arg);
+    public static boolean isFileExtension(String argument) {
+        return startsWithPeriod(argument) && !isFileSeperator(argument) && !isDirectoryChange(argument);
     }
 
-    private static boolean startsWithPeriod(String arg) {
-        return arg.startsWith(".");
+    private static boolean startsWithPeriod(String argument) {
+        return argument.startsWith(".");
     }
 
-    private static boolean isDirectoryChange(String arg) {
-        return arg.equals(".") || arg.equals("..");
+    private static boolean isDirectoryChange(String argument) {
+        return argument.equals(".") || argument.equals("..");
     }
 
-    private static boolean isFileSeperator(String arg) {
-        return arg.contains("/") || arg.contains("\\");
+    private static boolean isFileSeperator(String argument) {
+        return argument.contains("/") || argument.contains("\\");
     }
 }
