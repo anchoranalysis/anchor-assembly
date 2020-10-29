@@ -9,38 +9,6 @@
 		  		<define config-class="java.util.List" config-factory="include" filePath="namedDefinitions.xml"/>
 		  </define>
 	</task>
-	 
-   <outputEnabled config-class="org.anchoranalysis.io.output.bean.enabled.SpecificEnabled">
-	  	<outputsEnabled config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
-			<item>stacks</item>
-			<item>objects</item>
-			<item>marks</item>
-			<item>log</item>
-			<item>errors</item>
-			<item>experiment_log</item>
-			<item>job_log</item>
-			<item>manifest</item>
-			<item>manifestExperiment</item>
-			<item>objects</item>
-			<item>energyStack</item>
-			<item>energyStackParams</item>
-		</outputsEnabled>
-	</outputEnabled>
-	
-	
-	<stacksOutputEnabled config-class="org.anchoranalysis.io.output.bean.enabled.SpecificEnabled">
-		<outputsEnabled config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
-			<item>chnlInput</item>
-			<item>stackEllipses</item>
-			<item>stackObjs</item>
-		</outputsEnabled>
-	</stacksOutputEnabled>
-
-	<objects config-class="org.anchoranalysis.io.output.bean.enabled.SpecificEnabled">
-		<outputsEnabled config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
-			<item>objsSgmn</item>
-		</outputsEnabled>
-	</objects>
 	
 </experiment>
 </config>
