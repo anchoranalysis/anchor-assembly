@@ -53,7 +53,7 @@
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="volume_microns_cubed">
 		<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
-			<item config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalVolume" unitType="µm^3">
+			<item config-class="org.anchoranalysis.image.feature.bean.physical.ConvertToPhysicalVolume" unitType="µm^3">
 				<item config-class="org.anchoranalysis.image.feature.bean.object.single.NumberVoxels"/>
 			</item>
 		</item>			
@@ -61,7 +61,7 @@
 	
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="area_microns_sq">
 		<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
-			<item config-class="org.anchoranalysis.image.feature.bean.physical.convert.ConvertToPhysicalAreaXY" unitType="µm^2">
+			<item config-class="org.anchoranalysis.image.feature.bean.physical.ConvertToPhysicalAreaXY" unitType="µm^2">
 				<item config-class="org.anchoranalysis.image.feature.bean.object.single.NumberVoxels" mip="true"/>
 			</item>
 		</item>			
