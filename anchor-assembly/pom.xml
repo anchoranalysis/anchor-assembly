@@ -159,12 +159,6 @@
 	
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
-	  <artifactId>anchor-plugin-jmef</artifactId>
-	  <version>0.0.5-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-plugin-ml</artifactId>
 	  <version>0.0.5-SNAPSHOT</version>
 	</dependency>
