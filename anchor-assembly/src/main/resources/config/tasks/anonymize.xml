@@ -1,0 +1,32 @@
+<!-- 
+===================
+TASK:   copy
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Copies each input (as a single file).
+
+
+======
+INPUTS
+======
+
+files
+
+=======
+OUTPUTS
+=======
+
+files:
+   	a copy of each file in the output directory, with a naming scheme 0001.extension, 0002.extension in shuffled order (based upon system clock).
+
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.io.bean.task.CopyFiles">
+	<naming config-class="org.anchoranalysis.plugin.io.bean.copyfilesmode.naming.Anonymize"/>
+</bean>
+</config>
