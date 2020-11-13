@@ -1,6 +1,6 @@
 <!-- 
 ===================
-TASK:   copy
+TASK:   anonymize
 AUTHOR: Owen Feehan
 ===================
 
@@ -8,8 +8,7 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Copies each input (as a single file).
-
+Copies each input (as a single file), shuffling all images into a random order, and hiding their original names.
 
 ======
 INPUTS

@@ -1,0 +1,35 @@
+<!-- 
+===================
+TASK:   scale
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Scales each image to fit inside 1024x768 (preserving the aspect ratio).
+
+
+======
+INPUTS
+======
+
+an image.
+
+=======
+OUTPUTS
+=======
+
+scaled:
+   	a scaled copy of each image.
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.scale.ScaleImage">
+	<scaleCalculator preserveAspectRatio="true" config-class="org.anchoranalysis.plugin.image.bean.scale.ToDimensions">
+		<dimensions config-class="org.anchoranalysis.plugin.image.bean.dimensions.provider.SpecifyDimensions">
+			<sizeXY width="1280" height="768" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
+		</dimensions>
+	</scaleCalculator>
+</bean>
+</config>
