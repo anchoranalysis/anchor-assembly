@@ -13,7 +13,7 @@
 	
 	<!-- Write PNGs (for single or three-channeled 2D images) or Tiffs (for single or three-channeled 3D images) or OME-TIFFs for everything else. -->
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.writer.StackWriter">
-		<item config-class="org.anchoranalysis.image.io.bean.stack.writer.BranchChannels">
+		<item config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchChannels">
 			
 			<!--  Catch all writer that can support almost any combination of channels / stacks  -->
 			<writer config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
