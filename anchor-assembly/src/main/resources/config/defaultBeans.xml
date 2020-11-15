@@ -3,7 +3,7 @@
 <bean config-class="java.util.List" config-factory="list">
 
 	<!-- Read images using OpenCV for JPEG (because it corrects exif orientation) and otherwise Bioformats -->
-	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.StackReader">
+	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.reader.StackReader">
 		<item config-class="org.anchoranalysis.plugin.io.bean.stack.reader.BranchExtension">
 			<extensions config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 				<item>jpg</item>
