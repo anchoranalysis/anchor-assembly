@@ -2,13 +2,21 @@
 <config>
 <bean config-class="java.util.List" config-factory="list">
 
-	<!-- Read images using Bioformats -->
+	<!-- Read images using OpenCV for JPEG (because it corrects exif orientation) and otherwise Bioformats -->
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.StackReader">
-		<item config-class="org.anchoranalysis.io.bioformats.bean.BioformatsReader">
-			<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceBitsPerPixel" bitsPerPixel="8">
-				<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceTimeSeriesToStack"/>
-			</options>
+		<item config-class="org.anchoranalysis.plugin.io.bean.stack.reader.BranchExtension">
+			<extensions config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
+				<item>jpg</item>
+				<item>jpeg</item>
+			</extensions>		
+			<readerMatching config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVReader"/>
+			<readerNotMatching config-class="org.anchoranalysis.io.bioformats.bean.BioformatsReader">
+				<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceBitsPerPixel" bitsPerPixel="8">
+					<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceTimeSeriesToStack"/>
+				</options>
+			</readerNotMatching>
 		</item>
+		
 	</item>
 	
 	<!-- Write PNGs (for single or three-channeled 2D images) or Tiffs (for single or three-channeled 3D images) or OME-TIFFs for everything else. -->
