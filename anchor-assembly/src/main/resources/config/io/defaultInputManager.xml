@@ -7,7 +7,7 @@
         <input config-class="org.anchoranalysis.plugin.io.bean.input.files.NamedFiles">
 	   
 		      <!-- First, we try to get a list of paths (from the input-context) if it exists -->
-		      <filesProvider config-class="org.anchoranalysis.io.input.bean.files.SpecificPathList">
+		      <files config-class="org.anchoranalysis.io.input.bean.files.SpecificPathList">
 		      
 		          <!-- If that's not there, then we try with a FileSet.
 		            As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
@@ -19,7 +19,7 @@
 		              </matcher>
 		              
 		          </fallback>
-		      </filesProvider>
+		      </files>
 	   </input>
 	   
 	   
