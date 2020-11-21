@@ -23,8 +23,8 @@ package org.anchoranalysis.launcher.config;
  */
 
 import java.nio.file.Path;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.PathCurrentJarUtilities;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.ExperimentExecutorFactory;
@@ -47,7 +47,7 @@ public abstract class LauncherConfig {
      */
     public abstract boolean newlinesBeforeError();
 
-    public abstract ExperimentExecutionArguments createArguments(CommandLine line)
+    public abstract ExecutionArguments createArguments(CommandLine line)
             throws ExperimentExecutionException;
 
     public abstract void addAdditionalOptions(Options options);

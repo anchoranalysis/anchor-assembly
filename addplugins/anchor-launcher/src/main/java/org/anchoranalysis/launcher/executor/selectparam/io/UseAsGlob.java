@@ -27,8 +27,9 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
+import org.anchoranalysis.experiment.arguments.InputArguments;
 import org.anchoranalysis.io.input.path.GlobExtractor;
 import org.anchoranalysis.io.input.path.GlobExtractor.GlobWithDirectory;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
@@ -45,17 +46,18 @@ class UseAsGlob implements SelectParam<Optional<Path>> {
     private String stringWithWildcard;
 
     @Override
-    public Optional<Path> select(ExperimentExecutionArguments executionArguments) {
+    public Optional<Path> select(ExecutionArguments executionArguments) {
 
         // Isolate a directory component, from the rest of the glob
         // to allow matches like sdsds/sdsds/*.jpg
         GlobWithDirectory glob = GlobExtractor.extract(stringWithWildcard);
 
-        executionArguments.setInputDirectory(glob.getDirectory().map(Paths::get));
-        executionArguments.setInputFilterGlob(Optional.of(glob.getGlob()));
+        InputArguments arguments = executionArguments.input();
+        arguments.assignInputDirectory(glob.getDirectory().map(Paths::get));
+        arguments.assignInputFilterGlob(glob.getGlob());
 
         // An empty set, means no filter check is applied
-        executionArguments.setInputFilterExtensions(Optional.of(new HashSet<String>()));
+        arguments.assignInputFilterExtensions(new HashSet<String>());
 
         return Optional.empty();
     }

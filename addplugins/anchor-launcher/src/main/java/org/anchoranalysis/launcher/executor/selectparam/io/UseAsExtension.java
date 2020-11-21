@@ -23,14 +23,11 @@
 package org.anchoranalysis.launcher.executor.selectparam.io;
 
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
+import org.anchoranalysis.core.format.FormatExtensions;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
@@ -44,21 +41,10 @@ class UseAsExtension implements SelectParam<Optional<Path>> {
     private String[] extensions;
 
     @Override
-    public Optional<Path> select(ExperimentExecutionArguments executionArguments) {
-
-        // Remove the period from the left side
-        List<String> extensionWithoutPeriod = removeLeadingPeriod(extensions);
-
-        executionArguments.setInputFilterExtensions(
-                Optional.of(new HashSet<>(extensionWithoutPeriod)));
-
+    public Optional<Path> select(ExecutionArguments executionArguments) {
+        executionArguments.input().assignInputFilterExtensions(
+                FormatExtensions.removeLeadingPeriod(extensions) );
         return Optional.empty();
-    }
-
-    private static List<String> removeLeadingPeriod(String[] extensionsWithPeriod) {
-        return Arrays.stream(extensionsWithPeriod)
-                .map(extension -> extension.substring(1))
-                .collect(Collectors.toList());
     }
 
     @Override

@@ -24,8 +24,8 @@ package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
 import java.util.Optional;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
@@ -43,7 +43,7 @@ public class CustomManagerFromPath implements SelectParam<Optional<Path>> {
     }
 
     @Override
-    public Optional<Path> select(ExperimentExecutionArguments executionArguments) {
+    public Optional<Path> select(ExecutionArguments executionArguments) {
         return Optional.of(path);
     }
 

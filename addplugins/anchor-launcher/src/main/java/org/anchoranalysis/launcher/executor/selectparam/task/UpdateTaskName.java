@@ -24,8 +24,8 @@ package org.anchoranalysis.launcher.executor.selectparam.task;
 
 import java.util.Optional;
 import lombok.AllArgsConstructor;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
@@ -41,9 +41,9 @@ class UpdateTaskName<T> implements SelectParam<T> {
     private String taskName;
 
     @Override
-    public T select(ExperimentExecutionArguments executionArguments)
+    public T select(ExecutionArguments executionArguments)
             throws ExperimentExecutionException {
-        executionArguments.setTaskName(Optional.of(taskName));
+        executionArguments.assignTaskName(Optional.of(taskName));
         return delegate.select(executionArguments);
     }
 

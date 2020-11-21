@@ -23,8 +23,9 @@ package org.anchoranalysis.launcher.options.outputs;
 
 import java.util.function.Consumer;
 import lombok.AllArgsConstructor;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
+import org.anchoranalysis.experiment.arguments.OutputArguments;
 import org.anchoranalysis.io.output.bean.rules.Permissive;
 import org.anchoranalysis.io.output.enabled.multi.MultiLevelOutputEnabled;
 import org.anchoranalysis.launcher.options.CommandLineExtracter;
@@ -42,7 +43,7 @@ public class ProcessOutputOptions {
     private final CommandLineExtracter extract;
 
     /** The arguments associated with the experiment */
-    private final ExperimentExecutionArguments arguments;
+    private final ExecutionArguments arguments;
 
     /**
      * Processes any options that have been defined to add/remove change the outputs that are
@@ -52,17 +53,18 @@ public class ProcessOutputOptions {
      *     correspond to expectations.
      */
     public void maybeAddOutputs() throws ExperimentExecutionException {
+        OutputArguments outputArguments = arguments.output();
         if (extract.hasOption(CommandLineOptions.SHORT_OPTION_OUTPUT_ENABLE_ALL)) {
-            arguments.getOutputEnabledDelta().enableAdditionalOutputs(Permissive.INSTANCE);
+            outputArguments.getOutputEnabledDelta().enableAdditionalOutputs(Permissive.INSTANCE);
         } else {
             ifAdditionalOptionsPresent(
                     CommandLineOptions.SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL,
-                    arguments.getOutputEnabledDelta()::enableAdditionalOutputs);
+                    outputArguments.getOutputEnabledDelta()::enableAdditionalOutputs);
         }
 
         ifAdditionalOptionsPresent(
                 CommandLineOptions.SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL,
-                arguments.getOutputEnabledDelta()::disableAdditionalOutputs);
+                outputArguments.getOutputEnabledDelta()::disableAdditionalOutputs);
     }
 
     private void ifAdditionalOptionsPresent(

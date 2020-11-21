@@ -7,8 +7,8 @@ import org.anchoranalysis.bean.xml.RegisterBeanFactories;
 import org.anchoranalysis.bean.xml.factory.AnchorDefaultBeanFactory;
 import org.anchoranalysis.core.exception.OperationFailedException;
 import org.anchoranalysis.core.functional.OptionalUtilities;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.experiment.bean.task.Task;
 import org.anchoranalysis.experiment.io.ReplaceInputManager;
@@ -113,17 +113,15 @@ class ExperimentExecutorAfter {
      */
     public void executeExperiment(
             Experiment experiment,
-            ExperimentExecutionArguments executionArguments,
+            ExecutionArguments executionArguments,
             Optional<Path> pathInput,
             Optional<Path> pathOutput,
             Optional<Path> pathTask)
             throws ExperimentExecutionException {
 
-        if (!executionArguments.hasInputFilterExtensions() && defaultExtensions.isPresent()) {
-            // If no input-filter extensions have been specified and defaults are available, they
-            // are inserted in
-            executionArguments.setInputFilterExtensions(defaultExtensions);
-        }
+        // If no input-filter extensions have been specified and defaults are available, they
+        // are inserted in
+        executionArguments.input().assignInputFilterExtensionsIfMissing(defaultExtensions);
 
         OptionalUtilities.ifPresent(pathInput, path -> replaceInputManager(experiment, path));
 
@@ -246,7 +244,7 @@ class ExperimentExecutorAfter {
      * @throws ExperimentExecutionException if the experiment cannot be executed
      */
     private void executeExperiment(
-            Experiment experiment, ExperimentExecutionArguments executionArguments)
+            Experiment experiment, ExecutionArguments executionArguments)
             throws ExperimentExecutionException {
 
         try {

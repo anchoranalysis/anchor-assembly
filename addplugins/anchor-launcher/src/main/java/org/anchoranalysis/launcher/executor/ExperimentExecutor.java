@@ -31,8 +31,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.anchoranalysis.core.log.MessageLogger;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
@@ -85,7 +85,7 @@ public class ExperimentExecutor {
      * @throws ExperimentExecutionException if the execution ends early
      */
     public void executeExperiment(
-            ExperimentExecutionArguments execArgs,
+            ExecutionArguments execArgs,
             boolean alwaysShowExperimentArgs,
             MessageLogger logger)
             throws ExperimentExecutionException {
@@ -117,9 +117,9 @@ public class ExperimentExecutor {
     }
 
     private void setupModelDirectory(
-            Path pathExecutionDirectory, ExperimentExecutionArguments execArgs) {
+            Path pathExecutionDirectory, ExecutionArguments execArgs) {
         // Set model directory, assuming that the directory is called from bin/
-        execArgs.setModelDirectory(
+        execArgs.input().assignModelDirectory(
                 pathExecutionDirectory.getParent().resolve("models").normalize().toAbsolutePath());
     }
 
@@ -171,7 +171,7 @@ public class ExperimentExecutor {
         return sb.toString();
     }
 
-    private Experiment loadExperimentFromPath(ExperimentExecutionArguments execArgs)
+    private Experiment loadExperimentFromPath(ExecutionArguments execArgs)
             throws ExperimentExecutionException {
         return ExperimentReader.readExperimentFromXML(experiment.select(execArgs));
     }

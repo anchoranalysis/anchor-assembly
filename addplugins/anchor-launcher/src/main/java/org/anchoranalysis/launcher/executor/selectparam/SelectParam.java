@@ -22,8 +22,8 @@
 
 package org.anchoranalysis.launcher.executor.selectparam;
 
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 
 /**
  * Different methods of selecting a object {@code T} that is used as a parameter for an experiment.
@@ -35,10 +35,10 @@ public interface SelectParam<T> {
     /**
      * Retrieves the parameter.
      *
-     * <p>Note that the {@link ExperimentExecutionArguments} might be modified during this operation
+     * <p>Note that the {@link ExecutionArguments} might be modified during this operation
      * (e.g. adding a directory parameter).
      */
-    T select(ExperimentExecutionArguments executionArguments) throws ExperimentExecutionException;
+    T select(ExecutionArguments executionArguments) throws ExperimentExecutionException;
 
     /**
      * Is this the default option that occurs without any additional user effort?

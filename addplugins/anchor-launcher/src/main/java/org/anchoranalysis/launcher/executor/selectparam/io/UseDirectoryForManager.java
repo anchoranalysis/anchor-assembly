@@ -24,8 +24,8 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
 
 import java.nio.file.Path;
 import java.util.Optional;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
@@ -37,8 +37,8 @@ import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter
  */
 class UseDirectoryForManager implements SelectParam<Optional<Path>> {
 
-    private boolean input = true;
-    private Path directory;
+    private final boolean input;
+    private final Path directory;
 
     /**
      * Constructor
@@ -46,7 +46,6 @@ class UseDirectoryForManager implements SelectParam<Optional<Path>> {
      * @param input iff true, then we are replacing the input-manager, otherwise the output-manager
      */
     public UseDirectoryForManager(Path directory, boolean input) {
-        super();
         this.input = input;
         this.directory = directory;
         if (!directory.toFile().isDirectory()) {
@@ -58,14 +57,12 @@ class UseDirectoryForManager implements SelectParam<Optional<Path>> {
     }
 
     @Override
-    public Optional<Path> select(ExperimentExecutionArguments executionArguments) {
-
+    public Optional<Path> select(ExecutionArguments executionArguments) {
         if (input) {
-            executionArguments.setInputDirectory(Optional.of(directory));
+            executionArguments.input().assignInputDirectory( Optional.of(directory) );
         } else {
-            executionArguments.setOutputDirectory(Optional.of(directory));
+            executionArguments.output().assignOutputDirectory(directory);
         }
-
         return Optional.empty();
     }
 

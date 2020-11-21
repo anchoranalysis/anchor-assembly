@@ -22,7 +22,7 @@
 
 package org.anchoranalysis.browser.launcher;
 
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
@@ -50,8 +50,8 @@ class LauncherConfigBrowser extends LauncherConfig {
             "META-INF/maven/org.anchoranalysis.anchor/anchor-browser/pom.properties";
 
     @Override
-    public ExperimentExecutionArguments createArguments(CommandLine line) {
-        return new ExperimentExecutionArguments();
+    public ExecutionArguments createArguments(CommandLine line) {
+        return new ExecutionArguments();
     }
 
     @Override
