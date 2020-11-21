@@ -35,11 +35,17 @@
 			<!-- Likewise if it's guaranteed to be three channels and not RGB use a TIFF -->
 			<whenThreeChannels config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
 			
-			<!-- Likewise if it's guaranteed to be a sinle channel, use a PNG if guranteed to be 2D, or a TIFF otherwise -->
+			<!-- Likewise if it's guaranteed to be a single non-binary channel, use a PNG if guaranteed to be 2D, or a TIFF otherwise -->
 			<whenSingleChannel config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchStack">
 				<writerAlways2D config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
 				<writerElse config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
 			</whenSingleChannel>
+									
+			<!-- Likewise if it's guaranteed to be a single binary channel, use a PNG if guaranteed to be 2D, or a TIFF otherwise -->
+			<whenBinaryChannel config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchStack">
+				<writerAlways2D config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
+				<writerElse config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
+			</whenBinaryChannel>
 		</item>
 	</item>
 	
