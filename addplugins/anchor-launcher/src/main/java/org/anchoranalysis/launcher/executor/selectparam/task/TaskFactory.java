@@ -26,6 +26,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.anchoranalysis.core.format.NonImageFileFormat;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
@@ -66,8 +67,8 @@ public class TaskFactory {
         }
     }
 
-    private static Path constructPathForTaskName(String arg, Path configDir) {
-        return configDir.resolve("tasks").resolve(arg + ".xml");
+    private static Path constructPathForTaskName(String filenameWithoutExtension, Path configDirectory) {
+        return NonImageFileFormat.XML.buildPath(configDirectory.resolve("tasks"), filenameWithoutExtension);
     }
 
     /**

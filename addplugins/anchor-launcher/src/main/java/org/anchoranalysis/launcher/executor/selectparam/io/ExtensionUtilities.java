@@ -24,13 +24,13 @@ package org.anchoranalysis.launcher.executor.selectparam.io;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.apache.commons.io.FilenameUtils;
+import org.anchoranalysis.core.format.NonImageFileFormat;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class ExtensionUtilities {
 
     public static boolean hasXmlExtension(String path) {
-        return FilenameUtils.getExtension(path).equalsIgnoreCase("xml");
+        return NonImageFileFormat.XML.matches(path);
     }
 
     public static boolean isFileExtension(String argument) {
