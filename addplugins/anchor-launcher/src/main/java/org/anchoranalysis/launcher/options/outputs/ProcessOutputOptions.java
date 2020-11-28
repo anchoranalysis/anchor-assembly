@@ -67,7 +67,7 @@ public class ProcessOutputOptions {
         ifAdditionalOptionsPresent(
                 CommandLineOptions.SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL,
                 outputArguments.getOutputEnabledDelta()::disableAdditionalOutputs);
-        
+
         ifOutputFormatPresent(
                 CommandLineOptions.SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
                 outputArguments::assignSuggestedImageOutputFormat);
@@ -80,16 +80,20 @@ public class ProcessOutputOptions {
                 optionName,
                 outputs -> consumer.accept(AdditionalOutputsParser.parseFrom(outputs, optionName)));
     }
-    
-    private void ifOutputFormatPresent(
-            String optionName, Consumer<ImageFileFormat> consumer)
+
+    private void ifOutputFormatPresent(String optionName, Consumer<ImageFileFormat> consumer)
             throws ExperimentExecutionException {
         extract.ifPresentSingle(
                 optionName,
                 identifier -> {
-                    ImageFileFormat format = FileFormatFactory.createImageFormat(identifier).orElseThrow( () ->
-                           new ExperimentExecutionException(
-                                   String.format("No file format identified by %s is supported.", identifier)));
+                    ImageFileFormat format =
+                            FileFormatFactory.createImageFormat(identifier)
+                                    .orElseThrow(
+                                            () ->
+                                                    new ExperimentExecutionException(
+                                                            String.format(
+                                                                    "No file format identified by %s is supported.",
+                                                                    identifier)));
                     consumer.accept(format);
                 });
     }

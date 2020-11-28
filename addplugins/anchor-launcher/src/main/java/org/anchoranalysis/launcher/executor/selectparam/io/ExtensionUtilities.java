@@ -34,7 +34,9 @@ class ExtensionUtilities {
     }
 
     public static boolean isFileExtension(String argument) {
-        return startsWithPeriod(argument) && !isFileSeperator(argument) && !isDirectoryChange(argument);
+        return startsWithPeriod(argument)
+                && !isFileSeperator(argument)
+                && !isDirectoryChange(argument);
     }
 
     private static boolean startsWithPeriod(String argument) {

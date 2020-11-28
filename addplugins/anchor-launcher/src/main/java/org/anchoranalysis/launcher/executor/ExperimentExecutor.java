@@ -85,9 +85,7 @@ public class ExperimentExecutor {
      * @throws ExperimentExecutionException if the execution ends early
      */
     public void executeExperiment(
-            ExecutionArguments execArgs,
-            boolean alwaysShowExperimentArgs,
-            MessageLogger logger)
+            ExecutionArguments execArgs, boolean alwaysShowExperimentArgs, MessageLogger logger)
             throws ExperimentExecutionException {
 
         ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDir);
@@ -116,11 +114,15 @@ public class ExperimentExecutor {
                 getTask().select(execArgs));
     }
 
-    private void setupModelDirectory(
-            Path pathExecutionDirectory, ExecutionArguments execArgs) {
+    private void setupModelDirectory(Path pathExecutionDirectory, ExecutionArguments execArgs) {
         // Set model directory, assuming that the directory is called from bin/
-        execArgs.input().assignModelDirectory(
-                pathExecutionDirectory.getParent().resolve("models").normalize().toAbsolutePath());
+        execArgs.input()
+                .assignModelDirectory(
+                        pathExecutionDirectory
+                                .getParent()
+                                .resolve("models")
+                                .normalize()
+                                .toAbsolutePath());
     }
 
     /**

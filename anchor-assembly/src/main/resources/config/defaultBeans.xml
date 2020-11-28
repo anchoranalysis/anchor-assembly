@@ -62,7 +62,7 @@
 					<item config-class="org.anchoranalysis.io.bioformats.bean.writer.OMEXML"/>
 				</writersIfSuggested>
 				<!-- The default if no format is suggested -->
-				<item config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
+				<writerIfNoSuggestion config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
 			</whenThreeChannels>
 				
 			<!-- Likewise if it's guaranteed to be a single non-binary channel, use a PNG (by default) if guaranteed to be 2D, or a TIFF otherwise -->

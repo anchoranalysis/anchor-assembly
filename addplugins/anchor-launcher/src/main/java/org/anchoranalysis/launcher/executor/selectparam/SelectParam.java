@@ -35,8 +35,8 @@ public interface SelectParam<T> {
     /**
      * Retrieves the parameter.
      *
-     * <p>Note that the {@link ExecutionArguments} might be modified during this operation
-     * (e.g. adding a directory parameter).
+     * <p>Note that the {@link ExecutionArguments} might be modified during this operation (e.g.
+     * adding a directory parameter).
      */
     T select(ExecutionArguments executionArguments) throws ExperimentExecutionException;
 

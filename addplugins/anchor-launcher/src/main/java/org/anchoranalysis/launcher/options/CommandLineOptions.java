@@ -138,8 +138,8 @@ public class CommandLineOptions {
 
         options.addOption(
                 optionalSingleArgument(
-                    SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
-                    LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
-                    "suggested image-format for writing"));
+                        SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
+                        LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
+                        "suggested image-format for writing"));
     }
 }

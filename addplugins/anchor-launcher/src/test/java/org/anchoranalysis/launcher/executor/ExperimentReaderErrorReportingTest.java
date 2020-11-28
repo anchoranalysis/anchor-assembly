@@ -164,7 +164,6 @@ public class ExperimentReaderErrorReportingTest {
     private static String testPathToConfig(String configName) {
         String directory = String.format("erroredConfig/%s", configName);
         return NonImageFileFormat.XML.buildPath(directory, "config");
-        
     }
 
     /**

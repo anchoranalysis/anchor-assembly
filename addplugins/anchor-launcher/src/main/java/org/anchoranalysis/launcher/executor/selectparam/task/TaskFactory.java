@@ -67,8 +67,10 @@ public class TaskFactory {
         }
     }
 
-    private static Path constructPathForTaskName(String filenameWithoutExtension, Path configDirectory) {
-        return NonImageFileFormat.XML.buildPath(configDirectory.resolve("tasks"), filenameWithoutExtension);
+    private static Path constructPathForTaskName(
+            String filenameWithoutExtension, Path configDirectory) {
+        return NonImageFileFormat.XML.buildPath(
+                configDirectory.resolve("tasks"), filenameWithoutExtension);
     }
 
     /**

@@ -59,7 +59,7 @@ class UseDirectoryForManager implements SelectParam<Optional<Path>> {
     @Override
     public Optional<Path> select(ExecutionArguments executionArguments) {
         if (input) {
-            executionArguments.input().assignInputDirectory( Optional.of(directory) );
+            executionArguments.input().assignInputDirectory(Optional.of(directory));
         } else {
             executionArguments.output().assignOutputDirectory(directory);
         }
