@@ -26,7 +26,7 @@
   -->
 
 <config>
-<experiment config-class="org.anchoranalysis.experiment.bean.io.InputOutputExperiment">
+<experiment config-class="org.anchoranalysis.experiment.bean.io.InputOutputExperiment" messageNoInputs="No inputs were found. The -i parameter can be used to specify the location and file-pattern of inputs.">
 
     <input filePath="io/defaultInputManager.xml" config-class="org.anchoranalysis.io.input.bean.InputManager" config-factory="include"/>
 
