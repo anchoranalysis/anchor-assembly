@@ -2,6 +2,38 @@
   1. a histogram for each channel of each image
   2. an aggregated histogram for each channel, summing across all images (in directory all/)
 -->
+
+<!-- 
+===================
+TASK:   histogram
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Extracts histograms of the intensity values an image.
+
+It works also with 3D images (every voxel).
+
+======
+INPUTS
+======
+
+images, all must be the same size and with the same number of channels.
+
+=======
+OUTPUTS
+=======
+
+channels:
+	a histogram (in CSV format) for the pixels of each channel separately.
+
+sum:
+	a histogram (in CSV format) for the sum of each pixel's intensity across all channels.
+	
+-->
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.grouped.histogram.ExportImageHistograms"/>
 </config>
