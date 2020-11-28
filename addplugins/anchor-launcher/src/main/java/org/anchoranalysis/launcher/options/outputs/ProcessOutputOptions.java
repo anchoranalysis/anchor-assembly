@@ -23,6 +23,8 @@ package org.anchoranalysis.launcher.options.outputs;
 
 import java.util.function.Consumer;
 import lombok.AllArgsConstructor;
+import org.anchoranalysis.core.format.FileFormatFactory;
+import org.anchoranalysis.core.format.ImageFileFormat;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.experiment.arguments.OutputArguments;
@@ -65,6 +67,10 @@ public class ProcessOutputOptions {
         ifAdditionalOptionsPresent(
                 CommandLineOptions.SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL,
                 outputArguments.getOutputEnabledDelta()::disableAdditionalOutputs);
+        
+        ifOutputFormatPresent(
+                CommandLineOptions.SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
+                outputArguments::assignSuggestedImageOutputFormat);
     }
 
     private void ifAdditionalOptionsPresent(
@@ -73,5 +79,18 @@ public class ProcessOutputOptions {
         extract.ifPresentSingle(
                 optionName,
                 outputs -> consumer.accept(AdditionalOutputsParser.parseFrom(outputs, optionName)));
+    }
+    
+    private void ifOutputFormatPresent(
+            String optionName, Consumer<ImageFileFormat> consumer)
+            throws ExperimentExecutionException {
+        extract.ifPresentSingle(
+                optionName,
+                identifier -> {
+                    ImageFileFormat format = FileFormatFactory.createImageFormat(identifier).orElseThrow( () ->
+                           new ExperimentExecutionException(
+                                   String.format("No file format identified by %s is supported.", identifier)));
+                    consumer.accept(format);
+                });
     }
 }

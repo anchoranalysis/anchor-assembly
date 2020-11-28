@@ -30,7 +30,7 @@ import org.anchoranalysis.core.format.NonImageFileFormat;
 class ExtensionUtilities {
 
     public static boolean hasXmlExtension(String path) {
-        return NonImageFileFormat.XML.matches(path);
+        return NonImageFileFormat.XML.matchesEnd(path);
     }
 
     public static boolean isFileExtension(String argument) {
