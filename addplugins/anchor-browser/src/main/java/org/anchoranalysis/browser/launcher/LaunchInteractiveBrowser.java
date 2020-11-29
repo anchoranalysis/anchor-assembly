@@ -25,8 +25,8 @@ package org.anchoranalysis.browser.launcher;
 import java.util.stream.Stream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.anchoranalysis.core.error.reporter.ErrorReporterIntoLog;
 import org.anchoranalysis.core.log.Logger;
+import org.anchoranalysis.core.log.error.ErrorReporterIntoLog;
 import org.anchoranalysis.experiment.log.ConsoleMessageLogger;
 import org.anchoranalysis.experiment.log.MessageLoggerList;
 import org.anchoranalysis.experiment.log.StatefulMessageLogger;
@@ -51,7 +51,7 @@ public class LaunchInteractiveBrowser {
      */
     public static void main(String[] args) {
         Logger logger = createLogger();
-        Launch.runCommandLineApp(args, new LauncherConfigBrowser(), logger);
+        Launch.runCommandLineApplication(args, new LauncherConfigBrowser(), logger);
     }
 
     private static Logger createLogger() {

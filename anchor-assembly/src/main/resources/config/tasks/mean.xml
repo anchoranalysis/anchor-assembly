@@ -8,19 +8,21 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Calculates an image where each pixel contains the mean of that pixel-value across many images.
+Creates a mean-intensity projection of all input images.
+
+This is an an image where each pixel is the mean of the corresponding pixel across all inputs.
 
 ======
 INPUTS
 ======
 
-Grayscale or RGB images, all must be the same size.
+grayscale or RGB images, all must be the same size.
 
 =======
 OUTPUTS
 =======
 
-An image for each channel, containing the mean of that channel across all images
+an image for each channel, containing the mean of that channel across all images
 
 -->
 <config>

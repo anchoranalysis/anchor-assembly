@@ -5,17 +5,17 @@ import java.util.Optional;
 import java.util.Set;
 import org.anchoranalysis.bean.xml.RegisterBeanFactories;
 import org.anchoranalysis.bean.xml.factory.AnchorDefaultBeanFactory;
-import org.anchoranalysis.core.error.OperationFailedException;
+import org.anchoranalysis.core.exception.OperationFailedException;
 import org.anchoranalysis.core.functional.OptionalUtilities;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.experiment.bean.task.Task;
 import org.anchoranalysis.experiment.io.ReplaceInputManager;
 import org.anchoranalysis.experiment.io.ReplaceOutputManager;
 import org.anchoranalysis.experiment.io.ReplaceTask;
 import org.anchoranalysis.image.bean.RegisterBeanFactoriesImage;
-import org.anchoranalysis.image.io.bean.RegisterBeanFactoriesIO;
+import org.anchoranalysis.image.io.RegisterBeanFactoriesIO;
 import org.anchoranalysis.io.input.InputFromManager;
 import org.anchoranalysis.io.input.bean.InputManager;
 import org.anchoranalysis.io.output.bean.OutputManager;
@@ -113,17 +113,15 @@ class ExperimentExecutorAfter {
      */
     public void executeExperiment(
             Experiment experiment,
-            ExperimentExecutionArguments executionArguments,
+            ExecutionArguments executionArguments,
             Optional<Path> pathInput,
             Optional<Path> pathOutput,
             Optional<Path> pathTask)
             throws ExperimentExecutionException {
 
-        if (!executionArguments.hasInputFilterExtensions() && defaultExtensions.isPresent()) {
-            // If no input-filter extensions have been specified and defaults are available, they
-            // are inserted in
-            executionArguments.setInputFilterExtensions(defaultExtensions);
-        }
+        // If no input-filter extensions have been specified and defaults are available, they
+        // are inserted in
+        executionArguments.input().assignInputFilterExtensionsIfMissing(defaultExtensions);
 
         OptionalUtilities.ifPresent(pathInput, path -> replaceInputManager(experiment, path));
 
@@ -146,7 +144,7 @@ class ExperimentExecutorAfter {
 
         // As path could be a folder, we make sure we get a file
         InputManager<InputFromManager> inputManager =
-                ExperimentReader.readInputManagerFromXML(pathInput);
+                BeanReader.readInputManagerFromXML(pathInput);
 
         try {
             if (experiment instanceof ReplaceInputManager) {
@@ -180,7 +178,7 @@ class ExperimentExecutorAfter {
             throws ExperimentExecutionException {
 
         // As path could be a folder, we make sure we get a file
-        OutputManager outputManager = ExperimentReader.readOutputManagerFromXML(pathOutput);
+        OutputManager outputManager = BeanReader.readOutputManagerFromXML(pathOutput);
 
         try {
             if (experiment instanceof ReplaceOutputManager) {
@@ -215,7 +213,7 @@ class ExperimentExecutorAfter {
             throws ExperimentExecutionException {
 
         // As path could be a folder, we make sure we get a file
-        Task<InputFromManager, Object> task = ExperimentReader.readTaskFromXML(pathTask);
+        Task<InputFromManager, Object> task = BeanReader.readTaskFromXML(pathTask);
 
         try {
             if (experiment instanceof ReplaceTask) {
@@ -245,8 +243,7 @@ class ExperimentExecutorAfter {
      * @param executionArguments additional arguments that describe the Experiment
      * @throws ExperimentExecutionException if the experiment cannot be executed
      */
-    private void executeExperiment(
-            Experiment experiment, ExperimentExecutionArguments executionArguments)
+    private void executeExperiment(Experiment experiment, ExecutionArguments executionArguments)
             throws ExperimentExecutionException {
 
         try {

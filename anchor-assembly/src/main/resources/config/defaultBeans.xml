@@ -2,33 +2,93 @@
 <config>
 <bean config-class="java.util.List" config-factory="list">
 
-	<!-- Read images using Bioformats -->
-	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.StackReader">
-		<item config-class="org.anchoranalysis.io.bioformats.bean.BioformatsReader">
-			<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceBitsPerPixel" bitsPerPixel="8">
-				<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceTimeSeriesToStack"/>
-			</options>
+	<!-- 
+	
+	   Read images using OpenCV for JPEG (because it corrects exif orientation) and otherwise Bioformats.
+	   
+	 -->
+	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.reader.StackReader">
+		<item config-class="org.anchoranalysis.plugin.io.bean.stack.reader.BranchExtension">
+			<extensions config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
+				<item>jpg</item>
+				<item>jpeg</item>
+			</extensions>		
+			<readerMatching config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVReader"/>
+			<readerNotMatching config-class="org.anchoranalysis.io.bioformats.bean.BioformatsReader">
+				<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceBitsPerPixel" bitsPerPixel="8">
+					<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceTimeSeriesToStack"/>
+				</options>
+			</readerNotMatching>
 		</item>
 	</item>
 	
-	<!-- Write PNGs (for single or three-channeled 2D images) or Tiffs (for single or three-channeled 3D images) or OME-TIFFs for everything else. -->
-	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.StackWriter">
+	<!-- 
+	
+	  Write PNGs (for single or three-channeled 2D images) or Tiffs (for single or three-channeled 3D images) or OME-TIFFs for everything else.
+	  
+	  In two cases (single-channeled or RGB-images that are always 2D), the user can
+	  suggest a file-format that is used for performing the output.  If no suggestion
+	  is made the default is used. 
+	-->
+	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.writer.StackWriter">
 		<item config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchChannels">
 			
 			<!--  Catch all writer that can support almost any combination of channels / stacks  -->
-			<writer config-class="org.anchoranalysis.plugin.io.bean.stack.writer.bioformats.OMETiff"/>
+			<writer config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
 
-			<!-- If it's guaranteed to be RGB (three channels) use a PNG if guaranteed to be 2D, or a TIFF otherwise -->
+			<!-- If it's guaranteed to be RGB (three channels) use a PNG (by default) if guaranteed to be 2D, or a TIFF otherwise -->
 			<whenRGB config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchStack">
-				<writerAlways2D config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
-				<writerElse config-class="org.anchoranalysis.plugin.io.bean.stack.writer.bioformats.Tiff"/>
+
+				<!-- If the user suggests an alternative format, then use any of these in the 2D case... -->				
+				<writerAlways2D config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchSuggestedFormat">
+					<writersIfSuggested config-class="java.util.List" config-factory="list">
+						<item config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
+						<item config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
+						<item extension="jpg" config-class="org.anchoranalysis.plugin.io.bean.stack.writer.ImageIOWriter"/>
+						<item extension="bmp" config-class="org.anchoranalysis.plugin.io.bean.stack.writer.ImageIOWriter"/>
+						<item config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
+					</writersIfSuggested>
+					<!-- The default if no format is suggested -->
+					<writerIfNoSuggestion config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
+				</writerAlways2D>
+				<writerElse config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
 			</whenRGB>
 			
-			<!-- Likewise if it's guaranteed to be one or three channels, use a PNG if guranteed to be 2D, or a TIFF otherwise -->
-			<whenOneOrThreeChannels config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchStack">
+			<!-- Likewise if it's guaranteed to be three channels and not RGB use a TIFF -->
+			<whenThreeChannels config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchSuggestedFormat">
+				<writersIfSuggested config-class="java.util.List" config-factory="list">
+					<item config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
+					<item config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
+					<item config-class="org.anchoranalysis.io.bioformats.bean.writer.OMEXML"/>
+				</writersIfSuggested>
+				<!-- The default if no format is suggested -->
+				<writerIfNoSuggestion config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
+			</whenThreeChannels>
+				
+			<!-- Likewise if it's guaranteed to be a single non-binary channel, use a PNG (by default) if guaranteed to be 2D, or a TIFF otherwise -->
+			<whenSingleChannel config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchStack">
+
+				<!-- If the user suggests an alternative format, then use any of these in the 2D case... -->
+				<writerAlways2D config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchSuggestedFormat">
+					<writersIfSuggested config-class="java.util.List" config-factory="list">
+						<item config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
+						<item config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
+						<item extension="jpg" config-class="org.anchoranalysis.plugin.io.bean.stack.writer.ImageIOWriter"/>
+						<item extension="bmp" config-class="org.anchoranalysis.plugin.io.bean.stack.writer.ImageIOWriter"/>
+						<item config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
+						<item config-class="org.anchoranalysis.io.bioformats.bean.writer.OMEXML"/>
+					</writersIfSuggested>
+					<!-- The default if no format is suggested -->
+					<writerIfNoSuggestion config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
+				</writerAlways2D>
+				<writerElse config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
+			</whenSingleChannel>
+									
+			<!-- Likewise if it's guaranteed to be a single binary channel, use a PNG if guaranteed to be 2D, or a TIFF otherwise -->
+			<whenBinaryChannel config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchStack">
 				<writerAlways2D config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
-				<writerElse config-class="org.anchoranalysis.plugin.io.bean.stack.writer.bioformats.Tiff"/>
-			</whenOneOrThreeChannels>
+				<writerElse config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
+			</whenBinaryChannel>
 		</item>
 	</item>
 	

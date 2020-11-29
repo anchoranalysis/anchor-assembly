@@ -23,8 +23,8 @@
 package org.anchoranalysis.launcher;
 
 import java.util.Optional;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.config.ResourcesConfig;
@@ -86,9 +86,9 @@ class LauncherConfigCommandLine extends LauncherConfig {
     }
 
     @Override
-    public ExperimentExecutionArguments createArguments(CommandLine line)
+    public ExecutionArguments createArguments(CommandLine line)
             throws ExperimentExecutionException {
-        ExperimentExecutionArguments arguments = new ExperimentExecutionArguments();
+        ExecutionArguments arguments = new ExecutionArguments();
 
         CommandLineExtracter extract = new CommandLineExtracter(line);
         extract.ifPresentSingle(
@@ -128,7 +128,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
                 SelectParamFactory.outputSelectParam(line, CommandLineOptions.SHORT_OPTION_OUTPUT));
         template.setTask(
                 SelectParamFactory.pathOrTaskNameOrDefault(
-                        line, CommandLineOptions.SHORT_OPTION_TASK, template.getConfigDir()));
+                        line, CommandLineOptions.SHORT_OPTION_TASK, template.getConfigDirectory()));
         template.setDefaultBehaviourString(Optional.of(BEHAVIOUR_MESSAGE_FOR_DEFAULT_EXPERIMENT));
     }
 }

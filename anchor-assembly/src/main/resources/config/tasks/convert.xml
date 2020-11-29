@@ -1,4 +1,32 @@
-<!-- Converts an image into default output format (usually TIFF) -->
+<!-- 
+===================
+TASK:   convert
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Converts an image into another file format.
+
+The target format is selected depending on the type of image (single-channel vs RGB, 2D image vs 3D etc.)
+according to the rules specified in defaultBeans.xml, further influenced by the -of command line parameter
+if it is specified. 
+
+======
+INPUTS
+======
+
+images
+
+=======
+OUTPUTS
+=======
+
+converted:
+   	a copy of each file converted to the desired target format, preserving file-naming and directory structure (aside from file extension).
+-->
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.format.ConvertImageFormat">
     <channelConversionStyle config-class="org.anchoranalysis.plugin.image.task.bean.format.convertstyle.RGB">

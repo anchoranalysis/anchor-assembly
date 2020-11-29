@@ -25,6 +25,7 @@ package org.anchoranalysis.launcher.executor;
 import static org.junit.Assert.*;
 
 import java.nio.file.Path;
+import org.anchoranalysis.core.format.NonImageFileFormat;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.test.TestLoader;
 import org.junit.BeforeClass;
@@ -149,7 +150,7 @@ public class ExperimentReaderErrorReportingTest {
 
         // Catch and display the output
         try {
-            ExperimentReader.readExperimentFromXML(experimentConfigFile);
+            BeanReader.readExperimentFromXML(experimentConfigFile);
         } catch (ExperimentExecutionException e) {
 
             String output = e.friendlyMessageHierarchy();
@@ -161,7 +162,8 @@ public class ExperimentReaderErrorReportingTest {
     }
 
     private static String testPathToConfig(String configName) {
-        return String.format("erroredConfig/%s/config.xml", configName);
+        String directory = String.format("erroredConfig/%s", configName);
+        return NonImageFileFormat.XML.buildPath(directory, "config");
     }
 
     /**

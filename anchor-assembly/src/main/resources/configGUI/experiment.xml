@@ -35,7 +35,7 @@
 
 	  <output config-class="org.anchoranalysis.io.output.bean.OutputManager" silentlyDeleteExisting="true">
 	  
-		  <filePathPrefixer filePath="ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.output.path.PathPrefixer" config-factory="include"/>
+		  <filePathPrefixer filePath="ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.output.bean.path.prefixer.PathPrefixer" config-factory="include"/>
 
 	  </output>
 	  
@@ -53,9 +53,7 @@
       </logTask>
               	  
 	  <taskProcessor config-class="org.anchoranalysis.experiment.bean.processor.SequentialProcessor" suppressExceptions="true">
-		  <task config-class="org.anchoranalysis.gui.interactivebrowser.launch.InteractiveBrowserTask">
-	  		  <exportTaskList filePath="exportTaskList.xml" config-class="org.anchoranalysis.plugin.gui.bean.export.task.ExportTaskList" config-factory="include"/>
-    		</task>
+		  <task config-class="org.anchoranalysis.gui.interactivebrowser.launch.InteractiveBrowserTask"/>
     	</taskProcessor>
 	</experiment>
 	

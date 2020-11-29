@@ -29,16 +29,16 @@ import org.anchoranalysis.io.bioformats.ConfigureBioformatsLogging;
  */
 
 /**
- * Inelegant initialisation methods that should be done in the plugins themselves, when a proper
- * framework exists for Initialising plugins
+ * Inelegant initialization methods that should be done in the plugins themselves, when a proper
+ * framework exists for initializing plugins.
  *
  * @author Owen Feehan
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DirtyInitializer {
+class DirtyInitializer {
 
     /**
-     * Dirty initialisation work done that must be done every time we initialise an application that
+     * Dirty initialization work done that must be done every time we initialise an application that
      * will use the Anchor platform
      */
     public static void dirtyInitialization() {

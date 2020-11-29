@@ -1,5 +1,28 @@
-<!--
-Summarizes different properties of input-files
+<!-- 
+===================
+TASK:   list
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Prints a line to the console/log for each input in the form:
+ inputName -> inputPath 
+
+======
+INPUTS
+======
+
+any files
+
+=======
+OUTPUTS
+=======
+
+none
+
 -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeInputs">

@@ -49,11 +49,6 @@
 		</dependency>
 	
 		<!-- Plugins we wish to 'add' to the modules -->
-		<dependency>
-		  <groupId>${project.groupId}</groupId>
-		  <artifactId>anchor-plugin-eth</artifactId>
-		  <version>0.0.8-SNAPSHOT</version>
-		</dependency>
 	 
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
@@ -129,19 +124,7 @@
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
-		  <artifactId>anchor-plugin-gui-export</artifactId>
-		  <version>0.0.1-SNAPSHOT</version>
-		</dependency>			
-		
-		<dependency>
-		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-gui-import</artifactId>
-		  <version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-		  <groupId>${project.groupId}</groupId>
-		  <artifactId>anchor-plugin-gui-live</artifactId>
 		  <version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	

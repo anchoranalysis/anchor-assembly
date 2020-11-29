@@ -1,10 +1,8 @@
-package org.anchoranalysis.launcher;
-
 /*-
  * #%L
  * anchor-launcher
  * %%
- * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
+ * Copyright (C) 2010 - 2020 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann-La Roche
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -21,8 +19,9 @@ package org.anchoranalysis.launcher;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+package org.anchoranalysis.launcher;
 
-import org.anchoranalysis.core.error.friendly.AnchorFriendlyRuntimeException;
+import org.anchoranalysis.core.exception.friendly.AnchorFriendlyRuntimeException;
 
 /** An exception thrown at run-time while processing command-line args */
 public class CommandLineException extends AnchorFriendlyRuntimeException {

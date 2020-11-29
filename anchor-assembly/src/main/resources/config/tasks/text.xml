@@ -8,7 +8,7 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Finds text-regions in RGB images.
+Finds text-regions in images.
 
 It uses the EAST deep-CNN model via OpenCV, which generates a list of rotated bounding-boxes of proposed text regions,
 each with a confidence score.
@@ -23,8 +23,7 @@ similar in size.
 INPUTS
 ======
 
-input_image:
-    A RGB stack
+RGB or grayscale images
 
 
 =======

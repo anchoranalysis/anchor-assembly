@@ -23,10 +23,10 @@
 package org.anchoranalysis.launcher.executor.selectparam.experiment;
 
 import java.nio.file.Path;
-import org.anchoranalysis.experiment.ExperimentExecutionArguments;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
+import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
-import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.PrettyPathConverter;
 
 /**
  * An experiment passed as a custom-path
@@ -43,8 +43,7 @@ class UseExperimentPassedAsPath implements SelectParam<Path> {
     }
 
     @Override
-    public Path select(ExperimentExecutionArguments executionArguments)
-            throws ExperimentExecutionException {
+    public Path select(ExecutionArguments executionArguments) throws ExperimentExecutionException {
 
         if (path.toFile().isDirectory()) {
             throw new ExperimentExecutionException(

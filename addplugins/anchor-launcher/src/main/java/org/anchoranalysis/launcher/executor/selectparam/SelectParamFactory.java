@@ -26,13 +26,13 @@ import java.nio.file.Path;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.anchoranalysis.core.functional.function.CheckedFunction;
+import org.anchoranalysis.core.functional.checked.CheckedFunction;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.experiment.ExperimentFactory;
-import org.anchoranalysis.launcher.executor.selectparam.io.InputFactory;
-import org.anchoranalysis.launcher.executor.selectparam.io.OutputFactory;
-import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgumentException;
-import org.anchoranalysis.launcher.executor.selectparam.task.TaskFactory;
+import org.anchoranalysis.launcher.executor.selectparam.path.InputFactory;
+import org.anchoranalysis.launcher.executor.selectparam.path.OutputFactory;
+import org.anchoranalysis.launcher.executor.selectparam.path.TaskFactory;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPathArgumentException;
 import org.apache.commons.cli.CommandLine;
 
 /**

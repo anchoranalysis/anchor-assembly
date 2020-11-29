@@ -1,0 +1,117 @@
+<!-- 
+===================
+TASK:   feature/metadata
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Extracts some basic metadata/size properties of the image as features.
+
+These are:
+- voxel data-type maximum value (i.e. bit depth)
+- size of image dimensions in X, Y, Z, both in voxels and in physical measurements
+(only different if a file format defines a physical-pixel-size)
+- pixel physical size in X, Y, Z (i.e. resolution)
+- area (XY), both in square pixels and in physical measurements
+- volume (XYZ), both in cubic voxels and in physical measurements
+
+Note, these features can be calculated without reading any voxels from the image, so should calculate
+more quickly than intensity-based features.
+
+======
+INPUTS
+======
+
+An image, either grayscale or RGB.
+
+
+=======
+OUTPUTS
+=======
+
+features:
+    a CSV file with each image's name and the features described above
+
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeatures">
+	
+	<source config-class="org.anchoranalysis.plugin.image.task.bean.feature.source.FromImage"/>
+	
+ 	<features config-class="java.util.List" config-factory="list">
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="voxelDataTypeMaxValue">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.stack.intensity.DataTypeMaxIntensity"/>
+			</item>			
+		</item>
+	
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeVoxels">
+			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
+				<feature config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Extent" axis="x"/>
+				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="axis">
+					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
+				</permutation>
+			</item>
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeMicrons">
+			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
+				<feature unitType="µm" config-class="org.anchoranalysis.image.feature.bean.physical.ConvertToPhysicalDistance">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Extent" axis="x"/>
+					<direction axis="x" config-class="org.anchoranalysis.image.bean.spatial.direction.AxisAlignedUnitVector"/>
+				</feature>
+				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="item.axis">
+					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
+					<additionalPropertyPaths items="direction.axis" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
+				</permutation>
+			</item>
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="voxelSizeMicrons">
+			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
+				<feature unitTypeTo="µm" config-class="org.anchoranalysis.plugin.operator.feature.physical.ConvertUnits">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.VoxelPhysicalSize" axis="x"/>
+				</feature>
+				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="item.axis">
+					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
+				</permutation>
+			</item>
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="areaSquareVoxels">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Area"/>	
+			</item>
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="volumeCubicVoxels">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Volume"/>	
+			</item>
+		</item>
+		
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="areaSquareMicrons">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.image.feature.bean.physical.ConvertToPhysicalAreaXY" unitType="µm^2">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Area"/>	
+				</item>
+			</item>			
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="volumeCubicMicrons">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.image.feature.bean.physical.ConvertToPhysicalVolume" unitType="µm^3">
+					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Volume"/>
+				</item>
+			</item>			
+		</item>
+		
+	</features>
+
+</bean>
+</config>

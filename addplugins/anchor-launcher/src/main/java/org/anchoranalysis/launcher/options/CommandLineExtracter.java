@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import lombok.AllArgsConstructor;
 import org.anchoranalysis.core.functional.OptionalUtilities;
-import org.anchoranalysis.core.functional.function.CheckedConsumer;
+import org.anchoranalysis.core.functional.checked.CheckedConsumer;
 import org.apache.commons.cli.CommandLine;
 
 /**

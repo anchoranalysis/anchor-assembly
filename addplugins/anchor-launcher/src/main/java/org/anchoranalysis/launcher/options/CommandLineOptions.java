@@ -49,6 +49,7 @@ public class CommandLineOptions {
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL = "oe";
     public static final String SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL = "od";
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ALL = "oa";
+    public static final String SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT = "of";
     public static final String SHORT_OPTION_TASK = "t";
 
     private static final String LONG_OPTION_HELP = "help";
@@ -62,6 +63,7 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL = "outputEnable";
     private static final String LONG_OPTION_OUTPUT_DISABLE_ADDITIONAL = "outputDisable";
     private static final String LONG_OPTION_OUTPUT_ENABLE_ALL = "outputEnableAll";
+    private static final String LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT = "outputFileFormat";
     private static final String LONG_OPTION_TASK = "task";
     // END: Options
 
@@ -133,5 +135,11 @@ public class CommandLineOptions {
                 LONG_OPTION_OUTPUT_ENABLE_ALL,
                 false,
                 "enables all outputs");
+
+        options.addOption(
+                optionalSingleArgument(
+                        SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
+                        LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
+                        "suggested image-format for writing"));
     }
 }
