@@ -20,7 +20,7 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher;
+package org.anchoranalysis.launcher.config;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -30,26 +30,34 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.core.exception.friendly.AnchorFriendlyRuntimeException;
 
+/**
+ * Determines the path to the directory from where a particular jar resides.
+ * 
+ * @author Owen Feehan
+  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class PathCurrentJarUtilities {
+class PathCurrentJarHelper {
 
     /**
      * Determines the path to the current jar directory (or folder with class files) so we can
      * resolve a properties file
      *
-     * @param c the class which was used to launch the application (or another class with the same
+     * @param classLauncher the class which was used to launch the application (or another class with the same
      *     codeSource)
      * @return a path (always a folder) to the current jar (or folder with class files)
      */
-    public static Path pathCurrentJAR(Class<?> c) {
-        URI pathURI;
+    public static Path pathCurrentJAR(Class<?> classLauncher) {
         try {
-            pathURI = c.getProtectionDomain().getCodeSource().getLocation().toURI();
+            URI pathURI = classLauncher.getProtectionDomain().getCodeSource().getLocation().toURI();
+            return pathFromUri(pathURI);
         } catch (URISyntaxException e) {
             throw new AnchorFriendlyRuntimeException(
                     "An invalid URI was used in establishing the path to the current JAR", e);
         }
-        Path path = Paths.get(pathURI);
+    }
+    
+    private static Path pathFromUri(URI uri) {
+        Path path = Paths.get(uri);
 
         if (path.toFile().isDirectory()) {
             // If it's a folder this is good enough, and we return it

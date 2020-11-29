@@ -128,7 +128,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
                 SelectParamFactory.outputSelectParam(line, CommandLineOptions.SHORT_OPTION_OUTPUT));
         template.setTask(
                 SelectParamFactory.pathOrTaskNameOrDefault(
-                        line, CommandLineOptions.SHORT_OPTION_TASK, template.getConfigDir()));
+                        line, CommandLineOptions.SHORT_OPTION_TASK, template.getConfigDirectory()));
         template.setDefaultBehaviourString(Optional.of(BEHAVIOUR_MESSAGE_FOR_DEFAULT_EXPERIMENT));
     }
 }

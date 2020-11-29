@@ -22,38 +22,37 @@
 
 package org.anchoranalysis.launcher.executor.selectparam.path;
 
-import java.nio.file.Path;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
- * Loads a custom-manager from a path
+ * Updates task-name AND delegates to another SelectParam<Path>
  *
  * @author Owen Feehan
+ * @param <T> delegate-type for {@link SelectParam}
  */
-public class CustomManagerFromPath implements SelectParam<Optional<Path>> {
+@AllArgsConstructor
+class UpdateTaskName<T> implements SelectParam<T> {
 
-    private Path path;
-
-    public CustomManagerFromPath(Path path) {
-        super();
-        this.path = path;
-    }
+    private SelectParam<T> delegate;
+    private String taskName;
 
     @Override
-    public Optional<Path> select(ExecutionArguments executionArguments) {
-        return Optional.of(path);
+    public T select(ExecutionArguments executionArguments) throws ExperimentExecutionException {
+        executionArguments.assignTaskName(Optional.of(taskName));
+        return delegate.select(executionArguments);
     }
 
     @Override
     public boolean isDefault() {
-        return false;
+        return delegate.isDefault();
     }
 
     @Override
     public String describe() throws ExperimentExecutionException {
-        return String.format("from %s", PrettyPathConverter.prettyPath(path));
+        return delegate.describe();
     }
 }

@@ -51,7 +51,7 @@ public class LaunchInteractiveBrowser {
      */
     public static void main(String[] args) {
         Logger logger = createLogger();
-        Launch.runCommandLineApp(args, new LauncherConfigBrowser(), logger);
+        Launch.runCommandLineApplication(args, new LauncherConfigBrowser(), logger);
     }
 
     private static Logger createLogger() {

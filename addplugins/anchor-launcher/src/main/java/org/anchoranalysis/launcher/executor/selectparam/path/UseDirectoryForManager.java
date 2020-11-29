@@ -20,37 +20,55 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.executor.selectparam.io;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
-import org.anchoranalysis.core.format.FormatExtensions;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
+import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.PrettyPathConverter;
 
 /**
- * Uses the path directory as a manager.
+ * Uses the path directory as a manager
  *
  * @author Owen Feehan
  */
-@AllArgsConstructor
-class UseAsExtension implements SelectParam<Optional<Path>> {
+class UseDirectoryForManager implements SelectParam<Optional<Path>> {
 
-    private String[] extensions;
+    private final boolean input;
+    private final Path directory;
+
+    /**
+     * Constructor
+     *
+     * @param input iff true, then we are replacing the input-manager, otherwise the output-manager
+     */
+    public UseDirectoryForManager(Path directory, boolean input) {
+        this.input = input;
+        this.directory = directory;
+        if (!directory.toFile().isDirectory()) {
+            throw new CommandLineException(
+                    String.format(
+                            "The path %s to UseDirectoryForManager must be a directory",
+                            directory));
+        }
+    }
 
     @Override
     public Optional<Path> select(ExecutionArguments executionArguments) {
-        executionArguments
-                .input()
-                .assignInputFilterExtensions(FormatExtensions.removeLeadingPeriod(extensions));
+        if (input) {
+            executionArguments.input().assignInputDirectory(Optional.of(directory));
+        } else {
+            executionArguments.output().assignOutputDirectory(directory);
+        }
         return Optional.empty();
     }
 
     @Override
     public String describe() throws ExperimentExecutionException {
-        return String.join(", ", extensions);
+        return PrettyPathConverter.prettyPath(directory);
     }
 
     @Override

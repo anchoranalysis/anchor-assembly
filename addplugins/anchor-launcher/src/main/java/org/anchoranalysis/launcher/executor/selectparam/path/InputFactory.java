@@ -20,7 +20,7 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.executor.selectparam.io;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -33,9 +33,8 @@ import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.core.functional.checked.CheckedSupplier;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
-import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
-import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
-import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgumentException;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.ArgumentConverter;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPathArgumentException;
 
 /**
  * {@code SelectParam<Path>} factory for inputs.
@@ -70,8 +69,8 @@ public class InputFactory {
     private static Optional<SelectParam<Optional<Path>>> checkFileExtension(String[] args)
             throws InvalidPathArgumentException {
         return check(
-                Arrays.stream(args).anyMatch(ExtensionUtilities::isFileExtension),
-                Arrays.stream(args).allMatch(ExtensionUtilities::isFileExtension),
+                Arrays.stream(args).anyMatch(ExtensionHelper::isFileExtension),
+                Arrays.stream(args).allMatch(ExtensionHelper::isFileExtension),
                 () -> new UseAsExtension(args),
                 "If a file-extension (e.g. .png) is specified, all other arguments to -i must also be file-extensions");
     }
@@ -80,9 +79,9 @@ public class InputFactory {
     private static Optional<SelectParam<Optional<Path>>> checkXmlExtension(String[] args)
             throws InvalidPathArgumentException {
         return check(
-                Arrays.stream(args).anyMatch(ExtensionUtilities::hasXmlExtension),
+                Arrays.stream(args).anyMatch(ExtensionHelper::hasXmlExtension),
                 args.length == 1,
-                () -> new CustomManagerFromPath(ArgumentConverter.pathFromArgument(args[0])),
+                () -> new UseAsCustomManager(ArgumentConverter.pathFromArgument(args[0])),
                 "Only a single BeanXML argument is permitted after -i (i.e. with a path with a .xml extension)");
     }
 

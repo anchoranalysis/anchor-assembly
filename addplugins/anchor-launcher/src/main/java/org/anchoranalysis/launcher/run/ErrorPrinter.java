@@ -20,7 +20,7 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.parser;
+package org.anchoranalysis.launcher.run;
 
 import java.io.FileWriter;
 import java.io.IOException;

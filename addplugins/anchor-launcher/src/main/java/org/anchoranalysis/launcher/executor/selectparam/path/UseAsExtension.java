@@ -20,39 +20,41 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.executor.selectparam.task;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
+import java.nio.file.Path;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
+import org.anchoranalysis.core.format.FormatExtensions;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
 /**
- * Updates task-name AND delegates to another SelectParam<Path>
+ * Uses the path directory as a manager.
  *
  * @author Owen Feehan
- * @param <T> delegate-type for {@link SelectParam}
  */
 @AllArgsConstructor
-class UpdateTaskName<T> implements SelectParam<T> {
+class UseAsExtension implements SelectParam<Optional<Path>> {
 
-    private SelectParam<T> delegate;
-    private String taskName;
-
-    @Override
-    public T select(ExecutionArguments executionArguments) throws ExperimentExecutionException {
-        executionArguments.assignTaskName(Optional.of(taskName));
-        return delegate.select(executionArguments);
-    }
+    private String[] extensions;
 
     @Override
-    public boolean isDefault() {
-        return delegate.isDefault();
+    public Optional<Path> select(ExecutionArguments executionArguments) {
+        executionArguments
+                .input()
+                .assignInputFilterExtensions(FormatExtensions.removeLeadingPeriod(extensions));
+        return Optional.empty();
     }
 
     @Override
     public String describe() throws ExperimentExecutionException {
-        return delegate.describe();
+        return String.join(", ", extensions);
+    }
+
+    @Override
+    public boolean isDefault() {
+        return false;
     }
 }

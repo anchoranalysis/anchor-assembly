@@ -20,56 +20,55 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.executor.selectparam.io;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
-import java.util.List;
+import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.Optional;
-import org.anchoranalysis.core.functional.FunctionalList;
+import lombok.AllArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
+import org.anchoranalysis.experiment.arguments.InputArguments;
+import org.anchoranalysis.io.input.path.GlobExtractor;
+import org.anchoranalysis.io.input.path.GlobExtractor.GlobWithDirectory;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
-import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
 
 /**
- * Uses a list of paths to specific files as a manager
+ * Uses the path directory as a manager
  *
  * @author Owen Feehan
  */
-class UseListFilesForManager implements SelectParam<Optional<Path>> {
+@AllArgsConstructor
+class UseAsGlob implements SelectParam<Optional<Path>> {
 
-    private List<Path> paths;
-
-    /**
-     * Constructor
-     *
-     * @param paths
-     */
-    public UseListFilesForManager(List<Path> paths) {
-        super();
-        this.paths = paths;
-        checkNoDirectories(paths);
-    }
+    /** String containing a wildcard */
+    private String stringWithWildcard;
 
     @Override
     public Optional<Path> select(ExecutionArguments executionArguments) {
-        executionArguments.input().assignInputPaths(paths);
+
+        // Isolate a directory component, from the rest of the glob
+        // to allow matches like sdsds/sdsds/*.jpg
+        GlobWithDirectory glob = GlobExtractor.extract(stringWithWildcard);
+
+        InputArguments arguments = executionArguments.input();
+        arguments.assignInputDirectory(glob.getDirectory().map(Paths::get));
+        arguments.assignInputFilterGlob(glob.getGlob());
+
+        // An empty set, means no filter check is applied
+        arguments.assignInputFilterExtensions(new HashSet<String>());
+
         return Optional.empty();
     }
 
     @Override
     public String describe() throws ExperimentExecutionException {
-        return String.join(", ", FunctionalList.mapToList(paths, PrettyPathConverter::prettyPath));
+        return stringWithWildcard;
     }
 
     @Override
     public boolean isDefault() {
         return false;
-    }
-
-    private void checkNoDirectories(List<Path> paths) {
-        for (Path path : paths) {
-            assert (!path.toFile().isDirectory());
-        }
     }
 }

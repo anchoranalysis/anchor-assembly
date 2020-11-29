@@ -20,7 +20,7 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.parser;
+package org.anchoranalysis.launcher.run;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -41,9 +41,9 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- * A general parser for command-line applications with certain attributes.
+ * Parses command-line arguments and runs an experiment.
  *
- * <p>Namely:
+ * <p>The parser includes:
  *
  * <ol>
  *   <li>a help option, that prints help information
@@ -67,10 +67,10 @@ public class ParseArgumentsAndRunExperiment {
     /**
      * Parses the arguments to a command-line experiment and runs an experiment
      *
-     * @param args arguments from command-line
-     * @param parserConfig a configuration for the command-line exector
+     * @param arguments arguments from command-line
+     * @param parserConfig a configuration for the command-line executor.
      */
-    public void parseAndRun(String[] args, LauncherConfig parserConfig) {
+    public void parseAndRun(String[] arguments, LauncherConfig parserConfig) {
 
         Options options = createOptions(parserConfig);
 
@@ -78,7 +78,7 @@ public class ParseArgumentsAndRunExperiment {
         CommandLineParser parser = new DefaultParser();
         try {
             // parse the command line arguments
-            CommandLine line = parser.parse(options, args);
+            CommandLine line = parser.parse(options, arguments);
 
             if (maybePrintHelp(line, options, parserConfig.resources(), parserConfig.help())) {
                 return;

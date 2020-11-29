@@ -20,22 +20,21 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.parser;
+package org.anchoranalysis.launcher.run;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Prints version information to the console
  *
  * @author Owen Feehan
  */
+@NoArgsConstructor(access=AccessLevel.PRIVATE)
 class VersionPrinter {
-
-    private VersionPrinter() {
-        // Only accessible through static methods
-    }
 
     /**
      * Gets the current version of the software by reading a properties-file provided by the Maven
@@ -43,7 +42,7 @@ class VersionPrinter {
      *
      * <p>NOTE that this pom.proper
      *
-     * @param cl class-loader where resource is found
+     * @param classLoader class-loader where resource is found
      * @param versionResourcePath resource-path (with class-loader) to obtain the version of the
      *     software
      * @return string describing the current version number of anchor-launcher
@@ -51,10 +50,10 @@ class VersionPrinter {
      *     version key
      */
     private static String obtainVersionFromMavenProperties(
-            ClassLoader cl, String versionResourcePath) throws IOException {
+            ClassLoader classLoader, String versionResourcePath) throws IOException {
         Properties props = new Properties();
 
-        InputStream mavenPropertiesResource = cl.getResourceAsStream(versionResourcePath);
+        InputStream mavenPropertiesResource = classLoader.getResourceAsStream(versionResourcePath);
 
         if (mavenPropertiesResource == null) {
             return "<unknown>";

@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
-import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.PrettyPathConverter;
 
 /**
  * An experiment passed as a custom-path

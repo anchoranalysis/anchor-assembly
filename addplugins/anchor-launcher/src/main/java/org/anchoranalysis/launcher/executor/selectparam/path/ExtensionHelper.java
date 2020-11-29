@@ -20,14 +20,14 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.executor.selectparam.io;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.core.format.NonImageFileFormat;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class ExtensionUtilities {
+class ExtensionHelper {
 
     public static boolean hasXmlExtension(String path) {
         return NonImageFileFormat.XML.matchesEnd(path);

@@ -39,16 +39,7 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
 
 /**
- * Determines where the files passed the ExperimentExecutor are loaded from.
- *
- * <p><div> This can be:
- *
- * <ul>
- *   <li>where the input-manager or output-manager is found
- *   <li>different other execution arguments
- * </ul>
- *
- * </div>
+ * Runs a particular experiment after identifying necessary paths and input files.
  *
  * @author Owen Feehan
  */
@@ -60,10 +51,10 @@ public class ExperimentExecutor {
     private final SelectParam<Path> experiment;
 
     /** the directory where configuration files are stored */
-    @Getter private final Path configDir;
+    @Getter private final Path configDirectory;
 
     /** the directory from which the experiment is executed */
-    private final Path executionDir;
+    private final Path executionDirectory;
     // END REQUIRED ARGUMENTS
 
     @Getter @Setter private SelectParam<Optional<Path>> input = SelectParamFactory.useDefault();
@@ -88,7 +79,7 @@ public class ExperimentExecutor {
             ExecutionArguments execArgs, boolean alwaysShowExperimentArgs, MessageLogger logger)
             throws ExperimentExecutionException {
 
-        ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDir);
+        ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDirectory);
 
         if (defaultBehaviourString.isPresent() && areAllDefault()) {
             // Special behaviour if everything has defaults
@@ -104,7 +95,7 @@ public class ExperimentExecutor {
             logger.log(describe());
         }
 
-        setupModelDirectory(configDir, execArgs);
+        setupModelDirectory(configDirectory, execArgs);
 
         delegate.executeExperiment(
                 experimentLoaded,
@@ -175,6 +166,6 @@ public class ExperimentExecutor {
 
     private Experiment loadExperimentFromPath(ExecutionArguments execArgs)
             throws ExperimentExecutionException {
-        return ExperimentReader.readExperimentFromXML(experiment.select(execArgs));
+        return BeanReader.readExperimentFromXML(experiment.select(execArgs));
     }
 }

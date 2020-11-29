@@ -144,7 +144,7 @@ class ExperimentExecutorAfter {
 
         // As path could be a folder, we make sure we get a file
         InputManager<InputFromManager> inputManager =
-                ExperimentReader.readInputManagerFromXML(pathInput);
+                BeanReader.readInputManagerFromXML(pathInput);
 
         try {
             if (experiment instanceof ReplaceInputManager) {
@@ -178,7 +178,7 @@ class ExperimentExecutorAfter {
             throws ExperimentExecutionException {
 
         // As path could be a folder, we make sure we get a file
-        OutputManager outputManager = ExperimentReader.readOutputManagerFromXML(pathOutput);
+        OutputManager outputManager = BeanReader.readOutputManagerFromXML(pathOutput);
 
         try {
             if (experiment instanceof ReplaceOutputManager) {
@@ -213,7 +213,7 @@ class ExperimentExecutorAfter {
             throws ExperimentExecutionException {
 
         // As path could be a folder, we make sure we get a file
-        Task<InputFromManager, Object> task = ExperimentReader.readTaskFromXML(pathTask);
+        Task<InputFromManager, Object> task = BeanReader.readTaskFromXML(pathTask);
 
         try {
             if (experiment instanceof ReplaceTask) {

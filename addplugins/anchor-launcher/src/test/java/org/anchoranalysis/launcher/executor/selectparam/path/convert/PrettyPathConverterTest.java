@@ -20,7 +20,7 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.executor.selectparam.path;
+package org.anchoranalysis.launcher.executor.selectparam.path.convert;
 
 import static org.junit.Assert.*;
 
@@ -31,40 +31,40 @@ import org.junit.Test;
 
 public class PrettyPathConverterTest {
 
-    private static Path PATH_ABS_BIG = path("/a/b/c/d/e/f");
-    private static Path PATH_ABS_MEDIUM = path("/a/b/c/d");
-    private static Path PATH_ABS_DIFF_BIG_TO_MEDIUM = path("e/f");
-    private static Path PATH_ABS_DIFF_MEDIUM_TO_BIG = path("../..");
+    private static Path PATH_ABSOLUTE_BIG = path("/a/b/c/d/e/f");
+    private static Path PATH_ABSOLUTE_MEDIUM = path("/a/b/c/d");
+    private static Path PATH_ABSOLUTE_DIFF_BIG_TO_MEDIUM = path("e/f");
+    private static Path PATH_ABSOLUTE_DIFF_MEDIUM_TO_BIG = path("../..");
 
-    private static Path PATH_REL_BIG = path("../../../");
-    private static Path PATH_REL_MEDIUM = path("../../");
-    private static Path PATH_REL_DIFF_BIG_TO_MEDIUM = path("../");
+    private static Path PATH_RELATIVE_BIG = path("../../../");
+    private static Path PATH_RELATIVE_MEDIUM = path("../../");
+    private static Path PATH_RELATIVE_DIFF_BIG_TO_MEDIUM = path("../");
 
     private static String IDENTICAL = ".";
 
     @Test
-    public void testBiggerAbs() throws ExperimentExecutionException {
-        test(PATH_ABS_BIG, PATH_ABS_MEDIUM, PATH_ABS_DIFF_BIG_TO_MEDIUM.toString());
+    public void testBiggerAbsolute() throws ExperimentExecutionException {
+        test(PATH_ABSOLUTE_BIG, PATH_ABSOLUTE_MEDIUM, PATH_ABSOLUTE_DIFF_BIG_TO_MEDIUM.toString());
     }
 
     @Test
-    public void testSmallerAbs() throws ExperimentExecutionException {
-        test(PATH_ABS_MEDIUM, PATH_ABS_BIG, PATH_ABS_DIFF_MEDIUM_TO_BIG.toString());
+    public void testSmallerAbsolute() throws ExperimentExecutionException {
+        test(PATH_ABSOLUTE_MEDIUM, PATH_ABSOLUTE_BIG, PATH_ABSOLUTE_DIFF_MEDIUM_TO_BIG.toString());
     }
 
     @Test
-    public void testIdenticalAbs() throws ExperimentExecutionException {
-        test(PATH_ABS_MEDIUM, PATH_ABS_MEDIUM, IDENTICAL);
+    public void testIdenticalAbsolute() throws ExperimentExecutionException {
+        test(PATH_ABSOLUTE_MEDIUM, PATH_ABSOLUTE_MEDIUM, IDENTICAL);
     }
 
     @Test
-    public void testBiggerRel() throws ExperimentExecutionException {
-        test(PATH_REL_BIG, PATH_REL_MEDIUM, PATH_REL_DIFF_BIG_TO_MEDIUM.toString());
+    public void testBiggerRelative() throws ExperimentExecutionException {
+        test(PATH_RELATIVE_BIG, PATH_RELATIVE_MEDIUM, PATH_RELATIVE_DIFF_BIG_TO_MEDIUM.toString());
     }
 
     @Test
-    public void testIdenticalRel() throws ExperimentExecutionException {
-        test(PATH_REL_MEDIUM, PATH_REL_MEDIUM, IDENTICAL);
+    public void testIdenticalRelative() throws ExperimentExecutionException {
+        test(PATH_RELATIVE_MEDIUM, PATH_RELATIVE_MEDIUM, IDENTICAL);
     }
 
     private static void test(Path test, Path workingDir, String expected) {

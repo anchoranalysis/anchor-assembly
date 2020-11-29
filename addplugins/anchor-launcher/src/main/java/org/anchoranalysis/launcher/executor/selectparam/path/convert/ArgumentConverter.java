@@ -19,30 +19,35 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.launcher.executor.selectparam.path;
+
+package org.anchoranalysis.launcher.executor.selectparam.path.convert;
 
 import java.nio.file.InvalidPathException;
-import org.anchoranalysis.core.exception.friendly.AnchorFriendlyCheckedException;
-import org.anchoranalysis.launcher.CommandLineException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
- * An exception throw if an invalid-path is inputted as an argument.
+ * Converts string passed as arguments.
  *
  * @author Owen Feehan
  */
-public class InvalidPathArgumentException extends AnchorFriendlyCheckedException {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class ArgumentConverter {
 
-    /** */
-    private static final long serialVersionUID = 1L;
-
-    public InvalidPathArgumentException(String argument, InvalidPathException exception) {
-        super(
-                String.format(
-                        "A path passed as an argument is invalid.%nArgument:\t%s%nError:\t\t%s",
-                        argument, exception.getMessage()));
-    }
-
-    public CommandLineException toCommandLineException() {
-        throw new CommandLineException(getMessage());
+    /**
+     * Converts the string passed as a command-line argument to a path.
+     *
+     * @param argument the string to convert
+     * @return the path
+     * @throws InvalidPathArgumentException if the argument is not a valid path.
+     */
+    public static Path pathFromArgument(String argument) throws InvalidPathArgumentException {
+        try {
+            return Paths.get(argument).toAbsolutePath();
+        } catch (InvalidPathException e) {
+            throw new InvalidPathArgumentException(argument, e);
+        }
     }
 }

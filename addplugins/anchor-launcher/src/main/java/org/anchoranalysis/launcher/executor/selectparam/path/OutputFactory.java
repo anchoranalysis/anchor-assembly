@@ -20,7 +20,7 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.executor.selectparam.io;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
 import java.util.Optional;
@@ -28,9 +28,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
-import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
-import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
-import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgumentException;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.ArgumentConverter;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPathArgumentException;
 
 /**
  * {@code SelectParam<Path>} factory for outputs.
@@ -60,7 +59,7 @@ public class OutputFactory {
             if (path.toFile().isDirectory()) {
                 return new UseDirectoryForManager(path, input);
             } else {
-                return new CustomManagerFromPath(path);
+                return new UseAsCustomManager(path);
             }
         } catch (InvalidPathArgumentException e) {
             throw e.toCommandLineException();

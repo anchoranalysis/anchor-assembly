@@ -20,7 +20,7 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.executor.selectparam.path;
+package org.anchoranalysis.launcher.executor.selectparam.path.convert;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

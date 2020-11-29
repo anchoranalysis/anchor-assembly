@@ -25,12 +25,19 @@ package org.anchoranalysis.launcher.config;
 import java.nio.file.Path;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
-import org.anchoranalysis.launcher.PathCurrentJarUtilities;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.ExperimentExecutorFactory;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
+/**
+ * Specifies a configuration of the launcher for a particular application.
+ * 
+ * <p>As the launcher class is used for starting both the command-line tool and the
+ * Anchor GUI, this provides the necessary application-specific configuration for each.
+ * 
+ * @author Owen Feehan
+ */
 public abstract class LauncherConfig {
 
     /** Config for resources sued by the launcher */
@@ -55,7 +62,7 @@ public abstract class LauncherConfig {
     public ExperimentExecutor createExperimentExecutor(CommandLine line)
             throws ExperimentExecutionException {
 
-        Path pathCurrentJARDir = PathCurrentJarUtilities.pathCurrentJAR(classInCurrentJar());
+        Path pathCurrentJARDir = PathCurrentJarHelper.pathCurrentJAR(classInCurrentJar());
 
         Path pathDefaultExperiment = pathDefaultExperiment(pathCurrentJARDir);
 

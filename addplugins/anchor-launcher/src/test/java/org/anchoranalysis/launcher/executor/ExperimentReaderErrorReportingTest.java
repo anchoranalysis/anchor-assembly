@@ -150,7 +150,7 @@ public class ExperimentReaderErrorReportingTest {
 
         // Catch and display the output
         try {
-            ExperimentReader.readExperimentFromXML(experimentConfigFile);
+            BeanReader.readExperimentFromXML(experimentConfigFile);
         } catch (ExperimentExecutionException e) {
 
             String output = e.friendlyMessageHierarchy();

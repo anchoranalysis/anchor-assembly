@@ -20,7 +20,7 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.executor.selectparam.task;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
 import java.util.Optional;
@@ -29,12 +29,11 @@ import lombok.NoArgsConstructor;
 import org.anchoranalysis.core.format.NonImageFileFormat;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
-import org.anchoranalysis.launcher.executor.selectparam.path.ArgumentConverter;
-import org.anchoranalysis.launcher.executor.selectparam.path.CustomManagerFromPath;
-import org.anchoranalysis.launcher.executor.selectparam.path.InvalidPathArgumentException;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.ArgumentConverter;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPathArgumentException;
 
 /**
- * A factory that creates {@code SelectParam<Optional<Path>>} as required for tasks.
+ * {@code SelectParam<Path>} factory for tasks.
  *
  * @author Owen Feehan
  */
@@ -56,11 +55,11 @@ public class TaskFactory {
 
         if (isTaskName(taskArg)) {
             return new UpdateTaskName<>(
-                    new CustomManagerFromPath(constructPathForTaskName(taskArg, configDir)),
+                    new UseAsCustomManager(constructPathForTaskName(taskArg, configDir)),
                     taskArg);
         } else {
             try {
-                return new CustomManagerFromPath(ArgumentConverter.pathFromArgument(taskArg));
+                return new UseAsCustomManager(ArgumentConverter.pathFromArgument(taskArg));
             } catch (InvalidPathArgumentException e) {
                 throw new CommandLineException(e.toString());
             }

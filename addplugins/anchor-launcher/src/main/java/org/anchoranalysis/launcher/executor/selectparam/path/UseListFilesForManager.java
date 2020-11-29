@@ -20,59 +20,55 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.executor.selectparam.io;
+package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
+import org.anchoranalysis.core.functional.FunctionalList;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
-import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
-import org.anchoranalysis.launcher.executor.selectparam.path.PrettyPathConverter;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.PrettyPathConverter;
 
 /**
- * Uses the path directory as a manager
+ * Uses a list of paths to specific files as a manager
  *
  * @author Owen Feehan
  */
-class UseDirectoryForManager implements SelectParam<Optional<Path>> {
+class UseListFilesForManager implements SelectParam<Optional<Path>> {
 
-    private final boolean input;
-    private final Path directory;
+    private final List<Path> paths;
 
     /**
      * Constructor
      *
-     * @param input iff true, then we are replacing the input-manager, otherwise the output-manager
+     * @param paths
      */
-    public UseDirectoryForManager(Path directory, boolean input) {
-        this.input = input;
-        this.directory = directory;
-        if (!directory.toFile().isDirectory()) {
-            throw new CommandLineException(
-                    String.format(
-                            "The path %s to UseDirectoryForManager must be a directory",
-                            directory));
-        }
+    public UseListFilesForManager(List<Path> paths) {
+        this.paths = paths;
+        checkNoDirectories(paths);
     }
 
     @Override
     public Optional<Path> select(ExecutionArguments executionArguments) {
-        if (input) {
-            executionArguments.input().assignInputDirectory(Optional.of(directory));
-        } else {
-            executionArguments.output().assignOutputDirectory(directory);
-        }
+        executionArguments.input().assignInputPaths(paths);
         return Optional.empty();
     }
 
     @Override
     public String describe() throws ExperimentExecutionException {
-        return PrettyPathConverter.prettyPath(directory);
+        return String.join(", ", FunctionalList.mapToList(paths, PrettyPathConverter::prettyPath));
     }
 
     @Override
     public boolean isDefault() {
         return false;
+    }
+
+    private void checkNoDirectories(List<Path> paths) {
+        for (Path path : paths) {
+            assert (!path.toFile().isDirectory());
+        }
     }
 }
