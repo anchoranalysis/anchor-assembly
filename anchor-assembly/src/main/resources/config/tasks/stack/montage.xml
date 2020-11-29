@@ -1,19 +1,42 @@
-<!-- Converts a stack of images into a montage -->
+<!-- 
+===================
+TASK:   stack/montage
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Creates a tiled montage of all the z-slices of a 3D image.
+
+======
+INPUTS
+======
+
+3D images (z-stacks of slices)
+
+=======
+OUTPUTS
+=======
+
+montage:
+   	an image with all the z-slices tiled (in original resolution).
+   	
+-->
 <config>
 <bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.Develop">
 	<define config-class="org.anchoranalysis.mpp.segment.bean.define.DefineOutputterMPP" suppressSubfolders="true">
 	    <define config-class="org.anchoranalysis.bean.define.Define" config-factory="define">
 	
-	        <namedStackProviderList config-class="java.util.List" config-factory="list">
-	        
+	        <stacks config-class="java.util.List" config-factory="list">
 	            <item config-class="org.anchoranalysis.bean.NamedBean" name="montage">
 			        <item config-class="org.anchoranalysis.plugin.imagej.bean.stack.provider.MontageSlices">
 			          <stack config-class="org.anchoranalysis.plugin.image.bean.stack.provider.FromInput"/>
 			        </item>
 			    </item>
-	
-	        </namedStackProviderList>
-	
+	        </stacks>
+	        
 	    </define>
     </define>
 </bean>

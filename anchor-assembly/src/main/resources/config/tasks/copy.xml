@@ -8,14 +8,13 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Copies each input (as a single file).
-
+Copies inputs to the output directory, preserving naming and subdirectory structure.
 
 ======
 INPUTS
 ======
 
-files.
+any files
 
 =======
 OUTPUTS

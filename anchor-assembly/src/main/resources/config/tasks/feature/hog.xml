@@ -1,6 +1,6 @@
 <!-- 
 ===================
-TASK:   hog
+TASK:   feature/hog
 AUTHOR: Owen Feehan
 ===================
 
@@ -8,11 +8,12 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Extracts a HOG descriptor for one or more images into a CSV table.
+Extracts a HOG feature descriptor for all input images.
 
 It uses OpenCV's HOG descriptor calculation, scaling all images to a constant size, so the descriptors have the same
-size (and are comparable) among images.
+size (and are comparable) among images. No windowing occurs.
 
+See https://en.wikipedia.org/wiki/Histogram_of_oriented_gradients for an introduction to HOG.
 
 ======
 INPUTS

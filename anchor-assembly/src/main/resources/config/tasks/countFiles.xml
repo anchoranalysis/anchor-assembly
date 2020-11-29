@@ -16,7 +16,7 @@ The number is displayed as a message to the console/log.
 INPUTS
 ======
 
-files
+any files
 
 =======
 OUTPUTS
@@ -25,7 +25,6 @@ OUTPUTS
 none
 
 -->
-<!--  -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.io.bean.task.SummarizeInputs">
           

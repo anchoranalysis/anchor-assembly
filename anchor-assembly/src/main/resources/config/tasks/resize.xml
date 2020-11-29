@@ -1,6 +1,6 @@
 <!-- 
 ===================
-TASK:   scale
+TASK:   resize
 AUTHOR: Owen Feehan
 ===================
 
@@ -8,14 +8,14 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Scales each image to fit inside 1024x768 (preserving the aspect ratio).
+Resizes (scales) each image to fit inside 1024x768 (preserving the aspect ratio).
 
 
 ======
 INPUTS
 ======
 
-an image.
+images
 
 =======
 OUTPUTS
