@@ -23,23 +23,18 @@
 package org.anchoranalysis.launcher.run;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import lombok.RequiredArgsConstructor;
 import org.anchoranalysis.core.exception.friendly.AnchorFriendlyRuntimeException;
 import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
-import org.anchoranalysis.launcher.resources.Resources;
-import org.anchoranalysis.launcher.run.tasks.PredefinedTasks;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
@@ -82,15 +77,14 @@ public class ParseArgumentsAndRunExperiment {
         try {
             // parse the command line arguments
             CommandLine line = parser.parse(options, arguments);
-
-            // Resources
-            Resources resources = config.resources();
             
-            if (maybePrintHelp(line, options, resources, config.help())) {
+            MessagePrinter messagePrinter = new MessagePrinter(config.resources());
+            
+            if (messagePrinter.maybePrintHelp(line, options, config.help())) {
                 return;
             }
 
-            if (maybePrintVersion(line, resources, System.out)) {  // NOSONAR
+            if (messagePrinter.maybePrintVersion(line)) {
                 return;
             }
 
@@ -99,7 +93,7 @@ public class ParseArgumentsAndRunExperiment {
                 return;
             }
             
-            processExperimentShowErrors(line, config, resources);
+            processExperimentShowErrors(line, config, messagePrinter);
 
         } catch (ParseException e) {
             // Something went wrong
@@ -115,37 +109,6 @@ public class ParseArgumentsAndRunExperiment {
             logger.messageLogger().logFormatted(e.friendlyMessageHierarchy());
         }
     }
-
-    /**
-     * Prints a help message to the screen  if the command-line option is selected. 
-     *
-     * @return true if it prints the message, false otherwise
-     */
-    private boolean maybePrintHelp(
-            CommandLine line,
-            Options options,
-            Resources resources,
-            HelpConfig helpConfig)
-    {
-        if (line.hasOption(CommandLineOptions.SHORT_OPTION_HELP)) {
-            printHelp(
-                    options,
-                    resources,
-                    helpConfig.getCommandName(),
-                    helpConfig.getFirstArgument());
-            return true;
-        }
-        return false;
-    }
-
-    private boolean maybePrintVersion(CommandLine line, Resources resources, PrintStream printTo)
-            throws IOException {
-        if (line.hasOption(CommandLineOptions.SHORT_OPTION_VERSION)) {
-            printVersion(resources, printTo);
-            return true;
-        }
-        return false;
-    }
     
     /**
      * Calls processExperiment() but displays any error messages in a user-friendly way on
@@ -153,10 +116,10 @@ public class ParseArgumentsAndRunExperiment {
      *
      * @param line
      */
-    private void processExperimentShowErrors(CommandLine line, LauncherConfig config, Resources resources) {
+    private void processExperimentShowErrors(CommandLine line, LauncherConfig config, MessagePrinter messagePrinter) {
 
         try {
-            processExperiment(line, logger, config, resources, System.out);    // NOSONAR
+            processExperiment(line, logger, config, messagePrinter);
 
         } catch (ExperimentExecutionException e) {
 
@@ -185,12 +148,12 @@ public class ParseArgumentsAndRunExperiment {
      * @param logger logger
      * @throws ExperimentExecutionException if processing ends early
      */
-    private void processExperiment(CommandLine line, Logger logger, LauncherConfig config, Resources resources, PrintStream printTo)
+    private void processExperiment(CommandLine line, Logger logger, LauncherConfig config, MessagePrinter messagePrinter)
             throws ExperimentExecutionException {
 
         ExperimentExecutor executor = config.createExperimentExecutor(line); 
         
-        if (maybeShowTasks(line, executor.taskDirectory(), resources, printTo)) {
+        if (messagePrinter.maybeShowTasks(line, executor.taskDirectory())) {
             // Exit early if we've shown the available tasks.
             return;
         }
@@ -202,71 +165,15 @@ public class ParseArgumentsAndRunExperiment {
     }
 
     /**
-     * Prints help message to guide usage to standard-output.
-     *
-     * @param options possible user-options
-     */
-    private static void printHelp(
-            Options options,
-            Resources resources,
-            String commandNameInHelp,
-            String firstArgumentInHelp) {
-
-        // automatically generate the help statement
-        HelpFormatter formatter = new HelpFormatter();
-
-        String firstLine =
-                String.format("%s [options] [%s]", commandNameInHelp, firstArgumentInHelp);
-        formatter.printHelp(firstLine, resources.usageHeader(), options, resources.usageFooter());
-    }
-
-    /**
      * Create options for the command-line client, returning default options always available for
      * this class
      *
      * @return the options that can be used
      */
     private Options createOptions(LauncherConfig config) {
-
         Options options = new Options();
         CommandLineOptions.addBasicOptions(options);
         config.addAdditionalOptions(options);
-
         return options;
-    }
-    
-    
-    /**
-     * Prints the available pre-defined tasks if the command-line option is selected.
-     * 
-     * The predefined tasks come from the .xml files found in the config/tasks/ directory.
-     * 
-     * @param resources resources
-     * @param printTo where to print messages to
-     * @return true if it prints the message, false otherwise
-     */
-    private boolean maybeShowTasks(CommandLine line, Path tasksDirectory, Resources resources, PrintStream printTo) {
-        if (line.hasOption(CommandLineOptions.SHORT_OPTION_SHOW_TASKS)) {
-            PredefinedTasks.printTasksToConsole(tasksDirectory, resources, printTo);
-            return true;
-        }
-        return false;
-    }
-    
-    /**
-     * Describes which version of anchor is being used, and what version number
-     *
-     * @param resources resources
-     * @param printTo where to print messages to
-     * @throws IOException if it's not possible to determine the version number
-     */
-    private static void printVersion(
-            Resources resources, PrintStream printTo)
-            throws IOException {
-        printTo.printf(
-                "anchor version %s by Owen Feehan (ETH Zurich, University of Zurich, 2016)%n",
-                resources.versionFromMavenProperties());
-        printTo.println();
-        printTo.print(resources.versionFooter());
     }
 }
