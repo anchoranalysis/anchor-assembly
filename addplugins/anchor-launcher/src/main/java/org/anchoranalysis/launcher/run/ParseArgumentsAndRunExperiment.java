@@ -253,8 +253,6 @@ public class ParseArgumentsAndRunExperiment {
         return false;
     }
     
-
-
     /**
      * Describes which version of anchor is being used, and what version number
      *
