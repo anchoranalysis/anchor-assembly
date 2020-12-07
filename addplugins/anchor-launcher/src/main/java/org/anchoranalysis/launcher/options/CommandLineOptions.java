@@ -42,6 +42,7 @@ public class CommandLineOptions {
     public static final String SHORT_OPTION_VERSION = "v";
     public static final String SHORT_OPTION_LOG_ERROR = "l";
     public static final String SHORT_OPTION_SHOW_EXPERIMENT_ARGUMENTS = "sa";
+    public static final String SHORT_OPTION_SHOW_TASKS = "st";
 
     public static final String SHORT_OPTION_DEBUG = "d";
     public static final String SHORT_OPTION_INPUT = "i";
@@ -56,6 +57,7 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_VERSION = "version";
     private static final String LONG_OPTION_LOG_ERROR = "logError";
     private static final String LONG_OPTION_SHOW_EXPERIMENT_ARGUMENTS = "showArguments";
+    private static final String LONG_OPTION_SHOW_TASKS = "showTasks";
 
     private static final String LONG_OPTION_DEBUG = "debug";
     private static final String LONG_OPTION_INPUT = "input";
@@ -89,6 +91,12 @@ public class CommandLineOptions {
                 LONG_OPTION_SHOW_EXPERIMENT_ARGUMENTS,
                 false,
                 "print experiment path arguments");
+        
+        options.addOption(
+                SHORT_OPTION_SHOW_TASKS,
+                LONG_OPTION_SHOW_TASKS,
+                false,
+                "print task-names as useful for -t <name>");        
     }
 
     public static void addAdditionalOptions(Options options) {

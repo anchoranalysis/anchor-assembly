@@ -27,12 +27,12 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
-import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.anchoranalysis.launcher.options.CommandLineExtracter;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
 import org.anchoranalysis.launcher.options.outputs.ProcessOutputOptions;
+import org.anchoranalysis.launcher.resources.Resources;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -52,6 +52,8 @@ class LauncherConfigCommandLine extends LauncherConfig {
             "org/anchoranalysis/launcher/usageHeaderDisplayMessage.txt";
     private static final String RESOURCE_USAGE_FOOTER =
             "org/anchoranalysis/launcher/usageFooterDisplayMessage.txt";
+    private static final String RESOURCE_TASKS_FOOTER =
+            "org/anchoranalysis/launcher/tasksFooterDisplayMessage.txt";    
     // END: Resource PATHs
 
     /**
@@ -76,13 +78,14 @@ class LauncherConfigCommandLine extends LauncherConfig {
     }
 
     @Override
-    public ResourcesConfig resources() {
-        return new ResourcesConfig(
+    public Resources resources() {
+        return new Resources(
                 getClass().getClassLoader(),
                 RESOURCE_VERSION_FOOTER,
                 RESOURCE_MAVEN_PROPERTIES,
                 RESOURCE_USAGE_HEADER,
-                RESOURCE_USAGE_FOOTER);
+                RESOURCE_USAGE_FOOTER,
+                Optional.of(RESOURCE_TASKS_FOOTER));
     }
 
     @Override
@@ -120,15 +123,15 @@ class LauncherConfigCommandLine extends LauncherConfig {
     }
 
     @Override
-    protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line)
+    protected void customizeExperimentExecutor(ExperimentExecutor executor, CommandLine line)
             throws ExperimentExecutionException {
-        template.setInput(
+        executor.setInput(
                 SelectParamFactory.inputSelectParam(line, CommandLineOptions.SHORT_OPTION_INPUT));
-        template.setOutput(
+        executor.setOutput(
                 SelectParamFactory.outputSelectParam(line, CommandLineOptions.SHORT_OPTION_OUTPUT));
-        template.setTask(
+        executor.setTask(
                 SelectParamFactory.pathOrTaskNameOrDefault(
-                        line, CommandLineOptions.SHORT_OPTION_TASK, template.getConfigDirectory()));
-        template.setDefaultBehaviourString(Optional.of(BEHAVIOUR_MESSAGE_FOR_DEFAULT_EXPERIMENT));
+                        line, CommandLineOptions.SHORT_OPTION_TASK, executor.taskDirectory()));
+        executor.setDefaultBehaviourString(Optional.of(BEHAVIOUR_MESSAGE_FOR_DEFAULT_EXPERIMENT));
     }
 }

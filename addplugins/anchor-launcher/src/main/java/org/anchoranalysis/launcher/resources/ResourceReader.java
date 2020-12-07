@@ -20,18 +20,25 @@
  * #L%
  */
 
-package org.anchoranalysis.launcher.run;
+package org.anchoranalysis.launcher.resources;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 import org.apache.commons.io.IOUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * Reads different type of entities from a resource file.
+ * 
+ * @author Owen Feehan
+ *
+ */
 @NoArgsConstructor(access=AccessLevel.PRIVATE)
 class ResourceReader {
-
+    
     /**
      * Reads a string from a resource, or displays an error message
      *
@@ -45,6 +52,38 @@ class ResourceReader {
             return IOUtils.toString(helpDisplayResource, StandardCharsets.UTF_8);
         } else {
             return resourceFileName + " is missing, so cannot display.";
+        }
+    }
+    
+    /**
+     * Gets the current version of the software by reading a properties-file provided by the Maven
+     * build
+     *
+     * <p>NOTE that this pom.proper
+     *
+     * @param key the key to read from the maven properties file
+     * @pram fallback, the string to return if the maven properties file doesn't exist
+     * @return string describing the key, or {@code fallback} if the resource file doesn't exist
+     * @throws IOException if the properties file cannot be read, or is missing the appropriate
+     *     version key
+     */
+    public static String keyFromMavenProperties(String key, String fallback, String resourceFileName, ClassLoader classLoader) throws IOException {
+        Properties properties = new Properties();
+
+        InputStream mavenPropertiesResource = classLoader.getResourceAsStream(resourceFileName);
+
+        if (mavenPropertiesResource == null) {
+            return fallback;
+        }
+
+        try (InputStream resourceStream = mavenPropertiesResource) {
+            properties.load(resourceStream);
+        }
+
+        if (properties.containsKey(key)) {
+            return properties.getProperty(key);
+        } else {
+            throw new IOException("a property is missing from maven properties: " + key);
         }
     }
 }

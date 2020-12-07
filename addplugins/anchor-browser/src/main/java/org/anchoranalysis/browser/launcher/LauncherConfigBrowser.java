@@ -22,11 +22,12 @@
 
 package org.anchoranalysis.browser.launcher;
 
+import java.util.Optional;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.config.HelpConfig;
 import org.anchoranalysis.launcher.config.LauncherConfig;
-import org.anchoranalysis.launcher.config.ResourcesConfig;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
+import org.anchoranalysis.launcher.resources.Resources;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
@@ -70,13 +71,14 @@ class LauncherConfigBrowser extends LauncherConfig {
     }
 
     @Override
-    public ResourcesConfig resources() {
-        return new ResourcesConfig(
+    public Resources resources() {
+        return new Resources(
                 getClass().getClassLoader(),
                 RESOURCE_VERSION_FOOTER,
                 RESOURCE_MAVEN_PROPERTIES,
                 RESOURCE_USAGE_HEADER,
-                RESOURCE_USAGE_FOOTER);
+                RESOURCE_USAGE_FOOTER,
+                Optional.empty());
     }
 
     @Override
@@ -90,7 +92,7 @@ class LauncherConfigBrowser extends LauncherConfig {
     }
 
     @Override
-    protected void customizeExperimentTemplate(ExperimentExecutor template, CommandLine line) {
+    protected void customizeExperimentExecutor(ExperimentExecutor template, CommandLine line) {
         // Nothing to do here for the browser
     }
 }

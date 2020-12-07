@@ -46,12 +46,14 @@ import org.anchoranalysis.launcher.options.CommandLineOptions;
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class ExperimentExecutor {
 
+    private static final String TASKS_SUBDIRECTORY_NAME = "tasks";
+    
     // START REQUIRED ARGUMENTS
     /** the experiment to run */
     private final SelectParam<Path> experiment;
 
     /** the directory where configuration files are stored */
-    @Getter private final Path configDirectory;
+    private final Path configDirectory;
 
     /** the directory from which the experiment is executed */
     private final Path executionDirectory;
@@ -76,7 +78,7 @@ public class ExperimentExecutor {
      * @throws ExperimentExecutionException if the execution ends early
      */
     public void executeExperiment(
-            ExecutionArguments execArgs, boolean alwaysShowExperimentArgs, MessageLogger logger)
+            ExecutionArguments executionArguments, boolean alwaysShowExperimentArguments, MessageLogger logger)
             throws ExperimentExecutionException {
 
         ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDirectory);
@@ -89,20 +91,24 @@ public class ExperimentExecutor {
                     CommandLineOptions.SHORT_OPTION_HELP);
         }
 
-        Experiment experimentLoaded = loadExperimentFromPath(execArgs);
+        Experiment experimentLoaded = loadExperimentFromPath(executionArguments);
 
-        if (alwaysShowExperimentArgs || experimentLoaded.useDetailedLogging()) {
+        if (alwaysShowExperimentArguments || experimentLoaded.useDetailedLogging()) {
             logger.log(describe());
         }
 
-        setupModelDirectory(configDirectory, execArgs);
+        setupModelDirectory(configDirectory, executionArguments);
 
         delegate.executeExperiment(
                 experimentLoaded,
-                execArgs,
-                getInput().select(execArgs),
-                getOutput().select(execArgs),
-                getTask().select(execArgs));
+                executionArguments,
+                getInput().select(executionArguments),
+                getOutput().select(executionArguments),
+                getTask().select(executionArguments));
+    }
+    
+    public Path taskDirectory() {
+        return configDirectory.resolve(TASKS_SUBDIRECTORY_NAME);
     }
 
     private void setupModelDirectory(Path pathExecutionDirectory, ExecutionArguments execArgs) {
