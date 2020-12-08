@@ -42,7 +42,7 @@ class UpdateTaskName<T> implements SelectParam<T> {
 
     @Override
     public T select(ExecutionArguments executionArguments) throws ExperimentExecutionException {
-        executionArguments.assignTaskName(Optional.of(taskName));
+        executionArguments.task().assignTaskName(Optional.of(taskName));
         return delegate.select(executionArguments);
     }
 
