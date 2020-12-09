@@ -48,7 +48,7 @@ public class CommandLineOptions {
     public static final String SHORT_OPTION_TASK = "t";
     
     /** Suggests dimensions to resize to or a scaling factor for certain tasks. */
-    public static final String SHORT_OPTION_TASK_RESIZE = "tr";
+    public static final String SHORT_OPTION_TASK_RESIZE = "pr";
     // END: SHORT task options
 
     // START: SHORT output options
@@ -106,7 +106,7 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT = "outputFileFormat";
     
     private static final String LONG_OPTION_TASK = "task";
-    private static final String LONG_OPTION_TASK_RESIZE = "taskResize";
+    private static final String LONG_OPTION_TASK_RESIZE = "paramResize";
     // END: All LONG options
 
     public static void addBasicOptions(Options options) {
