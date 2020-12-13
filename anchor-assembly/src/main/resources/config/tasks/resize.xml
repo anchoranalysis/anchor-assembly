@@ -10,12 +10,14 @@ DESCRIPTION
 
 Resizes (scales) each image to fit inside 1024x768 (preserving the aspect ratio).
 
-
 ======
 INPUTS
 ======
 
 images
+
+The -ps parameter can be used to specify image dimensions to resize to.
+See https://www.anchoranalysis.org/user_guide_command_line.html
 
 =======
 OUTPUTS
@@ -26,10 +28,12 @@ scaled:
 -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.scale.ScaleImage">
-	<scaleCalculator preserveAspectRatio="true" config-class="org.anchoranalysis.plugin.image.bean.scale.ToDimensions">
-		<dimensions config-class="org.anchoranalysis.plugin.image.bean.dimensions.provider.SpecifyDimensions">
-			<sizeXY width="1280" height="768" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
-		</dimensions>
+	<scaleCalculator config-class="org.anchoranalysis.plugin.image.bean.scale.ToSuggested">
+		<fallback preserveAspectRatio="true" config-class="org.anchoranalysis.plugin.image.bean.scale.ToDimensions">
+			<dimensions config-class="org.anchoranalysis.plugin.image.bean.dimensions.provider.SpecifyDimensions">
+				<sizeXY width="1280" height="768" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
+			</dimensions>
+		</fallback>
 	</scaleCalculator>
 </bean>
 </config>

@@ -143,8 +143,7 @@ class ExperimentExecutorAfter {
             throws ExperimentExecutionException {
 
         // As path could be a folder, we make sure we get a file
-        InputManager<InputFromManager> inputManager =
-                BeanReader.readInputManagerFromXML(pathInput);
+        InputManager<InputFromManager> inputManager = BeanReader.readInputManagerFromXML(pathInput);
 
         try {
             if (experiment instanceof ReplaceInputManager) {

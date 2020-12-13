@@ -51,11 +51,11 @@ public class Launch {
      * Runs a command-line application, by parsing arguments, and then executing an experiment.
      *
      * @param args args from command-line application
-     * @param parserConfig a parser for this command-line application
+     * @param config a parser for this command-line application
      */
     public static void runCommandLineApplication(
-            String[] args, LauncherConfig parserConfig, Logger logger) {
+            String[] args, LauncherConfig config, Logger logger) {
         DirtyInitializer.dirtyInitialization();
-        new ParseArgumentsAndRunExperiment(logger).parseAndRun(args, parserConfig);
+        new ParseArgumentsAndRunExperiment(logger).parseAndRun(args, config);
     }
 }

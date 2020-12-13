@@ -45,7 +45,7 @@ public class TaskFactory {
      * then construct an automatic path to the tasks in the configuration directory. Otherwise treat
      * as path to BeanXML
      */
-    public static SelectParam<Optional<Path>> pathOrTaskName(String[] args, Path configDir) {
+    public static SelectParam<Optional<Path>> pathOrTaskName(String[] args, Path tasksDirectory) {
 
         if (args.length != 1) {
             throw new CommandLineException("One and only one argument is permitted after -t");
@@ -55,7 +55,7 @@ public class TaskFactory {
 
         if (isTaskName(taskArg)) {
             return new UpdateTaskName<>(
-                    new UseAsCustomManager(constructPathForTaskName(taskArg, configDir)),
+                    new UseAsCustomManager(constructPathForTaskName(taskArg, tasksDirectory)),
                     taskArg);
         } else {
             try {
@@ -67,9 +67,8 @@ public class TaskFactory {
     }
 
     private static Path constructPathForTaskName(
-            String filenameWithoutExtension, Path configDirectory) {
-        return NonImageFileFormat.XML.buildPath(
-                configDirectory.resolve("tasks"), filenameWithoutExtension);
+            String filenameWithoutExtension, Path tasksDirectory) {
+        return NonImageFileFormat.XML.buildPath(tasksDirectory, filenameWithoutExtension);
     }
 
     /**

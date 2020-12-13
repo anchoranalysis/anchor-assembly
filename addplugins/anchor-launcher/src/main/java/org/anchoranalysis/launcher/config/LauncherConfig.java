@@ -27,21 +27,22 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.ExperimentExecutorFactory;
+import org.anchoranalysis.launcher.resources.Resources;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
 /**
  * Specifies a configuration of the launcher for a particular application.
- * 
- * <p>As the launcher class is used for starting both the command-line tool and the
- * Anchor GUI, this provides the necessary application-specific configuration for each.
- * 
+ *
+ * <p>As the launcher class is used for starting both the command-line tool and the Anchor GUI, this
+ * provides the necessary application-specific configuration for each.
+ *
  * @author Owen Feehan
  */
 public abstract class LauncherConfig {
 
     /** Config for resources sued by the launcher */
-    public abstract ResourcesConfig resources();
+    public abstract Resources resources();
 
     /** Config for displaying help message */
     public abstract HelpConfig help();
@@ -73,7 +74,7 @@ public abstract class LauncherConfig {
                         pathDefaultExperiment,
                         pathDefaultExperiment.getParent(),
                         pathCurrentJARDir);
-        customizeExperimentTemplate(executor, line);
+        customizeExperimentExecutor(executor, line);
         return executor;
     }
 
@@ -82,8 +83,8 @@ public abstract class LauncherConfig {
      */
     protected abstract String pathRelativeProperties();
 
-    protected abstract void customizeExperimentTemplate(
-            ExperimentExecutor template, CommandLine line) throws ExperimentExecutionException;
+    protected abstract void customizeExperimentExecutor(
+            ExperimentExecutor executor, CommandLine line) throws ExperimentExecutionException;
 
     /** a class which we use to determine the base location for pathRelativeProperties */
     protected abstract Class<?> classInCurrentJar();

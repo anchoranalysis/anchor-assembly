@@ -78,6 +78,12 @@
 	  <artifactId>anchor-image-io</artifactId>
 	  <version>0.0.8-SNAPSHOT</version>
 	</dependency>
+	
+	<dependency>
+	  <groupId>com.google.guava</groupId>
+	  <artifactId>guava</artifactId>
+	  <version>${guava.version}-jre</version>
+	</dependency>
 
     <!--  START ADDITIONAL DEPENDENCIES FOR ASSSEMBLY -->
     <!--  These aren't actually called by anchor-launcher but they are included as dependencies for assembly -->

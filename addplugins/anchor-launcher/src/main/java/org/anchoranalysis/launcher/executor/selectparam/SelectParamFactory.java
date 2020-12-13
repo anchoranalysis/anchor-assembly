@@ -57,12 +57,12 @@ public class SelectParamFactory {
      *
      * @param line command-line to consider if certain options have been selected or not
      * @param optionName which option we consider
-     * @param configDir path to the configuration-directory of anchor
+     * @param tasksDirectory path to the "tasks" directory in the anchor configuration files
      * @return an appropriate SelectParam object
      */
     public static SelectParam<Optional<Path>> pathOrTaskNameOrDefault(
-            CommandLine line, String optionName, Path configDir) {
-        return ifOption(line, optionName, args -> TaskFactory.pathOrTaskName(args, configDir));
+            CommandLine line, String optionName, Path tasksDirectory) {
+        return ifOption(line, optionName, args -> TaskFactory.pathOrTaskName(args, tasksDirectory));
     }
 
     /**

@@ -19,7 +19,5 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-/**
- * Different methods of selecting a object {@code T} that is used as a parameter for an experiment.
- */
-package org.anchoranalysis.launcher.executor.selectparam;
+/** Loading and displaying pre-defined tasks. */
+package org.anchoranalysis.launcher.run.tasks;

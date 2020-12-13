@@ -23,6 +23,8 @@
 package org.anchoranalysis.launcher.executor;
 
 import java.nio.file.Path;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.anchoranalysis.bean.xml.BeanXmlLoader;
 import org.anchoranalysis.bean.xml.exception.BeanXmlException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -31,16 +33,13 @@ import org.anchoranalysis.experiment.bean.task.Task;
 import org.anchoranalysis.io.input.InputFromManager;
 import org.anchoranalysis.io.input.bean.InputManager;
 import org.anchoranalysis.io.output.bean.OutputManager;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /**
  * Reads beans from BeanXML stored on the file-system.
- * 
- * @author Owen Feehan
  *
+ * @author Owen Feehan
  */
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 class BeanReader {
 
     public static Experiment readExperimentFromXML(Path configPath)

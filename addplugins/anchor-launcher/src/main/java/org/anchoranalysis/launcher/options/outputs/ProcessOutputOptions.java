@@ -21,15 +21,16 @@
  */
 package org.anchoranalysis.launcher.options.outputs;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import lombok.AllArgsConstructor;
 import org.anchoranalysis.core.format.FileFormatFactory;
 import org.anchoranalysis.core.format.ImageFileFormat;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.experiment.arguments.OutputArguments;
 import org.anchoranalysis.io.output.bean.rules.Permissive;
 import org.anchoranalysis.io.output.enabled.multi.MultiLevelOutputEnabled;
+import org.anchoranalysis.io.output.recorded.OutputEnabledDelta;
 import org.anchoranalysis.launcher.options.CommandLineExtracter;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
 
@@ -45,7 +46,7 @@ public class ProcessOutputOptions {
     private final CommandLineExtracter extract;
 
     /** The arguments associated with the experiment */
-    private final ExecutionArguments arguments;
+    private final OutputArguments arguments;
 
     /**
      * Processes any options that have been defined to add/remove change the outputs that are
@@ -55,33 +56,43 @@ public class ProcessOutputOptions {
      *     correspond to expectations.
      */
     public void maybeAddOutputs() throws ExperimentExecutionException {
-        OutputArguments outputArguments = arguments.output();
-        if (extract.hasOption(CommandLineOptions.SHORT_OPTION_OUTPUT_ENABLE_ALL)) {
-            outputArguments.getOutputEnabledDelta().enableAdditionalOutputs(Permissive.INSTANCE);
-        } else {
+        if (!ifOptionWithoutArgument(
+                CommandLineOptions.SHORT_OPTION_OUTPUT_ENABLE_ALL,
+                outputArguments ->
+                        outputArguments
+                                .getOutputEnabledDelta()
+                                .enableAdditionalOutputs(Permissive.INSTANCE))) {
             ifAdditionalOptionsPresent(
                     CommandLineOptions.SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL,
-                    outputArguments.getOutputEnabledDelta()::enableAdditionalOutputs);
+                    OutputEnabledDelta::enableAdditionalOutputs);
         }
 
         ifAdditionalOptionsPresent(
                 CommandLineOptions.SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL,
-                outputArguments.getOutputEnabledDelta()::disableAdditionalOutputs);
+                OutputEnabledDelta::disableAdditionalOutputs);
 
         ifOutputFormatPresent(
                 CommandLineOptions.SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
-                outputArguments::assignSuggestedImageOutputFormat);
+                OutputArguments::assignSuggestedImageOutputFormat);
+
+        ifOptionWithoutArgument(
+                CommandLineOptions.SHORT_OPTION_OUTPUT_INCREMENTING_NUMBER,
+                OutputArguments::requestOutputIncrementingNumberSequence);
     }
 
     private void ifAdditionalOptionsPresent(
-            String optionName, Consumer<MultiLevelOutputEnabled> consumer)
+            String optionName, BiConsumer<OutputEnabledDelta, MultiLevelOutputEnabled> function)
             throws ExperimentExecutionException {
         extract.ifPresentSingle(
                 optionName,
-                outputs -> consumer.accept(AdditionalOutputsParser.parseFrom(outputs, optionName)));
+                outputs ->
+                        function.accept(
+                                arguments.getOutputEnabledDelta(),
+                                AdditionalOutputsParser.parseFrom(outputs, optionName)));
     }
 
-    private void ifOutputFormatPresent(String optionName, Consumer<ImageFileFormat> consumer)
+    private void ifOutputFormatPresent(
+            String optionName, BiConsumer<OutputArguments, ImageFileFormat> consumer)
             throws ExperimentExecutionException {
         extract.ifPresentSingle(
                 optionName,
@@ -94,7 +105,17 @@ public class ProcessOutputOptions {
                                                             String.format(
                                                                     "No file format identified by %s is supported.",
                                                                     identifier)));
-                    consumer.accept(format);
+                    consumer.accept(arguments, format);
                 });
+    }
+
+    private boolean ifOptionWithoutArgument(
+            String optionShort, Consumer<OutputArguments> consumer) {
+        if (extract.hasOption(optionShort)) {
+            consumer.accept(arguments);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
