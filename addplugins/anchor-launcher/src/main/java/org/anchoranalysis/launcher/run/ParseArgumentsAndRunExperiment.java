@@ -77,9 +77,9 @@ public class ParseArgumentsAndRunExperiment {
         try {
             // parse the command line arguments
             CommandLine line = parser.parse(options, arguments);
-            
+
             MessagePrinter messagePrinter = new MessagePrinter(config.resources());
-            
+
             if (messagePrinter.maybePrintHelp(line, options, config.help())) {
                 return;
             }
@@ -92,7 +92,7 @@ public class ParseArgumentsAndRunExperiment {
                 ErrorPrinter.printTooManyArguments();
                 return;
             }
-            
+
             processExperimentShowErrors(line, config, messagePrinter);
 
         } catch (ParseException e) {
@@ -109,14 +109,15 @@ public class ParseArgumentsAndRunExperiment {
             logger.messageLogger().logFormatted(e.friendlyMessageHierarchy());
         }
     }
-    
+
     /**
      * Calls processExperiment() but displays any error messages in a user-friendly way on
      * System.err
      *
      * @param line
      */
-    private void processExperimentShowErrors(CommandLine line, LauncherConfig config, MessagePrinter messagePrinter) {
+    private void processExperimentShowErrors(
+            CommandLine line, LauncherConfig config, MessagePrinter messagePrinter) {
 
         try {
             processExperiment(line, logger, config, messagePrinter);
@@ -148,20 +149,21 @@ public class ParseArgumentsAndRunExperiment {
      * @param logger logger
      * @throws ExperimentExecutionException if processing ends early
      */
-    private void processExperiment(CommandLine line, Logger logger, LauncherConfig config, MessagePrinter messagePrinter)
+    private void processExperiment(
+            CommandLine line, Logger logger, LauncherConfig config, MessagePrinter messagePrinter)
             throws ExperimentExecutionException {
 
-        ExperimentExecutor executor = config.createExperimentExecutor(line); 
-        
+        ExperimentExecutor executor = config.createExperimentExecutor(line);
+
         if (messagePrinter.maybeShowTasks(line, executor.taskDirectory())) {
             // Exit early if we've shown the available tasks.
             return;
         }
-        
+
         executor.executeExperiment(
-                        config.createArguments(line),
-                        line.hasOption(CommandLineOptions.SHORT_OPTION_SHOW_EXPERIMENT_ARGUMENTS),
-                        logger.messageLogger());
+                config.createArguments(line),
+                line.hasOption(CommandLineOptions.SHORT_OPTION_SHOW_EXPERIMENT_ARGUMENTS),
+                logger.messageLogger());
     }
 
     /**

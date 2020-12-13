@@ -32,7 +32,8 @@ import org.apache.commons.cli.Options;
 /**
  * All command-line options used by the launcher.
  *
- * @see <a href="https://www.anchoranalysis.org/user_guide_command_line.html">User Guide - Command Line</a> 
+ * @see <a href="https://www.anchoranalysis.org/user_guide_command_line.html">User Guide - Command
+ *     Line</a>
  * @author Owen Feehan
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -46,7 +47,7 @@ public class CommandLineOptions {
     // START: SHORT task options
     /** Changes task. */
     public static final String SHORT_OPTION_TASK = "t";
-    
+
     /** Suggests dimensions to resize to or a scaling factor for certain tasks. */
     public static final String SHORT_OPTION_TASK_RESIZE = "pr";
     // END: SHORT task options
@@ -54,45 +55,45 @@ public class CommandLineOptions {
     // START: SHORT output options
     /** Changes outputs. */
     public static final String SHORT_OPTION_OUTPUT = "o";
-    
+
     /** Enables all outputs. */
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL = "oe";
-    
+
     /** Disables specific output(s). Multiple outputs are comma-separated. */
     public static final String SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL = "od";
-    
+
     /** Enables specific output(s). Multiple outputs are comma-separated. */
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ALL = "oa";
-    
+
     /** Suggests an output image file format: e.g -of jpg or -of ome.xml. */
     public static final String SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT = "of";
-    
-    /** 
+
+    /**
      * Outputs with an incrementing number instead of the input identifier.
-     *  
+     *
      * <p>(useful for creating sequences of images)
      */
     public static final String SHORT_OPTION_OUTPUT_INCREMENTING_NUMBER = "on";
     // END: SHORT output options
-    
+
     // START: SHORT debug options
     /** Enables debug-mode: runs only the first available input [whose name contains string]. */
     public static final String SHORT_OPTION_DEBUG = "d";
-    
+
     /** Logs initial BeanXML errors in greater detail to a file-path. */
     public static final String SHORT_OPTION_LOG_ERROR = "l";
-    
+
     /** Shows additional argument information, otherwise executes as normal. */
     public static final String SHORT_OPTION_SHOW_EXPERIMENT_ARGUMENTS = "sa";
-    
+
     /** Prints the names of predefined tasks that can be easily used with -t. */
     public static final String SHORT_OPTION_SHOW_TASKS = "st";
-    // END: SHORT debug options    
+    // END: SHORT debug options
 
     // START: SHORT application information options
     /** Displays help message with all command-line options. */
     public static final String SHORT_OPTION_HELP = "h";
-    
+
     /** Displays version and authorship information. */
     public static final String SHORT_OPTION_VERSION = "v";
     // END: SHORT application information options
@@ -112,7 +113,7 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_OUTPUT_ENABLE_ALL = "outputEnableAll";
     private static final String LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT = "outputFileFormat";
     private static final String LONG_OPTION_OUTPUT_INCREMENTING_NUMBER = "outputIncrementingNumber";
-    
+
     private static final String LONG_OPTION_TASK = "task";
     private static final String LONG_OPTION_TASK_RESIZE = "paramResize";
     // END: All LONG options
@@ -139,12 +140,12 @@ public class CommandLineOptions {
                 LONG_OPTION_SHOW_EXPERIMENT_ARGUMENTS,
                 false,
                 "print experiment path arguments");
-        
+
         options.addOption(
                 SHORT_OPTION_SHOW_TASKS,
                 LONG_OPTION_SHOW_TASKS,
                 false,
-                "print task-names as useful for -t <name>");        
+                "print task-names as useful for -t <name>");
     }
 
     public static void addAdditionalOptions(Options options) {
@@ -194,22 +195,23 @@ public class CommandLineOptions {
                         SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
                         LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
                         "suggested image-format for writing"));
-        
+
         options.addOption(
                 SHORT_OPTION_OUTPUT_INCREMENTING_NUMBER,
                 LONG_OPTION_OUTPUT_INCREMENTING_NUMBER,
                 false,
-                "outputs with incrementing number sequence");        
+                "outputs with incrementing number sequence");
     }
-    
-    
+
     private static void addTaskOptions(Options options) {
         options.addOption(
                 requiredSingleArgument(
                         SHORT_OPTION_TASK, LONG_OPTION_TASK, "a task-name OR path to BeanXML"));
-        
+
         options.addOption(
                 requiredSingleArgument(
-                        SHORT_OPTION_TASK_RESIZE, LONG_OPTION_TASK_RESIZE, "suggests an image size to scale to (or scaling factor)"));        
+                        SHORT_OPTION_TASK_RESIZE,
+                        LONG_OPTION_TASK_RESIZE,
+                        "suggests an image size to scale to (or scaling factor)"));
     }
 }

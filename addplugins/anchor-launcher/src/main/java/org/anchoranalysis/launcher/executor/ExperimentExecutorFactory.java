@@ -31,9 +31,8 @@ import org.apache.commons.cli.CommandLine;
 
 /**
  * Creates an {@link ExperimentExecutor}.
- * 
- * @author Owen Feehan
  *
+ * @author Owen Feehan
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExperimentExecutorFactory {

@@ -33,10 +33,10 @@ import org.apache.commons.cli.Options;
 
 /**
  * Specifies a configuration of the launcher for a particular application.
- * 
- * <p>As the launcher class is used for starting both the command-line tool and the
- * Anchor GUI, this provides the necessary application-specific configuration for each.
- * 
+ *
+ * <p>As the launcher class is used for starting both the command-line tool and the Anchor GUI, this
+ * provides the necessary application-specific configuration for each.
+ *
  * @author Owen Feehan
  */
 public abstract class LauncherConfig {

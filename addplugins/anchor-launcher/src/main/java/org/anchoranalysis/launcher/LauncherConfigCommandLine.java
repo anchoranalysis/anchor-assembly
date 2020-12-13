@@ -53,7 +53,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
     private static final String RESOURCE_USAGE_FOOTER =
             "org/anchoranalysis/launcher/usageFooterDisplayMessage.txt";
     private static final String RESOURCE_TASKS_FOOTER =
-            "org/anchoranalysis/launcher/tasksFooterDisplayMessage.txt";    
+            "org/anchoranalysis/launcher/tasksFooterDisplayMessage.txt";
     // END: Resource PATHs
 
     /**
@@ -96,7 +96,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
         CommandLineExtracter extract = new CommandLineExtracter(line);
         extract.ifPresentSingle(
                 CommandLineOptions.SHORT_OPTION_DEBUG, arguments::activateDebugMode);
-        
+
         extract.ifPresentSingle(
                 CommandLineOptions.SHORT_OPTION_TASK_RESIZE, arguments.task()::assignResize);
 

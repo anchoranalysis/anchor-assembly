@@ -68,8 +68,7 @@ public class TaskFactory {
 
     private static Path constructPathForTaskName(
             String filenameWithoutExtension, Path tasksDirectory) {
-        return NonImageFileFormat.XML.buildPath(
-                tasksDirectory, filenameWithoutExtension);
+        return NonImageFileFormat.XML.buildPath(tasksDirectory, filenameWithoutExtension);
     }
 
     /**

@@ -32,9 +32,9 @@ import org.anchoranalysis.core.exception.friendly.AnchorFriendlyRuntimeException
 
 /**
  * Determines the path to the directory from where a particular jar resides.
- * 
+ *
  * @author Owen Feehan
-  */
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class PathCurrentJarHelper {
 
@@ -42,8 +42,8 @@ class PathCurrentJarHelper {
      * Determines the path to the current jar directory (or folder with class files) so we can
      * resolve a properties file
      *
-     * @param classLauncher the class which was used to launch the application (or another class with the same
-     *     codeSource)
+     * @param classLauncher the class which was used to launch the application (or another class
+     *     with the same codeSource)
      * @return a path (always a folder) to the current jar (or folder with class files)
      */
     public static Path pathCurrentJAR(Class<?> classLauncher) {
@@ -55,7 +55,7 @@ class PathCurrentJarHelper {
                     "An invalid URI was used in establishing the path to the current JAR", e);
         }
     }
-    
+
     private static Path pathFromUri(URI uri) {
         Path path = Paths.get(uri);
 

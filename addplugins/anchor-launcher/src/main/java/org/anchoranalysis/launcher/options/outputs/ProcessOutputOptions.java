@@ -56,7 +56,12 @@ public class ProcessOutputOptions {
      *     correspond to expectations.
      */
     public void maybeAddOutputs() throws ExperimentExecutionException {
-        if (!ifOptionWithoutArgument(CommandLineOptions.SHORT_OPTION_OUTPUT_ENABLE_ALL, outputArguments -> outputArguments.getOutputEnabledDelta().enableAdditionalOutputs(Permissive.INSTANCE))) {
+        if (!ifOptionWithoutArgument(
+                CommandLineOptions.SHORT_OPTION_OUTPUT_ENABLE_ALL,
+                outputArguments ->
+                        outputArguments
+                                .getOutputEnabledDelta()
+                                .enableAdditionalOutputs(Permissive.INSTANCE))) {
             ifAdditionalOptionsPresent(
                     CommandLineOptions.SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL,
                     OutputEnabledDelta::enableAdditionalOutputs);
@@ -69,19 +74,25 @@ public class ProcessOutputOptions {
         ifOutputFormatPresent(
                 CommandLineOptions.SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
                 OutputArguments::assignSuggestedImageOutputFormat);
-        
-        ifOptionWithoutArgument(CommandLineOptions.SHORT_OPTION_OUTPUT_INCREMENTING_NUMBER, OutputArguments::requestOutputIncrementingNumberSequence);
+
+        ifOptionWithoutArgument(
+                CommandLineOptions.SHORT_OPTION_OUTPUT_INCREMENTING_NUMBER,
+                OutputArguments::requestOutputIncrementingNumberSequence);
     }
 
     private void ifAdditionalOptionsPresent(
-            String optionName, BiConsumer<OutputEnabledDelta,MultiLevelOutputEnabled> function)
+            String optionName, BiConsumer<OutputEnabledDelta, MultiLevelOutputEnabled> function)
             throws ExperimentExecutionException {
         extract.ifPresentSingle(
                 optionName,
-                outputs -> function.accept(arguments.getOutputEnabledDelta(), AdditionalOutputsParser.parseFrom(outputs, optionName)));
+                outputs ->
+                        function.accept(
+                                arguments.getOutputEnabledDelta(),
+                                AdditionalOutputsParser.parseFrom(outputs, optionName)));
     }
 
-    private void ifOutputFormatPresent(String optionName, BiConsumer<OutputArguments,ImageFileFormat> consumer)
+    private void ifOutputFormatPresent(
+            String optionName, BiConsumer<OutputArguments, ImageFileFormat> consumer)
             throws ExperimentExecutionException {
         extract.ifPresentSingle(
                 optionName,
@@ -97,8 +108,9 @@ public class ProcessOutputOptions {
                     consumer.accept(arguments, format);
                 });
     }
-    
-    private boolean ifOptionWithoutArgument(String optionShort, Consumer<OutputArguments> consumer) {
+
+    private boolean ifOptionWithoutArgument(
+            String optionShort, Consumer<OutputArguments> consumer) {
         if (extract.hasOption(optionShort)) {
             consumer.accept(arguments);
             return true;

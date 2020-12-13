@@ -28,12 +28,12 @@ import lombok.AllArgsConstructor;
 
 /**
  * Accesses resource-files associated with this application.
- * 
- * <p>When specifying paths to resources, one should avoid a leading / on the resource path
- * as it uses a {@link ClassLoader} to load resources, which is different behavior to {@code getClass().getResourceAsStream()}.
- * 
- * @author Owen Feehan
  *
+ * <p>When specifying paths to resources, one should avoid a leading / on the resource path as it
+ * uses a {@link ClassLoader} to load resources, which is different behavior to {@code
+ * getClass().getResourceAsStream()}.
+ *
+ * @author Owen Feehan
  */
 @AllArgsConstructor
 public class Resources {
@@ -43,22 +43,22 @@ public class Resources {
 
     /** Path to the footer-message that accompanies a version message. */
     private String pathVersionFooter;
-    
+
     /** Path to the maven-properties file (from which a version can be extracted). */
     private String pathMavenProperties;
-    
+
     /** Path to the header-message that describes usage. */
     private String pathUsageHeader;
-    
+
     /** Path to the footer-message that describes usage. */
     private String pathUsageFooter;
-    
+
     /** Path to the footer-message used after "show tasks" */
     private Optional<String> pathTasksFooter;
-    
+
     /**
      * Header-message that describes usage.
-     * 
+     *
      * @return the message
      */
     public String usageHeader() {
@@ -67,16 +67,16 @@ public class Resources {
 
     /**
      * Footer-message that describes usage.
-     * 
+     *
      * @return the message
      */
     public String usageFooter() {
         return readTextFile(pathUsageFooter);
     }
-    
+
     /**
      * Footer-message used after "show tasks".
-     * 
+     *
      * @return the message if it exists, or else an empty string.
      */
     public String tasksFooter() {
@@ -85,7 +85,7 @@ public class Resources {
 
     /**
      * Footer-message that accompanies a version message, if it exists.
-     * 
+     *
      * @return the message
      */
     public String versionFooter() {
@@ -103,13 +103,13 @@ public class Resources {
      *     version key
      */
     public String versionFromMavenProperties() throws IOException {
-        return ResourceReader.keyFromMavenProperties("version", "<unknown>", pathMavenProperties, classLoader);
+        return ResourceReader.keyFromMavenProperties(
+                "version", "<unknown>", pathMavenProperties, classLoader);
     }
-    
+
     private String readTextFile(String path) {
         try {
-            return ResourceReader.readStringFromResource(
-                    path, classLoader);
+            return ResourceReader.readStringFromResource(path, classLoader);
         } catch (IOException e) {
             return "Error: Cannot read a string from the file: " + path;
         }

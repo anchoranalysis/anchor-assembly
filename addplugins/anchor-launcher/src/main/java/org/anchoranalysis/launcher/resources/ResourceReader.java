@@ -26,19 +26,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
-import org.apache.commons.io.IOUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.io.IOUtils;
 
 /**
  * Reads different type of entities from a resource file.
- * 
- * @author Owen Feehan
  *
+ * @author Owen Feehan
  */
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 class ResourceReader {
-    
+
     /**
      * Reads a string from a resource, or displays an error message
      *
@@ -54,7 +53,7 @@ class ResourceReader {
             return resourceFileName + " is missing, so cannot display.";
         }
     }
-    
+
     /**
      * Gets the current version of the software by reading a properties-file provided by the Maven
      * build
@@ -67,7 +66,9 @@ class ResourceReader {
      * @throws IOException if the properties file cannot be read, or is missing the appropriate
      *     version key
      */
-    public static String keyFromMavenProperties(String key, String fallback, String resourceFileName, ClassLoader classLoader) throws IOException {
+    public static String keyFromMavenProperties(
+            String key, String fallback, String resourceFileName, ClassLoader classLoader)
+            throws IOException {
         Properties properties = new Properties();
 
         InputStream mavenPropertiesResource = classLoader.getResourceAsStream(resourceFileName);

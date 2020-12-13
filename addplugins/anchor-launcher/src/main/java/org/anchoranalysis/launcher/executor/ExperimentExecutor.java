@@ -47,7 +47,7 @@ import org.anchoranalysis.launcher.options.CommandLineOptions;
 public class ExperimentExecutor {
 
     private static final String TASKS_SUBDIRECTORY_NAME = "tasks";
-    
+
     // START REQUIRED ARGUMENTS
     /** the experiment to run */
     private final SelectParam<Path> experiment;
@@ -78,7 +78,9 @@ public class ExperimentExecutor {
      * @throws ExperimentExecutionException if the execution ends early
      */
     public void executeExperiment(
-            ExecutionArguments executionArguments, boolean alwaysShowExperimentArguments, MessageLogger logger)
+            ExecutionArguments executionArguments,
+            boolean alwaysShowExperimentArguments,
+            MessageLogger logger)
             throws ExperimentExecutionException {
 
         ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDirectory);
@@ -106,7 +108,7 @@ public class ExperimentExecutor {
                 getOutput().select(executionArguments),
                 getTask().select(executionArguments));
     }
-    
+
     public Path taskDirectory() {
         return configDirectory.resolve(TASKS_SUBDIRECTORY_NAME);
     }
