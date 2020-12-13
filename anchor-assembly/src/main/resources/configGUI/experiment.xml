@@ -35,7 +35,7 @@
 
 	  <output config-class="org.anchoranalysis.io.output.bean.OutputManager" silentlyDeleteExisting="true">
 	  
-		  <filePathPrefixer filePath="ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.output.bean.path.prefixer.PathPrefixer" config-factory="include"/>
+		  <prefixer filePath="ConfigurablePaths/outputFilePathPrefixer.xml" config-class="org.anchoranalysis.io.output.bean.path.prefixer.PathPrefixer" config-factory="include"/>
 
 	  </output>
 	  

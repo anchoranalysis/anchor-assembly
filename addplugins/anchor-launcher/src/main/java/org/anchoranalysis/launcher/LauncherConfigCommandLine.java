@@ -100,7 +100,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
         extract.ifPresentSingle(
                 CommandLineOptions.SHORT_OPTION_TASK_RESIZE, arguments.task()::assignResize);
 
-        new ProcessOutputOptions(extract, arguments).maybeAddOutputs();
+        new ProcessOutputOptions(extract, arguments.output()).maybeAddOutputs();
 
         return arguments;
     }

@@ -65,7 +65,14 @@ public class CommandLineOptions {
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ALL = "oa";
     
     /** Suggests an output image file format: e.g -of jpg or -of ome.xml. */
-    public static final String SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT = "of";    
+    public static final String SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT = "of";
+    
+    /** 
+     * Outputs with an incrementing number instead of the input identifier.
+     *  
+     * <p>(useful for creating sequences of images)
+     */
+    public static final String SHORT_OPTION_OUTPUT_INCREMENTING_NUMBER = "on";
     // END: SHORT output options
     
     // START: SHORT debug options
@@ -104,6 +111,7 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_OUTPUT_DISABLE_ADDITIONAL = "outputDisable";
     private static final String LONG_OPTION_OUTPUT_ENABLE_ALL = "outputEnableAll";
     private static final String LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT = "outputFileFormat";
+    private static final String LONG_OPTION_OUTPUT_INCREMENTING_NUMBER = "outputIncrementingNumber";
     
     private static final String LONG_OPTION_TASK = "task";
     private static final String LONG_OPTION_TASK_RESIZE = "paramResize";
@@ -186,6 +194,12 @@ public class CommandLineOptions {
                         SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
                         LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
                         "suggested image-format for writing"));
+        
+        options.addOption(
+                SHORT_OPTION_OUTPUT_INCREMENTING_NUMBER,
+                LONG_OPTION_OUTPUT_INCREMENTING_NUMBER,
+                false,
+                "outputs with incrementing number sequence");        
     }
     
     
