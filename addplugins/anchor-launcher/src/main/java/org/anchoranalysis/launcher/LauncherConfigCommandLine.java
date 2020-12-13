@@ -98,7 +98,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
                 CommandLineOptions.SHORT_OPTION_DEBUG, arguments::activateDebugMode);
 
         extract.ifPresentSingle(
-                CommandLineOptions.SHORT_OPTION_TASK_RESIZE, arguments.task()::assignResize);
+                CommandLineOptions.SHORT_OPTION_TASK_SIZE, arguments.task()::assignSize);
 
         new ProcessOutputOptions(extract, arguments.output()).maybeAddOutputs();
 

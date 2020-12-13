@@ -16,7 +16,7 @@ INPUTS
 
 images
 
-The -pr parameter can be used to specify image dimensions to resize to.
+The -ps parameter can be used to specify image dimensions to resize to.
 See https://www.anchoranalysis.org/user_guide_command_line.html
 
 =======

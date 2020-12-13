@@ -48,8 +48,8 @@ public class CommandLineOptions {
     /** Changes task. */
     public static final String SHORT_OPTION_TASK = "t";
 
-    /** Suggests dimensions to resize to or a scaling factor for certain tasks. */
-    public static final String SHORT_OPTION_TASK_RESIZE = "pr";
+    /** Suggests dimensions or a scaling factor for certain tasks. */
+    public static final String SHORT_OPTION_TASK_SIZE = "ps";
     // END: SHORT task options
 
     // START: SHORT output options
@@ -115,7 +115,7 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_OUTPUT_INCREMENTING_NUMBER = "outputIncrementingNumber";
 
     private static final String LONG_OPTION_TASK = "task";
-    private static final String LONG_OPTION_TASK_RESIZE = "paramResize";
+    private static final String LONG_OPTION_TASK_SIZE = "paramSize";
     // END: All LONG options
 
     public static void addBasicOptions(Options options) {
@@ -210,8 +210,8 @@ public class CommandLineOptions {
 
         options.addOption(
                 requiredSingleArgument(
-                        SHORT_OPTION_TASK_RESIZE,
-                        LONG_OPTION_TASK_RESIZE,
-                        "suggests an image size to scale to (or scaling factor)"));
+                        SHORT_OPTION_TASK_SIZE,
+                        LONG_OPTION_TASK_SIZE,
+                        "suggests an image size or scaling factor"));
     }
 }
