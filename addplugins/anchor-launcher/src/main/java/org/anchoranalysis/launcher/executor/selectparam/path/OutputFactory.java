@@ -41,7 +41,7 @@ import org.anchoranalysis.launcher.options.CommandLineOptions;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class OutputFactory {
-    
+
     /**
      * If the argument is a path to a directory, then this directory is set as the default.
      *
@@ -55,7 +55,7 @@ public class OutputFactory {
             throw new CommandLineException(
                     "More than one argument was passed to -o. Only one is allowed!");
         }
-        
+
         String pathArgument = arguments[0];
 
         try {
@@ -74,31 +74,36 @@ public class OutputFactory {
             throw e.toCommandLineException();
         }
     }
-    
+
     /** If the path for outputting doesn't exist... */
-    private static SelectParam<Optional<Path>> pathNotExisting(String pathArgument, Path path, File file, boolean input) {
+    private static SelectParam<Optional<Path>> pathNotExisting(
+            String pathArgument, Path path, File file, boolean input) {
         if (looksLikeDirectoryPath(pathArgument)) {
             // If it looks like a directory, create this directory, and then output into it.
             file.mkdirs();
             return usePathAsDirectoryForManager(path, input);
         } else {
             throw new CommandLineException(
-                  String.format(
-                       "The argument '%s' for -%s or -%s:%n  - is neither a path to an existing file (BeanXML for an output-manager).%n  - nor looks like a directory (into which outputting occurs).%n%nSee %s%n", pathArgument, CommandLineOptions.SHORT_OPTION_OUTPUT, CommandLineOptions.LONG_OPTION_OUTPUT, AnchorWebsiteLinks.URL_OUTPUT_OPTIONS));
+                    String.format(
+                            "The argument '%s' for -%s or -%s:%n  - is neither a path to an existing file (BeanXML for an output-manager).%n  - nor looks like a directory (into which outputting occurs).%n%nSee %s%n",
+                            pathArgument,
+                            CommandLineOptions.SHORT_OPTION_OUTPUT,
+                            CommandLineOptions.LONG_OPTION_OUTPUT,
+                            AnchorWebsiteLinks.URL_OUTPUT_OPTIONS));
         }
-        
     }
-    
+
     /** The path is used as a directory for the output-manager to output into. */
-    private static SelectParam<Optional<Path>> usePathAsDirectoryForManager(Path path, boolean input) {
+    private static SelectParam<Optional<Path>> usePathAsDirectoryForManager(
+            Path path, boolean input) {
         return new UseDirectoryForManager(path, input);
     }
-    
+
     /** The path is interpreted as pointing to BeanXML defining an output-manager. */
     private static SelectParam<Optional<Path>> usePathAsBeanXML(Path path) {
         return new UseAsCustomManager(path);
     }
-    
+
     private static boolean looksLikeDirectoryPath(String argument) {
         return argument.endsWith("/") || argument.endsWith("\\");
     }
