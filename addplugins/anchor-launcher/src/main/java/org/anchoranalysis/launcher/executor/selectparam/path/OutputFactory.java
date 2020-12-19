@@ -22,6 +22,7 @@
 
 package org.anchoranalysis.launcher.executor.selectparam.path;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.Optional;
 import lombok.AccessLevel;
@@ -52,17 +53,36 @@ public class OutputFactory {
             throw new CommandLineException(
                     "More than one argument was passed to -o. Only one is allowed!");
         }
+        
+        String pathArgument = arguments[0];
 
         try {
-            Path path = ArgumentConverter.pathFromArgument(arguments[0]);
-
-            if (path.toFile().isDirectory()) {
+            Path path = ArgumentConverter.pathFromArgument(pathArgument);
+            File file = path.toFile();
+            if (file.isDirectory()) {
+                // If the path exists AND is a directory...
                 return new UseDirectoryForManager(path, input);
-            } else {
+            } else if (file.exists()) {
+                // If the path exists BUT isn't a directory
                 return new UseAsCustomManager(path);
+            } else {
+                // If the path doesn't exist, but looks like a directory
+                if (looksLikeDirectoryPath(pathArgument)) {
+                    // Make the parent directory into which the outputter will create a new subdirectory for this experiment
+                    file.mkdirs();
+                    return new UseDirectoryForManager(path, input);
+                } else {
+                    throw new CommandLineException(
+                          String.format(
+                               "The argument '%s' passed to -o is:%n- neither a path to an existing file (taken as BeanXML for output-manager)%n- nor looks like a directory (used for outputting into a subdirectory)%n", pathArgument));
+                }
             }
         } catch (InvalidPathArgumentException e) {
             throw e.toCommandLineException();
         }
+    }
+    
+    private static boolean looksLikeDirectoryPath(String argument) {
+        return argument.endsWith("/") || argument.endsWith("\\");
     }
 }
