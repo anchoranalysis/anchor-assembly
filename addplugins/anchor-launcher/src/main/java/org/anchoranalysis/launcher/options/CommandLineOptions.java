@@ -53,7 +53,7 @@ public class CommandLineOptions {
     // END: SHORT task options
 
     // START: SHORT output options
-    /** Changes outputs. */
+    /** Changes output manager. */
     public static final String SHORT_OPTION_OUTPUT = "o";
 
     /** Enables all outputs. */
@@ -107,7 +107,10 @@ public class CommandLineOptions {
 
     private static final String LONG_OPTION_DEBUG = "debug";
     private static final String LONG_OPTION_INPUT = "input";
-    private static final String LONG_OPTION_OUTPUT = "output";
+    
+    /** Changes output manager. */
+    public static final String LONG_OPTION_OUTPUT = "output";
+    
     private static final String LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL = "outputEnable";
     private static final String LONG_OPTION_OUTPUT_DISABLE_ADDITIONAL = "outputDisable";
     private static final String LONG_OPTION_OUTPUT_ENABLE_ALL = "outputEnableAll";

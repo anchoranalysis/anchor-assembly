@@ -27,10 +27,12 @@ import java.nio.file.Path;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.anchoranalysis.launcher.AnchorWebsiteLinks;
 import org.anchoranalysis.launcher.CommandLineException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.convert.ArgumentConverter;
 import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPathArgumentException;
+import org.anchoranalysis.launcher.options.CommandLineOptions;
 
 /**
  * {@code SelectParam<Path>} factory for outputs.
@@ -39,7 +41,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPath
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class OutputFactory {
-
+    
     /**
      * If the argument is a path to a directory, then this directory is set as the default.
      *
@@ -61,25 +63,40 @@ public class OutputFactory {
             File file = path.toFile();
             if (file.isDirectory()) {
                 // If the path exists AND is a directory...
-                return new UseDirectoryForManager(path, input);
+                return usePathAsDirectoryForManager(path, input);
             } else if (file.exists()) {
                 // If the path exists BUT isn't a directory
-                return new UseAsCustomManager(path);
+                return usePathAsBeanXML(path);
             } else {
-                // If the path doesn't exist, but looks like a directory
-                if (looksLikeDirectoryPath(pathArgument)) {
-                    // Make the parent directory into which the outputter will create a new subdirectory for this experiment
-                    file.mkdirs();
-                    return new UseDirectoryForManager(path, input);
-                } else {
-                    throw new CommandLineException(
-                          String.format(
-                               "The argument '%s' passed to -o is:%n- neither a path to an existing file (taken as BeanXML for output-manager)%n- nor looks like a directory (used for outputting into a subdirectory)%n", pathArgument));
-                }
+                return pathNotExisting(pathArgument, path, file, input);
             }
         } catch (InvalidPathArgumentException e) {
             throw e.toCommandLineException();
         }
+    }
+    
+    /** If the path for outputting doesn't exist... */
+    private static SelectParam<Optional<Path>> pathNotExisting(String pathArgument, Path path, File file, boolean input) {
+        if (looksLikeDirectoryPath(pathArgument)) {
+            // If it looks like a directory, create this directory, and then output into it.
+            file.mkdirs();
+            return usePathAsDirectoryForManager(path, input);
+        } else {
+            throw new CommandLineException(
+                  String.format(
+                       "The argument '%s' for -%s or -%s:%n  - is neither a path to an existing file (BeanXML for an output-manager).%n  - nor looks like a directory (into which outputting occurs).%n%nSee %s%n", pathArgument, CommandLineOptions.SHORT_OPTION_OUTPUT, CommandLineOptions.LONG_OPTION_OUTPUT, AnchorWebsiteLinks.URL_OUTPUT_OPTIONS));
+        }
+        
+    }
+    
+    /** The path is used as a directory for the output-manager to output into. */
+    private static SelectParam<Optional<Path>> usePathAsDirectoryForManager(Path path, boolean input) {
+        return new UseDirectoryForManager(path, input);
+    }
+    
+    /** The path is interpreted as pointing to BeanXML defining an output-manager. */
+    private static SelectParam<Optional<Path>> usePathAsBeanXML(Path path) {
+        return new UseAsCustomManager(path);
     }
     
     private static boolean looksLikeDirectoryPath(String argument) {
