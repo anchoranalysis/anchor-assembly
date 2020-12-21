@@ -12,8 +12,8 @@
   <packaging>pom</packaging>
 
   <name>anchor-assembly</name>
-  
-  
+	
+	
   <!-- We specify two different profiles depending on whether
 	   we wish to include the GUI or not in the build. use -DnoGUI to trigger the withoutGUI -->
 	<profiles>
@@ -187,9 +187,9 @@
           </execution>
         </executions>
       </plugin>
-      
       <plugin>
 	        <artifactId>maven-antrun-plugin</artifactId>
+	        <version>3.0.0</version>
 	        <executions>
 	        
 	          <!-- Automatically copies build files to a directory ${anchor.home.deploy} to make it
@@ -197,20 +197,23 @@
 	          <execution>
 	            <phase>install</phase>
 	            <configuration>
-	              <target if="${anchor.home.deploy}">
+				
+	              <target if="anchor.home.deploy">
 	              	<!--  Deletes the existing deploy directory (to prevent multiple JARs as SNAPSHOTs resolve to timestamps 
 	              			and copies necessary files inside.
 	              			
 	              			Lastly, makes the anchor binary executable on Linux
 	              	-->
-	
-					 <delete dir="${anchor.home.deploy}/" />
-					 
-					 <mkdir dir="${anchor.home.deploy}/" />
+
+					<echo message="Deleting the directory: ${anchor.home.deploy}/"/>
+					<delete dir="${anchor.home.deploy}/" />
+					
+					<echo message="Copying a distribution into: ${anchor.home.deploy}/"/>					
+					<mkdir dir="${anchor.home.deploy}/" />
 	
 						<!--  We add in a ../ to bring us back to the top-level of the multi-module project -->
-		              <copy todir="${anchor.home.deploy}/">
-						    <fileset dir="${project.build.directory}/anchor-assembly-${project.version}-dist/" />
+					  <copy todir="${anchor.home.deploy}/">
+							<fileset dir="${project.build.directory}/anchor-assembly-${project.version}-dist/" />
 					  </copy>
 	
 					<chmod file="${anchor.home.deploy}/bin/anchor" perm="ugo+rx" />
