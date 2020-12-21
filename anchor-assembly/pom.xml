@@ -167,30 +167,6 @@
 	
   <build>
     <plugins>
-	
-	<!-- Check that necessary property is set -->
-	<plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-enforcer-plugin</artifactId>
-		<version>1.4.1</version>
-		<executions>
-		  <execution>
-			<id>enforce-property</id>
-			<goals>
-			  <goal>enforce</goal>
-			</goals>
-			<configuration>
-			  <rules>
-				<requireProperty>
-				  <property>anchor.home.deploy</property>
-				</requireProperty>
-			  </rules>
-			  <fail>true</fail>
-			</configuration>
-		  </execution>
-		</executions>
-	  </plugin>
-	
     
       <!-- Creates a folder with all the files needed for running Anchor in target/ -->
       <plugin>
@@ -221,7 +197,7 @@
 	          <execution>
 	            <phase>install</phase>
 	            <configuration>
-	              <tasks>
+	              <target if="${anchor.home.deploy}">
 	              	<!--  Deletes the existing deploy directory (to prevent multiple JARs as SNAPSHOTs resolve to timestamps 
 	              			and copies necessary files inside.
 	              			
@@ -240,7 +216,7 @@
 					<chmod file="${anchor.home.deploy}/bin/anchor" perm="ugo+rx" />
 					<chmod file="${anchor.home.deploy}/bin/anchorGUI" perm="ugo+rx" />
 	
-	              </tasks>
+	              </target>
 	            </configuration>
 	            <goals>
 	              <goal>run</goal>
