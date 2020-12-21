@@ -14,19 +14,40 @@
 
   <name>anchor-parent-assembly</name>
   
-    	<scm>
-		<connection>scm:git:ssh://git@bitbucket.org/anchorimageanalysis/anchor-assembly.git</connection>
-		<developerConnection>scm:git:ssh://git@bitbucket.org/anchorimageanalysis/anchor-assembly.git</developerConnection>
-		<url>https://git@bitbucket.org/anchorimageanalysis/anchor-assembly.git</url>
-	    <tag>anchor-parent-0.0.1</tag>
-    </scm>
+  	<!-- Where to depoy (upload) artifacts to, making sure to associate with the corresponding
+	repository in GitHub Packages. Overrides settings that already are inherited from anchor-pom. -->
+	<distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub</name>
+            <url>https://maven.pkg.github.com/anchoranalysis/anchor-assembly/</url>
+        </repository>
+	  <snapshotRepository>
+            <id>github</id>
+            <name>GitHub</name>
+            <url>https://maven.pkg.github.com/anchoranalysis/anchor-assembly/</url>
+        </snapshotRepository>
+	</distributionManagement>
+	
+	<!-- For tagging releases. -->
+  	<scm>
+		<connection>scm:git:git@github.com:anchoranalysis/anchor-assembly.git</connection>
+		<developerConnection>scm:git:git@github.com:anchoranalysis/anchor-assembly.git</developerConnection>
+		<url>https://github.com/anchoranalysis/anchor-assemblyl</url>
+		<tag>anchor-parent-0.0.1</tag>
+	</scm>
+	
+	<!-- For connecting to SonarCloud. -->
+	<properties>
+	  <sonar.projectKey>anchoranalysis_anchor-assembly</sonar.projectKey>
+	</properties>
   
     <modules>
         <module>anchor-assembly</module>
 	   <module>addplugins</module>
     </modules>
   	
-<!-- Provides a means of reaching anchor-pom and ImageJ -->
+	<!-- Provides a means of reaching anchor-pom and ImageJ -->
     <repositories>
 		<repository>
 		  <releases>
@@ -39,24 +60,15 @@
 			<updatePolicy>always</updatePolicy>
 			<checksumPolicy>warn</checksumPolicy>
 		  </snapshots>
-		  <id>anchor</id>
-		   <name>anchor</name>
-		   <url>http://maven.anchoranalysis.org:8081/repository/anchor</url>
+		  <id>github</id>
+		   <name>GitHub anchor Apache Maven Packages</name>
+		   <url>https://maven.pkg.github.com/anchoranalysis/anchor-assembly</url>
 		  <layout>default</layout>
 		</repository>
-		
-		<repository>
-			<id>imagej</id>
-			<name>ImageJ repository</name>
-			<url>http://maven.imagej.net/content/groups/public</url>
-		</repository>
-		
    	</repositories>
 	
 	    <build>
-        
             <plugins>
-				
 				<plugin>
 				    <groupId>org.codehaus.mojo</groupId>
 				    <artifactId>license-maven-plugin</artifactId>
@@ -69,15 +81,11 @@
         				        
 				    </configuration>
 				</plugin>
-				
-
-	
             </plugins>
-			
 		</build>
 		
-			<dependencies>
-			<dependency>
+	<dependencies>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
