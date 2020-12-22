@@ -6,14 +6,14 @@
 		<version>0.0.6-SNAPSHOT</version>
     </parent> 
 	
-  <artifactId>anchor-assembly</artifactId>
-    <url>http://www.anchoranalysis.org/</url>
+  <artifactId>anchor</artifactId>
+  <url>http://www.anchoranalysis.org/</url>
   
   <packaging>pom</packaging>
 
-  <name>anchor-assembly</name>
-  
-  
+  <name>Anchor Distribution</name>
+	
+	
   <!-- We specify two different profiles depending on whether
 	   we wish to include the GUI or not in the build. use -DnoGUI to trigger the withoutGUI -->
 	<profiles>
@@ -70,7 +70,7 @@
 								 </goals>
 								 <configuration>
 									  <headerType>console</headerType>
-									  <outfile>${project.build.directory}/anchor-assembly-${project.version}-dist/bin/anchor.exe</outfile>
+									  <outfile>${project.build.directory}/anchor-${project.version}/anchor-${project.version}/bin/anchor.exe</outfile>
 									  <jar>anchor-launcher</jar>
 									  <dontWrapJar>true</dontWrapJar>
 									  <errTitle>Anchor</errTitle>
@@ -99,7 +99,7 @@
 								 </goals>
 								 <configuration>
 									  <headerType>console</headerType>
-									  <outfile>${project.build.directory}/anchor-assembly-${project.version}-dist/bin/anchorGUI.exe</outfile>
+									  <outfile>${project.build.directory}/anchor-${project.version}/anchor-${project.version}/bin/anchorGUI.exe</outfile>
 									  <jar>anchor-browser</jar>
 									  <dontWrapJar>true</dontWrapJar>
 									  <errTitle>Anchor GUI</errTitle>
@@ -167,30 +167,6 @@
 	
   <build>
     <plugins>
-	
-	<!-- Check that necessary property is set -->
-	<plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-enforcer-plugin</artifactId>
-		<version>1.4.1</version>
-		<executions>
-		  <execution>
-			<id>enforce-property</id>
-			<goals>
-			  <goal>enforce</goal>
-			</goals>
-			<configuration>
-			  <rules>
-				<requireProperty>
-				  <property>anchor.home.deploy</property>
-				</requireProperty>
-			  </rules>
-			  <fail>true</fail>
-			</configuration>
-		  </execution>
-		</executions>
-	  </plugin>
-	
     
       <!-- Creates a folder with all the files needed for running Anchor in target/ -->
       <plugin>
@@ -204,16 +180,16 @@
             <phase>package</phase>
             <configuration>
               <descriptors>
-                <descriptor>src/assembly/dist.xml</descriptor>
+                <descriptor>src/assembly/distribution.xml</descriptor>
               </descriptors>
               <attach>false</attach>
             </configuration>
           </execution>
         </executions>
       </plugin>
-      
       <plugin>
 	        <artifactId>maven-antrun-plugin</artifactId>
+	        <version>3.0.0</version>
 	        <executions>
 	        
 	          <!-- Automatically copies build files to a directory ${anchor.home.deploy} to make it
@@ -221,26 +197,29 @@
 	          <execution>
 	            <phase>install</phase>
 	            <configuration>
-	              <tasks>
+				
+	              <target if="anchor.home.deploy">
 	              	<!--  Deletes the existing deploy directory (to prevent multiple JARs as SNAPSHOTs resolve to timestamps 
 	              			and copies necessary files inside.
 	              			
 	              			Lastly, makes the anchor binary executable on Linux
 	              	-->
-	
-					 <delete dir="${anchor.home.deploy}/" />
-					 
-					 <mkdir dir="${anchor.home.deploy}/" />
+
+					<echo message="Deleting the directory: ${anchor.home.deploy}/"/>
+					<delete dir="${anchor.home.deploy}/" />
+					
+					<echo message="Copying a distribution into: ${anchor.home.deploy}/"/>					
+					<mkdir dir="${anchor.home.deploy}/" />
 	
 						<!--  We add in a ../ to bring us back to the top-level of the multi-module project -->
-		              <copy todir="${anchor.home.deploy}/">
-						    <fileset dir="${project.build.directory}/anchor-assembly-${project.version}-dist/" />
+					  <copy todir="${anchor.home.deploy}/">
+							<fileset dir="${project.build.directory}/anchor-${project.version}/anchor-${project.version}/" />
 					  </copy>
 	
 					<chmod file="${anchor.home.deploy}/bin/anchor" perm="ugo+rx" />
 					<chmod file="${anchor.home.deploy}/bin/anchorGUI" perm="ugo+rx" />
 	
-	              </tasks>
+	              </target>
 	            </configuration>
 	            <goals>
 	              <goal>run</goal>
