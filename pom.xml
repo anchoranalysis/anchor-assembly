@@ -43,7 +43,7 @@
 	</properties>
   
     <modules>
-        <module>anchor-assembly</module>
+        <module>anchor</module>
 	   <module>addplugins</module>
     </modules>
   	

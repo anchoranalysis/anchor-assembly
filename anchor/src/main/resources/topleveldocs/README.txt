@@ -1,0 +1,1 @@
+Anchor v${project.version} is a command-line application and platform for image processing, especially microscopy image analysis.Installation Instructions:https://www.anchoranalysis.org/installation.htmlUser Guide:https://www.anchoranalysis.org/user_guide.html

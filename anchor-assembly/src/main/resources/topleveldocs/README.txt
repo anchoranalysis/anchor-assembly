@@ -1,1 +1,0 @@
-Anchor is a command-line application and platform for image processing, especially microscopy image analysis.This is version PRE-RELEASE.Installation Instructions:https://www.anchoranalysis.org/installation.htmlUser Guide:https://www.anchoranalysis.org/user_guide.html

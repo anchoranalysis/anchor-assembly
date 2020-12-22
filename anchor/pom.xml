@@ -6,12 +6,12 @@
 		<version>0.0.6-SNAPSHOT</version>
     </parent> 
 	
-  <artifactId>anchor-assembly</artifactId>
-    <url>http://www.anchoranalysis.org/</url>
+  <artifactId>anchor</artifactId>
+  <url>http://www.anchoranalysis.org/</url>
   
   <packaging>pom</packaging>
 
-  <name>anchor-assembly</name>
+  <name>Anchor Distribution</name>
 	
 	
   <!-- We specify two different profiles depending on whether
@@ -70,7 +70,7 @@
 								 </goals>
 								 <configuration>
 									  <headerType>console</headerType>
-									  <outfile>${project.build.directory}/anchor-assembly-${project.version}-dist/bin/anchor.exe</outfile>
+									  <outfile>${project.build.directory}/anchor-${project.version}/anchor-${project.version}/bin/anchor.exe</outfile>
 									  <jar>anchor-launcher</jar>
 									  <dontWrapJar>true</dontWrapJar>
 									  <errTitle>Anchor</errTitle>
@@ -99,7 +99,7 @@
 								 </goals>
 								 <configuration>
 									  <headerType>console</headerType>
-									  <outfile>${project.build.directory}/anchor-assembly-${project.version}-dist/bin/anchorGUI.exe</outfile>
+									  <outfile>${project.build.directory}/anchor-${project.version}/anchor-${project.version}/bin/anchorGUI.exe</outfile>
 									  <jar>anchor-browser</jar>
 									  <dontWrapJar>true</dontWrapJar>
 									  <errTitle>Anchor GUI</errTitle>
@@ -180,7 +180,7 @@
             <phase>package</phase>
             <configuration>
               <descriptors>
-                <descriptor>src/assembly/dist.xml</descriptor>
+                <descriptor>src/assembly/distribution.xml</descriptor>
               </descriptors>
               <attach>false</attach>
             </configuration>
@@ -213,7 +213,7 @@
 	
 						<!--  We add in a ../ to bring us back to the top-level of the multi-module project -->
 					  <copy todir="${anchor.home.deploy}/">
-							<fileset dir="${project.build.directory}/anchor-assembly-${project.version}-dist/" />
+							<fileset dir="${project.build.directory}/anchor-${project.version}/anchor-${project.version}/" />
 					  </copy>
 	
 					<chmod file="${anchor.home.deploy}/bin/anchor" perm="ugo+rx" />
