@@ -47,7 +47,12 @@ jobs:
     - name: Build with Maven
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn --batch-mode --update-snapshots deploy
+        
+        # Do not deploy the final tar.gz and .zip distribution packages automatically, only addplugins
+        # The user can instead use the maven release plugin to deploy each properly versioned distribution
+        #   or manually deploy from the command-line for a snapshot
+      run: mvn --batch-mode --update-snapshots install
+      run: mvn --batch-mode -f addplugins/pom.xml deploy
       
   sonarcloud:
 

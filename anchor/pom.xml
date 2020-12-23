@@ -182,7 +182,7 @@
               <descriptors>
                 <descriptor>src/assembly/distribution.xml</descriptor>
               </descriptors>
-              <attach>false</attach>
+              <attach>true</attach>
             </configuration>
           </execution>
         </executions>
