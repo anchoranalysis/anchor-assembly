@@ -33,7 +33,7 @@ import org.anchoranalysis.bean.BeanInstanceMap;
 import org.anchoranalysis.bean.NamedBean;
 import org.anchoranalysis.bean.StringSet;
 import org.anchoranalysis.bean.exception.BeanMisconfiguredException;
-import org.anchoranalysis.bean.xml.BeanXmlLoader;
+import org.anchoranalysis.bean.xml.BeanXMLLoader;
 import org.anchoranalysis.bean.xml.exception.BeanXmlException;
 import org.anchoranalysis.core.exception.OperationFailedException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -106,7 +106,7 @@ class HelperLoadAdditionalConfig {
 
         if (path.toFile().exists()) {
             try {
-                StringSet setBean = BeanXmlLoader.loadBean(path, "bean");
+                StringSet setBean = BeanXMLLoader.loadBean(path, "bean");
                 return Optional.of(setBean.set());
 
             } catch (BeanXmlException e) {
@@ -122,7 +122,7 @@ class HelperLoadAdditionalConfig {
             throws ExperimentExecutionException {
         if (path.toFile().exists()) {
             try {
-                List<NamedBean<?>> listDefaults = BeanXmlLoader.loadBean(path, "bean");
+                List<NamedBean<?>> listDefaults = BeanXMLLoader.loadBean(path, "bean");
                 addToMap.addFrom(listDefaults);
 
             } catch (BeanXmlException | BeanMisconfiguredException e) {
