@@ -25,7 +25,7 @@ package org.anchoranalysis.launcher.executor;
 import java.nio.file.Path;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.anchoranalysis.bean.xml.BeanXmlLoader;
+import org.anchoranalysis.bean.xml.BeanXMLLoader;
 import org.anchoranalysis.bean.xml.exception.BeanXmlException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
@@ -85,9 +85,9 @@ class BeanReader {
 
         try {
             if (associateXml) {
-                return BeanXmlLoader.loadBeanAssociatedXml(configPath, xmlPath);
+                return BeanXMLLoader.loadBeanAssociatedXml(configPath, xmlPath);
             } else {
-                return BeanXmlLoader.loadBean(configPath, xmlPath);
+                return BeanXMLLoader.loadBean(configPath, xmlPath);
             }
 
         } catch (BeanXmlException e) {

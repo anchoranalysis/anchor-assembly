@@ -38,4 +38,8 @@ public class AnchorWebsiteLinks {
     /** A URL for showing command-line options relating to outputting. */
     public static final String URL_OUTPUT_OPTIONS =
             "https://www.anchoranalysis.org/user_guide_command_line.html#output-options";
+    
+    /** A URL for showing predefined tasks that can be used. */
+    public static final String URL_PREDEFIEND_TASKS = 
+            "https://www.anchoranalysis.org/user_guide_examples.html#predefined-tasks";
 }

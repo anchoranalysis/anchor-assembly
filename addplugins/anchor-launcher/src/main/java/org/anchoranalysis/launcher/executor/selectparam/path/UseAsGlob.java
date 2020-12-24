@@ -57,7 +57,7 @@ class UseAsGlob implements SelectParam<Optional<Path>> {
         arguments.assignInputFilterGlob(glob.getGlob());
 
         // An empty set, means no filter check is applied
-        arguments.assignInputFilterExtensions(new HashSet<String>());
+        arguments.assignInputFilterExtensions(new HashSet<>());
 
         return Optional.empty();
     }
