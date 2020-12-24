@@ -51,7 +51,7 @@ class DirtyInitializer {
         try {
             Class<?> unsafeClass = Class.forName("sun.misc.Unsafe");
             Field field = unsafeClass.getDeclaredField("theUnsafe");
-            field.setAccessible(true);
+            field.setAccessible(true);  // NOSONAR
             Object unsafe = field.get(null);
 
             Method putObjectVolatile =
