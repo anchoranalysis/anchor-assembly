@@ -42,94 +42,6 @@
 			</activation>
 		</profile>
 		
-		<!-- Build the EXE launcher only on windows -->
-		<profile>
-			<id>makeExes</id>
-			<activation>
-			<os>
-				<family>Windows</family>
-			  </os>
-			</activation>
-			<build>
-				<plugins>
-	    
-					<!-- LAUNCH4J -->
-						 
-					  <plugin>
-						 <groupId>com.akathist.maven.plugins.launch4j</groupId>
-						 <artifactId>launch4j-maven-plugin</artifactId>
-						 <version>1.7.25</version>
-						 <executions>
-						 
-						 <!-- This generates an anchor.exe (command-line) with Launch4J and places it in the target distribution -->
-						 <execution>
-								 <id>l4j-clui1</id>
-								 <phase>package</phase>
-								 <goals>
-									 <goal>launch4j</goal>
-								 </goals>
-								 <configuration>
-									  <headerType>console</headerType>
-									  <outfile>${project.build.directory}/anchor-${project.version}/anchor-${project.version}/bin/anchor.exe</outfile>
-									  <jar>anchor-launcher</jar>
-									  <dontWrapJar>true</dontWrapJar>
-									  <errTitle>Anchor</errTitle>
-									  <downloadUrl>http://java.com/download</downloadUrl>
-									
-									  <classPath>
-										<mainClass>org.anchoranalysis.launcher.Launch</mainClass>
-										<postCp>%EXEDIR%/*.jar;%EXEDIR%/../lib/*.jar</postCp>
-										<addDependencies>false</addDependencies>
-									  </classPath>
-									  
-									  <jre>
-										<minVersion>1.8</minVersion>
-										<initialHeapPercent>20</initialHeapPercent>
-										<maxHeapPercent>80</maxHeapPercent>
-									  </jre>
-								 </configuration>
-							 </execution>
-							 
-							 <!-- This generates an anchorGUI.exe (GUI) with Launch4J and places it in the target distribution -->
-							 <execution>
-								 <id>l4j-clui2</id>
-								 <phase>package</phase>
-								 <goals>
-									 <goal>launch4j</goal>
-								 </goals>
-								 <configuration>
-									  <headerType>console</headerType>
-									  <outfile>${project.build.directory}/anchor-${project.version}/anchor-${project.version}/bin/anchorGUI.exe</outfile>
-									  <jar>anchor-browser</jar>
-									  <dontWrapJar>true</dontWrapJar>
-									  <errTitle>Anchor GUI</errTitle>
-									  <downloadUrl>http://java.com/download</downloadUrl>
-									
-									  <classPath>
-										<mainClass>org.anchoranalysis.browser.launcher.LaunchInteractiveBrowser</mainClass>
-										<postCp>%EXEDIR%/*.jar;%EXEDIR%/../lib/*.jar</postCp>
-										<addDependencies>false</addDependencies>
-									  </classPath>
-									  
-									  <jre>
-										<minVersion>1.8</minVersion>
-										<initialHeapPercent>20</initialHeapPercent>
-										<maxHeapPercent>80</maxHeapPercent>
-										
-										<opts>
-											<opt>-Dsun.java2d.uiScale=1</opt>	
-										</opts>
-									  </jre>
-									  
-									  
-								 </configuration>
-							 </execution>
-						 </executions>
-					 </plugin>
-				</plugins>
-			</build>
-		</profile>
-		
 	</profiles>
   
   <dependencies>
@@ -168,33 +80,36 @@
   <build>
     <plugins>
     
-      <!-- Creates a folder with all the files needed for running Anchor in target/ -->
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>make-assembly</id>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <phase>package</phase>
-            <configuration>
-              <descriptors>
-                <descriptor>src/assembly/distribution.xml</descriptor>
-              </descriptors>
-              <attach>true</attach>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
+	
+ <plugin>
 	        <artifactId>maven-antrun-plugin</artifactId>
 	        <version>3.0.0</version>
 	        <executions>
-	        
+
+
+						<execution>
+							<id>prepare-package</id>
+							<phase>prepare-package</phase>
+							<configuration>
+							  <target>
+								
+								<echo message="Deleting the windowsExe/ directory: ${project.build.directory}/windowsExe"/>
+								<delete dir="${project.build.directory}/windowsExe/" />
+								
+								<echo message="Building EXES in: ${project.build.directory}/path-pattern-finder-distribution-${project.version}/windowsExe"/>					
+								<mkdir dir="${project.build.directory}/windowsExe" />
+				
+							  </target>
+							</configuration>
+							<goals>
+							  <goal>run</goal>
+							</goals>
+						  </execution>
+
 	          <!-- Automatically copies build files to a directory ${anchor.home.deploy} to make it
 	             easier during development to update the distribution -->
 	          <execution>
+			  <id>install</id>
 	            <phase>install</phase>
 	            <configuration>
 				
@@ -226,7 +141,101 @@
 	            </goals>
 	          </execution>
 	        </executions>
-	      </plugin>
+	      </plugin>	
+	
+	  <!-- Run Launch4J plugins before the assembly-plugin to make sure the .exes are included in the tar.gz and zip files. -->
+	  <plugin>
+		 <groupId>com.akathist.maven.plugins.launch4j</groupId>
+		 <artifactId>launch4j-maven-plugin</artifactId>
+		 <version>1.7.25</version>
+		 <executions>
+		 
+		 <!-- This generates an anchor.exe (command-line) with Launch4J and places it in the target distribution -->
+		 <execution>
+				 <id>l4j-clui1</id>
+				 <phase>prepare-package</phase>
+				 <goals>
+					 <goal>launch4j</goal>
+				 </goals>
+				 <configuration>
+					  <headerType>console</headerType>
+					  <outfile>${project.build.directory}/windowsExe/anchor.exe</outfile>
+					  <jar>anchor-launcher</jar>
+					  <dontWrapJar>true</dontWrapJar>
+					  <errTitle>Anchor</errTitle>
+					  <downloadUrl>http://java.com/download</downloadUrl>
+					
+					  <classPath>
+						<mainClass>org.anchoranalysis.launcher.Launch</mainClass>
+						<postCp>%EXEDIR%/*.jar;%EXEDIR%/../lib/*.jar</postCp>
+						<addDependencies>false</addDependencies>
+					  </classPath>
+					  
+					  <jre>
+						<minVersion>1.8</minVersion>
+						<initialHeapPercent>20</initialHeapPercent>
+						<maxHeapPercent>80</maxHeapPercent>
+					  </jre>
+				 </configuration>
+			 </execution>
+			 
+			 <!-- This generates an anchorGUI.exe (GUI) with Launch4J and places it in the target distribution -->
+			 <execution>
+				 <id>l4j-clui2</id>
+				 <phase>prepare-package</phase>
+				 <goals>
+					 <goal>launch4j</goal>
+				 </goals>
+				 <configuration>
+					  <headerType>console</headerType>
+					  <outfile>${project.build.directory}/windowsExe/anchorGUI.exe</outfile>
+					  <jar>anchor-browser</jar>
+					  <dontWrapJar>true</dontWrapJar>
+					  <errTitle>Anchor GUI</errTitle>
+					  <downloadUrl>http://java.com/download</downloadUrl>
+					
+					  <classPath>
+						<mainClass>org.anchoranalysis.browser.launcher.LaunchInteractiveBrowser</mainClass>
+						<postCp>%EXEDIR%/*.jar;%EXEDIR%/../lib/*.jar</postCp>
+						<addDependencies>false</addDependencies>
+					  </classPath>
+					  
+					  <jre>
+						<minVersion>1.8</minVersion>
+						<initialHeapPercent>20</initialHeapPercent>
+						<maxHeapPercent>80</maxHeapPercent>
+						
+						<opts>
+							<opt>-Dsun.java2d.uiScale=1</opt>	
+						</opts>
+					  </jre>
+					  
+					  
+				 </configuration>
+			 </execution>
+		 </executions>
+	 </plugin>	
+	
+      <!-- Creates a folder with all the files needed for running Anchor in target/ -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <descriptors>
+                <descriptor>src/assembly/distribution.xml</descriptor>
+              </descriptors>
+              <attach>true</attach>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+     
 	    
 		<!-- Force a clean to occur before any deploy -->
 		  <plugin>
