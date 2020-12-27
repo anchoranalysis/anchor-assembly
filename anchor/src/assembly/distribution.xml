@@ -104,6 +104,18 @@
   
   	 <!--  The helper-apps used to allow easy start of Anchor on different platforms -->
   	 
+     
+     <!-- Include the generated exe. -->
+     <fileSet>
+        <directory>target/windowsExe</directory>
+        <outputDirectory>bin</outputDirectory>
+        <includes>
+        	<include>anchor.exe</include>
+          <include>anchorGUI.exe</include>
+        </includes>
+        <fileMode>0644</fileMode>
+     </fileSet>   
+     
   	 <!-- Let's exclude the UNIX scripts we want to change permissions on -->
      <fileSet>
         <directory>src/main/resources/helperapps</directory>
