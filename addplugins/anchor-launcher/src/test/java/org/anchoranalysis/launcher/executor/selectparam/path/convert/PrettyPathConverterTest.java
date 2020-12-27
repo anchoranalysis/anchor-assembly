@@ -22,14 +22,14 @@
 
 package org.anchoranalysis.launcher.executor.selectparam.path.convert;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PrettyPathConverterTest {
+class PrettyPathConverterTest {
 
     private static Path PATH_ABSOLUTE_BIG = path("/a/b/c/d/e/f");
     private static Path PATH_ABSOLUTE_MEDIUM = path("/a/b/c/d");
@@ -43,27 +43,27 @@ public class PrettyPathConverterTest {
     private static String IDENTICAL = ".";
 
     @Test
-    public void testBiggerAbsolute() throws ExperimentExecutionException {
+    void testBiggerAbsolute() throws ExperimentExecutionException {
         test(PATH_ABSOLUTE_BIG, PATH_ABSOLUTE_MEDIUM, PATH_ABSOLUTE_DIFF_BIG_TO_MEDIUM.toString());
     }
 
     @Test
-    public void testSmallerAbsolute() throws ExperimentExecutionException {
+    void testSmallerAbsolute() throws ExperimentExecutionException {
         test(PATH_ABSOLUTE_MEDIUM, PATH_ABSOLUTE_BIG, PATH_ABSOLUTE_DIFF_MEDIUM_TO_BIG.toString());
     }
 
     @Test
-    public void testIdenticalAbsolute() throws ExperimentExecutionException {
+    void testIdenticalAbsolute() throws ExperimentExecutionException {
         test(PATH_ABSOLUTE_MEDIUM, PATH_ABSOLUTE_MEDIUM, IDENTICAL);
     }
 
     @Test
-    public void testBiggerRelative() throws ExperimentExecutionException {
+    void testBiggerRelative() throws ExperimentExecutionException {
         test(PATH_RELATIVE_BIG, PATH_RELATIVE_MEDIUM, PATH_RELATIVE_DIFF_BIG_TO_MEDIUM.toString());
     }
 
     @Test
-    public void testIdenticalRelative() throws ExperimentExecutionException {
+    void testIdenticalRelative() throws ExperimentExecutionException {
         test(PATH_RELATIVE_MEDIUM, PATH_RELATIVE_MEDIUM, IDENTICAL);
     }
 

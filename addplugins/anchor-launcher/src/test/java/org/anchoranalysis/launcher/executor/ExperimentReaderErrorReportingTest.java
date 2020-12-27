@@ -22,14 +22,15 @@
 
 package org.anchoranalysis.launcher.executor;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Path;
 import org.anchoranalysis.core.format.NonImageFileFormat;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.test.TestLoader;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 /**
  * Tests the different kind of error messages produced by configuration-files that have deliberate
@@ -40,93 +41,117 @@ import org.junit.Test;
  *
  * @author Owen Feehan
  */
-public class ExperimentReaderErrorReportingTest {
+class ExperimentReaderErrorReportingTest {
 
     private static TestLoader tl = TestLoader.createFromMavenWorkingDirectory();
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @BeforeAll
+    static void setUp() throws Exception {
         ExperimentExecutorAfter.initializeIfNecessary(tl.getRoot(), false, false);
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testNonExistentFilePath() throws ExperimentExecutionException {
-        readExperiment("a non-existent config-name", 1);
+    @Test
+    void testNonExistentFilePath() throws ExperimentExecutionException {
+        assertException( () ->
+            readExperiment("a non-existent config-name", 1)
+        );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testIncorrectEndTag() throws ExperimentExecutionException {
-        readExperiment("incorrectEndTag", 4);
+    @Test
+    void testIncorrectEndTag() throws ExperimentExecutionException {
+        assertException( () ->
+            readExperiment("incorrectEndTag", 4)
+            );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testMissingRootTag() throws ExperimentExecutionException {
-        readExperiment("missingRootTag", 3, "experiment");
+    @Test
+    void testMissingRootTag() throws ExperimentExecutionException {
+        assertException( () ->
+            readExperiment("missingRootTag", 3, "experiment")
+            );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testIncorrectClass() throws ExperimentExecutionException {
-        readExperiment(
-                "incorrectClass",
-                9,
-                new String[] {
-                    "Please check spelling of config-class attributes",
-                    "org.anchoranalysis.ANonExistentClass"
-                });
+    @Test
+    void testIncorrectClass() throws ExperimentExecutionException {
+        assertException( () ->
+            readExperiment(
+                    "incorrectClass",
+                    9,
+                    new String[] {
+                        "Please check spelling of config-class attributes",
+                        "org.anchoranalysis.ANonExistentClass"
+                    })
+            );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testIncorrectFactory() throws ExperimentExecutionException {
-        readExperiment(
-                "incorrectFactory", 8, new String[] {"Unknown bean factory", "nonExistentFactory"});
+    @Test
+    void testIncorrectFactory() throws ExperimentExecutionException {
+        assertException( () ->
+            readExperiment(
+                    "incorrectFactory", 8, new String[] {"Unknown bean factory", "nonExistentFactory"})
+            );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testIncorrectClassNested() throws ExperimentExecutionException {
-        readExperiment(
-                "incorrectClassNested",
-                13,
-                new String[] {
-                    "Please check spelling of config-class attributes",
-                    "org.anchoranalysis.SomeNoneExistentClass"
-                });
+    @Test
+    void testIncorrectClassNested() throws ExperimentExecutionException {
+        assertException( () ->
+            readExperiment(
+                    "incorrectClassNested",
+                    13,
+                    new String[] {
+                        "Please check spelling of config-class attributes",
+                        "org.anchoranalysis.SomeNoneExistentClass"
+                    })
+            );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testIncorrectIncludeFile() throws ExperimentExecutionException {
-        readExperiment("incorrectIncludeFile", 10, "Cannot find included file");
+    @Test
+    void testIncorrectIncludeFile() throws ExperimentExecutionException {
+        assertException( () ->
+            readExperiment("incorrectIncludeFile", 10, "Cannot find included file")
+            );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testIncorrectIncludeFileNested() throws ExperimentExecutionException {
-        readExperiment("incorrectIncludeFileNested", 6, "Cannot find included file");
+    @Test
+    void testIncorrectIncludeFileNested() throws ExperimentExecutionException {
+        assertException( () ->
+            readExperiment("incorrectIncludeFileNested", 6, "Cannot find included file")
+            );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testMalformedXMLTag() throws ExperimentExecutionException {
-        readExperiment("malformedXMLTag", 7, "/>");
+    @Test
+    void testMalformedXMLTag() throws ExperimentExecutionException {
+        assertException( () ->
+            readExperiment("malformedXMLTag", 7, "/>")
+            );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testNonExistingBeanField() throws ExperimentExecutionException {
-        readExperiment("nonExistingBeanField", 13);
+    @Test
+    void testNonExistingBeanField() throws ExperimentExecutionException {
+        assertException( () ->
+                readExperiment("nonExistingBeanField", 13)
+        );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testMissingRequiredBeanField() throws ExperimentExecutionException {
-        readExperiment(
-                "missingRequiredBeanField",
-                12,
-                new String[] {
-                    "stackProviderID",
-                    "org.anchoranalysis.plugin.image.bean.channel.provider.FromStack",
-                    "must be non-null"
-                });
+    @Test
+    void testMissingRequiredBeanField() throws ExperimentExecutionException {
+        assertException( () ->
+            readExperiment(
+                    "missingRequiredBeanField",
+                    12,
+                    new String[] {
+                        "stackProviderID",
+                        "org.anchoranalysis.plugin.image.bean.channel.provider.FromStack",
+                        "must be non-null"
+                    })
+        );
     }
 
-    @Test(expected = ExperimentExecutionException.class)
-    public void testIncludeFileOverflow() throws ExperimentExecutionException {
-        readExperiment("includeFileOverflow", 10, "Including file would cause overflow");
+    @Test
+    void testIncludeFileOverflow() throws ExperimentExecutionException {
+        assertException(() ->
+            readExperiment("includeFileOverflow", 10, "Including file would cause overflow")
+        );
     }
 
     /** With no contains... */
@@ -212,5 +237,9 @@ public class ExperimentReaderErrorReportingTest {
     private boolean containsPathWithForwardSlashes(String search, String path) {
         String searchConvert = search.replace("\\", "/");
         return searchConvert.contains(path);
+    }
+        
+    private static void assertException(Executable executable) {
+        assertThrows(ExperimentExecutionException.class, executable);
     }
 }

@@ -5,7 +5,8 @@
 #
 # It also:
 #   - updates the corresponding project on SonarCloud
-#  -  uploads the built artifacts to GitHub Packages
+#   - uploads the built artifacts to GitHub Packages
+#   - builds a distribution of anchor as a .tar.gz and .zip and uploads to GitHub Packages
 #
 # The Maven and SonarCloud working directories are cached for future reuse, as downloading all packages from scratch takes significant time.
 #
