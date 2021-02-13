@@ -28,9 +28,5 @@ converted:
    	a copy of each file converted to the desired target format, preserving file-naming and directory structure (aside from file extension).
 -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.image.task.bean.format.ConvertImageFormat">
-    <channelConversionStyle config-class="org.anchoranalysis.plugin.image.task.bean.format.convertstyle.RGB">
-        <fallback config-class="org.anchoranalysis.plugin.image.task.bean.format.convertstyle.IndependentChannels"/>
-    </channelConversionStyle>
-</bean>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.format.ConvertImageFormat"/>
 </config>
