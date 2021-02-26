@@ -61,7 +61,7 @@ class UseDirectoryForManager implements SelectParam<Optional<Path>> {
         if (input) {
             executionArguments.input().assignInputDirectory(Optional.of(directory));
         } else {
-            executionArguments.output().assignOutputDirectory(directory);
+            executionArguments.output().getPrefixer().assignOutputDirectory(directory);
         }
         return Optional.empty();
     }
