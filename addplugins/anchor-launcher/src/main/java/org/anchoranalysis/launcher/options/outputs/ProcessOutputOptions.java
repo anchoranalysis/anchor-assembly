@@ -78,6 +78,10 @@ public class ProcessOutputOptions {
         ifOptionWithoutArgument(
                 CommandLineOptions.SHORT_OPTION_OUTPUT_INCREMENTING_NUMBER,
                 OutputArguments::requestOutputIncrementingNumberSequence);
+        
+        ifOptionWithoutArgument(
+                CommandLineOptions.SHORT_OPTION_OUTPUT_SUPPRESS_DIRECTORIES,
+                OutputArguments::requestOutputSuppressDirectories);
     }
 
     private void ifAdditionalOptionsPresent(
