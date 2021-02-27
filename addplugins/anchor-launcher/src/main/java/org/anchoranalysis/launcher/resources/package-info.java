@@ -19,7 +19,5 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-/**
- * Reading and integrating resources for the launcher.
- */
+/** Reading and integrating resources for the launcher. */
 package org.anchoranalysis.launcher.resources;

@@ -58,7 +58,7 @@ class PathDeriver {
 
         Properties props = new Properties();
 
-        try (FileInputStream stream = new FileInputStream(propertyPath.toFile())){
+        try (FileInputStream stream = new FileInputStream(propertyPath.toFile())) {
             props.load(stream);
         } catch (IOException e) {
             throw new ExperimentExecutionException(

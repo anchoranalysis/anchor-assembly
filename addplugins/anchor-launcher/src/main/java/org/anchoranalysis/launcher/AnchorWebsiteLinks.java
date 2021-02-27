@@ -8,12 +8,12 @@
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -38,8 +38,8 @@ public class AnchorWebsiteLinks {
     /** A URL for showing command-line options relating to outputting. */
     public static final String URL_OUTPUT_OPTIONS =
             "https://www.anchoranalysis.org/user_guide_command_line.html#output-options";
-    
+
     /** A URL for showing predefined tasks that can be used. */
-    public static final String URL_PREDEFIEND_TASKS = 
+    public static final String URL_PREDEFIEND_TASKS =
             "https://www.anchoranalysis.org/user_guide_examples.html#predefined-tasks";
 }

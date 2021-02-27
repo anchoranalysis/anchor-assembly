@@ -74,10 +74,10 @@ public class CommandLineOptions {
      * <p>(useful for creating sequences of images)
      */
     public static final String SHORT_OPTION_OUTPUT_INCREMENTING_NUMBER = "on";
-        
+
     /**
      * Suppressed the subdirectory structure when outputting file identifiers.
-     * 
+     *
      * <p>This replaces subdirectories in the outputted filenames with an underscore.
      */
     public static final String SHORT_OPTION_OUTPUT_SUPPRESS_DIRECTORIES = "os";
@@ -123,7 +123,8 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_OUTPUT_ENABLE_ALL = "outputEnableAll";
     private static final String LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT = "outputFileFormat";
     private static final String LONG_OPTION_OUTPUT_INCREMENTING_NUMBER = "outputIncrementingNumber";
-    private static final String LONG_OPTION_OUTPUT_SUPPRESS_DIRECTORIES = "outputSuppressDirectories";
+    private static final String LONG_OPTION_OUTPUT_SUPPRESS_DIRECTORIES =
+            "outputSuppressDirectories";
 
     private static final String LONG_OPTION_TASK = "task";
     private static final String LONG_OPTION_TASK_SIZE = "paramSize";
@@ -212,7 +213,7 @@ public class CommandLineOptions {
                 LONG_OPTION_OUTPUT_INCREMENTING_NUMBER,
                 false,
                 "outputs with incrementing number sequence");
-        
+
         options.addOption(
                 SHORT_OPTION_OUTPUT_SUPPRESS_DIRECTORIES,
                 LONG_OPTION_OUTPUT_SUPPRESS_DIRECTORIES,
