@@ -42,6 +42,12 @@ public class CommandLineOptions {
     // START: SHORT input options
     /** Changes inputs. */
     public static final String SHORT_OPTION_INPUT = "i";
+
+    /**
+     * Derives the unique identifier from the **entire relative filename or path** (excluding file
+     * extension).
+     */
+    public static final String SHORT_OPTION_INPUT_RELATIVE = "ir";
     // END: SHORT input options
 
     // START: SHORT task options
@@ -115,6 +121,8 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_DEBUG = "debug";
     private static final String LONG_OPTION_INPUT = "input";
 
+    public static final String LONG_OPTION_INPUT_RELATIVE = "inputRelative";
+
     /** Changes output manager. */
     public static final String LONG_OPTION_OUTPUT = "output";
 
@@ -166,14 +174,24 @@ public class CommandLineOptions {
                 optionalSingleArgument(
                         SHORT_OPTION_DEBUG, LONG_OPTION_DEBUG, "enables debug mode"));
 
+        addInputOptions(options);
+        addOutputOptions(options);
+        addTaskOptions(options);
+    }
+
+    public static void addInputOptions(Options options) {
+
         options.addOption(
                 multipleArguments(
                         SHORT_OPTION_INPUT,
                         LONG_OPTION_INPUT,
                         "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML"));
 
-        addOutputOptions(options);
-        addTaskOptions(options);
+        options.addOption(
+                SHORT_OPTION_INPUT_RELATIVE,
+                LONG_OPTION_INPUT_RELATIVE,
+                false,
+                "derives identifier from relative filename or path");
     }
 
     private static void addOutputOptions(Options options) {

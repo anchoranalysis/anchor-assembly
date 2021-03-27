@@ -19,11 +19,9 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.launcher.options.outputs;
+package org.anchoranalysis.launcher.options.process;
 
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import lombok.AllArgsConstructor;
 import org.anchoranalysis.core.format.FileFormatFactory;
 import org.anchoranalysis.core.format.ImageFileFormat;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -35,27 +33,29 @@ import org.anchoranalysis.launcher.options.CommandLineExtracter;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
 
 /**
- * Processes command-line options relating to additional outputs.
+ * Adds options relating to outputting from the command-line.
  *
  * @author Owen Feehan
  */
-@AllArgsConstructor
-public class ProcessOutputOptions {
+public class AddOutputOptions extends AddOptionsFromCommandLine<OutputArguments> {
 
-    /** Extracts options/arguments from the command-line. */
-    private final CommandLineExtracter extract;
-
-    /** The arguments associated with the experiment */
-    private final OutputArguments arguments;
+    private AddOutputOptions(CommandLineExtracter extract, OutputArguments arguments) {
+        super(extract, arguments);
+    }
 
     /**
-     * Processes any options that have been defined to add/remove change the outputs that are
-     * enabled.
+     * Adds options to add/remove change the outputs the inputs from the command-line.
      *
      * @throws ExperimentExecutionException if the arguments to the command-line options do not
      *     correspond to expectations.
      */
-    public void maybeAddOutputs() throws ExperimentExecutionException {
+    public static void addFrom(CommandLineExtracter extract, OutputArguments arguments)
+            throws ExperimentExecutionException {
+        new AddOutputOptions(extract, arguments).addOptionsFromCommandLine();
+    }
+
+    @Override
+    public void addOptionsFromCommandLine() throws ExperimentExecutionException {
         if (!ifOptionWithoutArgument(
                 CommandLineOptions.SHORT_OPTION_OUTPUT_ENABLE_ALL,
                 outputArguments ->
@@ -87,7 +87,7 @@ public class ProcessOutputOptions {
     private void ifAdditionalOptionsPresent(
             String optionName, BiConsumer<OutputEnabledDelta, MultiLevelOutputEnabled> function)
             throws ExperimentExecutionException {
-        extract.ifPresentSingle(
+        ifPresentSingle(
                 optionName,
                 outputs ->
                         function.accept(
@@ -98,7 +98,7 @@ public class ProcessOutputOptions {
     private void ifOutputFormatPresent(
             String optionName, BiConsumer<OutputArguments, ImageFileFormat> consumer)
             throws ExperimentExecutionException {
-        extract.ifPresentSingle(
+        ifPresentSingle(
                 optionName,
                 identifier -> {
                     ImageFileFormat format =
@@ -111,15 +111,5 @@ public class ProcessOutputOptions {
                                                                     identifier)));
                     consumer.accept(arguments, format);
                 });
-    }
-
-    private boolean ifOptionWithoutArgument(
-            String optionShort, Consumer<OutputArguments> consumer) {
-        if (extract.hasOption(optionShort)) {
-            consumer.accept(arguments);
-            return true;
-        } else {
-            return false;
-        }
     }
 }

@@ -1,10 +1,10 @@
 <config>
 <bean config-class="org.anchoranalysis.io.output.bean.OutputManager" silentlyDeleteExisting="false">
     
-    <prefixer config-class="org.anchoranalysis.plugin.io.bean.filepath.prefixer.LastDirectoryAsPrefix">
-        <prefixer config-class="org.anchoranalysis.plugin.io.bean.filepath.prefixer.IfIncrementingNumberRequested">
+    <prefixer config-class="org.anchoranalysis.plugin.io.bean.file.path.prefixer.LastDirectoryAsPrefix">
+        <prefixer config-class="org.anchoranalysis.plugin.io.bean.file.path.prefixer.IfIncrementingNumberRequested">
     		<prefixerIf numberDigits="4" config-class="org.anchoranalysis.io.output.bean.path.prefixer.IncrementingNumber"/>
-	        <prefixerElse config-class="org.anchoranalysis.plugin.io.bean.filepath.prefixer.FromDescriptiveName"/>
+	        <prefixerElse config-class="org.anchoranalysis.plugin.io.bean.file.path.prefixer.FromDescriptiveName"/>
 	    </prefixer>
     </prefixer>
 

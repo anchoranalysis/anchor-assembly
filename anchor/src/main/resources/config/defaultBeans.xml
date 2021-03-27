@@ -92,5 +92,22 @@
 		</item>
 	</item>
 	
+	
+	<!-- 
+	   Default naming of inputs from filename.
+	   
+	   Unique names is inferring from the minimally varying part of the filenames (e.g. an incrementing integer, varying string etc.).
+	   
+	   An option uses the entire relative filename/path to a directory. 
+	 -->
+	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.io.input.bean.namer.FileNamer">
+		<item config-class="org.anchoranalysis.plugin.io.bean.file.namer.RemoveExtension">
+			<namer config-class="org.anchoranalysis.plugin.io.bean.file.namer.IfRelativeToDirectory">
+				<whenRelative config-class="org.anchoranalysis.plugin.io.bean.file.namer.RelativeToDirectory"/>
+				<otherwise config-class="org.anchoranalysis.plugin.io.bean.file.namer.patternspan.PatternSpan"/>
+			</namer>
+		</item>
+	</item>
+	
 </bean>
 </config>

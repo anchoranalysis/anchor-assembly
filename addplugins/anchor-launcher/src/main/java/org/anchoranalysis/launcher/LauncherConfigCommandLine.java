@@ -31,7 +31,8 @@ import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.anchoranalysis.launcher.options.CommandLineExtracter;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
-import org.anchoranalysis.launcher.options.outputs.ProcessOutputOptions;
+import org.anchoranalysis.launcher.options.process.AddInputOptions;
+import org.anchoranalysis.launcher.options.process.AddOutputOptions;
 import org.anchoranalysis.launcher.resources.Resources;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -100,7 +101,8 @@ class LauncherConfigCommandLine extends LauncherConfig {
         extract.ifPresentSingle(
                 CommandLineOptions.SHORT_OPTION_TASK_SIZE, arguments.task()::assignSize);
 
-        new ProcessOutputOptions(extract, arguments.output()).maybeAddOutputs();
+        AddInputOptions.addFrom(extract, arguments.input());
+        AddOutputOptions.addFrom(extract, arguments.output());
 
         return arguments;
     }

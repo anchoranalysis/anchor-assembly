@@ -82,8 +82,8 @@ class HelperLoadAdditionalConfig {
         }
 
         BeanInstanceMap map = new BeanInstanceMap();
-        addDefaultInstancesFromDir(pathHome, map);
-        addDefaultInstancesFromDir(pathUser, map);
+        addDefaultInstancesFromDirectory(pathHome, map);
+        addDefaultInstancesFromDirectory(pathUser, map);
         return map;
     }
 
@@ -118,7 +118,7 @@ class HelperLoadAdditionalConfig {
         return Optional.empty();
     }
 
-    private static void addDefaultInstancesFromDir(Path path, BeanInstanceMap addToMap)
+    private static void addDefaultInstancesFromDirectory(Path path, BeanInstanceMap addToMap)
             throws ExperimentExecutionException {
         if (path.toFile().exists()) {
             try {
