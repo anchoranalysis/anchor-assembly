@@ -54,10 +54,10 @@ class UseAsGlob implements SelectParam<Optional<Path>> {
 
         InputArguments arguments = executionArguments.input();
         arguments.assignInputDirectory(glob.getDirectory().map(Paths::get));
-        arguments.assignInputFilterGlob(glob.getGlob());
+        arguments.assignFilterGlob(glob.getGlob());
 
         // An empty set, means no filter check is applied
-        arguments.assignInputFilterExtensions(new HashSet<>());
+        arguments.assignFilterExtensions(new HashSet<>());
 
         return Optional.empty();
     }

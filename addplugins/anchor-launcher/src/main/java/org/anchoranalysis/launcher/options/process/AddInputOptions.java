@@ -32,5 +32,8 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
         ifOptionWithoutArgument(
                 CommandLineOptions.SHORT_OPTION_INPUT_RELATIVE,
                 InputArguments::assignRelativeForIdentifier);
+
+        ifOptionWithoutArgument(
+                CommandLineOptions.SHORT_OPTION_INPUT_SHUFFLE, InputArguments::assignShuffle);
     }
 }

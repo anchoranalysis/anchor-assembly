@@ -48,6 +48,9 @@ public class CommandLineOptions {
      * extension).
      */
     public static final String SHORT_OPTION_INPUT_RELATIVE = "ir";
+
+    /** Shuffles the order of the inputs. */
+    public static final String SHORT_OPTION_INPUT_SHUFFLE = "is";
     // END: SHORT input options
 
     // START: SHORT task options
@@ -121,7 +124,10 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_DEBUG = "debug";
     private static final String LONG_OPTION_INPUT = "input";
 
-    public static final String LONG_OPTION_INPUT_RELATIVE = "inputRelative";
+    private static final String LONG_OPTION_INPUT_RELATIVE = "inputRelative";
+
+    /** Shuffles the order of the inputs. */
+    private static final String LONG_OPTION_INPUT_SHUFFLE = "inputShuffle";
 
     /** Changes output manager. */
     public static final String LONG_OPTION_OUTPUT = "output";
@@ -192,6 +198,12 @@ public class CommandLineOptions {
                 LONG_OPTION_INPUT_RELATIVE,
                 false,
                 "derives identifier from relative filename or path");
+
+        options.addOption(
+                SHORT_OPTION_INPUT_SHUFFLE,
+                LONG_OPTION_INPUT_SHUFFLE,
+                false,
+                "shuffles (randomizes) the order of the inputs");
     }
 
     private static void addOutputOptions(Options options) {
