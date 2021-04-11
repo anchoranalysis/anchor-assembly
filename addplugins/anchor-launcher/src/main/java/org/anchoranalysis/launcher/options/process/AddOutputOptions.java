@@ -82,6 +82,10 @@ public class AddOutputOptions extends AddOptionsFromCommandLine<OutputArguments>
         ifOptionWithoutArgument(
                 CommandLineOptions.SHORT_OPTION_OUTPUT_SUPPRESS_DIRECTORIES,
                 OutputArguments::requestOutputSuppressDirectories);
+
+        ifOptionWithoutArgument(
+                CommandLineOptions.SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER,
+                OutputArguments::requestOmitExperimentIdentifier);
     }
 
     private void ifAdditionalOptionsPresent(

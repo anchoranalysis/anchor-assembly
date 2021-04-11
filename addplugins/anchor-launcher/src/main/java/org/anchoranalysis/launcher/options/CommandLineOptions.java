@@ -90,6 +90,13 @@ public class CommandLineOptions {
      * <p>This replaces subdirectories in the outputted filenames with an underscore.
      */
     public static final String SHORT_OPTION_OUTPUT_SUPPRESS_DIRECTORIES = "os";
+
+    /**
+     * Ignores the experiment identifier, when forming an output-path.
+     *
+     * <p>This writes directorly to the output-directory, but not if it already exists.
+     */
+    public static final String SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER = "oo";
     // END: SHORT output options
 
     // START: SHORT debug options
@@ -139,6 +146,8 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_OUTPUT_INCREMENTING_NUMBER = "outputIncrementingNumber";
     private static final String LONG_OPTION_OUTPUT_SUPPRESS_DIRECTORIES =
             "outputSuppressDirectories";
+    private static final String LONG_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER =
+            "outputOmitExperimentIdentifier";
 
     private static final String LONG_OPTION_TASK = "task";
     private static final String LONG_OPTION_TASK_SIZE = "paramSize";
@@ -249,6 +258,12 @@ public class CommandLineOptions {
                 LONG_OPTION_OUTPUT_SUPPRESS_DIRECTORIES,
                 false,
                 "supresses subdirectory in output file identifiers");
+
+        options.addOption(
+                SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER,
+                LONG_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER,
+                false,
+                "omits experiment name and version in output directory.");
     }
 
     private static void addTaskOptions(Options options) {

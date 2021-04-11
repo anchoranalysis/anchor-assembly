@@ -44,11 +44,13 @@ class UseDirectoryForManager implements SelectParam<Optional<Path>> {
      * Constructor
      *
      * @param input iff true, then we are replacing the input-manager, otherwise the output-manager
+     * @param checkDirectoryExists performs a check that the directory already exists before using
+     *     it as a manager
      */
-    public UseDirectoryForManager(Path directory, boolean input) {
+    public UseDirectoryForManager(Path directory, boolean input, boolean checkDirectoryExists) {
         this.input = input;
         this.directory = directory;
-        if (!directory.toFile().isDirectory()) {
+        if (checkDirectoryExists && !directory.toFile().isDirectory()) {
             throw new CommandLineException(
                     String.format(
                             "The path %s to UseDirectoryForManager must be a directory",

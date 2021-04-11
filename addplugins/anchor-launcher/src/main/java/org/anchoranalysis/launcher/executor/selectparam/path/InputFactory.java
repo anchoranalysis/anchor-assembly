@@ -91,7 +91,7 @@ public class InputFactory {
         return check(
                 paths.stream().anyMatch(path -> path.toFile().isDirectory()),
                 paths.size() == 1,
-                () -> new UseDirectoryForManager(paths.get(0), true),
+                () -> new UseDirectoryForManager(paths.get(0), true, true),
                 "Only a single argument is permitted after -i if it's a directory");
     }
 

@@ -130,10 +130,8 @@ class LauncherConfigCommandLine extends LauncherConfig {
     @Override
     protected void customizeExperimentExecutor(ExperimentExecutor executor, CommandLine line)
             throws ExperimentExecutionException {
-        executor.setInput(
-                SelectParamFactory.inputSelectParam(line, CommandLineOptions.SHORT_OPTION_INPUT));
-        executor.setOutput(
-                SelectParamFactory.outputSelectParam(line, CommandLineOptions.SHORT_OPTION_OUTPUT));
+        executor.setInput(SelectParamFactory.inputSelectParam(line));
+        executor.setOutput(SelectParamFactory.outputSelectParam(line));
         executor.setTask(
                 SelectParamFactory.pathOrTaskNameOrDefault(
                         line, CommandLineOptions.SHORT_OPTION_TASK, executor.taskDirectory()));
