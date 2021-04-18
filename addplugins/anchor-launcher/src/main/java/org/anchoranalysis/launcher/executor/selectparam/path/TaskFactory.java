@@ -58,9 +58,8 @@ public class TaskFactory {
         String taskArg = args[0];
 
         if (isTaskName(taskArg)) {
-            return new UpdateTaskName<>(
-                    new UseAsCustomManager(constructPathForTaskName(taskArg, tasksDirectory)),
-                    taskArg);
+            Path path = pathForTaskCheckExists(taskArg, tasksDirectory);
+            return new UpdateTaskName<>(new UseAsCustomManager(path), taskArg);
         } else {
             try {
                 return new UseAsCustomManager(ArgumentConverter.pathFromArgument(taskArg));
@@ -69,8 +68,18 @@ public class TaskFactory {
             }
         }
     }
+    
+    private static Path pathForTaskCheckExists(String taskName, Path tasksDirectory) {
+        Path path = pathForTaskName(taskName, tasksDirectory);
+        
+        if (path.toFile().exists()) {
+            return path;
+        } else {
+            throw new CommandLineException( String.format("The task '%s' is not known.", taskName));
+        }
+    }
 
-    private static Path constructPathForTaskName(
+    private static Path pathForTaskName(
             String filenameWithoutExtension, Path tasksDirectory) {
         return NonImageFileFormat.XML.buildPath(tasksDirectory, filenameWithoutExtension);
     }
