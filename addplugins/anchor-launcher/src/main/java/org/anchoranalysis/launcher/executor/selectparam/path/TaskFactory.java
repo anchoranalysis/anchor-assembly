@@ -47,6 +47,10 @@ public class TaskFactory {
      */
     public static SelectParam<Optional<Path>> pathOrTaskName(String[] args, Path tasksDirectory) {
 
+        if (args == null) {
+            throw new CommandLineException("An argument (a task-name) must be specified after -t");
+        }
+        
         if (args.length != 1) {
             throw new CommandLineException("One and only one argument is permitted after -t");
         }

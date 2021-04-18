@@ -128,7 +128,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
     }
 
     @Override
-    protected void customizeExperimentExecutor(ExperimentExecutor executor, CommandLine line)
+    public void customizeExperimentExecutor(ExperimentExecutor executor, CommandLine line)
             throws ExperimentExecutionException {
         executor.setInput(SelectParamFactory.inputSelectParam(line));
         executor.setOutput(SelectParamFactory.outputSelectParam(line));

@@ -27,6 +27,7 @@ import java.nio.file.Path;
 import lombok.AllArgsConstructor;
 import org.anchoranalysis.core.functional.checked.CheckedRunnable;
 import org.anchoranalysis.launcher.config.HelpConfig;
+import org.anchoranalysis.launcher.options.CommandLineExtracter;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
 import org.anchoranalysis.launcher.resources.Resources;
 import org.anchoranalysis.launcher.run.tasks.PredefinedTasks;
@@ -69,13 +70,20 @@ class MessagePrinter {
     }
 
     /**
-     * Prints the available pre-defined tasks if the command-line option is selected.
+     * Prints the available pre-defined tasks either the command-line option is selected.
      *
      * <p>The predefined tasks come from the .xml files found in the config/tasks/ directory.
      *
      * @return true if it prints the message, false otherwise
      */
     public boolean maybeShowTasks(CommandLine line, Path tasksDirectory) {
+        
+        CommandLineExtracter extract = new CommandLineExtracter(line);
+        if (extract.hasOptionWithoutArgument(CommandLineOptions.SHORT_OPTION_TASK)) {
+            PredefinedTasks.printTasksToConsole(tasksDirectory, resources, PRINT_TO);
+            return true;
+        }
+        
         return runIfOption(
                 line,
                 CommandLineOptions.SHORT_OPTION_SHOW_TASKS,

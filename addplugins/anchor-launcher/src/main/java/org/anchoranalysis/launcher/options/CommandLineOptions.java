@@ -268,7 +268,7 @@ public class CommandLineOptions {
 
     private static void addTaskOptions(Options options) {
         options.addOption(
-                requiredSingleArgument(
+                optionalSingleArgument(
                         SHORT_OPTION_TASK, LONG_OPTION_TASK, "a task-name OR path to BeanXML"));
 
         options.addOption(
