@@ -29,6 +29,11 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
 
     @Override
     public void addOptionsFromCommandLine() throws ExperimentExecutionException {
+        
+        ifOptionWithoutArgument(
+                CommandLineOptions.SHORT_OPTION_INPUT_COPY_NON_INPUTS,
+                InputArguments::assignCopyNonInputs);
+        
         ifOptionWithoutArgument(
                 CommandLineOptions.SHORT_OPTION_INPUT_RELATIVE,
                 InputArguments::assignRelativeForIdentifier);

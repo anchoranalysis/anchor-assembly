@@ -43,6 +43,9 @@ public class CommandLineOptions {
     /** Changes inputs. */
     public static final String SHORT_OPTION_INPUT = "i";
 
+    /** Additionally copies any files in the input directory, unused as inputs. */
+    public static final String SHORT_OPTION_INPUT_COPY_NON_INPUTS = "ic";
+    
     /**
      * Derives the unique identifier from the **entire relative filename or path** (excluding file
      * extension).
@@ -131,6 +134,9 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_DEBUG = "debug";
     private static final String LONG_OPTION_INPUT = "input";
 
+    /** Additionally copies any files in the input directory unused as inputs. */
+    private static final String LONG_OPTION_INPUT_COPY_NON_INPUTS = "inputCopy";
+    
     private static final String LONG_OPTION_INPUT_RELATIVE = "inputRelative";
 
     /** Shuffles the order of the inputs. */
@@ -202,6 +208,12 @@ public class CommandLineOptions {
                         LONG_OPTION_INPUT,
                         "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML"));
 
+        options.addOption(
+                SHORT_OPTION_INPUT_COPY_NON_INPUTS,
+                LONG_OPTION_INPUT_COPY_NON_INPUTS,
+                false,
+                "copies any unused files (as inputs) to the output directory.");
+        
         options.addOption(
                 SHORT_OPTION_INPUT_RELATIVE,
                 LONG_OPTION_INPUT_RELATIVE,
