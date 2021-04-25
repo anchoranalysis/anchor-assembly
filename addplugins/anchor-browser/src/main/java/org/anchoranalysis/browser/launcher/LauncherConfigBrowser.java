@@ -92,7 +92,7 @@ class LauncherConfigBrowser extends LauncherConfig {
     }
 
     @Override
-    protected void customizeExperimentExecutor(ExperimentExecutor template, CommandLine line) {
+    public void customizeExperimentExecutor(ExperimentExecutor template, CommandLine line) {
         // Nothing to do here for the browser
     }
 }

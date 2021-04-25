@@ -60,6 +60,10 @@ class FindTasks {
      * </ul>
      */
     public static Stream<String> taskNames(Path tasksDirectory) throws InputReadFailedException {
+        // Note that on some systems, for currently undiagnoses reasons, the tasks identifiers
+        // emerge
+        //  with leading . and .. relatie-path elements. As a workaround, these are filtered from
+        //  the task identifiers.
         Stream<Path> taskPaths = allXmlFiles(tasksDirectory).stream().map(File::toPath);
         Stream<String> taskNames = taskPaths.map(path -> taskIdentifier(tasksDirectory, path));
         return taskNames.filter(name -> !name.startsWith(IGNORE_SUBDIRECTORY));
@@ -73,13 +77,30 @@ class FindTasks {
     }
 
     private static String taskIdentifier(Path tasksDirectory, Path path) {
-        String relative =
-                FilePathToUnixStyleConverter.toStringUnixStyle(tasksDirectory.relativize(path));
-        return removeXmlExtension(relative, NonImageFileFormat.XML.getDefaultExtension());
+        Path relative = removeLeadingPeriods(tasksDirectory.relativize(path));
+        String unixStyle = FilePathToUnixStyleConverter.toStringUnixStyle(relative);
+        return removeXmlExtension(unixStyle, NonImageFileFormat.XML.getDefaultExtension());
     }
 
+    /** Removes the <code>.xml</code> suffix from a task. */
     private static String removeXmlExtension(String identifier, String extension) {
         Preconditions.checkArgument(identifier.endsWith(extension));
         return identifier.substring(0, identifier.length() - extension.length() - 1);
+    }
+
+    /** Removing any leading <code>.</code> and <code>..</code> elements from a path. */
+    private static Path removeLeadingPeriods(Path path) {
+        Preconditions.checkArgument(!path.isAbsolute());
+        Preconditions.checkArgument(path.getNameCount() > 0);
+        int firstNonPeriod = -1;
+        for (int i = 0; i < path.getNameCount(); i++) {
+            String element = path.getName(i).toString();
+            if (!element.equals(".") && !element.equals("..")) {
+                firstNonPeriod = i;
+                break;
+            }
+        }
+        Preconditions.checkArgument(firstNonPeriod != -1);
+        return path.subpath(firstNonPeriod, path.getNameCount());
     }
 }

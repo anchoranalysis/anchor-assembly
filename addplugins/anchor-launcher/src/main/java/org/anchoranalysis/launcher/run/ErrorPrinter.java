@@ -66,7 +66,7 @@ class ErrorPrinter {
             cause.printStackTrace(new PrintWriter(writer));
             writer.close();
         } catch (IOException exc) {
-            System.err.printf("Cannot write the error log due to an I/O error%n");  // NOSONAR
+            System.err.printf("Cannot write the error log due to an I/O error%n"); // NOSONAR
             System.err.println(exc.toString()); // NOSONAR
         }
     }

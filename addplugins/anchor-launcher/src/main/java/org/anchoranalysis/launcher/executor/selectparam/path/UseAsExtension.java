@@ -44,7 +44,7 @@ class UseAsExtension implements SelectParam<Optional<Path>> {
     public Optional<Path> select(ExecutionArguments executionArguments) {
         executionArguments
                 .input()
-                .assignInputFilterExtensions(FormatExtensions.removeLeadingPeriod(extensions));
+                .assignFilterExtensions(FormatExtensions.removeLeadingPeriod(extensions));
         return Optional.empty();
     }
 

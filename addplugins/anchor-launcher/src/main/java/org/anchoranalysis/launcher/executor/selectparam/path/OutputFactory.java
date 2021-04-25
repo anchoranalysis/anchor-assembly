@@ -47,13 +47,18 @@ public class OutputFactory {
      *
      * <p>Otherwise the argument is treated like a path to BeanXML.
      *
+     * @param writeIntoRoot whether to write directly into an output directory's root (in which case
+     *     a directory must be selected)
      * @throws CommandLineException
      */
-    public static SelectParam<Optional<Path>> pathOrDirectory(String[] arguments, boolean input) {
+    public static SelectParam<Optional<Path>> pathOrDirectory(
+            String[] arguments, boolean writeIntoRoot) {
 
         if (arguments.length > 1) {
             throw new CommandLineException(
-                    "More than one argument was passed to -o. Only one is allowed!");
+                    String.format(
+                            "More than one argument was passed to -%s. Only one is allowed!",
+                            CommandLineOptions.SHORT_OPTION_OUTPUT));
         }
 
         String pathArgument = arguments[0];
@@ -62,13 +67,31 @@ public class OutputFactory {
             Path path = ArgumentConverter.pathFromArgument(pathArgument);
             File file = path.toFile();
             if (file.isDirectory()) {
+
+                if (writeIntoRoot) {
+                    throw new CommandLineException(
+                            String.format(
+                                    "The output-directory already exists. This is not permitted when option -%s is employed.",
+                                    CommandLineOptions
+                                            .SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER));
+                }
+
                 // If the path exists AND is a directory...
-                return usePathAsDirectoryForManager(path, input);
+                return usePathAsDirectoryForManager(path, false, true);
             } else if (file.exists()) {
+
+                if (writeIntoRoot) {
+                    throw new CommandLineException(
+                            String.format(
+                                    "No output-directory was selected, as is required with option -%s",
+                                    CommandLineOptions
+                                            .SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER));
+                }
+
                 // If the path exists BUT isn't a directory
                 return usePathAsBeanXML(path);
             } else {
-                return pathNotExisting(pathArgument, path, file, input);
+                return pathNotExisting(pathArgument, path, file, writeIntoRoot);
             }
         } catch (InvalidPathArgumentException e) {
             throw e.toCommandLineException();
@@ -77,11 +100,14 @@ public class OutputFactory {
 
     /** If the path for outputting doesn't exist... */
     private static SelectParam<Optional<Path>> pathNotExisting(
-            String pathArgument, Path path, File file, boolean input) {
+            String pathArgument, Path path, File file, boolean writeIntoRoot) {
         if (looksLikeDirectoryPath(pathArgument)) {
-            // If it looks like a directory, create this directory, and then output into it.
-            file.mkdirs();
-            return usePathAsDirectoryForManager(path, input);
+
+            if (!writeIntoRoot) {
+                // If it looks like a directory, create this directory, and then output into it.
+                file.mkdirs();
+            }
+            return usePathAsDirectoryForManager(path, false, !writeIntoRoot);
         } else {
             throw new CommandLineException(
                     String.format(
@@ -95,8 +121,8 @@ public class OutputFactory {
 
     /** The path is used as a directory for the output-manager to output into. */
     private static SelectParam<Optional<Path>> usePathAsDirectoryForManager(
-            Path path, boolean input) {
-        return new UseDirectoryForManager(path, input);
+            Path path, boolean input, boolean checkDirectoryExists) {
+        return new UseDirectoryForManager(path, input, checkDirectoryExists);
     }
 
     /** The path is interpreted as pointing to BeanXML defining an output-manager. */

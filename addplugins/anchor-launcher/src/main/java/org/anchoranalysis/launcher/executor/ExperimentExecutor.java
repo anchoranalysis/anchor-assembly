@@ -164,12 +164,12 @@ public class ExperimentExecutor {
     }
 
     private static String collapseIntoOneLine(List<String> list) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            sb.append(i == 0 ? " with " : " and ");
-            sb.append(list.get(i));
+            builder.append(i == 0 ? " with " : " and ");
+            builder.append(list.get(i));
         }
-        return sb.toString();
+        return builder.toString();
     }
 
     private Experiment loadExperimentFromPath(ExecutionArguments execArgs)

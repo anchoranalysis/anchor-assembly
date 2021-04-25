@@ -47,6 +47,10 @@ public class TaskFactory {
      */
     public static SelectParam<Optional<Path>> pathOrTaskName(String[] args, Path tasksDirectory) {
 
+        if (args == null) {
+            throw new CommandLineException("An argument (a task-name) must be specified after -t");
+        }
+
         if (args.length != 1) {
             throw new CommandLineException("One and only one argument is permitted after -t");
         }
@@ -54,9 +58,8 @@ public class TaskFactory {
         String taskArg = args[0];
 
         if (isTaskName(taskArg)) {
-            return new UpdateTaskName<>(
-                    new UseAsCustomManager(constructPathForTaskName(taskArg, tasksDirectory)),
-                    taskArg);
+            Path path = pathForTaskCheckExists(taskArg, tasksDirectory);
+            return new UpdateTaskName<>(new UseAsCustomManager(path), taskArg);
         } else {
             try {
                 return new UseAsCustomManager(ArgumentConverter.pathFromArgument(taskArg));
@@ -66,8 +69,17 @@ public class TaskFactory {
         }
     }
 
-    private static Path constructPathForTaskName(
-            String filenameWithoutExtension, Path tasksDirectory) {
+    private static Path pathForTaskCheckExists(String taskName, Path tasksDirectory) {
+        Path path = pathForTaskName(taskName, tasksDirectory);
+
+        if (path.toFile().exists()) {
+            return path;
+        } else {
+            throw new CommandLineException(String.format("The task '%s' is not known.", taskName));
+        }
+    }
+
+    private static Path pathForTaskName(String filenameWithoutExtension, Path tasksDirectory) {
         return NonImageFileFormat.XML.buildPath(tasksDirectory, filenameWithoutExtension);
     }
 

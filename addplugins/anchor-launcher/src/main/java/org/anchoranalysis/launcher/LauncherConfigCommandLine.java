@@ -31,7 +31,8 @@ import org.anchoranalysis.launcher.executor.ExperimentExecutor;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParamFactory;
 import org.anchoranalysis.launcher.options.CommandLineExtracter;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
-import org.anchoranalysis.launcher.options.outputs.ProcessOutputOptions;
+import org.anchoranalysis.launcher.options.process.AddInputOptions;
+import org.anchoranalysis.launcher.options.process.AddOutputOptions;
 import org.anchoranalysis.launcher.resources.Resources;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -98,9 +99,14 @@ class LauncherConfigCommandLine extends LauncherConfig {
                 CommandLineOptions.SHORT_OPTION_DEBUG, arguments::activateDebugMode);
 
         extract.ifPresentSingle(
+                CommandLineOptions.SHORT_OPTION_TASK_NUMBER_PROCESSORS,
+                arguments.task()::assignMaxNumberProcessors);
+
+        extract.ifPresentSingle(
                 CommandLineOptions.SHORT_OPTION_TASK_SIZE, arguments.task()::assignSize);
 
-        new ProcessOutputOptions(extract, arguments.output()).maybeAddOutputs();
+        AddInputOptions.addFrom(extract, arguments.input());
+        AddOutputOptions.addFrom(extract, arguments.output());
 
         return arguments;
     }
@@ -126,12 +132,10 @@ class LauncherConfigCommandLine extends LauncherConfig {
     }
 
     @Override
-    protected void customizeExperimentExecutor(ExperimentExecutor executor, CommandLine line)
+    public void customizeExperimentExecutor(ExperimentExecutor executor, CommandLine line)
             throws ExperimentExecutionException {
-        executor.setInput(
-                SelectParamFactory.inputSelectParam(line, CommandLineOptions.SHORT_OPTION_INPUT));
-        executor.setOutput(
-                SelectParamFactory.outputSelectParam(line, CommandLineOptions.SHORT_OPTION_OUTPUT));
+        executor.setInput(SelectParamFactory.inputSelectParam(line));
+        executor.setOutput(SelectParamFactory.outputSelectParam(line));
         executor.setTask(
                 SelectParamFactory.pathOrTaskNameOrDefault(
                         line, CommandLineOptions.SHORT_OPTION_TASK, executor.taskDirectory()));

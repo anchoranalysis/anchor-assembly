@@ -52,106 +52,97 @@ class ExperimentReaderErrorReportingTest {
 
     @Test
     void testNonExistentFilePath() throws ExperimentExecutionException {
-        assertException( () ->
-            readExperiment("a non-existent config-name", 1)
-        );
+        assertException(() -> readExperiment("a non-existent config-name", 1));
     }
 
     @Test
     void testIncorrectEndTag() throws ExperimentExecutionException {
-        assertException( () ->
-            readExperiment("incorrectEndTag", 4)
-            );
+        assertException(() -> readExperiment("incorrectEndTag", 4));
     }
 
     @Test
     void testMissingRootTag() throws ExperimentExecutionException {
-        assertException( () ->
-            readExperiment("missingRootTag", 3, "experiment")
-            );
+        assertException(() -> readExperiment("missingRootTag", 3, "experiment"));
     }
 
     @Test
     void testIncorrectClass() throws ExperimentExecutionException {
-        assertException( () ->
-            readExperiment(
-                    "incorrectClass",
-                    9,
-                    new String[] {
-                        "Please check spelling of config-class attributes",
-                        "org.anchoranalysis.ANonExistentClass"
-                    })
-            );
+        assertException(
+                () ->
+                        readExperiment(
+                                "incorrectClass",
+                                9,
+                                new String[] {
+                                    "Please check spelling of config-class attributes",
+                                    "org.anchoranalysis.ANonExistentClass"
+                                }));
     }
 
     @Test
     void testIncorrectFactory() throws ExperimentExecutionException {
-        assertException( () ->
-            readExperiment(
-                    "incorrectFactory", 8, new String[] {"Unknown bean factory", "nonExistentFactory"})
-            );
+        assertException(
+                () ->
+                        readExperiment(
+                                "incorrectFactory",
+                                8,
+                                new String[] {"Unknown bean factory", "nonExistentFactory"}));
     }
 
     @Test
     void testIncorrectClassNested() throws ExperimentExecutionException {
-        assertException( () ->
-            readExperiment(
-                    "incorrectClassNested",
-                    13,
-                    new String[] {
-                        "Please check spelling of config-class attributes",
-                        "org.anchoranalysis.SomeNoneExistentClass"
-                    })
-            );
+        assertException(
+                () ->
+                        readExperiment(
+                                "incorrectClassNested",
+                                13,
+                                new String[] {
+                                    "Please check spelling of config-class attributes",
+                                    "org.anchoranalysis.SomeNoneExistentClass"
+                                }));
     }
 
     @Test
     void testIncorrectIncludeFile() throws ExperimentExecutionException {
-        assertException( () ->
-            readExperiment("incorrectIncludeFile", 10, "Cannot find included file")
-            );
+        assertException(
+                () -> readExperiment("incorrectIncludeFile", 10, "Cannot find included file"));
     }
 
     @Test
     void testIncorrectIncludeFileNested() throws ExperimentExecutionException {
-        assertException( () ->
-            readExperiment("incorrectIncludeFileNested", 6, "Cannot find included file")
-            );
+        assertException(
+                () -> readExperiment("incorrectIncludeFileNested", 6, "Cannot find included file"));
     }
 
     @Test
     void testMalformedXMLTag() throws ExperimentExecutionException {
-        assertException( () ->
-            readExperiment("malformedXMLTag", 7, "/>")
-            );
+        assertException(() -> readExperiment("malformedXMLTag", 7, "/>"));
     }
 
     @Test
     void testNonExistingBeanField() throws ExperimentExecutionException {
-        assertException( () ->
-                readExperiment("nonExistingBeanField", 13)
-        );
+        assertException(() -> readExperiment("nonExistingBeanField", 13));
     }
 
     @Test
     void testMissingRequiredBeanField() throws ExperimentExecutionException {
-        assertException( () ->
-            readExperiment(
-                    "missingRequiredBeanField",
-                    12,
-                    new String[] {
-                        "stackProviderID",
-                        "org.anchoranalysis.plugin.image.bean.channel.provider.FromStack",
-                        "must be non-null"
-                    })
-        );
+        assertException(
+                () ->
+                        readExperiment(
+                                "missingRequiredBeanField",
+                                12,
+                                new String[] {
+                                    "stackProviderID",
+                                    "org.anchoranalysis.plugin.image.bean.channel.provider.FromStack",
+                                    "must be non-null"
+                                }));
     }
 
     @Test
     void testIncludeFileOverflow() throws ExperimentExecutionException {
-        assertException(() ->
-            readExperiment("includeFileOverflow", 10, "Including file would cause overflow")
-        );
+        assertException(
+                () ->
+                        readExperiment(
+                                "includeFileOverflow", 10, "Including file would cause overflow"));
     }
 
     /** With no contains... */
@@ -238,7 +229,7 @@ class ExperimentReaderErrorReportingTest {
         String searchConvert = search.replace("\\", "/");
         return searchConvert.contains(path);
     }
-        
+
     private static void assertException(Executable executable) {
         assertThrows(ExperimentExecutionException.class, executable);
     }

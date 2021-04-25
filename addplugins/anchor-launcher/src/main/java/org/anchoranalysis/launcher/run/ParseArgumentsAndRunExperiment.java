@@ -160,6 +160,8 @@ public class ParseArgumentsAndRunExperiment {
             return;
         }
 
+        config.customizeExperimentExecutor(executor, line);
+
         executor.executeExperiment(
                 config.createArguments(line),
                 line.hasOption(CommandLineOptions.SHORT_OPTION_SHOW_EXPERIMENT_ARGUMENTS),

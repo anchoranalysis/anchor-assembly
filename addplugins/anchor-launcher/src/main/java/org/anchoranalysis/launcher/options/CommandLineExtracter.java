@@ -52,6 +52,21 @@ public class CommandLineExtracter {
     }
 
     /**
+     * Checks if an option exists, but without any argument(s) specified.
+     *
+     * @param option short-name of option
+     * @return true iff option exists on the command-line <i>and</i> no argument is specified.
+     */
+    public boolean hasOptionWithoutArgument(String option) {
+        if (line.hasOption(option)) {
+            String argument = line.getOptionValue(option);
+            return (argument == null || argument.isEmpty());
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Executes a {@link Consumer} if an option is present.
      *
      * @param optionName the short-name of the option, which should be capable of accepting a

@@ -20,9 +20,10 @@
  * #L%
  */
 /**
- * Adding/removing/changing the output(s) from the experiment via command-line-options.
+ * Adding/removing/changing the arguments (input and output) from the experiment via
+ * command-line-options.
  *
- * <p>This package does not include routines to select an output-manager, see instead {@code
- * org.anchoranalysis.launcher.executor.selectparam.io}.
+ * <p>This package does not include routines to select an input- or output-manager, see instead
+ * {@code org.anchoranalysis.launcher.executor.selectparam.io}.
  */
-package org.anchoranalysis.launcher.options.outputs;
+package org.anchoranalysis.launcher.options.process;

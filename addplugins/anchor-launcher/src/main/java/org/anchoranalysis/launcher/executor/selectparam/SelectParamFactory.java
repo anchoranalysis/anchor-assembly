@@ -33,6 +33,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.InputFactory;
 import org.anchoranalysis.launcher.executor.selectparam.path.OutputFactory;
 import org.anchoranalysis.launcher.executor.selectparam.path.TaskFactory;
 import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPathArgumentException;
+import org.anchoranalysis.launcher.options.CommandLineOptions;
 import org.apache.commons.cli.CommandLine;
 
 /**
@@ -77,13 +78,14 @@ public class SelectParamFactory {
      * </ol>
      *
      * @param line command-line to consider if certain options have been selected or not
-     * @param optionName which option we consider
      * @return an appropriate SelectParam object
      */
-    public static SelectParam<Optional<Path>> inputSelectParam(
-            CommandLine line, String optionName) {
+    public static SelectParam<Optional<Path>> inputSelectParam(CommandLine line) {
         try {
-            return ifOption(line, optionName, InputFactory::pathOrDirectoryOrGlobOrExtension);
+            return ifOption(
+                    line,
+                    CommandLineOptions.SHORT_OPTION_INPUT,
+                    InputFactory::pathOrDirectoryOrGlobOrExtension);
         } catch (InvalidPathArgumentException e) {
             throw e.toCommandLineException();
         }
@@ -98,12 +100,15 @@ public class SelectParamFactory {
      * </ol>
      *
      * @param line command-line to consider if certain options have been selected or not
-     * @param optionName which option we consider
      * @return an appropriate SelectParam object
      */
-    public static SelectParam<Optional<Path>> outputSelectParam(
-            CommandLine line, String optionName) {
-        return ifOption(line, optionName, arg -> OutputFactory.pathOrDirectory(arg, false));
+    public static SelectParam<Optional<Path>> outputSelectParam(CommandLine line) {
+        boolean writeIntoRoot =
+                line.hasOption(CommandLineOptions.SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER);
+        return ifOption(
+                line,
+                CommandLineOptions.SHORT_OPTION_OUTPUT,
+                arg -> OutputFactory.pathOrDirectory(arg, writeIntoRoot));
     }
 
     /**

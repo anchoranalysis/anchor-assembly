@@ -68,23 +68,17 @@ public abstract class LauncherConfig {
         Path pathDefaultExperiment = pathDefaultExperiment(pathCurrentJARDir);
 
         // Assumes config-dir is always the directory of defaultExperiment.xml
-        ExperimentExecutor executor =
-                ExperimentExecutorFactory.create(
-                        line,
-                        pathDefaultExperiment,
-                        pathDefaultExperiment.getParent(),
-                        pathCurrentJARDir);
-        customizeExperimentExecutor(executor, line);
-        return executor;
+        return ExperimentExecutorFactory.create(
+                line, pathDefaultExperiment, pathDefaultExperiment.getParent(), pathCurrentJARDir);
     }
+
+    public abstract void customizeExperimentExecutor(ExperimentExecutor executor, CommandLine line)
+            throws ExperimentExecutionException;
 
     /**
      * path to a property file that defines a relative-path to the default experiment in bean XML
      */
     protected abstract String pathRelativeProperties();
-
-    protected abstract void customizeExperimentExecutor(
-            ExperimentExecutor executor, CommandLine line) throws ExperimentExecutionException;
 
     /** a class which we use to determine the base location for pathRelativeProperties */
     protected abstract Class<?> classInCurrentJar();
