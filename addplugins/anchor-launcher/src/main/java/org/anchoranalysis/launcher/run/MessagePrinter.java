@@ -77,13 +77,13 @@ class MessagePrinter {
      * @return true if it prints the message, false otherwise
      */
     public boolean maybeShowTasks(CommandLine line, Path tasksDirectory) {
-        
+
         CommandLineExtracter extract = new CommandLineExtracter(line);
         if (extract.hasOptionWithoutArgument(CommandLineOptions.SHORT_OPTION_TASK)) {
             PredefinedTasks.printTasksToConsole(tasksDirectory, resources, PRINT_TO);
             return true;
         }
-        
+
         return runIfOption(
                 line,
                 CommandLineOptions.SHORT_OPTION_SHOW_TASKS,

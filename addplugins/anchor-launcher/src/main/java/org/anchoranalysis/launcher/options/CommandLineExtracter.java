@@ -50,7 +50,7 @@ public class CommandLineExtracter {
     public boolean hasOption(String option) {
         return line.hasOption(option);
     }
-    
+
     /**
      * Checks if an option exists, but without any argument(s) specified.
      *
@@ -60,7 +60,7 @@ public class CommandLineExtracter {
     public boolean hasOptionWithoutArgument(String option) {
         if (line.hasOption(option)) {
             String argument = line.getOptionValue(option);
-            return (argument==null || argument.isEmpty());
+            return (argument == null || argument.isEmpty());
         } else {
             return false;
         }

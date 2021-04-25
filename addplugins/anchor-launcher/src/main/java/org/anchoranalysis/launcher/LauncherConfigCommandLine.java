@@ -99,6 +99,10 @@ class LauncherConfigCommandLine extends LauncherConfig {
                 CommandLineOptions.SHORT_OPTION_DEBUG, arguments::activateDebugMode);
 
         extract.ifPresentSingle(
+                CommandLineOptions.SHORT_OPTION_TASK_NUMBER_PROCESSORS,
+                arguments.task()::assignMaxNumberProcessors);
+
+        extract.ifPresentSingle(
                 CommandLineOptions.SHORT_OPTION_TASK_SIZE, arguments.task()::assignSize);
 
         AddInputOptions.addFrom(extract, arguments.input());

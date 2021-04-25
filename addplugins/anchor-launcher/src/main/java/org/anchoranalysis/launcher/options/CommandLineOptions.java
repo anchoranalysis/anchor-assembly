@@ -21,9 +21,10 @@
  */
 package org.anchoranalysis.launcher.options;
 
-import static org.anchoranalysis.launcher.options.CustomArgumentOptions.multipleArguments;
-import static org.anchoranalysis.launcher.options.CustomArgumentOptions.optionalSingleArgument;
-import static org.anchoranalysis.launcher.options.CustomArgumentOptions.requiredSingleArgument;
+import static org.anchoranalysis.launcher.options.CustomArgumentOptions.multipleStringArguments;
+import static org.anchoranalysis.launcher.options.CustomArgumentOptions.optionalStringArgument;
+import static org.anchoranalysis.launcher.options.CustomArgumentOptions.requiredNumberArgument;
+import static org.anchoranalysis.launcher.options.CustomArgumentOptions.requiredStringArgument;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -45,7 +46,7 @@ public class CommandLineOptions {
 
     /** Additionally copies any files in the input directory, unused as inputs. */
     public static final String SHORT_OPTION_INPUT_COPY_NON_INPUTS = "ic";
-    
+
     /**
      * Derives the unique identifier from the **entire relative filename or path** (excluding file
      * extension).
@@ -59,6 +60,9 @@ public class CommandLineOptions {
     // START: SHORT task options
     /** Changes task. */
     public static final String SHORT_OPTION_TASK = "t";
+
+    /** Suggests a maximum number of processors to use for the task. */
+    public static final String SHORT_OPTION_TASK_NUMBER_PROCESSORS = "tp";
 
     /** Suggests dimensions or a scaling factor for certain tasks. */
     public static final String SHORT_OPTION_TASK_SIZE = "ps";
@@ -136,7 +140,7 @@ public class CommandLineOptions {
 
     /** Additionally copies any files in the input directory unused as inputs. */
     private static final String LONG_OPTION_INPUT_COPY_NON_INPUTS = "inputCopy";
-    
+
     private static final String LONG_OPTION_INPUT_RELATIVE = "inputRelative";
 
     /** Shuffles the order of the inputs. */
@@ -156,6 +160,7 @@ public class CommandLineOptions {
             "outputOmitExperimentIdentifier";
 
     private static final String LONG_OPTION_TASK = "task";
+    private static final String LONG_OPTION_TASK_NUMBER_PROCESSORS = "taskNumberProcessors";
     private static final String LONG_OPTION_TASK_SIZE = "paramSize";
     // END: All LONG options
 
@@ -192,7 +197,7 @@ public class CommandLineOptions {
     public static void addAdditionalOptions(Options options) {
 
         options.addOption(
-                optionalSingleArgument(
+                optionalStringArgument(
                         SHORT_OPTION_DEBUG, LONG_OPTION_DEBUG, "enables debug mode"));
 
         addInputOptions(options);
@@ -203,7 +208,7 @@ public class CommandLineOptions {
     public static void addInputOptions(Options options) {
 
         options.addOption(
-                multipleArguments(
+                multipleStringArguments(
                         SHORT_OPTION_INPUT,
                         LONG_OPTION_INPUT,
                         "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML"));
@@ -213,7 +218,7 @@ public class CommandLineOptions {
                 LONG_OPTION_INPUT_COPY_NON_INPUTS,
                 false,
                 "copies any unused files (as inputs) to the output directory.");
-        
+
         options.addOption(
                 SHORT_OPTION_INPUT_RELATIVE,
                 LONG_OPTION_INPUT_RELATIVE,
@@ -230,19 +235,19 @@ public class CommandLineOptions {
     private static void addOutputOptions(Options options) {
 
         options.addOption(
-                requiredSingleArgument(
+                requiredStringArgument(
                         SHORT_OPTION_OUTPUT,
                         LONG_OPTION_OUTPUT,
                         "an output-directory OR path to BeanXML"));
 
         options.addOption(
-                optionalSingleArgument(
+                optionalStringArgument(
                         SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL,
                         LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL,
                         "enables specific additional output(s)"));
 
         options.addOption(
-                optionalSingleArgument(
+                optionalStringArgument(
                         SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL,
                         LONG_OPTION_OUTPUT_DISABLE_ADDITIONAL,
                         "disables specific additional output(s)"));
@@ -254,7 +259,7 @@ public class CommandLineOptions {
                 "enables all outputs");
 
         options.addOption(
-                optionalSingleArgument(
+                optionalStringArgument(
                         SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
                         LONG_OPTION_OUTPUT_IMAGE_FILE_FORMAT,
                         "suggested image-format for writing"));
@@ -275,18 +280,24 @@ public class CommandLineOptions {
                 SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER,
                 LONG_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER,
                 false,
-                "omits experiment name and version in output directory.");
+                "omits experiment name and version in output directory");
     }
 
     private static void addTaskOptions(Options options) {
         options.addOption(
-                optionalSingleArgument(
+                optionalStringArgument(
                         SHORT_OPTION_TASK, LONG_OPTION_TASK, "a task-name OR path to BeanXML"));
 
         options.addOption(
-                requiredSingleArgument(
+                requiredStringArgument(
                         SHORT_OPTION_TASK_SIZE,
                         LONG_OPTION_TASK_SIZE,
                         "suggests an image size or scaling factor"));
+
+        options.addOption(
+                requiredNumberArgument(
+                        SHORT_OPTION_TASK_NUMBER_PROCESSORS,
+                        LONG_OPTION_TASK_NUMBER_PROCESSORS,
+                        "suggests a maximum number of CPU processors"));
     }
 }
