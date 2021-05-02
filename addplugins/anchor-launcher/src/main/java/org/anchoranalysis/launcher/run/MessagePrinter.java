@@ -34,7 +34,6 @@ import org.anchoranalysis.launcher.run.tasks.PredefinedTasks;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
-import com.owenfeehan.pathpatternfinder.describer.ConsoleWidthGuesser;
 
 /**
  * Prints messages if certain command-line options are selected.
