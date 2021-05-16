@@ -26,7 +26,7 @@ montage:
 -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.Develop">
-	<define config-class="org.anchoranalysis.mpp.segment.bean.define.DefineOutputterMarks" suppressSubfolders="true">
+	<define config-class="org.anchoranalysis.mpp.segment.bean.define.DefineOutputter" suppressSubfolders="true">
 	    <define config-class="org.anchoranalysis.bean.define.Define" config-factory="define">
 	
 	        <stacks config-class="java.util.List" config-factory="list">

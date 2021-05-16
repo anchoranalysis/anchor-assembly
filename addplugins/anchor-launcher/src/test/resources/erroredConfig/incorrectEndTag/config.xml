@@ -3,7 +3,7 @@
 <experiment config-class="org.anchoranalysis.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" directoryOutput="../output/" inputName="stackInput">
 
 	<task config-class="org.anchoranalysis.plugin.mpp.experiment.bean.define.Develop" dictionary="input_params">
-		  <define suppressSubfolders="false" config-class="org.anchoranalysis.mpp.segment.bean.define.DefineOutputterMarks"/>
+		  <define suppressSubfolders="false" config-class="org.anchoranalysis.mpp.segment.bean.define.DefineOutputter"/>
 	</task2>
 	
 </experiment>
