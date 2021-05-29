@@ -96,7 +96,7 @@
 								<echo message="Deleting the windowsExe/ directory: ${project.build.directory}/windowsExe"/>
 								<delete dir="${project.build.directory}/windowsExe/" />
 								
-								<echo message="Building EXES in: ${project.build.directory}/path-pattern-finder-distribution-${project.version}/windowsExe"/>					
+								<echo message="Building EXES in: ${project.build.directory}/anchor-${project.version}/windowsExe"/>					
 								<mkdir dir="${project.build.directory}/windowsExe" />
 				
 							  </target>
