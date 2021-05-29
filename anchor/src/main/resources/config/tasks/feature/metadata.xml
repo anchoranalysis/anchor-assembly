@@ -79,8 +79,8 @@ features:
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="voxelSizeMicrons">
 			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
-				<feature unitTypeTo="µm"  acceptMissingResolution="true"config-class="org.anchoranalysis.plugin.operator.feature.physical.ConvertUnits">
-					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.VoxelPhysicalSize" axis="x"/>
+				<feature unitTypeTo="µm" config-class="org.anchoranalysis.plugin.operator.feature.physical.ConvertUnits">
+					<item acceptMissingResolution="true" config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.VoxelPhysicalSize" axis="x"/>
 				</feature>
 				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="item.axis">
 					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
