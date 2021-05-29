@@ -4,7 +4,10 @@
 
 	<!-- 
 	
-	   Read images using OpenCV for JPEG (because it corrects exif orientation) and otherwise Bioformats.
+	   Read images using OpenCV for JPEG (because it corrects exif orientation) and BMP (because the BioformatsReader
+	   fails on certain types).
+	   
+	   Otherwise Bioformats is used to read files.
 	   
 	 -->
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.reader.StackReader">
