@@ -43,6 +43,9 @@ import org.apache.commons.cli.Options;
 @AllArgsConstructor
 class MessagePrinter {
 
+    /** How many characters to assume the console is (at least) for help messages. */
+    private static final int CONSOLE_WIDTH = 160;
+    
     /** Where to print messages to. */
     private static final PrintStream PRINT_TO = System.out; // NOSONAR
 
@@ -113,6 +116,8 @@ class MessagePrinter {
         // automatically generate the help statement
         HelpFormatter formatter = new HelpFormatter();
 
+        formatter.setWidth(CONSOLE_WIDTH);
+        
         String firstLine =
                 String.format("%s [options] [%s]", commandNameInHelp, firstArgumentInHelp);
         formatter.printHelp(firstLine, resources.usageHeader(), options, resources.usageFooter());
