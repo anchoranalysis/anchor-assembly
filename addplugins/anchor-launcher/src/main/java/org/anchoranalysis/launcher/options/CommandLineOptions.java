@@ -217,7 +217,7 @@ public class CommandLineOptions {
                 SHORT_OPTION_INPUT_COPY_NON_INPUTS,
                 LONG_OPTION_INPUT_COPY_NON_INPUTS,
                 false,
-                "copies any unused files (as inputs) to the output directory.");
+                "copies any unused files (as inputs) to the output directory");
 
         options.addOption(
                 SHORT_OPTION_INPUT_RELATIVE,
