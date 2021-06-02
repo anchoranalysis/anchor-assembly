@@ -95,7 +95,7 @@ public class AddOutputOptions extends AddOptionsFromCommandLine<OutputArguments>
                 optionName,
                 outputs ->
                         function.accept(
-                                arguments.getOutputEnabledDelta(),
+                                associated.getOutputEnabledDelta(),
                                 AdditionalOutputsParser.parseFrom(outputs, optionName)));
     }
 
@@ -113,7 +113,7 @@ public class AddOutputOptions extends AddOptionsFromCommandLine<OutputArguments>
                                                             String.format(
                                                                     "No file format identified by %s is supported.",
                                                                     identifier)));
-                    consumer.accept(arguments, format);
+                    consumer.accept(associated, format);
                 });
     }
 }

@@ -38,7 +38,7 @@ public class InvalidPathArgumentException extends AnchorFriendlyCheckedException
     public InvalidPathArgumentException(String message) {
         super(message);
     }
-    
+
     public InvalidPathArgumentException(String argument, InvalidPathException exception) {
         super(
                 String.format(

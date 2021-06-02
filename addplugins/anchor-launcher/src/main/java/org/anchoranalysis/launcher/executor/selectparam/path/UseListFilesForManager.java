@@ -46,7 +46,7 @@ class UseListFilesForManager implements SelectParam<Optional<Path>> {
      * Constructor
      *
      * @param paths
-     * @throws InvalidPathArgumentException if any of the paths doesn't exist, or is a directory. 
+     * @throws InvalidPathArgumentException if any of the paths doesn't exist, or is a directory.
      */
     public UseListFilesForManager(List<Path> paths) throws InvalidPathArgumentException {
         this.paths = paths;
@@ -76,7 +76,7 @@ class UseListFilesForManager implements SelectParam<Optional<Path>> {
                 throw new InvalidPathArgumentException(
                         String.format("No input file exists at path: %s", path));
             }
-            
+
             if (file.isDirectory()) {
                 throw new InvalidPathArgumentException(
                         String.format("Path is a directory not a file for input!%n%s", path));

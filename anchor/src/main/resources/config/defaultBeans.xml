@@ -104,10 +104,12 @@
 	   An option uses the entire relative filename/path to a directory. 
 	 -->
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.io.input.bean.namer.FileNamer">
-		<item config-class="org.anchoranalysis.plugin.io.bean.file.namer.RemoveExtension">
-			<namer config-class="org.anchoranalysis.plugin.io.bean.file.namer.IfRelativeToDirectory">
-				<whenRelative config-class="org.anchoranalysis.plugin.io.bean.file.namer.RelativeToDirectory"/>
-				<otherwise config-class="org.anchoranalysis.plugin.io.bean.file.namer.patternspan.PatternSpan"/>
+		<item config-class="org.anchoranalysis.plugin.io.bean.file.namer.SubsetRangeIfRequested">
+			<namer config-class="org.anchoranalysis.plugin.io.bean.file.namer.RemoveExtension">
+				<namer config-class="org.anchoranalysis.plugin.io.bean.file.namer.IfRelativeToDirectory">
+					<whenRelative config-class="org.anchoranalysis.plugin.io.bean.file.namer.RelativeToDirectory"/>
+					<otherwise config-class="org.anchoranalysis.plugin.io.bean.file.namer.patternspan.PatternSpan"/>
+				</namer>
 			</namer>
 		</item>
 	</item>

@@ -46,12 +46,14 @@ public class InputFactory {
 
     public static SelectParam<Optional<Path>> pathOrDirectoryOrGlobOrExtension(String[] arguments)
             throws InvalidPathArgumentException {
-        Optional<SelectParam<Optional<Path>>> optional = OptionalUtilities.orFlat(
+        Optional<SelectParam<Optional<Path>>> optional =
+                OptionalUtilities.orFlat(
                         () -> checkWildcard(arguments),
                         () -> checkXmlExtension(arguments),
                         () -> checkFileExtension(arguments),
                         () -> checkDirectory(pathFromArguments(arguments)));
-        return OptionalUtilities.orElseGet(optional, () -> new UseListFilesForManager(pathFromArguments(arguments)));
+        return OptionalUtilities.orElseGet(
+                optional, () -> new UseListFilesForManager(pathFromArguments(arguments)));
     }
 
     /** If it contains a wildcard, assume its a glob */
@@ -91,7 +93,9 @@ public class InputFactory {
                 paths.stream().anyMatch(path -> path.toFile().isDirectory()),
                 paths.size() == 1,
                 () -> new UseDirectoryForManager(paths.get(0), true, true),
-                String.join(System.lineSeparator(), "with -i, please specify either:",
+                String.join(
+                        System.lineSeparator(),
+                        "with -i, please specify either:",
                         "\ta single directory",
                         "\tOR one or more files",
                         "\tOR a file extension (with a leading period)",
