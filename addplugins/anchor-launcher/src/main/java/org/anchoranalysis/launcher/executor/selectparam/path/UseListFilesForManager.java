@@ -22,6 +22,7 @@
 
 package org.anchoranalysis.launcher.executor.selectparam.path;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,7 @@ import org.anchoranalysis.core.functional.FunctionalList;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
+import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPathArgumentException;
 import org.anchoranalysis.launcher.executor.selectparam.path.convert.PrettyPathConverter;
 
 /**
@@ -44,8 +46,9 @@ class UseListFilesForManager implements SelectParam<Optional<Path>> {
      * Constructor
      *
      * @param paths
+     * @throws InvalidPathArgumentException if any of the paths doesn't exist, or is a directory.
      */
-    public UseListFilesForManager(List<Path> paths) {
+    public UseListFilesForManager(List<Path> paths) throws InvalidPathArgumentException {
         this.paths = paths;
         checkNoDirectories(paths);
     }
@@ -66,9 +69,18 @@ class UseListFilesForManager implements SelectParam<Optional<Path>> {
         return false;
     }
 
-    private void checkNoDirectories(List<Path> paths) {
+    private void checkNoDirectories(List<Path> paths) throws InvalidPathArgumentException {
         for (Path path : paths) {
-            assert (!path.toFile().isDirectory());
+            File file = path.toFile();
+            if (!file.exists()) {
+                throw new InvalidPathArgumentException(
+                        String.format("No input file exists at path: %s", path));
+            }
+
+            if (file.isDirectory()) {
+                throw new InvalidPathArgumentException(
+                        String.format("Path is a directory not a file for input!%n%s", path));
+            }
         }
     }
 }

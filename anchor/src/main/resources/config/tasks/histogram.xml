@@ -13,7 +13,7 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Extracts histograms of the intensity values an image.
+Extracts histograms of the intensity values of an image.
 
 It works also with 3D images (every voxel).
 

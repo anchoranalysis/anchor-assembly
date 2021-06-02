@@ -64,8 +64,10 @@ class FindTasks {
         // emerge
         //  with leading . and .. relatie-path elements. As a workaround, these are filtered from
         //  the task identifiers.
-        Stream<Path> taskPaths = allXmlFiles(tasksDirectory).stream().map(File::toPath);
-        Stream<String> taskNames = taskPaths.map(path -> taskIdentifier(tasksDirectory, path));
+        Path directoryNormalized = tasksDirectory.normalize().toAbsolutePath();
+
+        Stream<Path> taskPaths = allXmlFiles(directoryNormalized).stream().map(File::toPath);
+        Stream<String> taskNames = taskPaths.map(path -> taskIdentifier(directoryNormalized, path));
         return taskNames.filter(name -> !name.startsWith(IGNORE_SUBDIRECTORY));
     }
 

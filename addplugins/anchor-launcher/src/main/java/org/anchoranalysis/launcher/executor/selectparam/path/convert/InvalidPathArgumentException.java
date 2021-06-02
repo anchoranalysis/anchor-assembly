@@ -35,6 +35,10 @@ public class InvalidPathArgumentException extends AnchorFriendlyCheckedException
     /** */
     private static final long serialVersionUID = 1L;
 
+    public InvalidPathArgumentException(String message) {
+        super(message);
+    }
+
     public InvalidPathArgumentException(String argument, InvalidPathException exception) {
         super(
                 String.format(

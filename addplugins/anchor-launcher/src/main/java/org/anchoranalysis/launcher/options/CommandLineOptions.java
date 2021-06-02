@@ -47,6 +47,9 @@ public class CommandLineOptions {
     /** Additionally copies any files in the input directory, unused as inputs. */
     public static final String SHORT_OPTION_INPUT_COPY_NON_INPUTS = "ic";
 
+    /** Subsets the identifier. */
+    public static final String SHORT_OPTION_INPUT_SUBSET_IDENTIFIER = "ii";
+
     /**
      * Derives the unique identifier from the **entire relative filename or path** (excluding file
      * extension).
@@ -143,6 +146,9 @@ public class CommandLineOptions {
 
     private static final String LONG_OPTION_INPUT_RELATIVE = "inputRelative";
 
+    /** Subsets the identifier. */
+    private static final String LONG_OPTION_INPUT_SUBSET_IDENTIFIER = "inputSubsetIdentifier";
+
     /** Shuffles the order of the inputs. */
     private static final String LONG_OPTION_INPUT_SHUFFLE = "inputShuffle";
 
@@ -217,13 +223,19 @@ public class CommandLineOptions {
                 SHORT_OPTION_INPUT_COPY_NON_INPUTS,
                 LONG_OPTION_INPUT_COPY_NON_INPUTS,
                 false,
-                "copies any unused files (as inputs) to the output directory.");
+                "copies any unused files (as inputs) to the output directory");
 
         options.addOption(
                 SHORT_OPTION_INPUT_RELATIVE,
                 LONG_OPTION_INPUT_RELATIVE,
                 false,
                 "derives identifier from relative filename or path");
+
+        options.addOption(
+                SHORT_OPTION_INPUT_SUBSET_IDENTIFIER,
+                LONG_OPTION_INPUT_SUBSET_IDENTIFIER,
+                true,
+                "subsets the identifier e.g. 2 or -2 or 3:-2 or :2 (zero-indexed, negatives count backwards).");
 
         options.addOption(
                 SHORT_OPTION_INPUT_SHUFFLE,
