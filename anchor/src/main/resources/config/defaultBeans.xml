@@ -15,6 +15,7 @@
 			<extensions config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
 				<item>jpg</item>
 				<item>jpeg</item>
+				<item>bmp</item>
 			</extensions>		
 			<readerMatching config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVReader"/>
 			<readerNotMatching config-class="org.anchoranalysis.io.bioformats.bean.BioformatsReader">
