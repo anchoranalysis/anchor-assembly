@@ -101,7 +101,9 @@ public class OutputFactory {
     /** If the path for outputting doesn't exist... */
     private static SelectParam<Optional<Path>> pathNotExisting(
             String pathArgument, Path path, File file, boolean writeIntoRoot) {
-        if (looksLikeDirectoryPath(pathArgument)) {
+        if (looksLikeDirectoryPath(pathArgument) || writeIntoRoot) {
+            // If it looks like a directory (i.e. has a trailing slash, or if we are writing into
+            // the root, we assume it's a directory.
 
             if (!writeIntoRoot) {
                 // If it looks like a directory, create this directory, and then output into it.

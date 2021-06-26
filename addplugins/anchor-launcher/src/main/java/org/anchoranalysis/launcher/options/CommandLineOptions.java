@@ -235,7 +235,7 @@ public class CommandLineOptions {
                 SHORT_OPTION_INPUT_SUBSET_IDENTIFIER,
                 LONG_OPTION_INPUT_SUBSET_IDENTIFIER,
                 true,
-                "subsets the identifier e.g. 2 or -2 or 3:-2 or :2 (zero-indexed, negatives count backwards).");
+                "subsets the identifier e.g. 2 OR -2 OR 3:-2 OR 2: OR :2 (zero-indexed, negatives count backwards)");
 
         options.addOption(
                 SHORT_OPTION_INPUT_SHUFFLE,
