@@ -1,0 +1,51 @@
+<!-- 
+===================
+TASK:   text
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Finds text-regions in images.
+
+It uses the EAST deep-CNN model via OpenCV, which generates a list of rotated bounding-boxes of proposed text regions,
+each with a confidence score.
+
+A non-maxima suppression algorithm reduces the proposals to a smaller set by eliminating significantly overlapping proposals.
+
+The EAST model was designed to work with 1280x720 RBB images. The input image is scaled down to be approximately
+similar in size.
+
+
+======
+INPUTS
+======
+
+RGB or grayscale images
+
+
+=======
+OUTPUTS
+=======
+
+objects:
+    HDF5 object-masks for all the bounding-boxes that are eventually accepted
+
+mask:
+    a binary-mask combining all the object-masks in an image
+
+outline:
+    a green outline imposed on the original RGB around each object-mask
+
+
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.segment.SegmentInstanceWithModel">
+	<segment config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SuppressNonMaxima">
+		<segment minConfidence="0.8" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SegmentText"/>
+		<reduce config-class="org.anchoranalysis.plugin.image.bean.object.segment.reduce.ThresholdConfidence"/>
+	</segment>
+</bean>
+</config>
