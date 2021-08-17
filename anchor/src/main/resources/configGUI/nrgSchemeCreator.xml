@@ -34,9 +34,6 @@
 				<relation config-class="org.anchoranalysis.bean.shared.relation.GreaterThanBean"/>
 				<feature config-class="org.anchoranalysis.plugin.mpp.feature.bean.memo.pair.overlap.Overlap" regionID="0" mip="false"/>
 			</item>	
-			<item config-class="org.anchoranalysis.plugin.mpp.bean.addcriteria.AddCriteriaDistanceTo">
-				<threshold value="100" config-class="org.anchoranalysis.image.bean.unitvalue.distance.DistanceVoxels"/>
-			</item>
 		</list>
 	</pairAddCriteria>
 					    

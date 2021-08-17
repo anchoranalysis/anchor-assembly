@@ -1,0 +1,50 @@
+<!-- 
+===================
+TASK:   coco
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Finds objects in images (instance segmentation).
+
+It uses a Mask-RCNN deep learning model trained on the MSCOCO Dataset to propose object-masks, each with a confidence score.
+
+A non-maxima suppression algorithm reduces the proposed objects to a smaller set by eliminating significantly overlapping proposals.
+
+
+======
+INPUTS
+======
+
+RGB or grayscale images
+
+
+=======
+OUTPUTS
+=======
+
+objects:
+    HDF5 object-masks for all the bounding-boxes that are eventually accepted
+
+mask:
+    a binary-mask combining all the object-masks in an image
+
+outline:
+    a green outline imposed on the original RGB around each object-mask
+
+
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.segment.SegmentInstanceWithModel">
+	<segment config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SuppressNonMaxima">
+		<segment modelBinaryPath="frozen_mask_rcnn_inception_v2_coco_2018_01_28.pb" modelTextGraphPath="mask_rcnn_inception_v2_coco_2018_01_28.pbtxt" classLabelsPath="mscoco_labels.names" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SegmentObjectsFromTensorFlowModel">
+			<decode minConfidence="0.5" minMaskValue="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.decode.instance.DecodeMaskRCNN"/>
+			<scaleInput value="1.0" config-class="org.anchoranalysis.plugin.image.bean.scale.ConstantScaleFactor"/>
+		</segment>
+		<reduce config-class="org.anchoranalysis.plugin.image.bean.object.segment.reduce.RemoveOverlappingObjects"/>
+	</segment>
+</bean>
+</config>
