@@ -40,7 +40,10 @@ outline:
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.segment.SegmentInstanceWithModel">
 	<segment config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SuppressNonMaxima">
-		<segment minConfidence="0.5" minMaskValue="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SegmentMaskRCNN"/>
+		<segment modelBinaryPath="frozen_mask_rcnn_inception_v2_coco_2018_01_28.pb" modelTextGraphPath="mask_rcnn_inception_v2_coco_2018_01_28.pbtxt" classLabelsPath="mscoco_labels.names" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SegmentObjectsFromTensorFlowModel">
+			<decode minConfidence="0.5" minMaskValue="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.decode.instance.DecodeMaskRCNN"/>
+			<scaleInput value="1.0" config-class="org.anchoranalysis.plugin.image.bean.scale.ConstantScaleFactor"/>
+		</segment>
 		<reduce config-class="org.anchoranalysis.plugin.image.bean.object.segment.reduce.RemoveOverlappingObjects"/>
 	</segment>
 </bean>
