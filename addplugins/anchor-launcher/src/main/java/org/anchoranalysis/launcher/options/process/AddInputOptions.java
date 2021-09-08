@@ -22,7 +22,7 @@
 package org.anchoranalysis.launcher.options.process;
 
 import org.anchoranalysis.core.exception.OperationFailedException;
-import org.anchoranalysis.core.index.IndexRangeFactory;
+import org.anchoranalysis.core.index.range.IndexRangeNegativeFactory;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.InputArguments;
 import org.anchoranalysis.launcher.options.CommandLineExtracter;
@@ -72,7 +72,7 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
     private static void assignIdentifierSubrange(InputArguments arguments, String parameter)
             throws ExperimentExecutionException {
         try {
-            arguments.assignIdentifierSubrange(IndexRangeFactory.parse(parameter));
+            arguments.assignIdentifierSubrange(IndexRangeNegativeFactory.parse(parameter));
         } catch (OperationFailedException e) {
             throw new ExperimentExecutionException("Cannot set parameter for subsetting names.", e);
         }
