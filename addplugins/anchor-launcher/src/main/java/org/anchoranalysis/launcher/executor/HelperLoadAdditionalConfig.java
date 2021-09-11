@@ -31,10 +31,10 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.bean.BeanInstanceMap;
 import org.anchoranalysis.bean.NamedBean;
-import org.anchoranalysis.bean.StringSet;
 import org.anchoranalysis.bean.exception.BeanMisconfiguredException;
+import org.anchoranalysis.bean.primitive.StringSet;
 import org.anchoranalysis.bean.xml.BeanXMLLoader;
-import org.anchoranalysis.bean.xml.exception.BeanXmlException;
+import org.anchoranalysis.bean.xml.exception.BeanXMLException;
 import org.anchoranalysis.core.exception.OperationFailedException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.plugin.io.input.path.RootPathMap;
@@ -109,7 +109,7 @@ class HelperLoadAdditionalConfig {
                 StringSet setBean = BeanXMLLoader.loadBean(path, "bean");
                 return Optional.of(setBean.set());
 
-            } catch (BeanXmlException e) {
+            } catch (BeanXMLException e) {
                 throw new ExperimentExecutionException(
                         String.format("An error occurred loading bean XML from %s", path), e);
             }
@@ -125,7 +125,7 @@ class HelperLoadAdditionalConfig {
                 List<NamedBean<?>> listDefaults = BeanXMLLoader.loadBean(path, "bean");
                 addToMap.addFrom(listDefaults);
 
-            } catch (BeanXmlException | BeanMisconfiguredException e) {
+            } catch (BeanXMLException | BeanMisconfiguredException e) {
                 throw new ExperimentExecutionException(
                         String.format("An error occurred loading bean XML from %s", path), e);
             }

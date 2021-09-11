@@ -12,7 +12,7 @@
 	 -->
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.reader.StackReader">
 		<item config-class="org.anchoranalysis.plugin.io.bean.stack.reader.BranchExtension">
-			<extensions config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet">
+			<extensions config-class="org.anchoranalysis.bean.primitive.StringSet" config-factory="stringSet">
 				<item>jpg</item>
 				<item>jpeg</item>
 				<item>bmp</item>
