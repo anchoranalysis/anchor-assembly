@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.bean.xml.BeanXMLLoader;
-import org.anchoranalysis.bean.xml.exception.BeanXmlException;
+import org.anchoranalysis.bean.xml.exception.BeanXMLException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.bean.Experiment;
 import org.anchoranalysis.experiment.bean.task.Task;
@@ -90,7 +90,7 @@ class BeanReader {
                 return BeanXMLLoader.loadBean(configPath, xmlPath);
             }
 
-        } catch (BeanXmlException e) {
+        } catch (BeanXMLException e) {
             String errorMsg =
                     String.format(
                             "An error occurred reading the experiment bean XML at \"%s\".%nPlease ensure this is validly-formatted BeanXML for an experiment.",

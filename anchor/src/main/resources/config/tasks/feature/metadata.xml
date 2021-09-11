@@ -59,7 +59,7 @@ features:
 			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
 				<feature config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Extent" axis="x"/>
 				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="axis">
-					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
+					<values items="x,y,z" config-class="org.anchoranalysis.bean.primitive.StringSet" config-factory="stringSet"/>
 				</permutation>
 			</item>
 		</item>
@@ -71,8 +71,8 @@ features:
 					<direction axis="x" config-class="org.anchoranalysis.image.bean.spatial.direction.AxisAlignedUnitVector"/>
 				</feature>
 				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="item.axis">
-					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
-					<additionalPropertyPaths items="direction.axis" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
+					<values items="x,y,z" config-class="org.anchoranalysis.bean.primitive.StringSet" config-factory="stringSet"/>
+					<additionalPropertyPaths items="direction.axis" config-class="org.anchoranalysis.bean.primitive.StringSet" config-factory="stringSet"/>
 				</permutation>
 			</item>
 		</item>
@@ -83,7 +83,7 @@ features:
 					<item acceptMissingResolution="true" config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.VoxelPhysicalSize" axis="x"/>
 				</feature>
 				<permutation config-class="org.anchoranalysis.bean.permute.property.PermutePropertyStringSet" propertyPath="item.axis">
-					<values items="x,y,z" config-class="org.anchoranalysis.bean.StringSet" config-factory="stringSet"/>
+					<values items="x,y,z" config-class="org.anchoranalysis.bean.primitive.StringSet" config-factory="stringSet"/>
 				</permutation>
 			</item>
 		</item>
