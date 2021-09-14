@@ -47,7 +47,7 @@ public class InputFactory {
     public static SelectParam<Optional<Path>> pathOrDirectoryOrGlobOrExtension(String[] arguments)
             throws InvalidPathArgumentException {
         Optional<SelectParam<Optional<Path>>> optional =
-                OptionalUtilities.orFlat(
+                OptionalUtilities.orFlatSupplier(
                         () -> checkWildcard(arguments),
                         () -> checkXmlExtension(arguments),
                         () -> checkFileExtension(arguments),

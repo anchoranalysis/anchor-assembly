@@ -1,0 +1,42 @@
+<!-- 
+===================
+TASK:   timestamp
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Copies inputs to the output directory, clustering the files into subdirectories, based upon a timestamp associated with each file.
+
+The timestamp is determined, in this order of priority:
+
+ - A date / time string extracted from the filename, if exists.
+ - A "original" or "creation" time extracted from EXIF metadata if available (only with a jpg or jpeg extension).
+ - The creation time of the file on the file-system.
+ 
+ The thresholdHours parameter can influence how large/smaller the clusters are. Files whose creation-time differs {@code <=} this parameter are joined into the same cluster.
+ 
+ A larger value encourages a smaller total number of clusters (or larger cluster-size). A smaller values encourages the opposite.
+ 
+======
+INPUTS
+======
+
+any files
+
+=======
+OUTPUTS
+=======
+
+files:
+   	a bytewise copy of each file in the output directory, according to its original naming relative to a inferred directory root, and a cluster subdirectory.
+   	
+   	creation-date is preserved during the copy.
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.io.bean.task.CopyFiles">
+	<naming thresholdHours="2.0" config-class="org.anchoranalysis.plugin.io.bean.file.copy.naming.cluster.ClusterByTimestamp"/>
+</bean>
+</config>
