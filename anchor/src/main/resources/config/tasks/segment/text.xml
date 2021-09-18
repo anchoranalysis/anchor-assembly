@@ -55,6 +55,8 @@ outline:
 			<scaleInput maxScaleFactor="23" config-class="org.anchoranalysis.plugin.image.bean.scale.LargestMultipleWithin">
 				<minimumSize width="32" height="32" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
 			</scaleInput>
+			
+			<subtractMean items="123.68,116.78,103.94" config-class="org.anchoranalysis.bean.primitive.DoubleList" config-factory="doubleList"/>
 		</segment>
 		<reduce config-class="org.anchoranalysis.plugin.image.bean.object.segment.reduce.ThresholdConfidence"/>
 	</segment>
