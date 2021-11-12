@@ -140,5 +140,12 @@ class LauncherConfigCommandLine extends LauncherConfig {
                 SelectParamFactory.pathOrTaskNameOrDefault(
                         line, CommandLineOptions.SHORT_OPTION_TASK, executor.taskDirectory()));
         executor.setDefaultBehaviourString(Optional.of(BEHAVIOUR_MESSAGE_FOR_DEFAULT_EXPERIMENT));
+        
+        maybeShowInDesktop(executor, line);
+    }
+    
+    private static void maybeShowInDesktop(ExperimentExecutor executor, CommandLine line) {
+        boolean showInDesktop = !line.hasOption(CommandLineOptions.SHORT_OPTION_OUTPUT_CONSOLE_ONLY);
+        executor.setOpenInDesktop(showInDesktop);
     }
 }

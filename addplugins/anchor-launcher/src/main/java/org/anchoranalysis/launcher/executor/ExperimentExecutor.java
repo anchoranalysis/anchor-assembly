@@ -49,13 +49,13 @@ public class ExperimentExecutor {
     private static final String TASKS_SUBDIRECTORY_NAME = "tasks";
 
     // START REQUIRED ARGUMENTS
-    /** the experiment to run */
+    /** The experiment to run. */
     private final SelectParam<Path> experiment;
 
-    /** the directory where configuration files are stored */
+    /** The directory where configuration files are stored. */
     private final Path configDirectory;
 
-    /** the directory from which the experiment is executed */
+    /** The directory from which the experiment is executed. */
     private final Path executionDirectory;
     // END REQUIRED ARGUMENTS
 
@@ -64,6 +64,9 @@ public class ExperimentExecutor {
     @Getter @Setter private SelectParam<Optional<Path>> output = SelectParamFactory.useDefault();
 
     @Getter @Setter private SelectParam<Optional<Path>> task = SelectParamFactory.useDefault();
+        
+    /** Whether to open the output directory in the desktop GUI after execution (if supported on the O/S). */
+    @Getter @Setter private boolean openInDesktop = false;
 
     /**
      * If present, a string is printed in the description if the default-experiment is used,
@@ -83,7 +86,7 @@ public class ExperimentExecutor {
             MessageLogger logger)
             throws ExperimentExecutionException {
 
-        ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDirectory);
+        ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDirectory, openInDesktop);
 
         if (defaultBehaviourString.isPresent() && areAllDefault()) {
             // Special behaviour if everything has defaults
@@ -125,7 +128,7 @@ public class ExperimentExecutor {
     }
 
     /**
-     * Constructs a summary string to describe how the experiment is being executed
+     * Constructs a summary string to describe how the experiment is being executed.
      *
      * @throws ExperimentExecutionException
      */

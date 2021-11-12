@@ -1,5 +1,7 @@
 package org.anchoranalysis.launcher.executor;
 
+import java.awt.Desktop;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Set;
@@ -52,9 +54,18 @@ import org.anchoranalysis.io.output.bean.OutputManager;
 class ExperimentExecutorAfter {
 
     private static Optional<Set<String>> defaultExtensions = Optional.empty();
+    
+    private final boolean openInDesktop;
 
-    public ExperimentExecutorAfter(Path pathExecutionDirectory)
+    /**
+     * Creates with needed initial state.
+     * @param pathExecutionDirectory the path to the execution-directory the launcher is running in.
+     * @param openInDesktop whether to open the output directory in the desktop GUI after execution (if supported on the O/S).
+     * @throws ExperimentExecutionException
+     */
+    public ExperimentExecutorAfter(Path pathExecutionDirectory, boolean openInDesktop)
             throws ExperimentExecutionException {
+        this.openInDesktop = openInDesktop;
         initializeIfNecessary(pathExecutionDirectory, true, true);
         // Only accessible through static methods
     }
@@ -234,7 +245,7 @@ class ExperimentExecutorAfter {
     }
 
     /**
-     * Executes an experiment
+     * Executes an experiment.
      *
      * @param experiment the experiment to execute
      * @param executionArguments additional arguments that describe the Experiment
@@ -244,10 +255,23 @@ class ExperimentExecutorAfter {
             throws ExperimentExecutionException {
 
         try {
-            experiment.executeExperiment(executionArguments);
+            Optional<Path> outputPath = experiment.executeExperiment(executionArguments);
+            if (openInDesktop && outputPath.isPresent()) {
+                openPathInDesktop(outputPath.get());
+            }
 
-        } catch (ExperimentExecutionException e) {
+        } catch (ExperimentExecutionException | IOException e) {
             throw new ExperimentExecutionException("Experiment execution ended with failure", e);
+        }
+    }
+    
+    /** Opens a path in the desktop. */
+    private static void openPathInDesktop(Path path) throws IOException {
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(path.toFile());
+        } catch (UnsupportedOperationException e) {
+            // Ignore as irrelevant
         }
     }
 }
