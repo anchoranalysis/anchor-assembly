@@ -53,7 +53,13 @@ features:
 			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
 				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.NumberChannels"/>
 			</item>
-		</item>		
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="numberFrames">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.NumberFrames"/>
+			</item>
+		</item>
 	
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeVoxels">
 			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
