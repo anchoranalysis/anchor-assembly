@@ -69,7 +69,7 @@ public abstract class LauncherConfig {
 
         // Assumes config-dir is always the directory of defaultExperiment.xml
         return ExperimentExecutorFactory.create(
-                line, pathDefaultExperiment, pathDefaultExperiment.getParent(), pathCurrentJARDir );
+                line, pathDefaultExperiment, pathDefaultExperiment.getParent());
     }
 
     public abstract void customizeExperimentExecutor(ExperimentExecutor executor, CommandLine line)

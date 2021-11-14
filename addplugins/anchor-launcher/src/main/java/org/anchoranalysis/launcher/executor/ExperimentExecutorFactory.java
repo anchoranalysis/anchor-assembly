@@ -43,18 +43,15 @@ public class ExperimentExecutorFactory {
      *
      * @param line the command-line arguments
      * @param defaultExperiment path to the default-experiment
-     * @param configDir path to the configuration directory
-     * @param executionDir path from which experiment is executed (i.e. the bin/ directory
-     *     typically)
+     * @param configDirectory path to the configuration directory
      * @return
      * @throws ExperimentExecutionException
      */
     public static ExperimentExecutor create(
-            CommandLine line, Path defaultExperiment, Path configDir, Path executionDir)
+            CommandLine line, Path defaultExperiment, Path configDirectory)
             throws ExperimentExecutionException {
         return new ExperimentExecutor(
                 SelectParamFactory.experimentSelectParam(line, defaultExperiment),
-                configDir,
-                executionDir);
+                configDirectory);
     }
 }

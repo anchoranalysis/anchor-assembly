@@ -54,9 +54,6 @@ public class ExperimentExecutor {
 
     /** The directory where configuration files are stored. */
     private final Path configDirectory;
-
-    /** The directory from which the experiment is executed. */
-    private final Path executionDirectory;
     // END REQUIRED ARGUMENTS
 
     @Getter @Setter private SelectParam<Optional<Path>> input = SelectParamFactory.useDefault();
@@ -76,7 +73,7 @@ public class ExperimentExecutor {
 
     /**
      * Executes an experiment after finding a single experiment XML file, and reading the experiment
-     * from this file
+     * from this file.
      *
      * @throws ExperimentExecutionException if the execution ends early
      */
@@ -86,7 +83,7 @@ public class ExperimentExecutor {
             MessageLogger logger)
             throws ExperimentExecutionException {
 
-        ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(executionDirectory, openInDesktop);
+        ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(configDirectory, openInDesktop);
 
         if (defaultBehaviourString.isPresent() && areAllDefault()) {
             // Special behaviour if everything has defaults

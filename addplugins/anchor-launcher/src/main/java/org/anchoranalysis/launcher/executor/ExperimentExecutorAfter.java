@@ -59,27 +59,27 @@ class ExperimentExecutorAfter {
 
     /**
      * Creates with needed initial state.
-     * @param pathExecutionDirectory the path to the execution-directory the launcher is running in.
+     * 
+     * @param pathConfigurationDirectory a path where configuration files are stored.
      * @param openInDesktop whether to open the output directory in the desktop GUI after execution (if supported on the O/S).
      * @throws ExperimentExecutionException
      */
-    public ExperimentExecutorAfter(Path pathExecutionDirectory, boolean openInDesktop)
+    public ExperimentExecutorAfter(Path pathConfigurationDirectory, boolean openInDesktop)
             throws ExperimentExecutionException {
         this.openInDesktop = openInDesktop;
-        initializeIfNecessary(pathExecutionDirectory, true, true);
+        initializeIfNecessary(pathConfigurationDirectory, true, true);
         // Only accessible through static methods
     }
 
     /**
-     * Initialises our factories if not already done
+     * Initializes our factories if not already done
      *
-     * @param pathExecutionDirectory a path to a directory from which the JAR is launched (typically
-     *     the bin/ directory)
+     * @param pathConfigurationDirectory a path where configuration files are stored.
      * @param includeRootPaths if true, a root bank is sought among the configurations and loaded
      * @throws ExperimentExecutionException
      */
     static void initializeIfNecessary(
-            Path pathExecutionDirectory, boolean includeDefaultInstances, boolean includeRootPaths)
+            Path pathConfigurationDirectory, boolean includeDefaultInstances, boolean includeRootPaths)
             throws ExperimentExecutionException {
         if (!RegisterBeanFactories.isCalledRegisterAllPackage()) {
 
@@ -95,15 +95,17 @@ class ExperimentExecutorAfter {
                         .getDefaultInstances()
                         .addFrom(
                                 HelperLoadAdditionalConfig.loadDefaultInstances(
-                                        pathExecutionDirectory));
+                                        pathConfigurationDirectory));
             }
 
             if (includeRootPaths) {
-                HelperLoadAdditionalConfig.loadRootPaths(pathExecutionDirectory);
+                HelperLoadAdditionalConfig.loadRootPaths(pathConfigurationDirectory);
             }
 
-            defaultExtensions =
-                    HelperLoadAdditionalConfig.loadDefaultExtensions(pathExecutionDirectory);
+            if (!defaultExtensions.isPresent()) {
+                defaultExtensions =
+                    HelperLoadAdditionalConfig.loadDefaultExtensions(pathConfigurationDirectory);
+            }
         }
     }
 

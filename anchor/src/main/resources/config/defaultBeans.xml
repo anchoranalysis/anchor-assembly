@@ -42,6 +42,9 @@
 			<!--  Catch all writer that can support almost any combination of channels / stacks  -->
 			<writer config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
 
+			<!-- When not eight bit, use OME-TIFFs -->
+			<whenNotEightBit config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
+			
 			<!-- If it's guaranteed to be RGB (three channels) use a PNG (by default) if guaranteed to be 2D, or a TIFF otherwise -->
 			<whenRGB config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchStack">
 
@@ -123,7 +126,7 @@
 	
 	<!-- 
 	   
-	   Try to infer the image-metadata from the header for JPEG, PNG (see default formats in InferFromHeader).
+	   Try to infer the image-metadata from the header for JPEG, PNG, BMP (see default formats in InferFromHeader).
 	    	
 	   Otherwise, read image-metadata using the default StackReader.
 	   	   	   
