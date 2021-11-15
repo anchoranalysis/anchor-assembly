@@ -280,7 +280,7 @@ public class CommandLineOptions {
                 SHORT_OPTION_OUTPUT_CONSOLE_ONLY,
                 LONG_OPTION_OUTPUT_CONSOLE_ONLY,
                 false,
-                "disables opening the output directory in the desktop.");
+                "disables opening the output directory in the desktop at experiment end");
 
         options.addOption(
                 optionalStringArgument(
