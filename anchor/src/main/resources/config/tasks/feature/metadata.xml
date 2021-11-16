@@ -41,6 +41,9 @@ features:
 	
 	<source config-class="org.anchoranalysis.plugin.image.task.bean.feature.source.FromImageMetadata"/>
 	
+	<!-- Suppress errors, so even if an image's metadata cannot be read, it still appears in the CSV file, but as NaNs. -->
+	<style suppressErrors="true" config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeaturesStyle"/>
+	
  	<features config-class="java.util.List" config-factory="list">
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="bitDepth">
