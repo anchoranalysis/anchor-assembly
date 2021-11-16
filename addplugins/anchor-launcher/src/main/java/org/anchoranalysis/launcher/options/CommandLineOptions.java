@@ -84,9 +84,12 @@ public class CommandLineOptions {
     /** Enables specific output(s). Multiple outputs are comma-separated. */
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ALL = "oa";
 
-    /** Output console <i>only</i>. By default, the output directory is opened in the desktop after completion. This disables that behaviour. */
+    /**
+     * Output console <i>only</i>. By default, the output directory is opened in the desktop after
+     * completion. This disables that behaviour.
+     */
     public static final String SHORT_OPTION_OUTPUT_CONSOLE_ONLY = "oc";
-    
+
     /** Suggests an output image file format: e.g -of jpg or -of ome.xml. */
     public static final String SHORT_OPTION_OUTPUT_IMAGE_FILE_FORMAT = "of";
 
@@ -157,8 +160,11 @@ public class CommandLineOptions {
 
     /** Changes output manager. */
     public static final String LONG_OPTION_OUTPUT = "output";
-        
-    /** Output console <i>only</i>. By default, the output directory is opened in the desktop after completion. This disables that behaviour. */
+
+    /**
+     * Output console <i>only</i>. By default, the output directory is opened in the desktop after
+     * completion. This disables that behaviour.
+     */
     public static final String LONG_OPTION_OUTPUT_CONSOLE_ONLY = "outputConsoleOnly";
 
     private static final String LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL = "outputEnable";

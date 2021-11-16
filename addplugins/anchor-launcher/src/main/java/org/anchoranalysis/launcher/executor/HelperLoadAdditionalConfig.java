@@ -58,9 +58,7 @@ class HelperLoadAdditionalConfig {
     public static BeanInstanceMap loadDefaultInstances(Path pathConfigurationDirectory)
             throws ExperimentExecutionException {
 
-        Path pathHome = pathConfigurationDirectory
-                        .resolve(DEFAULT_INSTANCES_FILENAME)
-                        .normalize();
+        Path pathHome = pathConfigurationDirectory.resolve(DEFAULT_INSTANCES_FILENAME).normalize();
         Path pathUser = getAnchorUserDir().resolve(DEFAULT_INSTANCES_FILENAME).normalize();
 
         if (!pathHome.toFile().exists() && !pathUser.toFile().exists()) {
@@ -87,9 +85,7 @@ class HelperLoadAdditionalConfig {
     public static Optional<Set<String>> loadDefaultExtensions(Path pathConfigDirectory)
             throws ExperimentExecutionException {
 
-        Path path = pathConfigDirectory
-                        .resolve(DEFAULT_EXTENSIONS_FILENAME)
-                        .normalize();
+        Path path = pathConfigDirectory.resolve(DEFAULT_EXTENSIONS_FILENAME).normalize();
 
         if (path.toFile().exists()) {
             try {
@@ -125,9 +121,7 @@ class HelperLoadAdditionalConfig {
         // First we look in the Anchor Home directory
         // Then we look in the Anchor User directory
 
-        Path pathHome = pathConfigurationDirectory
-                        .resolve(ROOT_PATH_MAP_FILENAME)
-                        .normalize();
+        Path pathHome = pathConfigurationDirectory.resolve(ROOT_PATH_MAP_FILENAME).normalize();
         Path pathUser = getAnchorUserDir().resolve(ROOT_PATH_MAP_FILENAME).normalize();
 
         addRootPathsFromDir(pathHome, RootPathMap.instance());

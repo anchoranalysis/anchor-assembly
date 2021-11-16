@@ -51,7 +51,6 @@ public class ExperimentExecutorFactory {
             CommandLine line, Path defaultExperiment, Path configDirectory)
             throws ExperimentExecutionException {
         return new ExperimentExecutor(
-                SelectParamFactory.experimentSelectParam(line, defaultExperiment),
-                configDirectory);
+                SelectParamFactory.experimentSelectParam(line, defaultExperiment), configDirectory);
     }
 }

@@ -54,14 +54,15 @@ import org.anchoranalysis.io.output.bean.OutputManager;
 class ExperimentExecutorAfter {
 
     private static Optional<Set<String>> defaultExtensions = Optional.empty();
-    
+
     private final boolean openInDesktop;
 
     /**
      * Creates with needed initial state.
-     * 
+     *
      * @param pathConfigurationDirectory a path where configuration files are stored.
-     * @param openInDesktop whether to open the output directory in the desktop GUI after execution (if supported on the O/S).
+     * @param openInDesktop whether to open the output directory in the desktop GUI after execution
+     *     (if supported on the O/S).
      * @throws ExperimentExecutionException
      */
     public ExperimentExecutorAfter(Path pathConfigurationDirectory, boolean openInDesktop)
@@ -79,7 +80,9 @@ class ExperimentExecutorAfter {
      * @throws ExperimentExecutionException
      */
     static void initializeIfNecessary(
-            Path pathConfigurationDirectory, boolean includeDefaultInstances, boolean includeRootPaths)
+            Path pathConfigurationDirectory,
+            boolean includeDefaultInstances,
+            boolean includeRootPaths)
             throws ExperimentExecutionException {
         if (!RegisterBeanFactories.isCalledRegisterAllPackage()) {
 
@@ -104,7 +107,8 @@ class ExperimentExecutorAfter {
 
             if (!defaultExtensions.isPresent()) {
                 defaultExtensions =
-                    HelperLoadAdditionalConfig.loadDefaultExtensions(pathConfigurationDirectory);
+                        HelperLoadAdditionalConfig.loadDefaultExtensions(
+                                pathConfigurationDirectory);
             }
         }
     }
@@ -266,12 +270,16 @@ class ExperimentExecutorAfter {
             throw new ExperimentExecutionException("Experiment execution ended with failure", e);
         }
     }
-    
+
     /** Opens a path in the desktop. */
     private static void openPathInDesktop(Path path) throws IOException {
         try {
-            Desktop desktop = Desktop.getDesktop();
-            desktop.open(path.toFile());
+            // Some experiments have an output-directory but never create anything in it.
+            // We do not want to open these directories, so we check first if the directory exists.
+            if (path.toFile().exists()) {
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(path.toFile());
+            }
         } catch (UnsupportedOperationException e) {
             // Ignore as irrelevant
         }

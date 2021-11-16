@@ -61,8 +61,11 @@ public class ExperimentExecutor {
     @Getter @Setter private SelectParam<Optional<Path>> output = SelectParamFactory.useDefault();
 
     @Getter @Setter private SelectParam<Optional<Path>> task = SelectParamFactory.useDefault();
-        
-    /** Whether to open the output directory in the desktop GUI after execution (if supported on the O/S). */
+
+    /**
+     * Whether to open the output directory in the desktop GUI after execution (if supported on the
+     * O/S).
+     */
     @Getter @Setter private boolean openInDesktop = false;
 
     /**
@@ -83,7 +86,8 @@ public class ExperimentExecutor {
             MessageLogger logger)
             throws ExperimentExecutionException {
 
-        ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(configDirectory, openInDesktop);
+        ExperimentExecutorAfter delegate =
+                new ExperimentExecutorAfter(configDirectory, openInDesktop);
 
         if (defaultBehaviourString.isPresent() && areAllDefault()) {
             // Special behaviour if everything has defaults
