@@ -21,7 +21,7 @@
 	<item>ome.xml</item>
 	<item>ome</item>
 	
-	<!-- From bioformats -->
+	<!-- From bioformats, excluding avi and other video formats. -->
 	<item>sld</item>
 	<item>aim</item>
 	<item>al3d</item>
@@ -39,7 +39,6 @@
 	<item>svs</item>
 	<item>htd</item>
 	<item>pnl</item>
-	<item>avi</item>
 	<item>arf</item>
 	<item>exp</item>
 	<item>spc</item>

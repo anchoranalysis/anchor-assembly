@@ -39,21 +39,30 @@ features:
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeatures">
 	
-	<source config-class="org.anchoranalysis.plugin.image.task.bean.feature.source.FromImage"/>
+	<source config-class="org.anchoranalysis.plugin.image.task.bean.feature.source.FromImageMetadata"/>
+	
+	<!-- Suppress errors, so even if an image's metadata cannot be read, it still appears in the CSV file, but as NaNs. -->
+	<style suppressErrors="true" config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeaturesStyle"/>
 	
  	<features config-class="java.util.List" config-factory="list">
 		
-		<item config-class="org.anchoranalysis.bean.NamedBean" name="voxelDataTypeMaxValue">
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="bitDepth">
 			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
-				<item config-class="org.anchoranalysis.plugin.image.feature.bean.stack.intensity.DataTypeMaxIntensity"/>
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.BitDepthPerChannel"/>
 			</item>			
 		</item>
 		
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="numberChannels">
 			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
-				<item config-class="org.anchoranalysis.plugin.image.feature.bean.stack.intensity.NumberChannels"/>
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.NumberChannels"/>
 			</item>
-		</item>		
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="numberFrames">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.NumberFrames"/>
+			</item>
+		</item>
 	
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeVoxels">
 			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">

@@ -1,5 +1,7 @@
 package org.anchoranalysis.launcher.executor;
 
+import java.awt.Desktop;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Set;
@@ -53,22 +55,34 @@ class ExperimentExecutorAfter {
 
     private static Optional<Set<String>> defaultExtensions = Optional.empty();
 
-    public ExperimentExecutorAfter(Path pathExecutionDirectory)
+    private final boolean openInDesktop;
+
+    /**
+     * Creates with needed initial state.
+     *
+     * @param pathConfigurationDirectory a path where configuration files are stored.
+     * @param openInDesktop whether to open the output directory in the desktop GUI after execution
+     *     (if supported on the O/S).
+     * @throws ExperimentExecutionException
+     */
+    public ExperimentExecutorAfter(Path pathConfigurationDirectory, boolean openInDesktop)
             throws ExperimentExecutionException {
-        initializeIfNecessary(pathExecutionDirectory, true, true);
+        this.openInDesktop = openInDesktop;
+        initializeIfNecessary(pathConfigurationDirectory, true, true);
         // Only accessible through static methods
     }
 
     /**
-     * Initialises our factories if not already done
+     * Initializes our factories if not already done
      *
-     * @param pathExecutionDirectory a path to a directory from which the JAR is launched (typically
-     *     the bin/ directory)
+     * @param pathConfigurationDirectory a path where configuration files are stored.
      * @param includeRootPaths if true, a root bank is sought among the configurations and loaded
      * @throws ExperimentExecutionException
      */
     static void initializeIfNecessary(
-            Path pathExecutionDirectory, boolean includeDefaultInstances, boolean includeRootPaths)
+            Path pathConfigurationDirectory,
+            boolean includeDefaultInstances,
+            boolean includeRootPaths)
             throws ExperimentExecutionException {
         if (!RegisterBeanFactories.isCalledRegisterAllPackage()) {
 
@@ -84,15 +98,18 @@ class ExperimentExecutorAfter {
                         .getDefaultInstances()
                         .addFrom(
                                 HelperLoadAdditionalConfig.loadDefaultInstances(
-                                        pathExecutionDirectory));
+                                        pathConfigurationDirectory));
             }
 
             if (includeRootPaths) {
-                HelperLoadAdditionalConfig.loadRootPaths(pathExecutionDirectory);
+                HelperLoadAdditionalConfig.loadRootPaths(pathConfigurationDirectory);
             }
 
-            defaultExtensions =
-                    HelperLoadAdditionalConfig.loadDefaultExtensions(pathExecutionDirectory);
+            if (!defaultExtensions.isPresent()) {
+                defaultExtensions =
+                        HelperLoadAdditionalConfig.loadDefaultExtensions(
+                                pathConfigurationDirectory);
+            }
         }
     }
 
@@ -234,7 +251,7 @@ class ExperimentExecutorAfter {
     }
 
     /**
-     * Executes an experiment
+     * Executes an experiment.
      *
      * @param experiment the experiment to execute
      * @param executionArguments additional arguments that describe the Experiment
@@ -244,10 +261,27 @@ class ExperimentExecutorAfter {
             throws ExperimentExecutionException {
 
         try {
-            experiment.executeExperiment(executionArguments);
+            Optional<Path> outputPath = experiment.executeExperiment(executionArguments);
+            if (openInDesktop && outputPath.isPresent()) {
+                openPathInDesktop(outputPath.get());
+            }
 
-        } catch (ExperimentExecutionException e) {
+        } catch (ExperimentExecutionException | IOException e) {
             throw new ExperimentExecutionException("Experiment execution ended with failure", e);
+        }
+    }
+
+    /** Opens a path in the desktop. */
+    private static void openPathInDesktop(Path path) throws IOException {
+        try {
+            // Some experiments have an output-directory but never create anything in it.
+            // We do not want to open these directories, so we check first if the directory exists.
+            if (path.toFile().exists()) {
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(path.toFile());
+            }
+        } catch (UnsupportedOperationException e) {
+            // Ignore as irrelevant
         }
     }
 }

@@ -119,9 +119,9 @@ public class SelectParamFactory {
      *   <li>nothing, then default experiment is used
      * </ol>
      *
-     * @param line command-line to consider if certain options have been selected or not
-     * @param defaultExperiment path to the default experiment
-     * @return an appropriate SelectParam object
+     * @param line command-line to consider if certain options have been selected or not.
+     * @param defaultExperiment path to the default experiment.
+     * @return an appropriate SelectParam object.
      * @throws ExperimentExecutionException
      */
     public static SelectParam<Path> experimentSelectParam(CommandLine line, Path defaultExperiment)

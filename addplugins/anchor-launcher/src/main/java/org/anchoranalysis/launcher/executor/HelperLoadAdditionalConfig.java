@@ -46,9 +46,6 @@ class HelperLoadAdditionalConfig {
     /** Name of anchor subdirectory in user directory */
     private static final String ANCHOR_USER_SUBDIR = ".anchor/";
 
-    /** Name of anchor config subdirectory in home directory */
-    private static final String ANCHOR_HOME_CONFIG = "config/";
-
     /** Filename (relative to anchor root) for default instances config file */
     private static final String DEFAULT_INSTANCES_FILENAME = "defaultBeans.xml";
 
@@ -58,20 +55,10 @@ class HelperLoadAdditionalConfig {
     /** Filename (relative to anchor root) for root path map */
     private static final String ROOT_PATH_MAP_FILENAME = "rootPaths.xml";
 
-    /**
-     * Name of the environment variable that indicates the ANCHOR home directory (i.e. directory in
-     * which bin/ exists, from which Anchor is executed)
-     */
-    private static final String ANCHOR_HOME_ENV_VAR_NAME = "ANCHOR_HOME";
-
-    public static BeanInstanceMap loadDefaultInstances(Path pathExecutionDirectory)
+    public static BeanInstanceMap loadDefaultInstances(Path pathConfigurationDirectory)
             throws ExperimentExecutionException {
 
-        Path pathHome =
-                getAnchorHome(pathExecutionDirectory)
-                        .resolve(ANCHOR_HOME_CONFIG)
-                        .resolve(DEFAULT_INSTANCES_FILENAME)
-                        .normalize();
+        Path pathHome = pathConfigurationDirectory.resolve(DEFAULT_INSTANCES_FILENAME).normalize();
         Path pathUser = getAnchorUserDir().resolve(DEFAULT_INSTANCES_FILENAME).normalize();
 
         if (!pathHome.toFile().exists() && !pathUser.toFile().exists()) {
@@ -88,21 +75,17 @@ class HelperLoadAdditionalConfig {
     }
 
     /**
-     * Loads a set of default file extensions from the config/ directory
+     * Loads a set of default file extensions from the {@code config/} directory.
      *
-     * @param pathExecutionDirectory the directory in which anchor is executed (i.e. the bin/)
+     * @param pathConfigDirectory the directory in which the configuration files reside.
      * @return the set of extensions (they should be without any period, and in lower-case) or null
      *     if the file doesn't exist
      * @throws ExperimentExecutionException
      */
-    public static Optional<Set<String>> loadDefaultExtensions(Path pathExecutionDirectory)
+    public static Optional<Set<String>> loadDefaultExtensions(Path pathConfigDirectory)
             throws ExperimentExecutionException {
 
-        Path path =
-                getAnchorHome(pathExecutionDirectory)
-                        .resolve(ANCHOR_HOME_CONFIG)
-                        .resolve(DEFAULT_EXTENSIONS_FILENAME)
-                        .normalize();
+        Path path = pathConfigDirectory.resolve(DEFAULT_EXTENSIONS_FILENAME).normalize();
 
         if (path.toFile().exists()) {
             try {
@@ -132,17 +115,13 @@ class HelperLoadAdditionalConfig {
         }
     }
 
-    public static RootPathMap loadRootPaths(Path pathExecutionDirectory)
+    public static RootPathMap loadRootPaths(Path pathConfigurationDirectory)
             throws ExperimentExecutionException {
 
         // First we look in the Anchor Home directory
         // Then we look in the Anchor User directory
 
-        Path pathHome =
-                getAnchorHome(pathExecutionDirectory)
-                        .resolve(ANCHOR_HOME_CONFIG)
-                        .resolve(ROOT_PATH_MAP_FILENAME)
-                        .normalize();
+        Path pathHome = pathConfigurationDirectory.resolve(ROOT_PATH_MAP_FILENAME).normalize();
         Path pathUser = getAnchorUserDir().resolve(ROOT_PATH_MAP_FILENAME).normalize();
 
         addRootPathsFromDir(pathHome, RootPathMap.instance());
@@ -163,23 +142,6 @@ class HelperLoadAdditionalConfig {
                                 "An error occurred adding a root-path from the XML file %s", path),
                         e);
             }
-        }
-    }
-
-    /**
-     * If ANCHOR_HOME environment variable is set, we use this as the definition of anchor_home,
-     * otherwise we guess from where the JAR was executed from
-     *
-     * @param pathExecutionDirectory the home directory suggested by where the execution path
-     * @return
-     */
-    private static Path getAnchorHome(Path pathExecutionDirectory) {
-        String home = System.getenv(ANCHOR_HOME_ENV_VAR_NAME);
-        if (home != null) {
-            return Paths.get(home);
-        } else {
-            // Fall back to the execution directory
-            return pathExecutionDirectory.resolve("..");
         }
     }
 

@@ -13,8 +13,8 @@
 			            As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
 			          <fallback acceptDirectoryErrors="true" ignoreHidden="true" recursive="true" config-class="org.anchoranalysis.io.input.bean.files.SearchDirectory">
 			              
-			              <!-- As no extensions or glob are defined, they are both populated from the input-context -->
-			              <matcher config-class="org.anchoranalysis.io.input.bean.path.matcher.MatchExtensions">
+			              <!-- As no extensions or glob are defined, they are both populated from the input-context, or otherwise defaults -->
+			              <matcher prioritizeInputContext="true" config-class="org.anchoranalysis.io.input.bean.path.matcher.MatchExtensions">
 			                  <matcher config-class="org.anchoranalysis.io.input.bean.path.matcher.MatchGlob"/>
 			              </matcher>
 			              

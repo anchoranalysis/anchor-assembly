@@ -4,24 +4,26 @@
 
 	<!-- 
 	
-	   Read images using OpenCV for JPEG (because it corrects exif orientation) and BMP (because the BioformatsReader
-	   fails on certain types).
+	   Read images using OpenCV for BMP (because the BioformatsReader fails on certain types).
 	   
 	   Otherwise Bioformats is used to read files.
+	   
+	   The OpenCVReader will correct orientation if an EXIF tag is present. We wrap the BioformatsReader in a
+	   RotateImageToMatchEXIFOrientation to achieve a similar outcome.
 	   
 	 -->
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.reader.StackReader">
 		<item config-class="org.anchoranalysis.plugin.io.bean.stack.reader.BranchExtension">
 			<extensions config-class="org.anchoranalysis.bean.primitive.StringSet" config-factory="stringSet">
-				<item>jpg</item>
-				<item>jpeg</item>
 				<item>bmp</item>
 			</extensions>		
 			<readerMatching config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVReader"/>
-			<readerNotMatching config-class="org.anchoranalysis.io.bioformats.bean.BioformatsReader">
-				<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceBitsPerPixel" bitsPerPixel="8">
-					<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceTimeSeriesToStack"/>
-				</options>
+			<readerNotMatching config-class="org.anchoranalysis.plugin.io.bean.stack.reader.RotateImageToMatchEXIFOrientation">
+				<reader config-class="org.anchoranalysis.io.bioformats.bean.BioformatsReader">
+					<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceBitsPerPixel" bitsPerPixel="8">
+						<options config-class="org.anchoranalysis.io.bioformats.bean.options.ForceTimeSeriesToStack"/>
+					</options>
+				</reader>
 			</readerNotMatching>
 		</item>
 	</item>
@@ -40,6 +42,9 @@
 			<!--  Catch all writer that can support almost any combination of channels / stacks  -->
 			<writer config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
 
+			<!-- When not eight bit, use OME-TIFFs -->
+			<whenNotEightBit config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
+			
 			<!-- If it's guaranteed to be RGB (three channels) use a PNG (by default) if guaranteed to be 2D, or a TIFF otherwise -->
 			<whenRGB config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchStack">
 
@@ -57,6 +62,9 @@
 				</writerAlways2D>
 				<writerElse config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
 			</whenRGB>
+			
+			<!-- No writer implementation currently writes the alpha channel nicely, so write as 4-channeled OME-TIFF (for now). -->
+			<whenRGBAlpha config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
 			
 			<!-- Likewise if it's guaranteed to be three channels and not RGB use a TIFF -->
 			<whenThreeChannels config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchSuggestedFormat">
@@ -112,6 +120,27 @@
 					<otherwise config-class="org.anchoranalysis.plugin.io.bean.file.namer.patternspan.PatternSpan"/>
 				</namer>
 			</namer>
+		</item>
+	</item>
+		
+	
+	<!-- 
+	   
+	   Try to infer the image-metadata from the header for JPEG, PNG, BMP (see default formats in InferFromHeader).
+	    	
+	   Otherwise, read image-metadata using the default StackReader.
+	   	   	   
+	   The former is preferable as it is usually computationally quicker (sometimes much quicker) than the latter.
+	   
+	 -->
+	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.metadata.reader.ImageMetadataReader">
+		<item config-class="org.anchoranalysis.plugin.io.bean.metadata.reader.InferFromHeader">
+			<formats config-class="java.util.List" config-factory="list">
+				<item config-class="org.anchoranalysis.plugin.io.bean.metadata.header.JPEG"/>
+				<item config-class="org.anchoranalysis.plugin.io.bean.metadata.header.PNG"/>
+				<item config-class="org.anchoranalysis.plugin.io.bean.metadata.header.BMP"/>
+			</formats>
+			<fallback config-class="org.anchoranalysis.plugin.io.bean.metadata.reader.FromStackReader"/>
 		</item>
 	</item>
 	

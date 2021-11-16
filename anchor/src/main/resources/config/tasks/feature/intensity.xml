@@ -1,0 +1,50 @@
+<!-- 
+===================
+TASK:   feature/intensity
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Extracts basic statistics calculates from all voxel intensities in an image channel.
+
+The statistics are calculated separately for each channel, up to a maximum of 6 channels (if they exist).
+
+The statistics are: sum, mean, standard-deviation, variance, skewness, and kurtosis.
+
+
+======
+INPUTS
+======
+
+An image, any number of channels.
+
+
+=======
+OUTPUTS
+=======
+
+features:
+    a CSV file with each image's name and intensity features
+
+-->
+<config>
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeatures">
+	
+	<source config-class="org.anchoranalysis.plugin.image.task.bean.feature.source.FromImage"/>
+
+	<!-- Suppress errors, as often this will occur when a channel doesn't exist in the stack, but a feature is defined for it. -->
+	<style suppressErrors="true" config-class="org.anchoranalysis.plugin.image.task.bean.feature.ExportFeaturesStyle"/>
+		
+ 	<features config-class="java.util.List" config-factory="list">
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="intensity">
+			<item maximumNumberChannels="6" config-class="org.anchoranalysis.plugin.image.feature.bean.list.IntensityMoments"/>
+		</item>
+		
+	</features>
+
+</bean>
+</config>
