@@ -1,0 +1,211 @@
+<!--
+  #%L
+  packaging distribution
+  %%
+  Copyright (C) 2016 ETH Zurich, University of Zurich, Owen Feehan
+  %%
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+  #L%
+  -->
+ <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+  <!-- Left blank to avoid a suffix in the output subdirectory name. -->
+  <id>macos</id>
+  <formats>
+    <format>dir</format>
+    <format>tar.gz</format>
+  </formats>
+  <includeBaseDirectory>true</includeBaseDirectory>
+
+  <!-- the README.txt is explicitly copied to allow filtering (to replace a placeholder
+    with the current version. -->     
+  <files>
+    <file>
+      <source>src/main/resources/topleveldocs/README.txt</source>
+      <outputDirectory></outputDirectory>
+      <filtered>true</filtered>
+    </file>
+  </files>
+	   
+  <fileSets>
+
+    
+    <!--  The documentation placed in the top-level folder of the Anchor distribution -->
+     <fileSet>
+        <directory>src/main/resources/topleveldocs</directory>
+        <outputDirectory></outputDirectory>
+        <filtered>true</filtered>
+        <fileMode>0644</fileMode>
+        <lineEnding>lf</lineEnding>
+        <excludes>
+	        <!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
+			<exclude>*.formatted</exclude>
+			<exclude>README.txt</exclude>
+		</excludes>
+     </fileSet>
+    
+     <fileSet>
+        <directory>src/main/resources/config</directory>
+        <outputDirectory>config</outputDirectory>
+        <fileMode>0644</fileMode>
+        <lineEnding>lf</lineEnding>
+        <excludes>
+        	<!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
+			<exclude>*.formatted</exclude>
+		</excludes>
+     </fileSet>
+     
+     <fileSet>
+        <directory>src/main/resources/configGUI</directory>
+        <outputDirectory>configGUI</outputDirectory>
+        <fileMode>0644</fileMode>
+        <lineEnding>lf</lineEnding>
+        <excludes>
+        	<!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
+			<exclude>*.formatted</exclude>
+		</excludes>
+     </fileSet>
+     
+     <fileSet>
+        <directory>src/main/resources/config</directory>
+        <outputDirectory>config</outputDirectory>
+        <fileMode>0644</fileMode>
+        <lineEnding>lf</lineEnding>
+        <excludes>
+	        <!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
+			<exclude>*.formatted</exclude>
+		</excludes>
+     </fileSet>
+     
+     <fileSet>
+        <directory>src/main/resources/models</directory>
+        <outputDirectory>models</outputDirectory>
+        <fileMode>0644</fileMode>
+     </fileSet>     
+     
+  
+  	 <!--  The helper-apps used to allow easy start of Anchor on different platforms -->
+  	 
+     
+  	 <!-- Let's exclude the UNIX scripts we want to change permissions on -->
+     <fileSet>
+        <directory>src/main/resources/helperapps</directory>
+        <outputDirectory>bin</outputDirectory>
+        <excludes>
+        	<exclude>anchor</exclude>
+        	<exclude>anchorGUI</exclude>
+        </excludes>
+<!--         <fileMode>0644</fileMode> -->
+		<fileMode>0755</fileMode>
+        <!--<lineEnding>lf</lineEnding>-->
+     </fileSet>
+     
+          
+     <!-- Let's include the UNIX scripts we want to change permissions on -->
+     <fileSet>
+        <directory>src/main/resources/helperapps</directory>
+        <outputDirectory>bin</outputDirectory>
+        <includes>
+        	<include>anchor</include>
+        	<include>anchorGUI</include>
+        </includes>
+        <fileMode>0755</fileMode>
+         <lineEnding>lf</lineEnding>
+		<excludes>
+			<!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
+			<exclude>*.formatted</exclude>
+		</excludes>         
+     </fileSet>
+    <!--  We put this last, as it seems to use the last fileMode as the default for the next -->
+     
+     
+  </fileSets>
+    
+  <dependencySets>
+
+	<!--  All the dependencies needed, apart from the anchor-launcher and anchor-browser jars are placed in the lib/ folder, unless they are plugins -->
+    <dependencySet>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useTransitiveDependencies>true</useTransitiveDependencies>
+      <unpack>false</unpack>
+      <scope>runtime</scope>
+      <outputDirectory>lib</outputDirectory>
+      <excludes>
+      	<exclude>org.anchoranalysis.anchor:anchor-launcher:*:*</exclude>
+      	<exclude>org.anchoranalysis.anchor:anchor-browser:*:*</exclude>
+      	<exclude>org.anchoranalysis.anchor:anchor-plugin-*:*:*</exclude>
+      	
+      	<!--  We exclude the GPU version of the ONNX runtime, so only the GPU version remains. -->
+      	<exclude>com.microsoft.onnxruntime:onnxruntime_gpu:*:*</exclude>
+      </excludes>
+      <fileMode>0644</fileMode>
+    </dependencySet>
+    
+    <!-- We also include org.anchoranalysis.anchor:anchor-plugin-base -->
+    <dependencySet>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useTransitiveDependencies>true</useTransitiveDependencies>
+      <unpack>false</unpack>
+      <scope>runtime</scope>
+      <outputDirectory>lib</outputDirectory>
+      <includes>
+      	<include>org.anchoranalysis.anchor:anchor-plugin-base:*:*</include>
+      </includes>
+      <fileMode>0644</fileMode>
+    </dependencySet>
+    
+    
+    
+    <!--  The anchor-launcher and anchor-browser jars are placed in bin folder. They are simple apps used to start
+      anchor from the command-line, or to start the anchor GUI -->
+    <dependencySet>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useTransitiveDependencies>true</useTransitiveDependencies>
+      <unpack>false</unpack>
+      <scope>runtime</scope>
+      <outputDirectory>bin</outputDirectory>
+      <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+      <includes>
+      	<include>org.anchoranalysis.anchor:anchor-launcher:*:*</include>
+      	<include>org.anchoranalysis.anchor:anchor-browser:*:*</include>
+      </includes>
+      <fileMode>0644</fileMode>
+    </dependencySet>
+
+    
+     <!-- Put all the plugins in the lib/ folder -->
+    <dependencySet>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useTransitiveDependencies>true</useTransitiveDependencies>
+      <unpack>false</unpack>
+      <scope>runtime</scope>
+      <outputDirectory>lib</outputDirectory>
+       <excludes>
+      	<exclude>org.anchoranalysis.anchor:anchor-plugin-base:*:*</exclude>
+      </excludes>
+      <includes>
+      	<include>org.anchoranalysis.anchor:anchor-plugin-*:*:*</include>
+      </includes>
+      <fileMode>0644</fileMode>
+    </dependencySet>
+    
+  </dependencySets>
+
+ </assembly>
