@@ -27,10 +27,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
   <!-- Left blank to avoid a suffix in the output subdirectory name. -->
-  <id></id>
+  <id>windows</id>
   <formats>
     <format>dir</format>
-    <format>tar.gz</format>
     <format>zip</format>
   </formats>
   <includeBaseDirectory>true</includeBaseDirectory>
@@ -140,23 +139,6 @@
         <fileMode>0644</fileMode>
      </fileSet>
      
-     <!-- Let's include the UNIX scripts we want to change permissions on -->
-     <fileSet>
-        <directory>src/main/resources/helperapps</directory>
-        <outputDirectory>bin</outputDirectory>
-        <includes>
-        	<include>anchor</include>
-        	<include>anchorGUI</include>
-        </includes>
-        <fileMode>0755</fileMode>
-         <lineEnding>lf</lineEnding>
-		<excludes>
-			<!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
-			<exclude>*.formatted</exclude>
-		</excludes>         
-     </fileSet>
-    <!--  We put this last, as it seems to use the last fileMode as the default for the next -->
-     
      
   </fileSets>
     
@@ -173,6 +155,9 @@
       	<exclude>org.anchoranalysis.anchor:anchor-launcher:*:*</exclude>
       	<exclude>org.anchoranalysis.anchor:anchor-browser:*:*</exclude>
       	<exclude>org.anchoranalysis.anchor:anchor-plugin-*:*:*</exclude>
+      	
+      	<!--  We exclude the CPU version of the ONNX runtime, so only the GPU version remains. -->
+      	<exclude>com.microsoft.onnxruntime:onnxruntime:*:*</exclude>
       </excludes>
       <fileMode>0644</fileMode>
     </dependencySet>
@@ -209,7 +194,7 @@
     </dependencySet>
 
     
-     <!-- Put all the plugins in the lib folder -->
+     <!-- Put all the plugins in the lib/ folder -->
     <dependencySet>
       <useProjectArtifact>false</useProjectArtifact>
       <useTransitiveDependencies>true</useTransitiveDependencies>

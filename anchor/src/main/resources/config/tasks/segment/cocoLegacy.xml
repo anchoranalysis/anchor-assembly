@@ -40,14 +40,9 @@ outline:
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.segment.SegmentInstanceWithModel">
 	<segment config-class="org.anchoranalysis.image.inference.bean.segment.instance.SuppressNonMaxima">
-		<segment readFromResources="true" modelPath="MaskRCNN-10.onnx" inputName="image" classLabelsPath="mscoco_labels.names" config-class="org.anchoranalysis.plugin.onnx.bean.object.segment.stack.SegmentObjectsFromONNXModel">
-			<decode minConfidence="0.5" minMaskValue="0.3" config-class="org.anchoranalysis.plugin.onnx.bean.object.segment.decode.instance.DecodeMaskRCNN"/>
-			<scaleInput preserveAspectRatio="false" config-class="org.anchoranalysis.plugin.image.bean.scale.ToDimensions">
-				<dimensions config-class="org.anchoranalysis.plugin.image.bean.dimensions.provider.SpecifyDimensions">
-					<sizeXY width="1088" height="800" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
-				</dimensions>
-			</scaleInput>
-			<subtractMean items="102.9801,115.9465,122.7717" config-class="org.anchoranalysis.bean.primitive.DoubleList" config-factory="doubleList"/>
+		<segment modelBinaryPath="frozen_mask_rcnn_inception_v2_coco_2018_01_28.pb" modelTextGraphPath="mask_rcnn_inception_v2_coco_2018_01_28.pbtxt" classLabelsPath="mscoco_labels.names" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SegmentObjectsFromTensorFlowModel">
+			<decode minConfidence="0.5" minMaskValue="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.decode.instance.DecodeMaskRCNN"/>
+			<scaleInput value="1.0" config-class="org.anchoranalysis.plugin.image.bean.scale.ConstantScaleFactor"/>
 		</segment>
 		<reduce config-class="org.anchoranalysis.plugin.image.bean.object.segment.reduce.RemoveOverlappingObjects"/>
 	</segment>

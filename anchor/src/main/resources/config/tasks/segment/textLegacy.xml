@@ -44,9 +44,9 @@ outline:
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.segment.SegmentInstanceWithModel">
 	<segment config-class="org.anchoranalysis.image.inference.bean.segment.instance.SuppressNonMaxima">
-		<segment includeBatchDimension="true" interleaveChannels="true" inputName="input_images:0" readFromResources="true" modelPath="east_text_detection.onnx" config-class="org.anchoranalysis.plugin.onnx.bean.object.segment.stack.SegmentObjectsFromONNXModel">
+		<segment modelBinaryPath="frozen_east_text_detection.pb" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.stack.SegmentObjectsFromTensorFlowModel">
 		
-			<decode minConfidence="0.8" config-class="org.anchoranalysis.plugin.onnx.bean.object.segment.decode.instance.DecodeText"/>
+			<decode minConfidence="0.8" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.decode.instance.DecodeText"/>
 		    <!-- 
 			     As the EAST detector was designed to work with originally 1280x720 pixel images approximately
 			     we don't allow dramatically higher resolutions that this, so text objects remain roughly in

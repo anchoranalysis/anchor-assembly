@@ -8,6 +8,7 @@
 	
   <artifactId>anchor</artifactId>
   <url>http://www.anchoranalysis.org/</url>
+  <version>0.8-prerelease</version>
   
   <packaging>pom</packaging>
 
@@ -28,7 +29,7 @@
 				<dependency>
 				  <groupId>${project.groupId}</groupId>
 				  <artifactId>anchor-browser</artifactId>
-				  <version>${project.version}</version>
+				  <version>0.0.6-SNAPSHOT</version>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -50,7 +51,7 @@
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-launcher</artifactId>
-	  <version>${project.version}</version>
+	  <version>0.0.6-SNAPSHOT</version>
 	</dependency>
 		
 	
@@ -128,11 +129,11 @@
 	
 						<!--  We add in a ../ to bring us back to the top-level of the multi-module project -->
 					  <copy todir="${anchor.home.deploy}/">
-							<fileset dir="${project.build.directory}/anchor-${project.version}/anchor-${project.version}/" />
+							<fileset dir="${project.build.directory}/anchor-${project.version}-windows/anchor-${project.version}/" />
 					  </copy>
 	
-					<chmod file="${anchor.home.deploy}/bin/anchor" perm="ugo+rx" />
-					<chmod file="${anchor.home.deploy}/bin/anchorGUI" perm="ugo+rx" />
+					<!-- <chmod file="${anchor.home.deploy}/bin/anchor" perm="ugo+rx" />
+					<chmod file="${anchor.home.deploy}/bin/anchorGUI" perm="ugo+rx" />-->
 	
 	              </target>
 	            </configuration>
@@ -228,7 +229,9 @@
             <phase>package</phase>
             <configuration>
               <descriptors>
-                <descriptor>src/assembly/distribution.xml</descriptor>
+                <descriptor>src/assembly/windows.xml</descriptor>
+                <descriptor>src/assembly/macos.xml</descriptor>
+                <descriptor>src/assembly/linux.xml</descriptor>
               </descriptors>
               <attach>true</attach>
             </configuration>
