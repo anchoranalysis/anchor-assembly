@@ -29,7 +29,7 @@
 	<listFileCreators config-class="java.util.List" config-factory="list">
 	</listFileCreators>
 
-	<namedItemSharedFeatureList filePath="Features/default.xml" config-class="java.util.List" config-factory="include"/>
+	<featuresShared filePath="Features/default.xml" config-class="java.util.List" config-factory="include"/>
 
 	<!--<namedItemMarkEvaluatorList filePath="MarkEvaluator/list.xml" config-class="java.util.List" config-factory="include"/>-->
 	
