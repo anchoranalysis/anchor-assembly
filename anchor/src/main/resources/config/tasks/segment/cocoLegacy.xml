@@ -44,7 +44,7 @@ outline:
 			<decode minConfidence="0.5" minMaskValue="0.3" config-class="org.anchoranalysis.plugin.opencv.bean.object.segment.decode.instance.DecodeMaskRCNN"/>
 			<scaleInput value="1.0" config-class="org.anchoranalysis.plugin.image.bean.scale.ConstantScaleFactor"/>
 		</segment>
-		<reduce config-class="org.anchoranalysis.plugin.image.bean.object.segment.reduce.RemoveOverlappingObjects"/>
+		<reduce config-class="org.anchoranalysis.image.inference.bean.reduce.RemoveOverlappingObjects"/>
 	</segment>
 </bean>
 </config>

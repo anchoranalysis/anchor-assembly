@@ -88,14 +88,14 @@ public class PrettyPathConverter {
     /** Counts how many times ../ appears in a relative-path */
     private static int countDoubleDotsInRelativePath(Path path) {
 
-        int cnt = 0;
+        int count = 0;
 
-        for (Path p : path) {
-            if (p.getFileName().toString().equals("..")) {
-                cnt++;
+        for (Path pathComponent : path) {
+            if (pathComponent.getFileName().toString().equals("..")) {
+                count++;
             }
         }
 
-        return cnt;
+        return count;
     }
 }
