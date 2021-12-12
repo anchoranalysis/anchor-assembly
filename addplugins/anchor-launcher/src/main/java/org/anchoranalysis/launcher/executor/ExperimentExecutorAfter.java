@@ -73,10 +73,10 @@ class ExperimentExecutorAfter {
     }
 
     /**
-     * Initializes our factories if not already done
+     * Initializes our factories if not already done.
      *
      * @param pathConfigurationDirectory a path where configuration files are stored.
-     * @param includeRootPaths if true, a root bank is sought among the configurations and loaded
+     * @param includeRootPaths if true, a root bank is sought among the configurations and loaded.
      * @throws ExperimentExecutionException
      */
     static void initializeIfNecessary(
