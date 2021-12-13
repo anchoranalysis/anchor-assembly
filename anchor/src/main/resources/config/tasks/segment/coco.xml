@@ -35,10 +35,10 @@ mask:
 outline:
     a green outline imposed on the original RGB around each object-mask  (scaled to match the model).
 
-mask_full_scale:
+maskInputScale:
     a binary-mask combining all the object-masks in an image (scaled to match the input image).
 
-outline_full_scale:
+outlineInputScale:
     a green outline imposed on the original RGB around each object-mask  (scaled to match the input image).
        
     
