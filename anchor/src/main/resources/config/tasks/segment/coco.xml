@@ -12,7 +12,7 @@ Finds objects in images (instance segmentation).
 
 It uses a Mask-RCNN deep learning model trained on the MSCOCO Dataset to propose object-masks, each with a confidence score.
 
-A non-maxima suppression algorithm reduces the proposed objects to a smaller set by eliminating significantly overlapping proposals.
+A non-maximum suppression algorithm reduces the proposed objects to a smaller set by eliminating significantly overlapping proposals.
 
 
 ======
@@ -27,21 +27,29 @@ OUTPUTS
 =======
 
 objects:
-    HDF5 object-masks for all the bounding-boxes that are eventually accepted
+    HDF5 object-masks for all the bounding-boxes that are eventually accepted.
 
 mask:
-    a binary-mask combining all the object-masks in an image
+    a binary-mask combining all the object-masks in an image (scaled to match the model).
 
 outline:
-    a green outline imposed on the original RGB around each object-mask
+    a green outline imposed on the original RGB around each object-mask  (scaled to match the model).
 
+mask_full_scale:
+    a binary-mask combining all the object-masks in an image (scaled to match the input image).
+
+outline_full_scale:
+    a green outline imposed on the original RGB around each object-mask  (scaled to match the input image).
+       
+    
+For other possible outputs, see https://www.anchoranalysis.org/javadoc/org/anchoranalysis/plugin/image/task/bean/segment/SegmentInstanceWithModel.html
 
 -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.segment.SegmentInstanceWithModel">
-	<segment config-class="org.anchoranalysis.image.inference.bean.segment.instance.SuppressNonMaxima">
+	<segment config-class="org.anchoranalysis.image.inference.bean.segment.instance.SuppressNonMaximum">
 		<segment readFromResources="true" modelPath="MaskRCNN-10.onnx" inputName="image" classLabelsPath="mscoco_labels.names" config-class="org.anchoranalysis.plugin.onnx.bean.object.segment.stack.SegmentObjectsFromONNXModel">
-			<decode minConfidence="0.5" minMaskValue="0.3" config-class="org.anchoranalysis.plugin.onnx.bean.object.segment.decode.instance.DecodeMaskRCNN"/>
+			<decode minConfidence="0.5" minMaskValue="0.3" config-class="org.anchoranalysis.plugin.onnx.bean.object.segment.decode.instance.maskrcnn.DecodeMaskRCNN"/>
 			<scaleInput preserveAspectRatio="false" config-class="org.anchoranalysis.plugin.image.bean.scale.ToDimensions">
 				<dimensions config-class="org.anchoranalysis.plugin.image.bean.dimensions.provider.SpecifyDimensions">
 					<sizeXY width="1088" height="800" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>

@@ -13,7 +13,7 @@ Finds text-regions in images.
 It uses the EAST deep-CNN model via OpenCV, which generates a list of rotated bounding-boxes of proposed text regions,
 each with a confidence score.
 
-A non-maxima suppression algorithm reduces the proposals to a smaller set by eliminating significantly overlapping proposals.
+A non-maximum suppression algorithm reduces the proposals to a smaller set by eliminating significantly overlapping proposals.
 
 The EAST model was designed to work with 1280x720 RBB images. The input image is scaled down to be approximately
 similar in size.
@@ -31,34 +31,47 @@ OUTPUTS
 =======
 
 objects:
-    HDF5 object-masks for all the bounding-boxes that are eventually accepted
+    HDF5 object-masks for all the bounding-boxes that are eventually accepted.
 
 mask:
-    a binary-mask combining all the object-masks in an image
+    a binary-mask combining all the object-masks in an image (scaled to match the model).
 
 outline:
-    a green outline imposed on the original RGB around each object-mask
+    a green outline imposed on the original RGB around each object-mask  (scaled to match the model).
+
+mask_full_scale:
+    a binary-mask combining all the object-masks in an image (scaled to match the input image).
+
+outline_full_scale:
+    a green outline imposed on the original RGB around each object-mask  (scaled to match the input image).
+       
+    
+For other possible outputs, see https://www.anchoranalysis.org/javadoc/org/anchoranalysis/plugin/image/task/bean/segment/SegmentInstanceWithModel.html
 
 
 -->
 <config>
 <bean config-class="org.anchoranalysis.plugin.image.task.bean.segment.SegmentInstanceWithModel">
-	<segment config-class="org.anchoranalysis.image.inference.bean.segment.instance.SuppressNonMaxima">
+	<segment config-class="org.anchoranalysis.image.inference.bean.segment.instance.SuppressNonMaximum">
 		<segment includeBatchDimension="true" interleaveChannels="true" inputName="input_images:0" readFromResources="true" modelPath="east_text_detection.onnx" config-class="org.anchoranalysis.plugin.onnx.bean.object.segment.stack.SegmentObjectsFromONNXModel">
 		
-			<decode minConfidence="0.8" config-class="org.anchoranalysis.plugin.onnx.bean.object.segment.decode.instance.DecodeText"/>
+			<decode minConfidence="0.2" config-class="org.anchoranalysis.plugin.onnx.bean.object.segment.decode.instance.text.DecodeEAST"/>
 		    <!-- 
-			     As the EAST detector was designed to work with originally 1280x720 pixel images approximately
-			     we don't allow dramatically higher resolutions that this, so text objects remain roughly in
-			     size proportionate to what EAST was trained on. So maxScaleFactor is approximately 720/32.
+			     As the EAST detector was initially trained on 1280x720 pixel images, but the model expects width and height
+			     to be integer multiples of 32 (which 720 isn't).
+			     
+			     We wish to preserve aspect ratio, as best we can. So we scale to the integer multiple of the image which
+			     is closest to 1280x720 approximately.
      		-->
-			<scaleInput maxScaleFactor="23" config-class="org.anchoranalysis.plugin.image.bean.scale.LargestMultipleWithin">
-				<minimumSize width="32" height="32" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
+			<scaleInput multipleOf="32" config-class="org.anchoranalysis.plugin.image.bean.scale.FitTo">
+				<targetSize width="1280" height="720" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
 			</scaleInput>
-			
+						
 			<subtractMean items="123.68,116.78,103.94" config-class="org.anchoranalysis.bean.primitive.DoubleList" config-factory="doubleList"/>
+			
+			<interpolator config-class="org.anchoranalysis.plugin.opencv.bean.interpolate.InterpolatorBeanOpenCV"/>
 		</segment>
-		<reduce config-class="org.anchoranalysis.plugin.image.bean.object.segment.reduce.ThresholdConfidence"/>
+		<reduce minConfidence="0.2" config-class="org.anchoranalysis.plugin.image.bean.object.segment.reduce.ThresholdConfidence"/>
 	</segment>
 </bean>
 </config>

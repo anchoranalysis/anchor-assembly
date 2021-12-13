@@ -76,11 +76,56 @@
 	  <version>0.0.5-SNAPSHOT</version>
 	</dependency>
 	
+			
+		<!-- We add both onnxruntime dependencies (GPU and CPU) so the appropriate one can be removed later depending on operating system. -->
+		<dependency>
+			<groupId> com.microsoft.onnxruntime</groupId>
+			<artifactId>onnxruntime</artifactId>
+			<version>${onnx-runtime.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId> com.microsoft.onnxruntime</groupId>
+			<artifactId>onnxruntime_gpu</artifactId>
+			<version>${onnx-runtime.version}</version>
+		</dependency>
+	
   </dependencies>
 	
   <build>
     <plugins>
     
+    	<!--  Unpack ONNX Runtime JAR, so the native libs can be copied into the respective disbiutions -->
+       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-dependency-plugin</artifactId>
+         <version>3.2.0</version>
+         <executions>
+           <execution>
+             <id>unpack</id>
+             <phase>package</phase>
+             <goals>
+               <goal>unpack</goal>
+             </goals>
+             <configuration>
+               <artifactItems>
+                 <artifactItem>
+                 
+				   <groupId>com.microsoft.onnxruntime</groupId>
+				   <artifactId>onnxruntime_gpu</artifactId>
+				   <version>${onnx-runtime.version}</version>
+                   <type>jar</type>
+                   <overWrite>true</overWrite>
+                 </artifactItem>
+               </artifactItems>
+               <outputDirectory>${project.build.directory}/onnxruntime</outputDirectory>
+               <overWriteReleases>true</overWriteReleases>
+               <overWriteSnapshots>true</overWriteSnapshots>
+             </configuration>
+           </execution>
+         </executions>
+       </plugin>
+       
 	
  <plugin>
 	        <artifactId>maven-antrun-plugin</artifactId>
@@ -176,6 +221,9 @@
 						<minVersion>1.8</minVersion>
 						<initialHeapPercent>20</initialHeapPercent>
 						<maxHeapPercent>80</maxHeapPercent>
+						<opts>
+							<opt>-Donnxruntime.native.path=%EXEDIR%/../lib/onnxruntime</opt>	
+						</opts>
 					  </jre>
 				 </configuration>
 			 </execution>
@@ -207,7 +255,9 @@
 						<maxHeapPercent>80</maxHeapPercent>
 						
 						<opts>
-							<opt>-Dsun.java2d.uiScale=1</opt>	
+							<opt>-Donnxruntime.native.path=%EXEDIR%/../lib/onnxruntime</opt>
+							<opt>-Dsun.java2d.uiScale=1</opt>
+								
 						</opts>
 					  </jre>
 					  
