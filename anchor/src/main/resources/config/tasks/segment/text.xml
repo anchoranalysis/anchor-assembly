@@ -68,8 +68,7 @@ For other possible outputs, see https://www.anchoranalysis.org/javadoc/org/ancho
 			</scaleInput>
 						
 			<subtractMean items="123.68,116.78,103.94" config-class="org.anchoranalysis.bean.primitive.DoubleList" config-factory="doubleList"/>
-			
-			<interpolator config-class="org.anchoranalysis.plugin.opencv.bean.interpolate.InterpolatorBeanOpenCV"/>
+
 		</segment>
 		<reduce minConfidence="0.2" config-class="org.anchoranalysis.plugin.image.bean.object.segment.reduce.ThresholdConfidence"/>
 	</segment>
