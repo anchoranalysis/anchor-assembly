@@ -135,6 +135,11 @@
      </fileSet>
     <!--  We put this last, as it seems to use the last fileMode as the default for the next -->
      
+     <!-- Copy the linux files for the onnx runtime -->
+     <fileSet>
+     	<directory>${project.build.directory}/onnxruntime/ai/onnxruntime/native/linux-x64</directory>
+     	<outputDirectory>lib/onnxruntime</outputDirectory>
+     </fileSet>
      
   </fileSets>
     

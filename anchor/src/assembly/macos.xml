@@ -136,6 +136,13 @@
     <!--  We put this last, as it seems to use the last fileMode as the default for the next -->
      
      
+    <fileSet> <!-- Create empty directory for onnxruntime -->
+        <outputDirectory>lib/onnxruntime</outputDirectory>
+        <excludes><exclude>**/*</exclude></excludes>
+    </fileSet>
+
+     
+     
   </fileSets>
     
   <dependencySets>

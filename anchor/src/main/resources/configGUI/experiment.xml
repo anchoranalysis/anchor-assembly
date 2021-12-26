@@ -42,7 +42,7 @@
 	  <logExperiment config-class="org.anchoranalysis.experiment.bean.log.ToMultiple">
 	  	<list config-class="java.util.List" config-factory="list">
 	  		<item config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
-	  		<item config-class="org.anchoranalysis.experiment.bean.log.ToTextFile" outputName="experiment_log"/>
+	  		<item config-class="org.anchoranalysis.experiment.bean.log.ToTextFile" outputName="logExperiment"/>
 	  	</list>
 	  </logExperiment>
 

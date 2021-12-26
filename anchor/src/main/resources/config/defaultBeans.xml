@@ -144,5 +144,14 @@
 		</item>
 	</item>
 	
+	
+	<!--  
+		By default, use OpenCV for interpolation as it is quickest, even accounting for the extra computational effort involved
+	     to create new buffers and copy from native memory.
+	 -->
+	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.bean.interpolator.Interpolator">
+		<item config-class="org.anchoranalysis.plugin.opencv.bean.interpolate.OpenCV"/>
+	</item>
+	
 </bean>
 </config>

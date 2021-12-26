@@ -8,7 +8,7 @@
 
   <whenDetailed config-class="org.anchoranalysis.experiment.bean.log.ToMultiple">
       <list config-class="java.util.List" config-factory="list">
-          <item outputName="job_log" config-class="org.anchoranalysis.experiment.bean.log.ToTextFileOnlyIfFailure"/>
+          <item outputName="logJob" config-class="org.anchoranalysis.experiment.bean.log.ToTextFileOnlyIfFailure"/>
           
           <!-- If it's debug mode, we also display the task to the console -->
           <item config-class="org.anchoranalysis.experiment.bean.log.OnlyIf">

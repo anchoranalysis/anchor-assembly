@@ -52,7 +52,6 @@
         <directory>src/main/resources/topleveldocs</directory>
         <outputDirectory></outputDirectory>
         <filtered>true</filtered>
-        <fileMode>0644</fileMode>
         <lineEnding>lf</lineEnding>
         <excludes>
 	        <!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
@@ -64,7 +63,6 @@
      <fileSet>
         <directory>src/main/resources/config</directory>
         <outputDirectory>config</outputDirectory>
-        <fileMode>0644</fileMode>
         <lineEnding>lf</lineEnding>
         <excludes>
         	<!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
@@ -75,7 +73,6 @@
      <fileSet>
         <directory>src/main/resources/configGUI</directory>
         <outputDirectory>configGUI</outputDirectory>
-        <fileMode>0644</fileMode>
         <lineEnding>lf</lineEnding>
         <excludes>
         	<!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
@@ -86,7 +83,6 @@
      <fileSet>
         <directory>src/main/resources/config</directory>
         <outputDirectory>config</outputDirectory>
-        <fileMode>0644</fileMode>
         <lineEnding>lf</lineEnding>
         <excludes>
 	        <!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
@@ -97,7 +93,6 @@
      <fileSet>
         <directory>src/main/resources/models</directory>
         <outputDirectory>models</outputDirectory>
-        <fileMode>0644</fileMode>
      </fileSet>     
      
   
@@ -112,7 +107,6 @@
         	<include>anchor.exe</include>
           <include>anchorGUI.exe</include>
         </includes>
-        <fileMode>0644</fileMode>
      </fileSet>   
      
   	 <!-- Let's exclude the UNIX scripts we want to change permissions on -->
@@ -123,9 +117,6 @@
         	<exclude>anchor</exclude>
         	<exclude>anchorGUI</exclude>
         </excludes>
-<!--         <fileMode>0644</fileMode> -->
-		<fileMode>0755</fileMode>
-        <!--<lineEnding>lf</lineEnding>-->
      </fileSet>
      
      
@@ -136,10 +127,17 @@
         	<include>anchor.exe</include>
         	<include>anchorGUI.exe</include>
         </includes>
-        <fileMode>0644</fileMode>
      </fileSet>
      
-     
+     <!-- Copy the windows files for the onnx runtime -->
+     <fileSet>
+     	<directory>${project.build.directory}/onnxruntime/ai/onnxruntime/native/win-x64</directory>
+     	<outputDirectory>lib/onnxruntime</outputDirectory>
+	    <includes>
+        	<include>*.dll</include>
+        </includes>
+     </fileSet>
+          
   </fileSets>
     
   <dependencySets>
@@ -159,7 +157,6 @@
       	<!--  We exclude the CPU version of the ONNX runtime, so only the GPU version remains. -->
       	<exclude>com.microsoft.onnxruntime:onnxruntime:*:*</exclude>
       </excludes>
-      <fileMode>0644</fileMode>
     </dependencySet>
     
     <!-- We also include org.anchoranalysis.anchor:anchor-plugin-base -->
@@ -172,7 +169,6 @@
       <includes>
       	<include>org.anchoranalysis.anchor:anchor-plugin-base:*:*</include>
       </includes>
-      <fileMode>0644</fileMode>
     </dependencySet>
     
     
@@ -190,7 +186,6 @@
       	<include>org.anchoranalysis.anchor:anchor-launcher:*:*</include>
       	<include>org.anchoranalysis.anchor:anchor-browser:*:*</include>
       </includes>
-      <fileMode>0644</fileMode>
     </dependencySet>
 
     
@@ -207,7 +202,6 @@
       <includes>
       	<include>org.anchoranalysis.anchor:anchor-plugin-*:*:*</include>
       </includes>
-      <fileMode>0644</fileMode>
     </dependencySet>
     
   </dependencySets>
