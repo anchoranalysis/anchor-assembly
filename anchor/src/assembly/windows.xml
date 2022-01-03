@@ -71,16 +71,6 @@
      </fileSet>
      
      <fileSet>
-        <directory>src/main/resources/configGUI</directory>
-        <outputDirectory>configGUI</outputDirectory>
-        <lineEnding>lf</lineEnding>
-        <excludes>
-        	<!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
-			<exclude>*.formatted</exclude>
-		</excludes>
-     </fileSet>
-     
-     <fileSet>
         <directory>src/main/resources/config</directory>
         <outputDirectory>config</outputDirectory>
         <lineEnding>lf</lineEnding>
@@ -105,7 +95,6 @@
         <outputDirectory>bin</outputDirectory>
         <includes>
         	<include>anchor.exe</include>
-          <include>anchorGUI.exe</include>
         </includes>
      </fileSet>   
      
@@ -115,7 +104,6 @@
         <outputDirectory>bin</outputDirectory>
         <excludes>
         	<exclude>anchor</exclude>
-        	<exclude>anchorGUI</exclude>
         </excludes>
      </fileSet>
      
@@ -125,7 +113,6 @@
         <outputDirectory>bin</outputDirectory>
         <includes>
         	<include>anchor.exe</include>
-        	<include>anchorGUI.exe</include>
         </includes>
      </fileSet>
      
@@ -142,7 +129,7 @@
     
   <dependencySets>
 
-	<!--  All the dependencies needed, apart from the anchor-launcher and anchor-browser jars are placed in the lib/ folder, unless they are plugins -->
+	<!--  All the dependencies needed, apart from the anchor-launcher jar, are placed in the lib/ folder, unless they are plugins. -->
     <dependencySet>
       <useProjectArtifact>false</useProjectArtifact>
       <useTransitiveDependencies>true</useTransitiveDependencies>
@@ -151,7 +138,6 @@
       <outputDirectory>lib</outputDirectory>
       <excludes>
       	<exclude>org.anchoranalysis.anchor:anchor-launcher:*:*</exclude>
-      	<exclude>org.anchoranalysis.anchor:anchor-browser:*:*</exclude>
       	<exclude>org.anchoranalysis.anchor:anchor-plugin-*:*:*</exclude>
       	
       	<!--  We exclude the CPU version of the ONNX runtime, so only the GPU version remains. -->
@@ -173,8 +159,8 @@
     
     
     
-    <!--  The anchor-launcher and anchor-browser jars are placed in bin folder. They are simple apps used to start
-      anchor from the command-line, or to start the anchor GUI -->
+    <!--  The anchor-launcher jar is placed in bin folder. This is a simple bootstrap used to start
+      anchor from the command-line. -->
     <dependencySet>
       <useProjectArtifact>false</useProjectArtifact>
       <useTransitiveDependencies>true</useTransitiveDependencies>
@@ -184,7 +170,6 @@
       <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
       <includes>
       	<include>org.anchoranalysis.anchor:anchor-launcher:*:*</include>
-      	<include>org.anchoranalysis.anchor:anchor-browser:*:*</include>
       </includes>
     </dependencySet>
 
