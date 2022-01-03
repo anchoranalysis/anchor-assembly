@@ -1,2 +1,0 @@
-A GUI application for viewing results generated on the anchor platform.
-

@@ -14,37 +14,7 @@
 
   <name>Anchor Distribution</name>
 	
-	
-  <!-- We specify two different profiles depending on whether
-	   we wish to include the GUI or not in the build. use -DnoGUI to trigger the withoutGUI -->
-	<profiles>
-		<profile>
-			<id>withGUI</id>
-			<activation>
-			  <property>
-				<name>!noGUI</name>
-			  </property>
-			</activation>
-			<dependencies>
-				<dependency>
-				  <groupId>${project.groupId}</groupId>
-				  <artifactId>anchor-browser</artifactId>
-				  <version>0.0.6-SNAPSHOT</version>
-				</dependency>
-			</dependencies>
-		</profile>
-
-		<profile>
-			<id>withoutGUI</id>
-			<activation>
-			  <property>
-				<name>noGUI</name>
-			  </property>
-			</activation>
-		</profile>
-		
-	</profiles>
-  
+	  
   <dependencies>
 
 
@@ -177,9 +147,6 @@
 							<fileset dir="${project.build.directory}/anchor-${project.version}-windows/anchor-${project.version}/" />
 					  </copy>
 	
-					<!-- <chmod file="${anchor.home.deploy}/bin/anchor" perm="ugo+rx" />
-					<chmod file="${anchor.home.deploy}/bin/anchorGUI" perm="ugo+rx" />-->
-	
 	              </target>
 	            </configuration>
 	            <goals>
@@ -228,42 +195,6 @@
 				 </configuration>
 			 </execution>
 			 
-			 <!-- This generates an anchorGUI.exe (GUI) with Launch4J and places it in the target distribution -->
-			 <execution>
-				 <id>l4j-clui2</id>
-				 <phase>prepare-package</phase>
-				 <goals>
-					 <goal>launch4j</goal>
-				 </goals>
-				 <configuration>
-					  <headerType>console</headerType>
-					  <outfile>${project.build.directory}/windowsExe/anchorGUI.exe</outfile>
-					  <jar>anchor-browser</jar>
-					  <dontWrapJar>true</dontWrapJar>
-					  <errTitle>Anchor GUI</errTitle>
-					  <downloadUrl>http://java.com/download</downloadUrl>
-					
-					  <classPath>
-						<mainClass>org.anchoranalysis.browser.launcher.LaunchInteractiveBrowser</mainClass>
-						<postCp>%EXEDIR%/*.jar;%EXEDIR%/../lib/*.jar</postCp>
-						<addDependencies>false</addDependencies>
-					  </classPath>
-					  
-					  <jre>
-						<minVersion>1.8</minVersion>
-						<initialHeapPercent>20</initialHeapPercent>
-						<maxHeapPercent>80</maxHeapPercent>
-						
-						<opts>
-							<opt>-Donnxruntime.native.path=%EXEDIR%/../lib/onnxruntime</opt>
-							<opt>-Dsun.java2d.uiScale=1</opt>
-								
-						</opts>
-					  </jre>
-					  
-					  
-				 </configuration>
-			 </execution>
 		 </executions>
 	 </plugin>	
 	

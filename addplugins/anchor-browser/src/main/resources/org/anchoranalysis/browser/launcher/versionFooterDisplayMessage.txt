@@ -1,3 +1,0 @@
-Anchor GUI by Owen Feehan (ETH Zurich, University of Zurich), 2016
-
-Several open-source libraries are used by the Anchor platform. Please see the LICENSE.TXT, NOTICE.txt and notices/ that are bundled with each component (JAR-file) of the platform.

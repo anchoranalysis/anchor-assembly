@@ -2,7 +2,6 @@
 
 Adds plugins as dependencies for the two modules in this directory.
 
-- [anchor-browser](https://github.com/anchoranalysis/anchor-assembly/tree/master/addplugins/anchor-browser)
 - [anchor-launcher](https://github.com/anchoranalysis/anchor-assembly/tree/master/addplugins/anchor-launcher)
 
 ## What is Anchor?

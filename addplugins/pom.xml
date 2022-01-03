@@ -19,7 +19,6 @@
 			  </property>
 			</activation>
 			<modules>
-				<module>anchor-browser</module>
 				<module>anchor-launcher</module>
 			</modules>
 		</profile>
