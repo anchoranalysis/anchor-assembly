@@ -16,7 +16,7 @@ import org.anchoranalysis.experiment.bean.task.Task;
 import org.anchoranalysis.experiment.io.ReplaceInputManager;
 import org.anchoranalysis.experiment.io.ReplaceOutputManager;
 import org.anchoranalysis.experiment.io.ReplaceTask;
-import org.anchoranalysis.image.bean.RegisterBeanFactoriesImage;
+import org.anchoranalysis.feature.bean.RegisterFeatureBeanFactories;
 import org.anchoranalysis.io.input.InputFromManager;
 import org.anchoranalysis.io.input.bean.InputManager;
 import org.anchoranalysis.io.output.bean.OutputManager;
@@ -90,7 +90,7 @@ class ExperimentExecutorAfter {
             //  the default-instances from beans in a config-file
             AnchorDefaultBeanFactory defaultFactory =
                     RegisterBeanFactories.registerAllPackageBeanFactories();
-            RegisterBeanFactoriesImage.registerBeanFactories();
+            RegisterFeatureBeanFactories.registerBeanFactories();
 
             if (includeDefaultInstances) {
                 // After loading the defaults, we add them to the factory

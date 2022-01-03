@@ -4,7 +4,10 @@
 
 	<!-- 
 	
-	   Read images using OpenCV for BMP (because the BioformatsReader fails on certain types).
+	   Read images using OpenCV for file-formats it supports, especially BMP (because the BioformatsReader fails on certain types),
+	   but in general, because it's faster than Bioformats.
+	   
+	   We avoid using OpenCV to open tiffs, as Bioformats processed 3D or time-stacks in a superior way than OpenCVReader.
 	   
 	   Otherwise Bioformats is used to read files.
 	   
@@ -14,8 +17,32 @@
 	 -->
 	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.io.bean.stack.reader.StackReader">
 		<item config-class="org.anchoranalysis.plugin.io.bean.stack.reader.BranchExtension">
+		
+			<!--  
+				These are all extensions supported by OpenCV excluding TIFFs.
+				
+				See https://docs.opencv.org/4.2.0/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce07b3bbd3a56
+			 -->
 			<extensions config-class="org.anchoranalysis.bean.primitive.StringSet" config-factory="stringSet">
 				<item>bmp</item>
+				<item>dib</item>
+				<item>jpg</item>
+				<item>jpeg</item>
+				<item>jpee</item>
+				<item>png</item>
+				<item>gif</item>
+				<item>jp2</item>
+				<item>webp</item>
+				<item>pbm</item>
+				<item>pgm</item>
+				<item>pxm</item>
+				<item>pnm</item>
+				<item>pfm</item>
+				<item>sr</item>
+				<item>ras</item>
+				<item>exr</item>
+				<item>hdr</item>
+				<item>pic</item>
 			</extensions>		
 			<readerMatching config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVReader"/>
 			<readerNotMatching config-class="org.anchoranalysis.plugin.io.bean.stack.reader.RotateImageToMatchEXIFOrientation">
@@ -142,6 +169,14 @@
 			</formats>
 			<fallback config-class="org.anchoranalysis.plugin.io.bean.metadata.reader.FromStackReader"/>
 		</item>
+	</item>
+	
+	<!-- 
+		Perform interpolation by default with OpenCV as it provides the fastest implementation (native code0
+		despite some redundant memory allocationg and copying, switching from Anchor's structures to OpenCV's.
+	 -->
+	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.bean.interpolator.Interpolator">
+		<item config-class="org.anchoranalysis.plugin.opencv.bean.interpolate.OpenCV"/>
 	</item>
 	
 </bean>

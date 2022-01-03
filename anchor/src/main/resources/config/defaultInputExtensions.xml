@@ -2,16 +2,39 @@
 <config>
 <bean config-class="java.util.Set" config-factory="stringSet">
 
+
+	<!--  
+		From OpenCV
+		https://docs.opencv.org/4.2.0/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce07b3bbd3a56
+	 -->
+	<item>bmp</item>
+	<item>dib</item>
 	<item>jpg</item>
-	<item>jp2</item>
 	<item>jpeg</item>
+	<item>jpee</item>
+	<item>png</item>
+	<item>gif</item>
+	<item>jp2</item>
+	<item>webp</item>
+	<item>pbm</item>
+	<item>pgm</item>
+	<item>pxm</item>
+	<item>pnm</item>
+	<item>pfm</item>
+	<item>sr</item>
+	<item>ras</item>
+	<item>exr</item>
+	<item>hdr</item>
+	<item>pic</item>
+	
+	
+	<!-- From bioformats, excluding avi and other video formats, and those already covered under OpenCV. -->
 	<item>tif</item>
 	<item>tiff</item>
 	<item>tf2</item>
 	<item>tf8</item>
 	<item>btf</item>
-	<item>gif</item>
-	<item>bmp</item>
+		
 	
 	<item>ome.tiff</item>
 	<item>ome.tif</item>
@@ -21,7 +44,7 @@
 	<item>ome.xml</item>
 	<item>ome</item>
 	
-	<!-- From bioformats, excluding avi and other video formats. -->
+	
 	<item>sld</item>
 	<item>aim</item>
 	<item>al3d</item>
@@ -227,5 +250,6 @@
 	<item>czi</item>
 	<item>lsm</item>
 	<item>mdb</item>
+	
 </bean>
 </config>
