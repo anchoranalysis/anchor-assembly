@@ -78,14 +78,14 @@
 				<!-- If the user suggests an alternative format, then use any of these in the 2D case... -->				
 				<writerAlways2D config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchSuggestedFormat">
 					<writersIfSuggested config-class="java.util.List" config-factory="list">
-						<item config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
+						<item extension="png" config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVWriter"/>
 						<item config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
-						<item extension="jpg" config-class="org.anchoranalysis.plugin.io.bean.stack.writer.ImageIOWriter"/>
-						<item extension="bmp" config-class="org.anchoranalysis.plugin.io.bean.stack.writer.ImageIOWriter"/>
+						<item extension="jpg" config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVWriter"/>
+						<item extension="bmp" config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVWriter"/>
 						<item config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
 					</writersIfSuggested>
 					<!-- The default if no format is suggested -->
-					<writerIfNoSuggestion config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
+					<writerIfNoSuggestion extension="png" config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVWriter"/>
 				</writerAlways2D>
 				<writerElse config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
 			</whenRGB>
@@ -110,10 +110,10 @@
 				<!-- If the user suggests an alternative format, then use any of these in the 2D case... -->
 				<writerAlways2D config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchSuggestedFormat">
 					<writersIfSuggested config-class="java.util.List" config-factory="list">
-						<item config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
+						<item extension="png" config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVWriter"/>
 						<item config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
-						<item extension="jpg" config-class="org.anchoranalysis.plugin.io.bean.stack.writer.ImageIOWriter"/>
-						<item extension="bmp" config-class="org.anchoranalysis.plugin.io.bean.stack.writer.ImageIOWriter"/>
+						<item extension="jpg" config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVWriter"/>
+						<item extension="bmp" config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVWriter"/>
 						<item config-class="org.anchoranalysis.io.bioformats.bean.writer.OMETiff"/>
 						<item config-class="org.anchoranalysis.io.bioformats.bean.writer.OMEXML"/>
 					</writersIfSuggested>
@@ -125,7 +125,7 @@
 									
 			<!-- Likewise if it's guaranteed to be a single binary channel, use a PNG if guaranteed to be 2D, or a TIFF otherwise -->
 			<whenBinaryChannel config-class="org.anchoranalysis.plugin.io.bean.stack.writer.BranchStack">
-				<writerAlways2D config-class="org.anchoranalysis.io.imagej.bean.stack.writer.PNG"/>
+				<writerAlways2D extension="png" config-class="org.anchoranalysis.plugin.opencv.bean.stack.OpenCVWriter"/>
 				<writerElse config-class="org.anchoranalysis.io.bioformats.bean.writer.Tiff"/>
 			</whenBinaryChannel>
 		</item>
