@@ -7,34 +7,6 @@
     </parent>
     <artifactId>anchor-parent-addplugins</artifactId>
     <packaging>pom</packaging>
-
-	<!-- We specify two different profiles depending on whether
-	   we wish to include the GUI or not in the build. use -DnoGUI to trigger the withoutGUI -->
-	<profiles>
-		<profile>
-			<id>withGUI</id>
-			<activation>
-			  <property>
-				<name>!noGUI</name>
-			  </property>
-			</activation>
-			<modules>
-				<module>anchor-launcher</module>
-			</modules>
-		</profile>
-
-		<profile>
-			<id>withoutGUI</id>
-			<activation>
-			  <property>
-				<name>noGUI</name>
-			  </property>
-			</activation>
-			<modules>
-				<module>anchor-launcher</module>
-			</modules>
-		</profile>
-	</profiles>
 	
 	<!-- This is the MAIN LOCATION where we update the version of plugins -->
 	<dependencies>
@@ -114,18 +86,6 @@
 		  <artifactId>anchor-plugin-annotation</artifactId>
 		  <version>0.0.2-SNAPSHOT</version>
 		</dependency>	
-		
-		<dependency>
-		  <groupId>${project.groupId}</groupId>
-		  <artifactId>anchor-plugin-gui-annotation</artifactId>
-		  <version>0.0.1-SNAPSHOT</version>
-		</dependency>			
-		
-		<dependency>
-		  <groupId>${project.groupId}</groupId>
-		  <artifactId>anchor-plugin-gui-import</artifactId>
-		  <version>0.0.1-SNAPSHOT</version>
-		</dependency>
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
