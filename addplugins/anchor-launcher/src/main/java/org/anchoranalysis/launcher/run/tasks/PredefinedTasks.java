@@ -65,7 +65,7 @@ public class PredefinedTasks {
                 }
                 printTo.println();
                 printTo.printf(
-                        "Consider running a task with the -%s <taskName> command line option.%n",
+                        "Run a predefined task with the -%s <taskName> command line option.%n",
                         CommandLineOptions.SHORT_OPTION_TASK);
                 printTo.println("e.g. anchor -t resize");
                 printTo.println("e.g. anchor -t montage/reorder");
