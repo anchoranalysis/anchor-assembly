@@ -26,9 +26,12 @@ import com.google.common.collect.MultimapBuilder;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.stream.Stream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import org.anchoranalysis.core.system.path.FilePathToUnixStyleConverter;
 import org.anchoranalysis.io.input.InputReadFailedException;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
 import org.anchoranalysis.launcher.resources.Resources;
@@ -58,12 +61,17 @@ public class PredefinedTasks {
                 printTo.printf("There are %d predefined tasks:%n", tasksIndexed.size());
                 printTo.println();
                 for (String key : tasksIndexed.keySet()) {
-                    printTo.println(String.join(", ", tasksIndexed.get(key)));
+                    printTo.println(describeDirectory(key, tasksIndexed.get(key)) );
                 }
                 printTo.println();
                 printTo.printf(
                         "Consider running a task with the -%s <taskName> command line option.%n",
                         CommandLineOptions.SHORT_OPTION_TASK);
+                printTo.println("e.g. anchor -t resize");
+                printTo.println("e.g. anchor -t montage/reorder");
+                printTo.println("e.g. anchor -t segment/text");
+                printTo.println();
+                printTo.println("When no task is explicitly specified, the default task is used: summmarize");
                 printTo.println(resources.tasksFooter());
             } else {
                 printTo.printf("No predefined tasks exist (in %s%n).", tasksDirectory);
@@ -85,23 +93,56 @@ public class PredefinedTasks {
      */
     private static Multimap<String, String> indexByDirectory(Stream<String> identifiers) {
         Multimap<String, String> map = MultimapBuilder.treeKeys().treeSetValues().build();
-        identifiers.forEach(identifier -> map.put(directoryComponent(identifier), identifier));
+        identifiers.forEach(identifier -> {
+        	Path path = Paths.get(identifier);
+        	map.put(directoryComponent(path), fileNameComponent(path));
+        });
         return map;
     }
 
     /**
-     * Extracts the directory component from a path
+     * Extracts the directory component from a path.
      *
-     * @param path a path encoded as a string
-     * @return the directory part of the path (using slashes as default for the operating system) or
-     *     an empty string it doesn't exist.
+     * @param path the path to extract from.
+     * @return the directory part of the path (using forward slashes) or an empty string it doesn't exist.
      */
-    private static String directoryComponent(String path) {
-        Path parent = Paths.get(path).getParent();
+    private static String directoryComponent(Path path) {
+        Path parent = path.getParent();
         if (parent != null) {
-            return parent.toString();
+            return FilePathToUnixStyleConverter.toStringUnixStyle(parent);
         } else {
             return "";
         }
+    }
+    
+    /**
+     * Extracts the filename component from a path.
+     * 
+     * @param path the path to extract from.
+     * @return the filename part of the path.
+     */
+    private static String fileNameComponent(Path path) {
+    	return path.getFileName().toString();
+    }
+    
+    /**
+     * A string describing all the tasks in a particular directory.
+     * 
+     * @param directory the directory part of a predefined-task, without a trailing forward slash, and using only forward slashes. Empty for the root directory.
+     * @param filenames the filenames that exist for predefefined-tasks in {@code directory}.
+     * @return a string with or without out newlines, describing all the predefined-tasks in this directory, such that a user can potentially call them from the command-line.
+     */
+    private static String describeDirectory(String directory, Collection<String> filenames) {
+    	if (!directory.isEmpty()) {
+    		String firstFilename = filenames.iterator().next();
+    		if (filenames.size()==1) {
+    			return directory + "/" + firstFilename;
+    		} else {
+    			return String.format("%s/{%s}", directory, String.join(" | ", filenames));
+    		}
+    	} else {
+    		// Tasks lying in the root directory
+    		return String.join(" | ", filenames);
+    	}
     }
 }
