@@ -28,7 +28,7 @@
 	<item>pic</item>
 	
 	
-	<!-- From bioformats, excluding avi and other video formats, and those already covered under OpenCV. -->
+	<!-- From bioformats, excluding avi, nov and other video formats, and those already covered under OpenCV, and Photoshop's PSD. -->
 	<item>tif</item>
 	<item>tiff</item>
 	<item>tf2</item>
@@ -199,14 +199,10 @@
 	
 	<item>png</item>
 	
-	<item>psd</item>
-	
 	<item>pict</item>
 	
 	<item>spe</item>
 	<item>afm</item>
-	
-	<item>mov</item>
 	
 	<item>sm2</item>
 	<item>sm3</item>

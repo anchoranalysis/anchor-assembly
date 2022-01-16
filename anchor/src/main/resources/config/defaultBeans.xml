@@ -167,7 +167,7 @@
 				<item config-class="org.anchoranalysis.plugin.io.bean.metadata.header.PNG"/>
 				<item config-class="org.anchoranalysis.plugin.io.bean.metadata.header.BMP"/>
 			</formats>
-			<fallback config-class="org.anchoranalysis.plugin.io.bean.metadata.reader.FromStackReader"/>
+			<fallback config-class="org.anchoranalysis.image.io.bean.stack.metadata.reader.FromStackReader"/>
 		</item>
 	</item>
 	
