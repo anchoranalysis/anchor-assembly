@@ -30,7 +30,6 @@ import java.util.Collection;
 import java.util.stream.Stream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-
 import org.anchoranalysis.core.system.path.FilePathToUnixStyleConverter;
 import org.anchoranalysis.io.input.InputReadFailedException;
 import org.anchoranalysis.launcher.options.CommandLineOptions;
@@ -61,7 +60,7 @@ public class PredefinedTasks {
                 printTo.printf("There are %d predefined tasks:%n", tasksIndexed.size());
                 printTo.println();
                 for (String key : tasksIndexed.keySet()) {
-                    printTo.println(describeDirectory(key, tasksIndexed.get(key)) );
+                    printTo.println(describeDirectory(key, tasksIndexed.get(key)));
                 }
                 printTo.println();
                 printTo.printf(
@@ -71,7 +70,8 @@ public class PredefinedTasks {
                 printTo.println("e.g. anchor -t montage/reorder");
                 printTo.println("e.g. anchor -t segment/text");
                 printTo.println();
-                printTo.println("When no task is explicitly specified, the default task is used: summmarize");
+                printTo.println(
+                        "When no task is explicitly specified, the default task is used: summmarize");
                 printTo.println(resources.tasksFooter());
             } else {
                 printTo.printf("No predefined tasks exist (in %s%n).", tasksDirectory);
@@ -93,10 +93,11 @@ public class PredefinedTasks {
      */
     private static Multimap<String, String> indexByDirectory(Stream<String> identifiers) {
         Multimap<String, String> map = MultimapBuilder.treeKeys().treeSetValues().build();
-        identifiers.forEach(identifier -> {
-        	Path path = Paths.get(identifier);
-        	map.put(directoryComponent(path), fileNameComponent(path));
-        });
+        identifiers.forEach(
+                identifier -> {
+                    Path path = Paths.get(identifier);
+                    map.put(directoryComponent(path), fileNameComponent(path));
+                });
         return map;
     }
 
@@ -104,7 +105,8 @@ public class PredefinedTasks {
      * Extracts the directory component from a path.
      *
      * @param path the path to extract from.
-     * @return the directory part of the path (using forward slashes) or an empty string it doesn't exist.
+     * @return the directory part of the path (using forward slashes) or an empty string it doesn't
+     *     exist.
      */
     private static String directoryComponent(Path path) {
         Path parent = path.getParent();
@@ -114,35 +116,37 @@ public class PredefinedTasks {
             return "";
         }
     }
-    
+
     /**
      * Extracts the filename component from a path.
-     * 
+     *
      * @param path the path to extract from.
      * @return the filename part of the path.
      */
     private static String fileNameComponent(Path path) {
-    	return path.getFileName().toString();
+        return path.getFileName().toString();
     }
-    
+
     /**
      * A string describing all the tasks in a particular directory.
-     * 
-     * @param directory the directory part of a predefined-task, without a trailing forward slash, and using only forward slashes. Empty for the root directory.
+     *
+     * @param directory the directory part of a predefined-task, without a trailing forward slash,
+     *     and using only forward slashes. Empty for the root directory.
      * @param filenames the filenames that exist for predefefined-tasks in {@code directory}.
-     * @return a string with or without out newlines, describing all the predefined-tasks in this directory, such that a user can potentially call them from the command-line.
+     * @return a string with or without out newlines, describing all the predefined-tasks in this
+     *     directory, such that a user can potentially call them from the command-line.
      */
     private static String describeDirectory(String directory, Collection<String> filenames) {
-    	if (!directory.isEmpty()) {
-    		String firstFilename = filenames.iterator().next();
-    		if (filenames.size()==1) {
-    			return directory + "/" + firstFilename;
-    		} else {
-    			return String.format("%s/{%s}", directory, String.join(" | ", filenames));
-    		}
-    	} else {
-    		// Tasks lying in the root directory
-    		return String.join(" | ", filenames);
-    	}
+        if (!directory.isEmpty()) {
+            String firstFilename = filenames.iterator().next();
+            if (filenames.size() == 1) {
+                return directory + "/" + firstFilename;
+            } else {
+                return String.format("%s/{%s}", directory, String.join(" | ", filenames));
+            }
+        } else {
+            // Tasks lying in the root directory
+            return String.join(" | ", filenames);
+        }
     }
 }
