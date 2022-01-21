@@ -24,9 +24,9 @@ package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
+import org.anchoranalysis.core.collection.StringSetTrie;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.experiment.arguments.InputArguments;
@@ -57,7 +57,7 @@ class UseAsGlob implements SelectParam<Optional<Path>> {
         arguments.assignFilterGlob(glob.getGlob());
 
         // An empty set, means no filter check is applied
-        arguments.assignFilterExtensions(new HashSet<>());
+        arguments.assignFilterExtensions(new StringSetTrie());
 
         return Optional.empty();
     }

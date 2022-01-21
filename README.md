@@ -4,6 +4,8 @@ This is part of the source-distribution for the [Anchor Image Analysis](http://w
 
 It creates an [Anchor distribution](https://www.anchoranalysis.org/developer_guide_anchor_distribution.html) by collating JARs and other files across repositories.
 
+The source code uses [Project Lombok](https://projectlombok.org/) to reduce [boilerplate](https://en.wikipedia.org/wiki/Boilerplate_code).
+
 Please see:
 
 * [Javadoc](https://www.anchoranalysis.org/javadoc/) for Anchor project, as a whole.

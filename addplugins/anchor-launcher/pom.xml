@@ -18,7 +18,6 @@
 		          <arguments>
 		            <argument>-ea</argument>
 		            <argument>-Xmx50G</argument>
-		            <argument>-Djna.library.path=../Common/lib/GraphCutsInterface</argument>
 		            <argument>-XX:+UseParNewGC</argument>
 		            <argument>-XX:+ResizeTLAB</argument>
 		            <argument>-Xloggc:gc.log</argument>

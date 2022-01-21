@@ -1,0 +1,37 @@
+<!-- 
+===================
+TASK:   montage/table
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Combines (scaled) versions of each image alongside each other into a single image - strictly preserving order of the images, and imposing a strict table pattern.
+
+An identical number of images must in exist in each row of the table (except an incomplete final row).
+
+The images are scaled to fit inside each table cell, while preserving aspect-ratio strictly. Unused space is black.
+
+By default, each image will be scaled to 600x480 and this forms the approximate table cell size, depending on the aspect-ratio of the images in each row and column.
+
+======
+INPUTS
+======
+
+images
+
+The -ps parameter can be used to specify a scale-factor to resize each image to, or the (somewhat approximate) dimensions of the final combined image.
+See https://www.anchoranalysis.org/user_guide_command_line.html
+
+=======
+OUTPUTS
+=======
+
+montage:
+   	the montage
+-->
+<config>
+<bean varyImageSize="false" varyImageLocation="false" config-class="org.anchoranalysis.plugin.image.task.bean.combine.Montage"/>
+</config>

@@ -43,7 +43,7 @@ import org.anchoranalysis.io.input.bean.path.matcher.MatchGlob;
 class FindTasks {
 
     private static final MatchGlob MATCHER =
-            new MatchGlob("*." + NonImageFileFormat.XML.getDefaultExtension());
+            new MatchGlob("**." + NonImageFileFormat.XML.getDefaultExtension());
 
     /** Ignore any task's whose identifier begins with this string */
     private static final String IGNORE_SUBDIRECTORY = "include/";
@@ -62,7 +62,7 @@ class FindTasks {
     public static Stream<String> taskNames(Path tasksDirectory) throws InputReadFailedException {
         // Note that on some systems, for currently undiagnoses reasons, the tasks identifiers
         // emerge
-        //  with leading . and .. relatie-path elements. As a workaround, these are filtered from
+        //  with leading . and .. relative-path elements. As a workaround, these are filtered from
         //  the task identifiers.
         Path directoryNormalized = tasksDirectory.normalize().toAbsolutePath();
 

@@ -4,9 +4,9 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.Set;
 import org.anchoranalysis.bean.xml.RegisterBeanFactories;
 import org.anchoranalysis.bean.xml.factory.AnchorDefaultBeanFactory;
+import org.anchoranalysis.core.collection.StringSetTrie;
 import org.anchoranalysis.core.exception.OperationFailedException;
 import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
@@ -53,7 +53,7 @@ import org.anchoranalysis.io.output.bean.OutputManager;
  */
 class ExperimentExecutorAfter {
 
-    private static Optional<Set<String>> defaultExtensions = Optional.empty();
+    private static Optional<StringSetTrie> defaultExtensions = Optional.empty();
 
     private final boolean openInDesktop;
 
@@ -136,7 +136,7 @@ class ExperimentExecutorAfter {
 
         // If no input-filter extensions have been specified and defaults are available, they
         // are inserted in
-        executionArguments.input().assignFilterExtensionsIfMissing(defaultExtensions);
+        executionArguments.input().assignFilterExtensionsIfMissing(() -> defaultExtensions);
 
         OptionalUtilities.ifPresent(pathInput, path -> replaceInputManager(experiment, path));
 
