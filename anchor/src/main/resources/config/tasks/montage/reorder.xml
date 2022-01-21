@@ -14,6 +14,9 @@ A different number of images may exist in each row, but aspect-ratio is always p
 
 By default, each image will be scaled to approximately 600x480 (but usually not exactly this size, to preserve aspect ratio, and fill available space).
 
+The order of images is typically only changed minimally, with most order being preserved. The -is parameter can be used to shuffle the input images
+if a random order is desired.
+
 ======
 INPUTS
 ======

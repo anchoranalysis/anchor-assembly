@@ -8,6 +8,10 @@
     <artifactId>anchor-parent-addplugins</artifactId>
     <packaging>pom</packaging>
 	
+	<modules>
+	   <module>anchor-launcher</module>
+    </modules>
+	
 	<!-- This is the MAIN LOCATION where we update the version of plugins -->
 	<dependencies>
 		<!-- Common dependencies to the modules -->
