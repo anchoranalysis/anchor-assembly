@@ -1,6 +1,6 @@
 <!-- 
 ===================
-TASK:   summarizePaths
+TASK:   summarize/paths
 AUTHOR: Owen Feehan
 ===================
 
@@ -34,7 +34,7 @@ none
 	<summarizer config-class="org.anchoranalysis.plugin.io.bean.summarizer.input.ExtractPath">
 	   <summarizer countThreshold="0" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerSplitMoreThan">   
 	       <summarizerGreaterThan avoidBulletOnFirst="true" config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerAggregate">
-	           <list filePath="include/summarize/paths.xml" config-class="java.util.List" config-factory="include"/>
+	           <list filePath="../include/summarize/paths.xml" config-class="java.util.List" config-factory="include"/>
 	       </summarizerGreaterThan>
 	
 	       <summarizerElse config-class="org.anchoranalysis.plugin.io.bean.summarizer.SummarizerCount"/>
