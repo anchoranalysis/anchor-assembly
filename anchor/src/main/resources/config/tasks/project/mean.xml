@@ -1,6 +1,6 @@
 <!-- 
 ===================
-TASK:   mean
+TASK:   project/mean
 AUTHOR: Owen Feehan
 ===================
 
@@ -11,6 +11,9 @@ DESCRIPTION
 Creates a mean-intensity projection of all input images.
 
 This is an an image where each pixel is the mean of the corresponding pixel across all inputs.
+
+The input images must all be identically-sized. See meanResize.xml for a simialr task that can gracefully handle differently-sized imaged.
+
 
 ======
 INPUTS
