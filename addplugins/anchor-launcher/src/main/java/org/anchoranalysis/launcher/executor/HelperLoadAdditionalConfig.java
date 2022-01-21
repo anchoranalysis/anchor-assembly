@@ -26,7 +26,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.bean.BeanInstanceMap;
@@ -35,6 +34,7 @@ import org.anchoranalysis.bean.exception.BeanMisconfiguredException;
 import org.anchoranalysis.bean.primitive.StringSet;
 import org.anchoranalysis.bean.xml.BeanXMLLoader;
 import org.anchoranalysis.bean.xml.exception.BeanXMLException;
+import org.anchoranalysis.core.collection.StringSetTrie;
 import org.anchoranalysis.core.exception.OperationFailedException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.plugin.io.input.path.RootPathMap;
@@ -82,7 +82,7 @@ class HelperLoadAdditionalConfig {
      *     if the file doesn't exist
      * @throws ExperimentExecutionException
      */
-    public static Optional<Set<String>> loadDefaultExtensions(Path pathConfigDirectory)
+    public static Optional<StringSetTrie> loadDefaultExtensions(Path pathConfigDirectory)
             throws ExperimentExecutionException {
 
         Path path = pathConfigDirectory.resolve(DEFAULT_EXTENSIONS_FILENAME).normalize();
@@ -90,7 +90,7 @@ class HelperLoadAdditionalConfig {
         if (path.toFile().exists()) {
             try {
                 StringSet setBean = BeanXMLLoader.loadBean(path, "bean");
-                return Optional.of(setBean.set());
+                return Optional.of(new StringSetTrie(setBean.set()));
 
             } catch (BeanXMLException e) {
                 throw new ExperimentExecutionException(

@@ -106,12 +106,12 @@ public class InputFactory {
     private static <T> Optional<T> check(
             boolean condition1,
             boolean condition2,
-            CheckedSupplier<T, InvalidPathArgumentException> val,
+            CheckedSupplier<T, InvalidPathArgumentException> supplier,
             String errorMessage)
             throws InvalidPathArgumentException {
         if (condition1) {
             if (condition2) {
-                return Optional.of(val.get());
+                return Optional.of(supplier.get());
             } else {
                 throw new CommandLineException(errorMessage);
             }

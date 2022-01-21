@@ -23,8 +23,11 @@
 package org.anchoranalysis.launcher.executor.selectparam.path;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
+import java.util.stream.Stream;
+
+import org.anchoranalysis.core.collection.StringSetTrie;
 import org.anchoranalysis.core.format.FormatExtensions;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
@@ -35,26 +38,58 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
  *
  * @author Owen Feehan
  */
-@AllArgsConstructor
 class UseAsExtension implements SelectParam<Optional<Path>> {
 
-    private String[] extensions;
+    private StringSetTrie extensions;
 
+    /**
+     * Create for particular extensions.
+     * 
+     * @param extensionsUnsplit the various strings passed to -i that are extensions. Each string must have a leading period, and may or may not be comma-separated.
+     */
+    public UseAsExtension(String[] extensionsUnsplit) {
+    	this.extensions = splitAndNormalize(extensionsUnsplit);
+    }
+    
     @Override
     public Optional<Path> select(ExecutionArguments executionArguments) {
         executionArguments
                 .input()
-                .assignFilterExtensions(FormatExtensions.removeLeadingPeriod(extensions));
+                .assignFilterExtensions(extensions);
         return Optional.empty();
     }
 
     @Override
     public String describe() throws ExperimentExecutionException {
-        return String.join(", ", extensions);
+        return String.join(", ", extensions.values());
     }
 
     @Override
     public boolean isDefault() {
         return false;
+    }
+
+    /**
+     * Creates a set of extensions without the leading period.
+     *
+     * <p>Each string is guaranteed to begin with a leading period, but may contain more extensions,
+     * seperated by a comma character. Each further extension may or may not have a leading period.
+     * 
+     * @param extensionsUnsplit an array with extensions that may require splitting / normalization.
+     * @return a set with each element, and with the leading period removed.
+     */
+    private static StringSetTrie splitAndNormalize(String[] extensionsUnsplit) {
+    	StringSetTrie trie = new StringSetTrie();
+        Arrays.stream(extensionsUnsplit)
+        		.flatMap(str -> splitAsStream(str,",") )
+        		.map( str -> str.trim() )
+                .map( str -> FormatExtensions.removeAnyLeadingPeriod(str) )
+                .map(FormatExtensions::normalizeToLowerCase)
+                .forEach( str -> trie.add(str));
+        return trie;
+    }
+    
+    private static Stream<String> splitAsStream(String strToSplit, String splitRegEx) {
+    	return Arrays.stream(strToSplit.split(splitRegEx));
     }
 }
