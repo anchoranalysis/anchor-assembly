@@ -12,7 +12,7 @@ Creates a mean-intensity projection of all input images.
 
 This is an an image where each pixel is the mean of the corresponding pixel across all inputs.
 
-The input images must all be identically-sized. See meanResize.xml for a simialr task that can gracefully handle differently-sized imaged.
+The input images must all be identically-sized. See meanResize.xml for a similar task that can gracefully handle differently-sized imaged.
 
 
 ======
@@ -29,5 +29,7 @@ an image for each channel, containing the mean of that channel across all images
 
 -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.image.task.bean.grouped.raster.GroupedMeanChannelTask"/>
+<bean outputName="mean" config-class="org.anchoranalysis.plugin.image.task.bean.combine.AggregateChannelTask">
+<aggregator config-class="org.anchoranalysis.plugin.image.bean.channel.aggregator.MeanProjection"/>
+</bean>
 </config>
