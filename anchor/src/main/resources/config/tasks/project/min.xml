@@ -1,0 +1,35 @@
+<!-- 
+===================
+TASK:   project/min
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Creates a minimum-intensity-projection of all input images.
+
+This is an an image where each pixel is the minimum of the corresponding pixel across all inputs.
+
+The input images must all be identically-sized. See minResize.xml for a similar task that can gracefully handle differently-sized imaged.
+
+
+======
+INPUTS
+======
+
+grayscale or RGB images, all must be the same size.
+
+=======
+OUTPUTS
+=======
+
+an image for each channel, containing the minimum of that channel across all images
+
+-->
+<config>
+<bean outputName="min" config-class="org.anchoranalysis.plugin.image.task.bean.combine.AggregateChannelTask">
+<aggregator config-class="org.anchoranalysis.plugin.image.bean.channel.aggregator.MinProjection"/>
+</bean>
+</config>

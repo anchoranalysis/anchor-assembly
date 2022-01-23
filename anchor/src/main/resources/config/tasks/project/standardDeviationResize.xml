@@ -1,0 +1,36 @@
+<!-- 
+===================
+TASK:   project/standardDeviationResize
+AUTHOR: Owen Feehan
+===================
+
+===========
+DESCRIPTION
+===========
+
+Creates a standard-deviation-intensity projection of all input images AFTER
+resizing each-image to fixed dimensionality.
+
+This is an an image where each pixel is the standard-deviation of the corresponding pixel across all inputs.
+
+This task is like standardDeviation.xml but can gracefully handle differently-sized imaged as inputs.
+
+======
+INPUTS
+======
+
+grayscale or RGB images, all must be the same size.
+
+=======
+OUTPUTS
+=======
+
+an image for each channel (resized to 1024x768), containing the standard-deviation of that channel across all images
+
+-->
+<config>
+<bean outputName="standardDeviation" config-class="org.anchoranalysis.plugin.image.task.bean.combine.AggregateChannelTask">
+	<aggregator config-class="org.anchoranalysis.plugin.image.bean.channel.aggregator.StandardDeviationProjection"/>
+	<resizeTo width="1024" height="768" config-class="org.anchoranalysis.image.bean.spatial.SizeXY"/>
+</bean>
+</config>
