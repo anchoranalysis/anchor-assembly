@@ -35,6 +35,9 @@ import org.anchoranalysis.launcher.options.CommandLineOptions;
  */
 public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
 
+    private static final String EXCEPTION_MESSAGE_PREFIX =
+            "The -il option must be either a positive integer or a ratio in the interval (0.0, 1.0), but is";
+
     private AddInputOptions(CommandLineExtracter extract, InputArguments arguments) {
         super(extract, arguments);
     }
@@ -81,18 +84,41 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
         }
     }
 
+    /** Assigns a limit (fixed or ratio) or throw an exception if it is invalid. */
     private static void assignLimit(InputArguments arguments, String parameter)
             throws ExperimentExecutionException {
+
         try {
+            // First, try and parse it as an integer
             int limit = Integer.parseInt(parameter);
 
             if (limit <= 0) {
                 throw new ExperimentExecutionException(
-                        String.format(
-                                "The -il option must be a positive integer, but has %d", limit));
+                        String.format("%s %d", EXCEPTION_MESSAGE_PREFIX, limit));
             }
 
-            arguments.assignLimitUpper(limit);
+            arguments.assignFixedLimit(limit);
+        } catch (NumberFormatException e) {
+            // Second, try and parse as a ratio. If this fails, an exception is guaranteed to be
+            // thrown.
+            double ratio = parseAsRatio(parameter);
+            arguments.assignRatioLimit(ratio);
+        }
+    }
+
+    /** *Try and parse {@code parameter} as a ratio in the interval (0.0, 1.0). */
+    private static double parseAsRatio(String parameter) throws ExperimentExecutionException {
+        try {
+            // Try floating-point
+            double limit = Double.parseDouble(parameter);
+
+            if (limit <= 0.0 || limit >= 1.0) {
+                throw new ExperimentExecutionException(
+                        String.format("%s %f", EXCEPTION_MESSAGE_PREFIX, limit));
+            }
+
+            return limit;
+
         } catch (NumberFormatException e) {
             throw new ExperimentExecutionException("The -il option is an invalid number");
         }

@@ -38,6 +38,7 @@ class CustomArgumentOptions {
             String optionName, String longOptionName, String description) {
         Option option = new Option(optionName, longOptionName, true, description);
         option.setOptionalArg(true);
+        option.setArgs(1);
         return option;
     }
 
