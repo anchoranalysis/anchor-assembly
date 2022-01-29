@@ -64,7 +64,7 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
         ifOptionWithoutArgument(
                 CommandLineOptions.SHORT_OPTION_INPUT_SHUFFLE, InputArguments::assignShuffle);
 
-        ifOptionWithSingleArgument(
+        ifPresentSingleAssociated(
                 CommandLineOptions.SHORT_OPTION_INPUT_SUBSET_IDENTIFIER,
                 AddInputOptions::assignIdentifierSubrange);
     }

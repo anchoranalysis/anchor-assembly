@@ -48,8 +48,8 @@ public class OutputFactory {
      * <p>Otherwise the argument is treated like a path to BeanXML.
      *
      * @param writeIntoRoot whether to write directly into an output directory's root (in which case
-     *     a directory must be selected)
-     * @throws CommandLineException
+     *     a directory must be selected).
+     * @throws CommandLineException if invalid arguments were passed.
      */
     public static SelectParam<Optional<Path>> pathOrDirectory(
             String[] arguments, boolean writeIntoRoot) {

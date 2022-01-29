@@ -74,13 +74,13 @@ public class CommandLineOptions {
     /** Changes output manager. */
     public static final String SHORT_OPTION_OUTPUT = "o";
 
-    /** Enables all outputs. */
+    /** Enables specific output(s). Multiple outputs are comma-separated. */
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL = "oe";
 
     /** Disables specific output(s). Multiple outputs are comma-separated. */
     public static final String SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL = "od";
 
-    /** Enables specific output(s). Multiple outputs are comma-separated. */
+    /** Enables all outputs. */
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ALL = "oa";
 
     /**
@@ -264,13 +264,13 @@ public class CommandLineOptions {
                         "an output-directory OR path to BeanXML"));
 
         options.addOption(
-                optionalStringArgument(
+                requiredStringArgument(
                         SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL,
                         LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL,
                         "enables specific additional output(s)"));
 
         options.addOption(
-                optionalStringArgument(
+                requiredStringArgument(
                         SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL,
                         LONG_OPTION_OUTPUT_DISABLE_ADDITIONAL,
                         "disables specific additional output(s)"));
