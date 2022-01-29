@@ -50,7 +50,7 @@ public class PredefinedTasks {
 
         try {
             Multimap<String, String> tasksIndexed =
-            		TasksIndexer.indexBySubdirectory(FindTasks.taskNames(tasksDirectory));
+                    TasksIndexer.indexBySubdirectory(FindTasks.taskNames(tasksDirectory));
             if (!tasksIndexed.isEmpty()) {
                 DescribeTaskNames.printTaskNames(printTo, tasksIndexed);
                 printTo.println();
@@ -64,9 +64,9 @@ public class PredefinedTasks {
                     e.toString());
         }
     }
-    
+
     private static void printHelpfulTextAdvice(PrintStream printTo, Resources resources) {
-    	printTo.printf(
+        printTo.printf(
                 "Run a predefined task with the -%s <taskName> command line option.%n",
                 CommandLineOptions.SHORT_OPTION_TASK);
         printTo.println("e.g. anchor -t resize");
@@ -75,6 +75,6 @@ public class PredefinedTasks {
         printTo.println();
         printTo.println(
                 "When no task is explicitly specified, the default task is used: summmarize/paths");
-        printTo.println(resources.tasksFooter());    	
+        printTo.println(resources.tasksFooter());
     }
 }

@@ -225,7 +225,7 @@ public class CommandLineOptions {
     public static void addInputOptions(Options options) {
 
         options.addOption(
-        		requiredStringArgument(
+                requiredStringArgument(
                         SHORT_OPTION_INPUT,
                         LONG_OPTION_INPUT,
                         "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML"));
