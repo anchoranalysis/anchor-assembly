@@ -67,6 +67,9 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
         ifPresentSingleAssociated(
                 CommandLineOptions.SHORT_OPTION_INPUT_SUBSET_IDENTIFIER,
                 AddInputOptions::assignIdentifierSubrange);
+
+        ifPresentSingleAssociated(
+                CommandLineOptions.SHORT_OPTION_INPUT_LIMIT, AddInputOptions::assignLimit);
     }
 
     private static void assignIdentifierSubrange(InputArguments arguments, String parameter)
@@ -75,6 +78,23 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
             arguments.assignIdentifierSubrange(IndexRangeNegativeFactory.parse(parameter));
         } catch (OperationFailedException e) {
             throw new ExperimentExecutionException("Cannot set parameter for subsetting names.", e);
+        }
+    }
+
+    private static void assignLimit(InputArguments arguments, String parameter)
+            throws ExperimentExecutionException {
+        try {
+            int limit = Integer.parseInt(parameter);
+
+            if (limit <= 0) {
+                throw new ExperimentExecutionException(
+                        String.format(
+                                "The -il option must be a positive integer, but has %d", limit));
+            }
+
+            arguments.assignLimitUpper(limit);
+        } catch (NumberFormatException e) {
+            throw new ExperimentExecutionException("The -il option is an invalid number");
         }
     }
 }

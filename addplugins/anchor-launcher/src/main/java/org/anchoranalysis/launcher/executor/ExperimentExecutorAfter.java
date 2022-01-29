@@ -143,7 +143,7 @@ class ExperimentExecutorAfter {
         OptionalUtilities.ifPresent(pathOutput, path -> replaceOutputManager(experiment, path));
 
         OptionalUtilities.ifPresent(pathTask, path -> replaceTask(experiment, path));
-
+        
         executeExperiment(experiment, executionArguments);
     }
 
@@ -154,7 +154,7 @@ class ExperimentExecutorAfter {
      * @param pathInput a path to a BeanXML file defining the replacement input-manager
      * @throws ExperimentExecutionException
      */
-    private void replaceInputManager(Experiment experiment, Path pathInput)
+	private void replaceInputManager(Experiment experiment, Path pathInput)
             throws ExperimentExecutionException {
 
         // As path could be a folder, we make sure we get a file
@@ -162,7 +162,8 @@ class ExperimentExecutorAfter {
 
         try {
             if (experiment instanceof ReplaceInputManager) {
-                ReplaceInputManager experimentCasted = (ReplaceInputManager) experiment;
+                @SuppressWarnings("unchecked")
+				ReplaceInputManager<InputFromManager> experimentCasted = (ReplaceInputManager<InputFromManager>) experiment;
                 experimentCasted.replaceInputManager(inputManager);
             } else {
                 throw new ExperimentExecutionException(

@@ -57,6 +57,9 @@ public class CommandLineOptions {
 
     /** Shuffles the order of the inputs. */
     public static final String SHORT_OPTION_INPUT_SHUFFLE = "is";
+
+    /** Imposes an upper limit on the number of inputs. */
+    public static final String SHORT_OPTION_INPUT_LIMIT = "il";
     // END: SHORT input options
 
     // START: SHORT task options
@@ -157,12 +160,15 @@ public class CommandLineOptions {
     /** Shuffles the order of the inputs. */
     private static final String LONG_OPTION_INPUT_SHUFFLE = "inputShuffle";
 
+    /** Imposes an upper limit on the number of inputs. */
+    private static final String LONG_OPTION_INPUT_LIMIT = "inputLimit";
+
     /** Changes output manager. */
     public static final String LONG_OPTION_OUTPUT = "output";
 
     /**
      * Output console <i>only</i>. By default, the output directory is opened in the desktop after
-     * completion. This disables that behaviour.
+     * completion. This disables that behavior.
      */
     public static final String LONG_OPTION_OUTPUT_CONSOLE_ONLY = "outputConsoleOnly";
 
@@ -253,6 +259,12 @@ public class CommandLineOptions {
                 LONG_OPTION_INPUT_SHUFFLE,
                 false,
                 "shuffles (randomizes) the order of the inputs");
+
+        options.addOption(
+                SHORT_OPTION_INPUT_LIMIT,
+                LONG_OPTION_INPUT_LIMIT,
+                true,
+                "imposes upper limit on number of inputs");
     }
 
     private static void addOutputOptions(Options options) {
