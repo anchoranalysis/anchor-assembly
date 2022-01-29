@@ -34,13 +34,6 @@ import org.apache.commons.cli.Option;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class CustomArgumentOptions {
 
-    public static Option multipleStringArguments(
-            String optionName, String longOptionName, String description) {
-        Option optionInput = new Option(optionName, longOptionName, true, description);
-        optionInput.setArgs(Option.UNLIMITED_VALUES);
-        return optionInput;
-    }
-
     public static Option optionalStringArgument(
             String optionName, String longOptionName, String description) {
         Option option = new Option(optionName, longOptionName, true, description);

@@ -21,7 +21,6 @@
  */
 package org.anchoranalysis.launcher.options;
 
-import static org.anchoranalysis.launcher.options.CustomArgumentOptions.multipleStringArguments;
 import static org.anchoranalysis.launcher.options.CustomArgumentOptions.optionalStringArgument;
 import static org.anchoranalysis.launcher.options.CustomArgumentOptions.requiredNumberArgument;
 import static org.anchoranalysis.launcher.options.CustomArgumentOptions.requiredStringArgument;
@@ -226,7 +225,7 @@ public class CommandLineOptions {
     public static void addInputOptions(Options options) {
 
         options.addOption(
-                multipleStringArguments(
+        		requiredStringArgument(
                         SHORT_OPTION_INPUT,
                         LONG_OPTION_INPUT,
                         "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML"));
