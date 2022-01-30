@@ -68,18 +68,20 @@ class AdditionalOutputsParser {
      * @throws ExperimentExecutionException if the argument doesn't correspond to the expected
      *     format.
      */
-    public static OutputEnabledMutable parseFrom(String optionsArgument, String optionName)
+    public static OutputEnabledMutable parseFrom(String[] optionsArgument, String optionName)
             throws ExperimentExecutionException {
 
         OutputEnabledMutable outputs = new OutputEnabledMutable();
 
-        if (optionsArgument.isEmpty()) {
-            throw new ExperimentExecutionException(
-                    String.format("The -%s option requires an argument.", optionName));
-        }
+        for (String argument : optionsArgument) {
+            if (argument.isEmpty()) {
+                throw new ExperimentExecutionException(
+                        String.format("The -%s option requires an argument.", optionName));
+            }
 
-        for (String element : optionsArgument.split(",")) {
-            addElement(outputs, element);
+            for (String element : argument.split(",")) {
+                addElement(outputs, element);
+            }
         }
         return outputs;
     }

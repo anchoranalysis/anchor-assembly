@@ -48,9 +48,9 @@ public abstract class AddOptionsFromCommandLine<T> {
     /**
      * Executes <code>consumer</code> if an option exists <b>without any argument</b>.
      *
-     * @param optionShort name of the option in short form
+     * @param optionShort name of the option in short form.
      * @param consumer called with the associated element, if the option is present.
-     * @return true if the option is present, false otherwise
+     * @return true if the option is present, false otherwise.
      */
     protected boolean ifOptionWithoutArgument(String optionShort, Consumer<T> consumer) {
         if (extract.hasOption(optionShort)) {
@@ -62,21 +62,47 @@ public abstract class AddOptionsFromCommandLine<T> {
     }
 
     /**
-     * Executes <code>consumer</code> if an option exists <b>with a single argument</b>.
+     * Executes <code>consumer</code> if <b>maximally one option</b> exists <b>with a single
+     * argument</b> - passing {@code associated}.
      *
-     * @param <E> exception-type that {@code consumer} may throw.
-     * @param optionShort name of the option in short form
+     * @param optionShort name of the option in short form.
+     * @param consumer called with the associated object and the extracted single-argument, if the
+     *     option is present.
+     * @throws ExperimentExecutionException if {@code consumer} throws it.
+     */
+    protected void ifPresentSingleAssociated(
+            String optionShort, CheckedBiConsumer<T, String, ExperimentExecutionException> consumer)
+            throws ExperimentExecutionException {
+        extract.ifPresentSingle(optionShort, value -> consumer.accept(associated, value));
+    }
+
+    /**
+     * Executes <code>consumer</code> if <b>maximally one option</b> exists <b>with a single
+     * argument</b> - without passing {@code associated}.
+     *
+     * @param optionShort name of the option in short form.
      * @param consumer called with the associated object and the extracted single-argument, if the
      *     option is present.
      * @throws E if {@code consumer} throws it.
      */
-    protected <E extends Exception> void ifOptionWithSingleArgument(
-            String optionShort, CheckedBiConsumer<T, String, E> consumer) throws E {
-        extract.ifPresentSingle(optionShort, value -> consumer.accept(associated, value));
+    protected void ifPresentSingle(
+            String optionShort, CheckedConsumer<String, ExperimentExecutionException> consumer)
+            throws ExperimentExecutionException {
+        extract.ifPresentSingle(optionShort, consumer);
     }
 
-    protected <E extends Exception> void ifPresentSingle(
-            String optionName, CheckedConsumer<String, E> consumer) throws E {
-        extract.ifPresentSingle(optionName, consumer);
+    /**
+     * Executes <code>consumer</code> if <b>one or more</b> options exists <b>with a single
+     * argument</b>.
+     *
+     * @param optionShort name of the option in short form.
+     * @param consumer called with the associated object and the extracted single-argument, if the
+     *     option is present.
+     * @throws ExperimentExecutionException if {@code consumer} throws it.
+     */
+    protected void ifPresentMultiple(
+            String optionShort, CheckedConsumer<String[], ExperimentExecutionException> consumer)
+            throws ExperimentExecutionException {
+        extract.ifPresentMultiple(optionShort, consumer);
     }
 }

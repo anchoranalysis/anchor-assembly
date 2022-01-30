@@ -162,7 +162,9 @@ class ExperimentExecutorAfter {
 
         try {
             if (experiment instanceof ReplaceInputManager) {
-                ReplaceInputManager experimentCasted = (ReplaceInputManager) experiment;
+                @SuppressWarnings("unchecked")
+                ReplaceInputManager<InputFromManager> experimentCasted =
+                        (ReplaceInputManager<InputFromManager>) experiment;
                 experimentCasted.replaceInputManager(inputManager);
             } else {
                 throw new ExperimentExecutionException(

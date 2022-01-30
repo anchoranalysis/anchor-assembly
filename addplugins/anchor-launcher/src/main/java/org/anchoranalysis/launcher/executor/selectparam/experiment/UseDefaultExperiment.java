@@ -23,19 +23,16 @@
 package org.anchoranalysis.launcher.executor.selectparam.experiment;
 
 import java.nio.file.Path;
+import lombok.AllArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.convert.PrettyPathConverter;
 
+@AllArgsConstructor
 class UseDefaultExperiment implements SelectParam<Path> {
 
-    private Path defaultExperiment;
-
-    public UseDefaultExperiment(Path defaultExperiment) {
-        super();
-        this.defaultExperiment = defaultExperiment;
-    }
+    private final Path defaultExperiment;
 
     @Override
     public Path select(ExecutionArguments executionArguments) throws ExperimentExecutionException {

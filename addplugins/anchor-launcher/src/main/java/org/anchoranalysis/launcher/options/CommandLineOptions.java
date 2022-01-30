@@ -21,7 +21,6 @@
  */
 package org.anchoranalysis.launcher.options;
 
-import static org.anchoranalysis.launcher.options.CustomArgumentOptions.multipleStringArguments;
 import static org.anchoranalysis.launcher.options.CustomArgumentOptions.optionalStringArgument;
 import static org.anchoranalysis.launcher.options.CustomArgumentOptions.requiredNumberArgument;
 import static org.anchoranalysis.launcher.options.CustomArgumentOptions.requiredStringArgument;
@@ -58,6 +57,9 @@ public class CommandLineOptions {
 
     /** Shuffles the order of the inputs. */
     public static final String SHORT_OPTION_INPUT_SHUFFLE = "is";
+
+    /** Imposes an upper limit on the number of inputs. */
+    public static final String SHORT_OPTION_INPUT_LIMIT = "il";
     // END: SHORT input options
 
     // START: SHORT task options
@@ -75,13 +77,13 @@ public class CommandLineOptions {
     /** Changes output manager. */
     public static final String SHORT_OPTION_OUTPUT = "o";
 
-    /** Enables all outputs. */
+    /** Enables specific output(s). Multiple outputs are comma-separated. */
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL = "oe";
 
     /** Disables specific output(s). Multiple outputs are comma-separated. */
     public static final String SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL = "od";
 
-    /** Enables specific output(s). Multiple outputs are comma-separated. */
+    /** Enables all outputs. */
     public static final String SHORT_OPTION_OUTPUT_ENABLE_ALL = "oa";
 
     /**
@@ -158,12 +160,15 @@ public class CommandLineOptions {
     /** Shuffles the order of the inputs. */
     private static final String LONG_OPTION_INPUT_SHUFFLE = "inputShuffle";
 
+    /** Imposes an upper limit on the number of inputs. */
+    private static final String LONG_OPTION_INPUT_LIMIT = "inputLimit";
+
     /** Changes output manager. */
     public static final String LONG_OPTION_OUTPUT = "output";
 
     /**
      * Output console <i>only</i>. By default, the output directory is opened in the desktop after
-     * completion. This disables that behaviour.
+     * completion. This disables that behavior.
      */
     public static final String LONG_OPTION_OUTPUT_CONSOLE_ONLY = "outputConsoleOnly";
 
@@ -226,7 +231,7 @@ public class CommandLineOptions {
     public static void addInputOptions(Options options) {
 
         options.addOption(
-                multipleStringArguments(
+                requiredStringArgument(
                         SHORT_OPTION_INPUT,
                         LONG_OPTION_INPUT,
                         "an input-directory OR glob (e.g. small_*.jpg) OR file extension (e.g. .png) OR path to BeanXML"));
@@ -254,6 +259,12 @@ public class CommandLineOptions {
                 LONG_OPTION_INPUT_SHUFFLE,
                 false,
                 "shuffles (randomizes) the order of the inputs");
+
+        options.addOption(
+                SHORT_OPTION_INPUT_LIMIT,
+                LONG_OPTION_INPUT_LIMIT,
+                true,
+                "imposes upper limit on number of inputs");
     }
 
     private static void addOutputOptions(Options options) {
@@ -265,13 +276,13 @@ public class CommandLineOptions {
                         "an output-directory OR path to BeanXML"));
 
         options.addOption(
-                optionalStringArgument(
+                requiredStringArgument(
                         SHORT_OPTION_OUTPUT_ENABLE_ADDITIONAL,
                         LONG_OPTION_OUTPUT_ENABLE_ADDITIONAL,
                         "enables specific additional output(s)"));
 
         options.addOption(
-                optionalStringArgument(
+                requiredStringArgument(
                         SHORT_OPTION_OUTPUT_DISABLE_ADDITIONAL,
                         LONG_OPTION_OUTPUT_DISABLE_ADDITIONAL,
                         "disables specific additional output(s)"));
@@ -286,7 +297,7 @@ public class CommandLineOptions {
                 SHORT_OPTION_OUTPUT_CONSOLE_ONLY,
                 LONG_OPTION_OUTPUT_CONSOLE_ONLY,
                 false,
-                "disables opening the output directory in the desktop at experiment end");
+                "disables opening the output directory in the desktop");
 
         options.addOption(
                 optionalStringArgument(

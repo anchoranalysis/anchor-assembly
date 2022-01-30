@@ -22,8 +22,13 @@ INPUTS
 
 images
 
-The -ps parameter can be used to specify a scale-factor to resize each image to, or the (somewhat approximate) dimensions of the final combined image.
-See https://www.anchoranalysis.org/user_guide_command_line.html
+The -ps parameter can be used to specify a scale-factor to resize each image approximately to
+
+e.g. -ps 0.4
+
+See https://www.anchoranalysis.org/user_guide_command_line.html 
+
+Note that other forms of the -ps option are unsupported.
 
 =======
 OUTPUTS

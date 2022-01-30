@@ -1,6 +1,6 @@
 <!-- 
 ===================
-TASK:   montage/reorder
+TASK:   montage/balance
 AUTHOR: Owen Feehan
 ===================
 
@@ -8,13 +8,13 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Combines (scaled) versions of each image alongside each other into a single image - reordering the images to maximally fill the available space.
+Combines (scaled) versions of each image alongside each other into a single image - changing the number of images per row to maximally fill the available space.
 
 A different number of images may exist in each row, but aspect-ratio is always preserved for each image.
 
 By default, each image will be scaled to approximately 600x480 (but usually not exactly this size, to preserve aspect ratio, and fill available space).
 
-The order of images is typically only changed minimally, with most order being preserved. The -is parameter can be used to shuffle the input images
+The order of images is typically is only rarely changed. The -is parameter can be used to shuffle the input images
 if a random order is desired.
 
 ======
@@ -23,8 +23,13 @@ INPUTS
 
 images
 
-The -ps parameter can be used to specify a scale-factor to resize each image to, or the (somewhat approximate) dimensions of the final combined image.
-See https://www.anchoranalysis.org/user_guide_command_line.html
+The -ps parameter can be used to specify a scale-factor to resize each image approximately to, or the width of the final combined image.
+
+e.g. -ps 0.4  or -ps 4000x
+
+See https://www.anchoranalysis.org/user_guide_command_line.html 
+
+Note that other forms of the -ps option are unsupported.
 
 =======
 OUTPUTS

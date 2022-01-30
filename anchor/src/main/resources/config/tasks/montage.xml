@@ -8,11 +8,11 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Shortcut to montage/reorder.xml
+Shortcut to montage/balance.xml
 
 See this document for a description.
 
 -->
 <config>
-<bean filePath="montage/reorder.xml" config-class="org.anchoranalysis.plugin.image.task.bean.combine.Montage" config-factory="include"/>
+<bean filePath="montage/balance.xml" config-class="org.anchoranalysis.plugin.image.task.bean.combine.Montage" config-factory="include"/>
 </config>

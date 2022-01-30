@@ -52,7 +52,7 @@ public class TaskFactory {
         }
 
         if (args.length != 1) {
-            throw new CommandLineException("One and only one argument is permitted after -t");
+            throw new CommandLineException("Only one instance of the -t option is permitted.");
         }
 
         String taskArg = args[0];

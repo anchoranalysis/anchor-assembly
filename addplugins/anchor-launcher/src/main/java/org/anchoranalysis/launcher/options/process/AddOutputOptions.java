@@ -91,7 +91,7 @@ public class AddOutputOptions extends AddOptionsFromCommandLine<OutputArguments>
     private void ifAdditionalOptionsPresent(
             String optionName, BiConsumer<OutputEnabledDelta, MultiLevelOutputEnabled> function)
             throws ExperimentExecutionException {
-        ifPresentSingle(
+        ifPresentMultiple(
                 optionName,
                 outputs ->
                         function.accept(
