@@ -83,7 +83,7 @@ public abstract class AddOptionsFromCommandLine<T> {
      * @param optionShort name of the option in short form.
      * @param consumer called with the associated object and the extracted single-argument, if the
      *     option is present.
-     * @throws E if {@code consumer} throws it.
+     * @throws ExperimentExecutionException if {@code consumer} throws it.
      */
     protected void ifPresentSingle(
             String optionShort, CheckedConsumer<String, ExperimentExecutionException> consumer)
