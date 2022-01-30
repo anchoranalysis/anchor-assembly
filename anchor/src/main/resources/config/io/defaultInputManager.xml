@@ -5,22 +5,24 @@
    
    		<input config-class="org.anchoranalysis.plugin.io.bean.input.LimitIfRequested">
 	   		<input config-class="org.anchoranalysis.plugin.io.bean.input.ShuffleIfRequested">
-		        <input config-class="org.anchoranalysis.plugin.io.bean.input.files.NamedFiles">
-			   
-				      <!-- First, we try to get a list of paths (from the input-context) if it exists -->
-				      <files config-class="org.anchoranalysis.io.input.bean.files.SpecificPathList">
-				      
-				          <!-- If that's not there, then we try with a FileSet.
-				            As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
-				          <fallback acceptDirectoryErrors="true" ignoreHidden="true" recursive="true" config-class="org.anchoranalysis.io.input.bean.files.SearchDirectory">
-				              
-				              <!-- As no extensions or glob are defined, they are both populated from the input-context, or otherwise defaults -->
-				              <matcher prioritizeInputContext="true" config-class="org.anchoranalysis.io.input.bean.path.matcher.MatchExtensions">
-				                  <matcher config-class="org.anchoranalysis.io.input.bean.path.matcher.MatchGlob"/>
-				              </matcher>
-				              
-				          </fallback>
-				      </files>
+	   			<input config-class="org.anchoranalysis.plugin.io.bean.input.SortAlphabetically">
+			        <input config-class="org.anchoranalysis.plugin.io.bean.input.files.NamedFiles">
+				   
+					      <!-- First, we try to get a list of paths (from the input-context) if it exists -->
+					      <files config-class="org.anchoranalysis.io.input.bean.files.SpecificPathList">
+					      
+					          <!-- If that's not there, then we try with a FileSet.
+					            As no directory is specified, it will look for the input-dirs parameter passed in the input-context -->
+					          <fallback acceptDirectoryErrors="true" ignoreHidden="true" recursive="true" config-class="org.anchoranalysis.io.input.bean.files.SearchDirectory">
+					              
+					              <!-- As no extensions or glob are defined, they are both populated from the input-context, or otherwise defaults -->
+					              <matcher prioritizeInputContext="true" config-class="org.anchoranalysis.io.input.bean.path.matcher.MatchExtensions">
+					                  <matcher config-class="org.anchoranalysis.io.input.bean.path.matcher.MatchGlob"/>
+					              </matcher>
+					              
+					          </fallback>
+					      </files>
+				   </input>
 			   </input>
 		   </input>
 	   </input>

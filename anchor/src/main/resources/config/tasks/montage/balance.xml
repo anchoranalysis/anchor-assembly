@@ -1,6 +1,6 @@
 <!-- 
 ===================
-TASK:   montage/preserveOrder
+TASK:   montage/balance
 AUTHOR: Owen Feehan
 ===================
 
@@ -8,11 +8,14 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Combines (scaled) versions of each image alongside each other into a single image - strictly preserving order of the images, but otherwise filling available space.
+Combines (scaled) versions of each image alongside each other into a single image - changing the number of images per row to maximally fill the available space.
 
 A different number of images may exist in each row, but aspect-ratio is always preserved for each image.
 
 By default, each image will be scaled to approximately 600x480 (but usually not exactly this size, to preserve aspect ratio, and fill available space).
+
+The order of images is typically is only rarely changed. The -is parameter can be used to shuffle the input images
+if a random order is desired.
 
 ======
 INPUTS
@@ -36,5 +39,5 @@ montage:
    	the montage
 -->
 <config>
-<bean varyImageSize="true" varyImageLocation="false" config-class="org.anchoranalysis.plugin.image.task.bean.combine.Montage"/>
+<bean varyImageSize="true" varyImageLocation="true" config-class="org.anchoranalysis.plugin.image.task.bean.combine.Montage"/>
 </config>
