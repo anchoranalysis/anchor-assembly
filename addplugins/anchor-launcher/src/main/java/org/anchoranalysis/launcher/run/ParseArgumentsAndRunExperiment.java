@@ -165,7 +165,7 @@ public class ParseArgumentsAndRunExperiment {
         executor.executeExperiment(
                 config.createArguments(line),
                 line.hasOption(CommandLineOptions.SHORT_OPTION_SHOW_EXPERIMENT_ARGUMENTS),
-                logger.messageLogger());
+                logger);
     }
 
     /**

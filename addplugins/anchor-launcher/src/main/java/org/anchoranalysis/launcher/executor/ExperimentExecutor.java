@@ -30,7 +30,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.anchoranalysis.core.log.MessageLogger;
+import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.experiment.bean.Experiment;
@@ -83,24 +83,33 @@ public class ExperimentExecutor {
     public void executeExperiment(
             ExecutionArguments executionArguments,
             boolean alwaysShowExperimentArguments,
-            MessageLogger logger)
+            Logger logger)
             throws ExperimentExecutionException {
 
-        ExperimentExecutorAfter delegate =
-                new ExperimentExecutorAfter(configDirectory, openInDesktop);
+        if (openInDesktop) {
+            executionArguments
+                    .input()
+                    .assignCallUponDirectoryCreation(
+                            path ->
+                                    DesktopPathOpener.openPathInDesktop(
+                                            path, logger.errorReporter()));
+        }
+
+        ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(configDirectory);
 
         if (defaultBehaviourString.isPresent() && areAllDefault()) {
             // Special behaviour if everything has defaults
-            logger.logFormatted(
-                    "%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.%n",
-                    defaultBehaviourString.get(), // NOSONAR
-                    CommandLineOptions.SHORT_OPTION_HELP);
+            logger.messageLogger()
+                    .logFormatted(
+                            "%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.%n",
+                            defaultBehaviourString.get(), // NOSONAR
+                            CommandLineOptions.SHORT_OPTION_HELP);
         }
 
         Experiment experimentLoaded = loadExperimentFromPath(executionArguments);
 
         if (alwaysShowExperimentArguments || experimentLoaded.useDetailedLogging()) {
-            logger.log(describe());
+            logger.messageLogger().log(describe());
         }
 
         setupModelDirectory(configDirectory, executionArguments);
