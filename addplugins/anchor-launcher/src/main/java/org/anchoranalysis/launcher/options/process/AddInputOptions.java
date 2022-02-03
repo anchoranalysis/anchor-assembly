@@ -62,10 +62,11 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
 
         ifOptionWithoutArgument(
                 CommandLineOptions.SHORT_OPTION_INPUT_RELATIVE,
-                InputArguments::assignRelativeForIdentifier);
+                arguments -> arguments.getContextParameters().assignRelativeForIdentifier());
 
         ifOptionWithoutArgument(
-                CommandLineOptions.SHORT_OPTION_INPUT_SHUFFLE, InputArguments::assignShuffle);
+                CommandLineOptions.SHORT_OPTION_INPUT_SHUFFLE,
+                arguments -> arguments.getContextParameters().assignShuffle());
 
         ifPresentSingleAssociated(
                 CommandLineOptions.SHORT_OPTION_INPUT_SUBSET_IDENTIFIER,
@@ -78,7 +79,9 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
     private static void assignIdentifierSubrange(InputArguments arguments, String parameter)
             throws ExperimentExecutionException {
         try {
-            arguments.assignIdentifierSubrange(IndexRangeNegativeFactory.parse(parameter));
+            arguments
+                    .getContextParameters()
+                    .assignIdentifierSubrange(IndexRangeNegativeFactory.parse(parameter));
         } catch (OperationFailedException e) {
             throw new ExperimentExecutionException("Cannot set parameter for subsetting names.", e);
         }
@@ -97,12 +100,12 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
                         String.format("%s %d", EXCEPTION_MESSAGE_PREFIX, limit));
             }
 
-            arguments.assignFixedLimit(limit);
+            arguments.getContextParameters().assignFixedLimit(limit);
         } catch (NumberFormatException e) {
             // Second, try and parse as a ratio. If this fails, an exception is guaranteed to be
             // thrown.
             double ratio = parseAsRatio(parameter);
-            arguments.assignRatioLimit(ratio);
+            arguments.getContextParameters().assignRatioLimit(ratio);
         }
     }
 

@@ -136,7 +136,9 @@ class ExperimentExecutorAfter {
 
         // If no input-filter extensions have been specified and defaults are available, they
         // are inserted in
-        executionArguments.input().assignFilterExtensionsIfMissing(() -> defaultExtensions);
+        executionArguments
+                .inputContextParameters()
+                .assignFilterExtensionsIfMissing(() -> defaultExtensions);
 
         OptionalUtilities.ifPresent(pathInput, path -> replaceInputManager(experiment, path));
 

@@ -29,7 +29,7 @@ import lombok.AllArgsConstructor;
 import org.anchoranalysis.core.collection.StringSetTrie;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
-import org.anchoranalysis.experiment.arguments.InputArguments;
+import org.anchoranalysis.io.input.InputContextParameters;
 import org.anchoranalysis.io.input.path.GlobExtractor;
 import org.anchoranalysis.io.input.path.GlobExtractor.GlobWithDirectory;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
@@ -52,12 +52,12 @@ class UseAsGlob implements SelectParam<Optional<Path>> {
         // to allow matches like sdsds/sdsds/*.jpg
         GlobWithDirectory glob = GlobExtractor.extract(stringWithWildcard);
 
-        InputArguments arguments = executionArguments.input();
-        arguments.assignInputDirectory(glob.getDirectory().map(Paths::get));
-        arguments.assignFilterGlob(glob.getGlob());
+        InputContextParameters parameters = executionArguments.inputContextParameters();
+        parameters.assignInputDirectory(glob.getDirectory().map(Paths::get));
+        parameters.assignFilterGlob(glob.getGlob());
 
         // An empty set, means no filter check is applied
-        arguments.assignFilterExtensions(new StringSetTrie());
+        parameters.assignFilterExtensions(new StringSetTrie());
 
         return Optional.empty();
     }
