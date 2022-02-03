@@ -26,6 +26,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -87,12 +88,9 @@ public class ExperimentExecutor {
             throws ExperimentExecutionException {
 
         if (openInDesktop) {
-            executionArguments
-                    .input()
-                    .assignCallUponDirectoryCreation(
-                            path ->
-                                    DesktopPathOpener.openPathInDesktop(
-                                            path, logger.errorReporter()));
+            Consumer<Path> desktopOpener =
+                    path -> DesktopPathOpener.openPathInDesktop(path, logger.errorReporter());
+            executionArguments.input().assignCallUponDirectoryCreation(desktopOpener);
         }
 
         ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(configDirectory);
