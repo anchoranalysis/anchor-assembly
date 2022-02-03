@@ -139,7 +139,8 @@ public class ExperimentExecutor {
      * @throws ExperimentExecutionException
      */
     private String describe() throws ExperimentExecutionException {
-        return String.format("%s%s%n", describeExperiment(), SelectPathDescriber.describe(input, output, task));
+        return String.format(
+                "%s%s%n", describeExperiment(), SelectPathDescriber.describe(input, output, task));
     }
 
     private String describeExperiment() throws ExperimentExecutionException {

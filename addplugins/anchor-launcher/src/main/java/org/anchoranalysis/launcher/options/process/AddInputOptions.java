@@ -74,6 +74,17 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
 
         ifPresentSingleAssociated(
                 CommandLineOptions.SHORT_OPTION_INPUT_LIMIT, AddInputOptions::assignLimit);
+
+        ifPresentSingleAssociated(
+                CommandLineOptions.SHORT_OPTION_INPUT_RANDOM_SAMPLE,
+                AddInputOptions::assignRandomSample);
+    }
+
+    /** Instructs {@link InputArguments} to perform random-sampling. */
+    private static void assignRandomSample(InputArguments arguments, String parameter)
+            throws ExperimentExecutionException {
+        arguments.getContextParameters().assignShuffle();
+        assignLimit(arguments, parameter);
     }
 
     private static void assignIdentifierSubrange(InputArguments arguments, String parameter)
@@ -87,7 +98,10 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
         }
     }
 
-    /** Assigns a limit (fixed or ratio) or throw an exception if it is invalid. */
+    /**
+     * Instructs {@link InputArguments} to assigns a limit (fixed or ratio) or throw an exception if
+     * it is invalid.
+     */
     private static void assignLimit(InputArguments arguments, String parameter)
             throws ExperimentExecutionException {
 
@@ -109,7 +123,7 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
         }
     }
 
-    /** *Try and parse {@code parameter} as a ratio in the interval (0.0, 1.0). */
+    /** Try and parse {@code parameter} as a ratio in the interval (0.0, 1.0). */
     private static double parseAsRatio(String parameter) throws ExperimentExecutionException {
         try {
             // Try floating-point

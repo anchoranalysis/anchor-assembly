@@ -4,31 +4,34 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 /**
  * Describes the {@link Path}s optionally specified for the input, output and task.
- * 
+ *
  * @author Owen Feehan
  */
-@NoArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 class SelectPathDescriber {
-	
-	/**
-	 * Creates a single-line {@link String} describing in a user-friendly way the selected {@link SelectParam}s.
-	 * 
-	 * @param input the {@link SelectParam} specified for <b>inputs</b>.
-	 * @param output  the {@link SelectParam} specified for <b>outputs</b>.
-	 * @param task the {@link SelectParam} specified for the <b>task</b>.
-	 * @return the single-lined description, as above.
-	 * @throws ExperimentExecutionException if an error occurs with {@link SelectParam#describe()}.
-	 */
-    public static String describe(SelectParam<Optional<Path>> input, SelectParam<Optional<Path>> output, SelectParam<Optional<Path>> task) throws ExperimentExecutionException {
+
+    /**
+     * Creates a single-line {@link String} describing in a user-friendly way the selected {@link
+     * SelectParam}s.
+     *
+     * @param input the {@link SelectParam} specified for <b>inputs</b>.
+     * @param output the {@link SelectParam} specified for <b>outputs</b>.
+     * @param task the {@link SelectParam} specified for the <b>task</b>.
+     * @return the single-lined description, as above.
+     * @throws ExperimentExecutionException if an error occurs with {@link SelectParam#describe()}.
+     */
+    public static String describe(
+            SelectParam<Optional<Path>> input,
+            SelectParam<Optional<Path>> output,
+            SelectParam<Optional<Path>> task)
+            throws ExperimentExecutionException {
 
         // Components
         List<String> list = new ArrayList<>(3);
@@ -38,7 +41,7 @@ class SelectPathDescriber {
 
         return reduceIntoOneLine(list);
     }
-    
+
     /** Adds a description for {@code selectParam} to {@code list} if it's non-default. */
     private static void maybeAddDescriptionFor(
             SelectParam<Optional<Path>> selectParam, String identifier, List<String> list)

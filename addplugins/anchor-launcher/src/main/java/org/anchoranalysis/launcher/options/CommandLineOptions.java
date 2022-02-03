@@ -60,6 +60,9 @@ public class CommandLineOptions {
 
     /** Imposes an upper limit on the number of inputs. */
     public static final String SHORT_OPTION_INPUT_LIMIT = "il";
+
+    /** Randomly samples a number of inputs. */
+    public static final String SHORT_OPTION_INPUT_RANDOM_SAMPLE = "ir";
     // END: SHORT input options
 
     // START: SHORT task options
@@ -163,6 +166,9 @@ public class CommandLineOptions {
     /** Imposes an upper limit on the number of inputs. */
     private static final String LONG_OPTION_INPUT_LIMIT = "inputLimit";
 
+    /** Randomly samples a number of inputs. */
+    public static final String LONG_OPTION_INPUT_RANDOM_SAMPLE = "inputRandom";
+
     /** Changes output manager. */
     public static final String LONG_OPTION_OUTPUT = "output";
 
@@ -265,6 +271,12 @@ public class CommandLineOptions {
                 LONG_OPTION_INPUT_LIMIT,
                 true,
                 "imposes upper limit on number of inputs");
+
+        options.addOption(
+                SHORT_OPTION_INPUT_RANDOM_SAMPLE,
+                LONG_OPTION_INPUT_RANDOM_SAMPLE,
+                true,
+                "randomly samples a number/portion of inputs");
     }
 
     private static void addOutputOptions(Options options) {
