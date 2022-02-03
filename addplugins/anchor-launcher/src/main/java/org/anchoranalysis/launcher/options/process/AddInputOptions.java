@@ -61,7 +61,7 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
                 InputArguments::assignCopyNonInputs);
 
         ifOptionWithoutArgument(
-                CommandLineOptions.SHORT_OPTION_INPUT_RELATIVE,
+                CommandLineOptions.SHORT_OPTION_INPUT_RELATIVE_PATH,
                 arguments -> arguments.getContextParameters().assignRelativeForIdentifier());
 
         ifOptionWithoutArgument(

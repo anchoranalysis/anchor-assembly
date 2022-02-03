@@ -53,7 +53,7 @@ public class CommandLineOptions {
      * Derives the unique identifier from the **entire relative filename or path** (excluding file
      * extension).
      */
-    public static final String SHORT_OPTION_INPUT_RELATIVE = "ir";
+    public static final String SHORT_OPTION_INPUT_RELATIVE_PATH = "ip";
 
     /** Shuffles the order of the inputs. */
     public static final String SHORT_OPTION_INPUT_SHUFFLE = "is";
@@ -243,7 +243,7 @@ public class CommandLineOptions {
                 "copies any unused files (as inputs) to the output directory");
 
         options.addOption(
-                SHORT_OPTION_INPUT_RELATIVE,
+                SHORT_OPTION_INPUT_RELATIVE_PATH,
                 LONG_OPTION_INPUT_RELATIVE,
                 false,
                 "derives identifier from relative filename or path");
