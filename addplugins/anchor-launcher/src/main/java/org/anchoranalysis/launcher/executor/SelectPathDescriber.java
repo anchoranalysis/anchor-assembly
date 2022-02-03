@@ -36,7 +36,7 @@ class SelectPathDescriber {
         maybeAddDescriptionFor(output, "output", list);
         maybeAddDescriptionFor(task, "task", list);
 
-        return collapseIntoOneLine(list);
+        return reduceIntoOneLine(list);
     }
     
     /** Adds a description for {@code selectParam} to {@code list} if it's non-default. */
@@ -49,7 +49,7 @@ class SelectPathDescriber {
     }
 
     /** Combine each element in {@code list} into a single-lined {@link String}. */
-    private static String collapseIntoOneLine(List<String> list) {
+    private static String reduceIntoOneLine(List<String> list) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             builder.append(i == 0 ? " with " : " and ");
