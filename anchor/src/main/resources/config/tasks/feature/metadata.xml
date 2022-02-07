@@ -28,6 +28,15 @@ INPUTS
 An image, either grayscale or RGB.
 
 
+Grouping:
+
+The -pg command-line activates grouping, which adds a group column to the CSV, and creates group-specific feature CSVs.
+
+ e.g. -pg 0:1 (to group by first and second directories in the identifier)
+ 
+See: http://www.anchoranalysis.org/user_guide_command_line.html#grouping
+
+
 =======
 OUTPUTS
 =======

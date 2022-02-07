@@ -27,6 +27,18 @@ OUTPUTS
 
 an image for each channel (resized to 1024x768), containing the standard-deviation of that channel across all images
 
+
+Grouping:
+
+The -pg command-line activates grouping, which aggregations image per group, rather than as a whole.
+
+ e.g. -pg 0:1 (to group by first and second directories in the identifier)
+ 
+See:
+http://www.anchoranalysis.org/user_guide_examples_intensity_projections.html#grouping
+http://www.anchoranalysis.org/user_guide_command_line.html#grouping
+
+
 -->
 <config>
 <bean outputName="standardDeviation" config-class="org.anchoranalysis.plugin.image.task.bean.combine.AggregateChannelTask">

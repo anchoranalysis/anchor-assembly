@@ -74,6 +74,9 @@ public class CommandLineOptions {
 
     /** Suggests dimensions or a scaling factor for certain tasks. */
     public static final String SHORT_OPTION_TASK_SIZE = "ps";
+
+    /** Activates grouping from a subset of the identifier's elements. */
+    public static final String SHORT_OPTION_GROUP = "pg";
     // END: SHORT task options
 
     // START: SHORT output options
@@ -191,6 +194,9 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_TASK = "task";
     private static final String LONG_OPTION_TASK_NUMBER_PROCESSORS = "taskNumberProcessors";
     private static final String LONG_OPTION_TASK_SIZE = "paramSize";
+
+    /** Activates grouping from a subset of the identifier's elements. */
+    public static final String LONG_OPTION_GROUP = "paramGroup";
     // END: All LONG options
 
     public static void addBasicOptions(Options options) {
@@ -346,6 +352,12 @@ public class CommandLineOptions {
                         SHORT_OPTION_TASK_SIZE,
                         LONG_OPTION_TASK_SIZE,
                         "suggests an image size or scaling factor"));
+
+        options.addOption(
+                optionalStringArgument(
+                        SHORT_OPTION_GROUP,
+                        LONG_OPTION_GROUP,
+                        "groups inputs by subsetting the identifier e.g. 2 OR -2 OR 3:-2 OR 2: OR :2 (zero-indexed, negatives count backwards)"));
 
         options.addOption(
                 requiredNumberArgument(

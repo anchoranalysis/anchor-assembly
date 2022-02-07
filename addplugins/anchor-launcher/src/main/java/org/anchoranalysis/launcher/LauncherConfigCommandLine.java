@@ -105,6 +105,9 @@ class LauncherConfigCommandLine extends LauncherConfig {
         extract.ifPresentSingle(
                 CommandLineOptions.SHORT_OPTION_TASK_SIZE, arguments.task()::assignSize);
 
+        extract.ifPresentSingle(
+                CommandLineOptions.SHORT_OPTION_GROUP, arguments.task()::assignGroup);
+
         AddInputOptions.addFrom(extract, arguments.input());
         AddOutputOptions.addFrom(extract, arguments.output());
 
