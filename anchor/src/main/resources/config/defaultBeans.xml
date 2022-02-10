@@ -179,5 +179,13 @@
 		<item config-class="org.anchoranalysis.plugin.opencv.bean.interpolate.OpenCV"/>
 	</item>
 	
+	
+	<!--
+		By default, no grouping occurs, unless the user uses the -pg argument on the command-line.
+	-->
+	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.io.input.bean.grouper.Grouper">
+		<item config-class="org.anchoranalysis.plugin.io.bean.grouper.IfGroupIndexRange"/>
+	</item>
+	
 </bean>
 </config>

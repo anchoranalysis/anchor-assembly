@@ -53,13 +53,16 @@ public class CommandLineOptions {
      * Derives the unique identifier from the **entire relative filename or path** (excluding file
      * extension).
      */
-    public static final String SHORT_OPTION_INPUT_RELATIVE = "ir";
+    public static final String SHORT_OPTION_INPUT_RELATIVE_PATH = "ip";
 
     /** Shuffles the order of the inputs. */
     public static final String SHORT_OPTION_INPUT_SHUFFLE = "is";
 
     /** Imposes an upper limit on the number of inputs. */
     public static final String SHORT_OPTION_INPUT_LIMIT = "il";
+
+    /** Randomly samples a number of inputs. */
+    public static final String SHORT_OPTION_INPUT_RANDOM_SAMPLE = "ir";
     // END: SHORT input options
 
     // START: SHORT task options
@@ -71,6 +74,9 @@ public class CommandLineOptions {
 
     /** Suggests dimensions or a scaling factor for certain tasks. */
     public static final String SHORT_OPTION_TASK_SIZE = "ps";
+
+    /** Activates grouping from a subset of the identifier's elements. */
+    public static final String SHORT_OPTION_GROUP = "pg";
     // END: SHORT task options
 
     // START: SHORT output options
@@ -163,6 +169,9 @@ public class CommandLineOptions {
     /** Imposes an upper limit on the number of inputs. */
     private static final String LONG_OPTION_INPUT_LIMIT = "inputLimit";
 
+    /** Randomly samples a number of inputs. */
+    public static final String LONG_OPTION_INPUT_RANDOM_SAMPLE = "inputRandom";
+
     /** Changes output manager. */
     public static final String LONG_OPTION_OUTPUT = "output";
 
@@ -185,6 +194,9 @@ public class CommandLineOptions {
     private static final String LONG_OPTION_TASK = "task";
     private static final String LONG_OPTION_TASK_NUMBER_PROCESSORS = "taskNumberProcessors";
     private static final String LONG_OPTION_TASK_SIZE = "paramSize";
+
+    /** Activates grouping from a subset of the identifier's elements. */
+    public static final String LONG_OPTION_GROUP = "paramGroup";
     // END: All LONG options
 
     public static void addBasicOptions(Options options) {
@@ -243,7 +255,7 @@ public class CommandLineOptions {
                 "copies any unused files (as inputs) to the output directory");
 
         options.addOption(
-                SHORT_OPTION_INPUT_RELATIVE,
+                SHORT_OPTION_INPUT_RELATIVE_PATH,
                 LONG_OPTION_INPUT_RELATIVE,
                 false,
                 "derives identifier from relative filename or path");
@@ -265,6 +277,12 @@ public class CommandLineOptions {
                 LONG_OPTION_INPUT_LIMIT,
                 true,
                 "imposes upper limit on number of inputs");
+
+        options.addOption(
+                SHORT_OPTION_INPUT_RANDOM_SAMPLE,
+                LONG_OPTION_INPUT_RANDOM_SAMPLE,
+                true,
+                "randomly samples a number/portion of inputs");
     }
 
     private static void addOutputOptions(Options options) {
@@ -334,6 +352,12 @@ public class CommandLineOptions {
                         SHORT_OPTION_TASK_SIZE,
                         LONG_OPTION_TASK_SIZE,
                         "suggests an image size or scaling factor"));
+
+        options.addOption(
+                optionalStringArgument(
+                        SHORT_OPTION_GROUP,
+                        LONG_OPTION_GROUP,
+                        "groups inputs by subsetting the identifier e.g. 2 OR -2 OR 3:-2 OR 2: OR :2 (zero-indexed, negatives count backwards)"));
 
         options.addOption(
                 requiredNumberArgument(

@@ -61,11 +61,12 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
                 InputArguments::assignCopyNonInputs);
 
         ifOptionWithoutArgument(
-                CommandLineOptions.SHORT_OPTION_INPUT_RELATIVE,
-                InputArguments::assignRelativeForIdentifier);
+                CommandLineOptions.SHORT_OPTION_INPUT_RELATIVE_PATH,
+                arguments -> arguments.getContextParameters().assignRelativeForIdentifier());
 
         ifOptionWithoutArgument(
-                CommandLineOptions.SHORT_OPTION_INPUT_SHUFFLE, InputArguments::assignShuffle);
+                CommandLineOptions.SHORT_OPTION_INPUT_SHUFFLE,
+                arguments -> arguments.getContextParameters().assignShuffle());
 
         ifPresentSingleAssociated(
                 CommandLineOptions.SHORT_OPTION_INPUT_SUBSET_IDENTIFIER,
@@ -73,18 +74,34 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
 
         ifPresentSingleAssociated(
                 CommandLineOptions.SHORT_OPTION_INPUT_LIMIT, AddInputOptions::assignLimit);
+
+        ifPresentSingleAssociated(
+                CommandLineOptions.SHORT_OPTION_INPUT_RANDOM_SAMPLE,
+                AddInputOptions::assignRandomSample);
+    }
+
+    /** Instructs {@link InputArguments} to perform random-sampling. */
+    private static void assignRandomSample(InputArguments arguments, String parameter)
+            throws ExperimentExecutionException {
+        arguments.getContextParameters().assignShuffle();
+        assignLimit(arguments, parameter);
     }
 
     private static void assignIdentifierSubrange(InputArguments arguments, String parameter)
             throws ExperimentExecutionException {
         try {
-            arguments.assignIdentifierSubrange(IndexRangeNegativeFactory.parse(parameter));
+            arguments
+                    .getContextParameters()
+                    .assignIdentifierSubrange(IndexRangeNegativeFactory.parse(parameter));
         } catch (OperationFailedException e) {
             throw new ExperimentExecutionException("Cannot set parameter for subsetting names.", e);
         }
     }
 
-    /** Assigns a limit (fixed or ratio) or throw an exception if it is invalid. */
+    /**
+     * Instructs {@link InputArguments} to assigns a limit (fixed or ratio) or throw an exception if
+     * it is invalid.
+     */
     private static void assignLimit(InputArguments arguments, String parameter)
             throws ExperimentExecutionException {
 
@@ -97,16 +114,16 @@ public class AddInputOptions extends AddOptionsFromCommandLine<InputArguments> {
                         String.format("%s %d", EXCEPTION_MESSAGE_PREFIX, limit));
             }
 
-            arguments.assignFixedLimit(limit);
+            arguments.getContextParameters().assignFixedLimit(limit);
         } catch (NumberFormatException e) {
             // Second, try and parse as a ratio. If this fails, an exception is guaranteed to be
             // thrown.
             double ratio = parseAsRatio(parameter);
-            arguments.assignRatioLimit(ratio);
+            arguments.getContextParameters().assignRatioLimit(ratio);
         }
     }
 
-    /** *Try and parse {@code parameter} as a ratio in the interval (0.0, 1.0). */
+    /** Try and parse {@code parameter} as a ratio in the interval (0.0, 1.0). */
     private static double parseAsRatio(String parameter) throws ExperimentExecutionException {
         try {
             // Try floating-point

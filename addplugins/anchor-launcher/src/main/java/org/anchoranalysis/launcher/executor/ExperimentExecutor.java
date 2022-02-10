@@ -23,14 +23,13 @@ package org.anchoranalysis.launcher.executor;
  */
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.anchoranalysis.core.log.MessageLogger;
+import org.anchoranalysis.core.log.Logger;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.experiment.bean.Experiment;
@@ -83,24 +82,30 @@ public class ExperimentExecutor {
     public void executeExperiment(
             ExecutionArguments executionArguments,
             boolean alwaysShowExperimentArguments,
-            MessageLogger logger)
+            Logger logger)
             throws ExperimentExecutionException {
 
-        ExperimentExecutorAfter delegate =
-                new ExperimentExecutorAfter(configDirectory, openInDesktop);
+        if (openInDesktop) {
+            Consumer<Path> desktopOpener =
+                    path -> DesktopPathOpener.openPathInDesktop(path, logger.errorReporter());
+            executionArguments.input().assignCallUponDirectoryCreation(desktopOpener);
+        }
+
+        ExperimentExecutorAfter delegate = new ExperimentExecutorAfter(configDirectory);
 
         if (defaultBehaviourString.isPresent() && areAllDefault()) {
             // Special behaviour if everything has defaults
-            logger.logFormatted(
-                    "%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.%n",
-                    defaultBehaviourString.get(), // NOSONAR
-                    CommandLineOptions.SHORT_OPTION_HELP);
+            logger.messageLogger()
+                    .logFormatted(
+                            "%s.%nLearn how to select inputs, outputs and tasks with 'anchor -%s'.%n",
+                            defaultBehaviourString.get(), // NOSONAR
+                            CommandLineOptions.SHORT_OPTION_HELP);
         }
 
         Experiment experimentLoaded = loadExperimentFromPath(executionArguments);
 
         if (alwaysShowExperimentArguments || experimentLoaded.useDetailedLogging()) {
-            logger.log(describe());
+            logger.messageLogger().log(describe());
         }
 
         setupModelDirectory(configDirectory, executionArguments);
@@ -134,7 +139,8 @@ public class ExperimentExecutor {
      * @throws ExperimentExecutionException
      */
     private String describe() throws ExperimentExecutionException {
-        return String.format("%s%s%n", describeExperiment(), describeInputOutput());
+        return String.format(
+                "%s%s%n", describeExperiment(), SelectPathDescriber.describe(input, output, task));
     }
 
     private String describeExperiment() throws ExperimentExecutionException {
@@ -146,34 +152,6 @@ public class ExperimentExecutor {
                 && input.isDefault()
                 && output.isDefault()
                 && task.isDefault();
-    }
-
-    private void addToListIfNonDefault(
-            SelectParam<Optional<Path>> selectParam, String textDscr, List<String> list)
-            throws ExperimentExecutionException {
-        if (!selectParam.isDefault()) {
-            list.add(String.format("%s %s", textDscr, selectParam.describe()));
-        }
-    }
-
-    private String describeInputOutput() throws ExperimentExecutionException {
-
-        // Components
-        List<String> list = new ArrayList<>();
-        addToListIfNonDefault(input, "input", list);
-        addToListIfNonDefault(output, "output", list);
-        addToListIfNonDefault(task, "task", list);
-
-        return collapseIntoOneLine(list);
-    }
-
-    private static String collapseIntoOneLine(List<String> list) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            builder.append(i == 0 ? " with " : " and ");
-            builder.append(list.get(i));
-        }
-        return builder.toString();
     }
 
     private Experiment loadExperimentFromPath(ExecutionArguments execArgs)

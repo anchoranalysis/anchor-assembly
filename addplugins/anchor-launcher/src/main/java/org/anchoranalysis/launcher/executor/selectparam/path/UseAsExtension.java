@@ -53,7 +53,7 @@ class UseAsExtension implements SelectParam<Optional<Path>> {
 
     @Override
     public Optional<Path> select(ExecutionArguments executionArguments) {
-        executionArguments.input().assignFilterExtensions(extensions);
+        executionArguments.inputContextParameters().assignFilterExtensions(extensions);
         return Optional.empty();
     }
 
