@@ -63,7 +63,8 @@ public class SelectParamFactory {
      */
     public static SelectParam<Optional<Path>> pathOrTaskNameOrDefault(
             CommandLine line, String optionName, Path tasksDirectory) {
-        return ifOption(line, optionName, args -> TaskFactory.pathOrTaskName(args, tasksDirectory));
+        return ifOptionOrDefault(
+                line, optionName, args -> TaskFactory.pathOrTaskName(args, tasksDirectory));
     }
 
     /**
@@ -82,7 +83,7 @@ public class SelectParamFactory {
      */
     public static SelectParam<Optional<Path>> inputSelectParam(CommandLine line) {
         try {
-            return ifOption(
+            return ifOptionOrDefault(
                     line,
                     CommandLineOptions.SHORT_OPTION_INPUT,
                     InputFactory::pathOrDirectoryOrGlobOrExtension);
@@ -102,13 +103,35 @@ public class SelectParamFactory {
      * @param line command-line to consider if certain options have been selected or not
      * @return an appropriate SelectParam object
      */
-    public static SelectParam<Optional<Path>> outputSelectParam(CommandLine line) {
-        boolean writeIntoRoot =
-                line.hasOption(CommandLineOptions.SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER);
-        return ifOption(
+    public static SelectParam<Optional<Path>> outputSelectParam(CommandLine line)
+            throws ExperimentExecutionException {
+
+        if (line.hasOption(CommandLineOptions.SHORT_OPTION_OUTPUT)
+                && line.hasOption(
+                        CommandLineOptions.SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER)) {
+            throw new ExperimentExecutionException(
+                    String.format(
+                            "Only one of command-line options -%s and -%s may be present, but both are!",
+                            CommandLineOptions.SHORT_OPTION_OUTPUT,
+                            CommandLineOptions.SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER));
+        }
+
+        // First try the option that omits the experiment-identifier
+        Optional<SelectParam<Optional<Path>>> selected =
+                ifOption(
+                        line,
+                        CommandLineOptions.SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER,
+                        arg -> OutputFactory.pathOrDirectory(arg, true));
+
+        if (selected.isPresent()) {
+            return selected.get();
+        }
+
+        // Then otherwise try the usual output option
+        return ifOptionOrDefault(
                 line,
                 CommandLineOptions.SHORT_OPTION_OUTPUT,
-                arg -> OutputFactory.pathOrDirectory(arg, writeIntoRoot));
+                arg -> OutputFactory.pathOrDirectory(arg, false));
     }
 
     /**
@@ -129,16 +152,31 @@ public class SelectParamFactory {
         return ExperimentFactory.defaultExperimentOrCustom(line, defaultExperiment);
     }
 
-    private static <E extends Exception> SelectParam<Optional<Path>> ifOption(
+    /**
+     * If {@code optionName} is present, then apply {@code func}, otherwise use the default-manager.
+     */
+    private static <E extends Exception> SelectParam<Optional<Path>> ifOptionOrDefault(
+            CommandLine line,
+            String optionName,
+            CheckedFunction<String[], SelectParam<Optional<Path>>, E> func)
+            throws E {
+        return ifOption(line, optionName, func).orElseGet(UseDefaultManager::new);
+    }
+
+    /**
+     * If {@code optionName} is present, then apply {@code func}, otherwise return {@link
+     * Optional#empty}.
+     */
+    private static <E extends Exception> Optional<SelectParam<Optional<Path>>> ifOption(
             CommandLine line,
             String optionName,
             CheckedFunction<String[], SelectParam<Optional<Path>>, E> func)
             throws E {
         if (line.hasOption(optionName)) {
-            return func.apply(line.getOptionValues(optionName));
+            return Optional.of(func.apply(line.getOptionValues(optionName)));
 
         } else {
-            return new UseDefaultManager();
+            return Optional.empty();
         }
     }
 }
