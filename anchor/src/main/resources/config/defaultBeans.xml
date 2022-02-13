@@ -187,5 +187,12 @@
 		<item config-class="org.anchoranalysis.plugin.io.bean.grouper.IfGroupIndexRange"/>
 	</item>
 	
+	<!-- 
+		By default, maps a 16- or 32-bit-depth to unsigned 8-bit image by taking quantiles of the intensity range, and mapping linearly in between.
+	 -->
+	<item config-class="org.anchoranalysis.bean.NamedBean" name="org.anchoranalysis.image.bean.displayer.StackDisplayer">
+		<item config-class="org.anchoranalysis.image.bean.displayer.IntensityQuantiles"/>
+	</item>
+	
 </bean>
 </config>

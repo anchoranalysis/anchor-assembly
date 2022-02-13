@@ -338,8 +338,8 @@ public class CommandLineOptions {
         options.addOption(
                 SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER,
                 LONG_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER,
-                false,
-                "omits experiment name and version in output directory");
+                true,
+                "like -o but omits experiment name and version in output directory");
     }
 
     private static void addTaskOptions(Options options) {
