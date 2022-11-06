@@ -72,6 +72,25 @@ features:
 				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.NumberFrames"/>
 			</item>
 		</item>
+		
+		<!-- Where more than one series exists, the other metadata items (width, height etc.) refer to one particular selected element in the series.
+			 This is usually the first element. It may be the highest magnification image for a pyramid file format. -->
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="numberSeries">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.NumberSeries"/>
+			</item>
+		</item>
+		
+		<!-- 
+		The number of image resolution-levels available. typically 1 for an normal image-file, but it may be more if the file is an image-pyramid.
+		
+		If multiple image-pyramids exist in a file, this will refer to the one considered most important, according to the underlying driver. 
+		-->
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="numberResolutionLevels">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.NumberResolutionLevels"/>
+			</item>
+		</item>
 	
 		<item config-class="org.anchoranalysis.bean.NamedBean" name="imageSizeVoxels">
 			<item config-class="org.anchoranalysis.plugin.image.feature.bean.list.permute.PermuteFeature">
