@@ -1,6 +1,6 @@
 <!-- 
 ===================
-TASK:   resize
+TASK:   center
 AUTHOR: Owen Feehan
 ===================
 
@@ -8,7 +8,7 @@ AUTHOR: Owen Feehan
 DESCRIPTION
 ===========
 
-Resizes (scales) each image to fit inside 1024x768 (preserving the aspect ratio).
+Resizes (scales) each image to fit inside 1024x768 (preserving the aspect ratio), but maintains a common size for all images.
 
 ======
 INPUTS
@@ -27,7 +27,8 @@ scaled:
    	a scaled copy of each image.
 -->
 <config>
-<bean config-class="org.anchoranalysis.plugin.image.task.bean.scale.ScaleImageIndependently">
+<bean config-class="org.anchoranalysis.plugin.image.task.bean.scale.ScaleImageCommonSize">
+	<align config-class="org.anchoranalysis.image.bean.spatial.arrange.align.Align" alignX="center" alignY="center" alignZ="center"/>
 	<scaleCalculator config-class="org.anchoranalysis.plugin.image.bean.scale.ToSuggested">
 		<fallback preserveAspectRatio="true" config-class="org.anchoranalysis.plugin.image.bean.scale.ToDimensions">
 			<dimensions config-class="org.anchoranalysis.plugin.image.bean.dimensions.provider.SpecifyDimensions">

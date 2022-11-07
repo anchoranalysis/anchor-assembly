@@ -8,7 +8,7 @@
 	
   <artifactId>anchor</artifactId>
   <url>http://www.anchoranalysis.org/</url>
-  <version>0.10-prerelease</version>
+  <version>0.11-prerelease</version>
   
   <packaging>pom</packaging>
 
