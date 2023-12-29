@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <rootTagDoesNotMatter>
-<missingExperimentTagHere config-class="org.anchoranalysis.plugin.quick.bean.experiment.QuickExperiment" fileInput="../input/ellipseFitting.tif" directoryOutput="../output/" inputName="stackInput">
+<missingExperimentTagHere config-class="org.anchoranalysis.launcher.executor.BeanFixture" fileInput="../input/ellipseFitting.tif" directoryOutput="../output/" inputName="stackInput">
 
 	<task config-class="org.anchoranalysis.launcher.run.tasks.HelloWorld"/>
 	

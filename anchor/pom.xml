@@ -40,12 +40,6 @@
 	  <version>0.0.5-SNAPSHOT</version>
 	</dependency>
 	
-	<dependency>
-	  <groupId>${project.groupId}</groupId>
-	  <artifactId>anchor-plugin-ml</artifactId>
-	  <version>0.0.5-SNAPSHOT</version>
-	</dependency>
-	
 			
 		<!-- We add both onnxruntime dependencies (GPU and CPU) so the appropriate one can be removed later depending on operating system. -->
 		<dependency>
@@ -189,7 +183,7 @@
 						<initialHeapPercent>20</initialHeapPercent>
 						<maxHeapPercent>80</maxHeapPercent>
 						<opts>
-							<opt>-Donnxruntime.native.path=%EXEDIR%/../lib/onnxruntime</opt>	
+							<opt>-Donnxruntime.native.path=%EXEDIR%/../lib/onnxruntime</opt>
 						</opts>
 					  </jre>
 				 </configuration>
