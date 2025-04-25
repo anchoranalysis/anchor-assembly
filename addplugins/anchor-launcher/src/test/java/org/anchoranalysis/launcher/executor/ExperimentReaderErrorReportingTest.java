@@ -43,11 +43,11 @@ import org.junit.jupiter.api.function.Executable;
  */
 class ExperimentReaderErrorReportingTest {
 
-    private static TestLoader tl = TestLoader.createFromMavenWorkingDirectory();
+    private static TestLoader loader = TestLoader.createFromMavenWorkingDirectory();
 
     @BeforeAll
     static void setUp() throws Exception {
-        ExperimentExecutorAfter.initializeIfNecessary(tl.getRoot(), false, false);
+        ExperimentExecutorAfter.initializeIfNecessary(loader.getRoot(), false, false);
     }
 
     @Test
@@ -162,7 +162,7 @@ class ExperimentReaderErrorReportingTest {
             throws ExperimentExecutionException {
 
         String testPath = testPathToConfig(configName);
-        Path experimentConfigFile = tl.resolveTestPath(testPath);
+        Path experimentConfigFile = loader.resolveTestPath(testPath);
 
         // Catch and display the output
         try {
