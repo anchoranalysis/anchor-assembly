@@ -63,6 +63,7 @@ public class CommandLineOptions {
 
     /** Randomly samples a number of inputs. */
     public static final String SHORT_OPTION_INPUT_RANDOM_SAMPLE = "ir";
+
     // END: SHORT input options
 
     // START: SHORT task options
@@ -77,6 +78,7 @@ public class CommandLineOptions {
 
     /** Activates grouping from a subset of the identifier's elements. */
     public static final String SHORT_OPTION_GROUP = "pg";
+
     // END: SHORT task options
 
     // START: SHORT output options
@@ -121,6 +123,7 @@ public class CommandLineOptions {
      * <p>This writes directorly to the output-directory, but not if it already exists.
      */
     public static final String SHORT_OPTION_OUTPUT_OMIT_EXPERIMENT_IDENTIFIER = "oo";
+
     // END: SHORT output options
 
     // START: SHORT debug options
@@ -135,6 +138,7 @@ public class CommandLineOptions {
 
     /** Prints the names of predefined tasks that can be easily used with -t. */
     public static final String SHORT_OPTION_SHOW_TASKS = "st";
+
     // END: SHORT debug options
 
     // START: SHORT application information options
@@ -143,6 +147,7 @@ public class CommandLineOptions {
 
     /** Displays version and authorship information. */
     public static final String SHORT_OPTION_VERSION = "v";
+
     // END: SHORT application information options
 
     // START: All LONG options
@@ -197,6 +202,7 @@ public class CommandLineOptions {
 
     /** Activates grouping from a subset of the identifier's elements. */
     public static final String LONG_OPTION_GROUP = "paramGroup";
+
     // END: All LONG options
 
     public static void addBasicOptions(Options options) {
