@@ -40,30 +40,30 @@ class PrettyPathConverterTest {
     private static final Path PATH_RELATIVE_MEDIUM = path("../../");
     private static final Path PATH_RELATIVE_DIFF_BIG_TO_MEDIUM = path("../");
 
-    private static String IDENTICAL = ".";
+    private static final String IDENTICAL = ".";
 
     @Test
-    void testBiggerAbsolute() throws ExperimentExecutionException {
+    void testBiggerAbsolute() {
         test(PATH_ABSOLUTE_BIG, PATH_ABSOLUTE_MEDIUM, PATH_ABSOLUTE_DIFF_BIG_TO_MEDIUM.toString());
     }
 
     @Test
-    void testSmallerAbsolute() throws ExperimentExecutionException {
+    void testSmallerAbsolute() {
         test(PATH_ABSOLUTE_MEDIUM, PATH_ABSOLUTE_BIG, PATH_ABSOLUTE_DIFF_MEDIUM_TO_BIG.toString());
     }
 
     @Test
-    void testIdenticalAbsolute() throws ExperimentExecutionException {
+    void testIdenticalAbsolute() {
         test(PATH_ABSOLUTE_MEDIUM, PATH_ABSOLUTE_MEDIUM, IDENTICAL);
     }
 
     @Test
-    void testBiggerRelative() throws ExperimentExecutionException {
+    void testBiggerRelative() {
         test(PATH_RELATIVE_BIG, PATH_RELATIVE_MEDIUM, PATH_RELATIVE_DIFF_BIG_TO_MEDIUM.toString());
     }
 
     @Test
-    void testIdenticalRelative() throws ExperimentExecutionException {
+    void testIdenticalRelative() {
         test(PATH_RELATIVE_MEDIUM, PATH_RELATIVE_MEDIUM, IDENTICAL);
     }
 
