@@ -39,22 +39,29 @@ import org.anchoranalysis.core.exception.OperationFailedException;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.plugin.io.input.path.RootPathMap;
 
-// Loads additional configuration (for executing an experiment) from the filesystem
+/** Loads additional configuration (for executing an experiment) from the filesystem. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class HelperLoadAdditionalConfig {
 
-    /** Name of anchor subdirectory in user directory */
+    /** Name of anchor subdirectory in user directory. */
     private static final String ANCHOR_USER_SUBDIR = ".anchor/";
 
-    /** Filename (relative to anchor root) for default instances config file */
+    /** Filename (relative to anchor root) for default instances config file. */
     private static final String DEFAULT_INSTANCES_FILENAME = "defaultBeans.xml";
 
-    /** Filename (relative to anchor root) for default extensions */
+    /** Filename (relative to anchor root) for default extensions. */
     private static final String DEFAULT_EXTENSIONS_FILENAME = "defaultInputExtensions.xml";
 
-    /** Filename (relative to anchor root) for root path map */
+    /** Filename (relative to anchor root) for root path map. */
     private static final String ROOT_PATH_MAP_FILENAME = "rootPaths.xml";
 
+    /**
+     * Loads default instances from configuration files.
+     *
+     * @param pathConfigurationDirectory the {@link Path} to the configuration directory
+     * @return a {@link BeanInstanceMap} containing the loaded default instances
+     * @throws ExperimentExecutionException if loading fails
+     */
     public static BeanInstanceMap loadDefaultInstances(Path pathConfigurationDirectory)
             throws ExperimentExecutionException {
 
@@ -77,10 +84,11 @@ class HelperLoadAdditionalConfig {
     /**
      * Loads a set of default file extensions from the {@code config/} directory.
      *
-     * @param pathConfigDirectory the directory in which the configuration files reside.
-     * @return the set of extensions (they should be without any period, and in lower-case) or null
-     *     if the file doesn't exist
-     * @throws ExperimentExecutionException
+     * @param pathConfigDirectory the {@link Path} to the directory in which the configuration files
+     *     reside
+     * @return an {@link Optional} containing a {@link StringSetTrie} of extensions (without any
+     *     period, and in lower-case) or empty if the file doesn't exist
+     * @throws ExperimentExecutionException if loading fails
      */
     public static Optional<StringSetTrie> loadDefaultExtensions(Path pathConfigDirectory)
             throws ExperimentExecutionException {
@@ -101,6 +109,13 @@ class HelperLoadAdditionalConfig {
         return Optional.empty();
     }
 
+    /**
+     * Adds default instances from a directory to a {@link BeanInstanceMap}.
+     *
+     * @param path the {@link Path} to the directory containing default instances
+     * @param addToMap the {@link BeanInstanceMap} to add the instances to
+     * @throws ExperimentExecutionException if adding fails
+     */
     private static void addDefaultInstancesFromDirectory(Path path, BeanInstanceMap addToMap)
             throws ExperimentExecutionException {
         if (path.toFile().exists()) {
@@ -115,6 +130,13 @@ class HelperLoadAdditionalConfig {
         }
     }
 
+    /**
+     * Loads root paths from configuration files.
+     *
+     * @param pathConfigurationDirectory the {@link Path} to the configuration directory
+     * @return a {@link RootPathMap} containing the loaded root paths
+     * @throws ExperimentExecutionException if loading fails
+     */
     public static RootPathMap loadRootPaths(Path pathConfigurationDirectory)
             throws ExperimentExecutionException {
 
@@ -130,6 +152,13 @@ class HelperLoadAdditionalConfig {
         return RootPathMap.instance();
     }
 
+    /**
+     * Adds root paths from a directory to a {@link RootPathMap}.
+     *
+     * @param path the {@link Path} to the directory containing root paths
+     * @param addToMap the {@link RootPathMap} to add the root paths to
+     * @throws ExperimentExecutionException if adding fails
+     */
     private static void addRootPathsFromDir(Path path, RootPathMap addToMap)
             throws ExperimentExecutionException {
 
@@ -145,6 +174,11 @@ class HelperLoadAdditionalConfig {
         }
     }
 
+    /**
+     * Gets the Anchor user directory.
+     *
+     * @return the {@link Path} to the Anchor user directory
+     */
     private static Path getAnchorUserDir() {
         Path currentUsersHomeDir = Paths.get(System.getProperty("user.home"));
         return currentUsersHomeDir.resolve(ANCHOR_USER_SUBDIR);

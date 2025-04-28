@@ -23,12 +23,23 @@ package org.anchoranalysis.launcher;
 
 import org.anchoranalysis.core.exception.friendly.AnchorFriendlyRuntimeException;
 
-/** An exception thrown at run-time while processing command-line args */
+/**
+ * An exception thrown at run-time while processing command-line arguments.
+ *
+ * <p>This exception extends {@link AnchorFriendlyRuntimeException} to provide user-friendly error
+ * messages.
+ */
 public class CommandLineException extends AnchorFriendlyRuntimeException {
 
-    /** */
+    /** Serialization version UID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Constructs a new CommandLineException with the specified detail message.
+     *
+     * @param message the detail message (which is saved for later retrieval by the {@link
+     *     #getMessage()} method)
+     */
     public CommandLineException(String message) {
         super(message);
     }

@@ -32,6 +32,7 @@ import org.anchoranalysis.launcher.options.CommandLineExtracter;
  * Base class for adding options from command-line arguments.
  *
  * @author Owen Feehan
+ * @param <T> the type of the associated entity
  */
 @AllArgsConstructor
 public abstract class AddOptionsFromCommandLine<T> {
@@ -42,11 +43,16 @@ public abstract class AddOptionsFromCommandLine<T> {
     /** An associated entity which consumers accept. */
     protected final T associated;
 
-    /** Maybe add options to the arguments from the command-line. */
+    /**
+     * Maybe add options to the arguments from the command-line.
+     *
+     * @throws ExperimentExecutionException if an error occurs while processing the command-line
+     *     options
+     */
     public abstract void addOptionsFromCommandLine() throws ExperimentExecutionException;
 
     /**
-     * Executes <code>consumer</code> if an option exists <b>without any argument</b>.
+     * Executes {@code consumer} if an option exists <b>without any argument</b>.
      *
      * @param optionShort name of the option in short form.
      * @param consumer called with the associated element, if the option is present.
@@ -62,8 +68,8 @@ public abstract class AddOptionsFromCommandLine<T> {
     }
 
     /**
-     * Executes <code>consumer</code> if <b>maximally one option</b> exists <b>with a single
-     * argument</b> - passing {@code associated}.
+     * Executes {@code consumer} if <b>maximally one option</b> exists <b>with a single argument</b>
+     * - passing {@code associated}.
      *
      * @param optionShort name of the option in short form.
      * @param consumer called with the associated object and the extracted single-argument, if the
@@ -77,12 +83,11 @@ public abstract class AddOptionsFromCommandLine<T> {
     }
 
     /**
-     * Executes <code>consumer</code> if <b>maximally one option</b> exists <b>with a single
-     * argument</b> - without passing {@code associated}.
+     * Executes {@code consumer} if <b>maximally one option</b> exists <b>with a single argument</b>
+     * - without passing {@code associated}.
      *
      * @param optionShort name of the option in short form.
-     * @param consumer called with the associated object and the extracted single-argument, if the
-     *     option is present.
+     * @param consumer called with the extracted single-argument, if the option is present.
      * @throws ExperimentExecutionException if {@code consumer} throws it.
      */
     protected void ifPresentSingle(
@@ -92,12 +97,10 @@ public abstract class AddOptionsFromCommandLine<T> {
     }
 
     /**
-     * Executes <code>consumer</code> if <b>one or more</b> options exists <b>with a single
-     * argument</b>.
+     * Executes {@code consumer} if <b>one or more</b> options exists <b>with a single argument</b>.
      *
      * @param optionShort name of the option in short form.
-     * @param consumer called with the associated object and the extracted single-argument, if the
-     *     option is present.
+     * @param consumer called with an array of extracted single-arguments, if the option is present.
      * @throws ExperimentExecutionException if {@code consumer} throws it.
      */
     protected void ifPresentMultiple(

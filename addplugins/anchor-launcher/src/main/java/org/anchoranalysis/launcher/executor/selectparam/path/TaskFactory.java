@@ -33,7 +33,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.convert.ArgumentCon
 import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPathArgumentException;
 
 /**
- * {@code SelectParam<Path>} factory for tasks.
+ * {@link SelectParam}<{@link Path}> factory for tasks.
  *
  * @author Owen Feehan
  */
@@ -41,9 +41,16 @@ import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPath
 public class TaskFactory {
 
     /**
-     * If the argument a name (no extension, no root, no special-chars apart from forward-slashes),
-     * then construct an automatic path to the tasks in the configuration directory. Otherwise treat
-     * as path to BeanXML
+     * Creates a {@link SelectParam} for a path or task name.
+     *
+     * <p>If the argument is a name (no extension, no root, no special-chars apart from
+     * forward-slashes), then construct an automatic path to the tasks in the configuration
+     * directory. Otherwise treat as path to BeanXML.
+     *
+     * @param args the command-line arguments
+     * @param tasksDirectory the directory containing task configurations
+     * @return a {@link SelectParam} for {@link Optional}<{@link Path}>
+     * @throws CommandLineException if invalid arguments were passed
      */
     public static SelectParam<Optional<Path>> pathOrTaskName(String[] args, Path tasksDirectory) {
 
@@ -69,6 +76,14 @@ public class TaskFactory {
         }
     }
 
+    /**
+     * Constructs a path for a task and checks if it exists.
+     *
+     * @param taskName the name of the task
+     * @param tasksDirectory the directory containing task configurations
+     * @return the {@link Path} to the task configuration
+     * @throws CommandLineException if the task doesn't exist
+     */
     private static Path pathForTaskCheckExists(String taskName, Path tasksDirectory) {
         Path path = pathForTaskName(taskName, tasksDirectory);
 
@@ -79,13 +94,25 @@ public class TaskFactory {
         }
     }
 
+    /**
+     * Constructs a path for a task name.
+     *
+     * @param filenameWithoutExtension the task name without file extension
+     * @param tasksDirectory the directory containing task configurations
+     * @return the {@link Path} to the task configuration
+     */
     private static Path pathForTaskName(String filenameWithoutExtension, Path tasksDirectory) {
         return NonImageFileFormat.XML.buildPath(tasksDirectory, filenameWithoutExtension);
     }
 
     /**
-     * Check if it contains only a restricted set of characters... alphaNumeric, hyphen, underscore,
-     * forward-slash.
+     * Checks if the argument is a valid task name.
+     *
+     * <p>A valid task name contains only alphanumeric characters, hyphens, underscores, and
+     * forward-slashes.
+     *
+     * @param arg the argument to check
+     * @return true if the argument is a valid task name, false otherwise
      */
     private static boolean isTaskName(String arg) {
         return arg.matches("^[a-zA-Z0-9_\\-\\/]+$");

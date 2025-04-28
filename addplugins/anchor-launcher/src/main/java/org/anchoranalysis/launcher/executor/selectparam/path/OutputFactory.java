@@ -43,13 +43,16 @@ import org.anchoranalysis.launcher.options.CommandLineOptions;
 public class OutputFactory {
 
     /**
-     * If the argument is a path to a directory, then this directory is set as the default.
+     * Creates a {@link SelectParam} for output paths or directories.
      *
-     * <p>Otherwise the argument is treated like a path to BeanXML.
+     * <p>If the argument is a path to a directory, then this directory is set as the default.
+     * Otherwise, the argument is treated like a path to BeanXML.
      *
+     * @param arguments the command-line arguments to parse
      * @param writeIntoRoot whether to write directly into an output directory's root (in which case
-     *     a directory must be selected).
-     * @throws CommandLineException if invalid arguments were passed.
+     *     a directory must be selected)
+     * @return a {@link SelectParam} for {@link Optional}<{@link Path}>
+     * @throws CommandLineException if invalid arguments were passed
      */
     public static SelectParam<Optional<Path>> pathOrDirectory(
             String[] arguments, boolean writeIntoRoot) {

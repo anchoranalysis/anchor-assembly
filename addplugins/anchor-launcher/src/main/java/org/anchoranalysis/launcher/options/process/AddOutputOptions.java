@@ -39,6 +39,12 @@ import org.anchoranalysis.launcher.options.CommandLineOptions;
  */
 public class AddOutputOptions extends AddOptionsFromCommandLine<OutputArguments> {
 
+    /**
+     * Creates a new {@link AddOutputOptions}.
+     *
+     * @param extract the {@link CommandLineExtracter} to use
+     * @param arguments the {@link OutputArguments} to modify
+     */
     private AddOutputOptions(CommandLineExtracter extract, OutputArguments arguments) {
         super(extract, arguments);
     }
@@ -46,6 +52,8 @@ public class AddOutputOptions extends AddOptionsFromCommandLine<OutputArguments>
     /**
      * Adds options to add/remove change the outputs the inputs from the command-line.
      *
+     * @param extract the {@link CommandLineExtracter} to use
+     * @param arguments the {@link OutputArguments} to modify
      * @throws ExperimentExecutionException if the arguments to the command-line options do not
      *     correspond to expectations.
      */
@@ -88,6 +96,13 @@ public class AddOutputOptions extends AddOptionsFromCommandLine<OutputArguments>
                 OutputArguments::requestOmitExperimentIdentifier);
     }
 
+    /**
+     * Processes additional output options if present.
+     *
+     * @param optionName the name of the option to check
+     * @param function the function to apply if the option is present
+     * @throws ExperimentExecutionException if an error occurs while processing the option
+     */
     private void ifAdditionalOptionsPresent(
             String optionName, BiConsumer<OutputEnabledDelta, MultiLevelOutputEnabled> function)
             throws ExperimentExecutionException {
@@ -99,6 +114,13 @@ public class AddOutputOptions extends AddOptionsFromCommandLine<OutputArguments>
                                 AdditionalOutputsParser.parseFrom(outputs, optionName)));
     }
 
+    /**
+     * Processes output format option if present.
+     *
+     * @param optionName the name of the option to check
+     * @param consumer the consumer to apply if the option is present
+     * @throws ExperimentExecutionException if an error occurs while processing the option
+     */
     private void ifOutputFormatPresent(
             String optionName, BiConsumer<OutputArguments, ImageFileFormat> consumer)
             throws ExperimentExecutionException {

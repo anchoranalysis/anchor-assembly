@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 
 /**
- * Displays some common error messages to the user
+ * Displays some common error messages to the user.
  *
  * @author Owen Feehan
  */
@@ -39,20 +39,23 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 class ErrorPrinter {
 
     /**
-     * How long the indentation+message can be before wrapping in the error log. -1 disables
-     * wrapping
+     * How long the indentation+message can be before wrapping in the error log.
+     *
+     * <p>-1 disables wrapping.
      */
     private static final int ERROR_LOG_WRAP_MESSAGE = 200;
 
+    /** Prints an error message to the console when too many arguments are provided. */
     public static void printTooManyArguments() {
         System.err.println( // NOSONAR
                 "Please only pass a single experiment-file as an argument. Multiple files are not allowed");
     }
 
     /**
-     * Prints an exception to the filesystem as an error log
+     * Prints an exception to the filesystem as an error log.
      *
-     * @param cause the exception that occurred to cause the error
+     * @param cause the {@link ExperimentExecutionException} that occurred to cause the error
+     * @param errorLogPath the {@link Path} where the error log should be written
      */
     public static void printErrorLog(ExperimentExecutionException cause, Path errorLogPath) {
         try {

@@ -26,7 +26,7 @@ import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 
 /**
- * Different methods of selecting a object {@code T} that is used as a parameter for an experiment.
+ * Different methods of selecting an object {@code T} that is used as a parameter for an experiment.
  *
  * @param <T> object-type that is used as a parameter for an experiment.
  */
@@ -37,20 +37,27 @@ public interface SelectParam<T> {
      *
      * <p>Note that the {@link ExecutionArguments} might be modified during this operation (e.g.
      * adding a directory parameter).
+     *
+     * @param executionArguments the {@link ExecutionArguments} that may be modified during
+     *     selection
+     * @return the selected parameter of type {@code T}
+     * @throws ExperimentExecutionException if an error occurs during parameter selection
      */
     T select(ExecutionArguments executionArguments) throws ExperimentExecutionException;
 
     /**
-     * Is this the default option that occurs without any additional user effort?
+     * Checks if this is the default option that occurs without any additional user effort.
      *
-     * @return true iff it is the default option.
+     * @return true if it is the default option, false otherwise
      */
     boolean isDefault();
 
     /**
-     * A string that can be displayed to the user to describe this particular {@code SelectParam}.
+     * Provides a string that can be displayed to the user to describe this particular {@link
+     * SelectParam}.
      *
-     * @return a descriptive-string.
+     * @return a descriptive string
+     * @throws ExperimentExecutionException if an error occurs while generating the description
      */
     String describe() throws ExperimentExecutionException;
 }

@@ -34,24 +34,27 @@ import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPath
 import org.anchoranalysis.launcher.executor.selectparam.path.convert.PrettyPathConverter;
 
 /**
- * Uses a list of paths to specific files as a manager
+ * Uses a list of paths to specific files as a manager.
  *
  * @author Owen Feehan
  */
 class UseListFilesForManager implements SelectParam<Optional<Path>> {
 
+    /** The list of paths to be used as input files. */
     private final List<Path> paths;
 
     /**
-     * Constructor
+     * Constructor for UseListFilesForManager.
      *
-     * @param paths
-     * @throws InvalidPathArgumentException if any of the paths doesn't exist, or is a directory.
+     * @param paths the {@link List} of {@link Path}s to be used as input files
+     * @throws InvalidPathArgumentException if any of the paths doesn't exist, or is a directory
      */
     public UseListFilesForManager(List<Path> paths) throws InvalidPathArgumentException {
         this.paths = paths;
         checkNoDirectories(paths);
     }
+
+    // Overridden methods do not need doc-strings as per instructions
 
     @Override
     public Optional<Path> select(ExecutionArguments executionArguments) {
@@ -69,6 +72,12 @@ class UseListFilesForManager implements SelectParam<Optional<Path>> {
         return false;
     }
 
+    /**
+     * Checks that all paths in the list exist and are not directories.
+     *
+     * @param paths the {@link List} of {@link Path}s to check
+     * @throws InvalidPathArgumentException if any path doesn't exist or is a directory
+     */
     private void checkNoDirectories(List<Path> paths) throws InvalidPathArgumentException {
         for (Path path : paths) {
             File file = path.toFile();

@@ -27,29 +27,44 @@ import java.nio.file.Paths;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/** Utility class for converting paths to a more user-friendly representation. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PrettyPathConverter {
 
-    // If we have more than this in a relative-path, we show absolute paths instead
+    /** Maximum number of parent directory references (".." or "..") allowed in a relative path. */
     private static final int MAX_DOUBLE_DOTS_CNT = 3;
 
     /**
-     * Converts to either a normalized absolute-path or relative-path depending on which is prettier
-     * to the user
+     * Converts a string path to either a normalized absolute-path or relative-path depending on
+     * which is prettier to the user.
+     *
+     * @param path the path as a {@link String}
+     * @return the prettified path as a {@link String}
      */
     public static String prettyPath(String path) {
         return prettyPath(Paths.get(path));
     }
 
     /**
-     * Converts to either a normalized absolute-path or relative-path depending on which is prettier
-     * to the user
+     * Converts a Path to either a normalized absolute-path or relative-path depending on which is
+     * prettier to the user.
+     *
+     * @param path the {@link Path} to prettify
+     * @return the prettified path as a {@link String}
      */
     public static String prettyPath(Path path) {
         Path workingDir = completelyNormalize(Paths.get(""));
         return prettyPath(completelyNormalize(path), completelyNormalize(workingDir));
     }
 
+    /**
+     * Converts a Path to either a normalized absolute-path or relative-path depending on which is
+     * prettier to the user, given a specific working directory.
+     *
+     * @param path the {@link Path} to prettify
+     * @param workingDir the current working directory as a {@link Path}
+     * @return the prettified path as a {@link String}
+     */
     static String prettyPath(Path path, Path workingDir) {
 
         // First we make both paths absolute and normalized, so they have non-null roots
@@ -81,11 +96,22 @@ public class PrettyPathConverter {
         }
     }
 
+    /**
+     * Completely normalizes a path by making it absolute and normalized.
+     *
+     * @param path the {@link Path} to normalize
+     * @return the completely normalized {@link Path}
+     */
     static Path completelyNormalize(Path path) {
         return path.toAbsolutePath().normalize();
     }
 
-    /** Counts how many times ../ appears in a relative-path */
+    /**
+     * Counts how many times ".." appears in a relative-path.
+     *
+     * @param path the relative {@link Path} to check
+     * @return the count of ".." occurrences
+     */
     private static int countDoubleDotsInRelativePath(Path path) {
 
         int count = 0;

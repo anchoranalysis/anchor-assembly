@@ -39,13 +39,13 @@ public class ExperimentExecutorFactory {
 
     /**
      * Creates an experiment-executor from a command line that EITHER: uses a default-experiment OR
-     * accepts a path passed as the first command-line argument
+     * accepts a path passed as the first command-line argument.
      *
-     * @param line the command-line arguments
-     * @param defaultExperiment path to the default-experiment
-     * @param configDirectory path to the configuration directory
-     * @return
-     * @throws ExperimentExecutionException
+     * @param line the {@link CommandLine} containing the command-line arguments
+     * @param defaultExperiment {@link Path} to the default-experiment
+     * @param configDirectory {@link Path} to the configuration directory
+     * @return a new {@link ExperimentExecutor} instance
+     * @throws ExperimentExecutionException if there's an error creating the executor
      */
     public static ExperimentExecutor create(
             CommandLine line, Path defaultExperiment, Path configDirectory)
