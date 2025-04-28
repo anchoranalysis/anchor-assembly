@@ -40,8 +40,8 @@ class DesktopPathOpener {
     /**
      * Opens a directory path in the desktop.
      *
-     * @param the directory path to open.
-     * @param errorReporter how to record any error that may occur.
+     * @param path the directory {@link Path} to open.
+     * @param errorReporter the {@link ErrorReporter} to record any error that may occur.
      */
     public static void openPathInDesktop(Path path, ErrorReporter errorReporter) {
         Preconditions.checkArgument(path.toFile().isDirectory());

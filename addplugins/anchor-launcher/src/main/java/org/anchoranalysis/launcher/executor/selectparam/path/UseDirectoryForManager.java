@@ -31,21 +31,26 @@ import org.anchoranalysis.launcher.executor.selectparam.SelectParam;
 import org.anchoranalysis.launcher.executor.selectparam.path.convert.PrettyPathConverter;
 
 /**
- * Uses the path directory as a manager
+ * Uses the path directory as a manager.
  *
  * @author Owen Feehan
  */
 class UseDirectoryForManager implements SelectParam<Optional<Path>> {
 
+    /** Whether this is an input manager (true) or output manager (false). */
     private final boolean input;
+
+    /** The directory to be used as a manager. */
     private final Path directory;
 
     /**
-     * Constructor
+     * Constructor for UseDirectoryForManager.
      *
-     * @param input iff true, then we are replacing the input-manager, otherwise the output-manager
-     * @param checkDirectoryExists performs a check that the directory already exists before using
-     *     it as a manager
+     * @param directory the {@link Path} to the directory to be used as a manager
+     * @param input if true, then we are replacing the input-manager, otherwise the output-manager
+     * @param checkDirectoryExists if true, performs a check that the directory already exists
+     *     before using it as a manager
+     * @throws CommandLineException if checkDirectoryExists is true and the directory does not exist
      */
     public UseDirectoryForManager(Path directory, boolean input, boolean checkDirectoryExists) {
         this.input = input;
@@ -57,6 +62,8 @@ class UseDirectoryForManager implements SelectParam<Optional<Path>> {
                             directory));
         }
     }
+
+    // Overridden methods do not need doc-strings as per instructions
 
     @Override
     public Optional<Path> select(ExecutionArguments executionArguments) {

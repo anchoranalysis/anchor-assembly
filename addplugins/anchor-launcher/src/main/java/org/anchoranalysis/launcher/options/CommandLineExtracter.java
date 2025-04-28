@@ -136,10 +136,8 @@ public class CommandLineExtracter {
      *
      * @param optionName the particular option (short-name).
      * @return the single-argument if the option is present.
-     * @throws ExperimentExecutionException if an option is used more times than allowed.
      */
-    private Optional<String[]> multiple(String optionName, boolean convertNullToEmptyString)
-            throws ExperimentExecutionException {
+    private Optional<String[]> multiple(String optionName, boolean convertNullToEmptyString) {
         if (hasOption(optionName)) {
             String[] elements = line.getOptionValues(optionName);
             if (elements != null) {

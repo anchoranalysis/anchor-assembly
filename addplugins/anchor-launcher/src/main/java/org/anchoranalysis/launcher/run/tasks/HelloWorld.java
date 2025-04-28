@@ -43,6 +43,7 @@ import org.anchoranalysis.launcher.AnchorWebsiteLinks;
  *   <li>a link to a page on the Anchor website showing predefined tasks.
  * </ol>
  *
+ * @param <S> the type of {@link InputFromManager} expected
  * @author Owen Feehan
  */
 public class HelloWorld<S extends InputFromManager> extends TaskWithoutSharedState<S> {
@@ -62,6 +63,11 @@ public class HelloWorld<S extends InputFromManager> extends TaskWithoutSharedSta
         return true;
     }
 
+    /**
+     * Prints the Hello World message to the logger.
+     *
+     * @param logger the {@link MessageLogger} to print the message to
+     */
     private void printMessage(MessageLogger logger) {
         logger.log("Hello World");
         logger.log("");

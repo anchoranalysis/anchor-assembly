@@ -30,7 +30,7 @@ import org.anchoranalysis.launcher.config.LauncherConfig;
 import org.anchoranalysis.launcher.run.ParseArgumentsAndRunExperiment;
 
 /**
- * A command-line interface used for launching experiments
+ * A command-line interface used for launching experiments.
  *
  * @author Owen Feehan
  */
@@ -40,7 +40,7 @@ public class Launch {
     /**
      * Entry point for command-line application.
      *
-     * @param args command line application.
+     * @param args command line arguments
      */
     public static void main(String[] args) {
         Logger logger = new Logger(new ConsoleMessageLogger());
@@ -50,8 +50,9 @@ public class Launch {
     /**
      * Runs a command-line application, by parsing arguments, and then executing an experiment.
      *
-     * @param args args from command-line application.
-     * @param config a parser for this command-line application.
+     * @param args arguments from command-line application
+     * @param config a {@link LauncherConfig} for this command-line application
+     * @param logger a {@link Logger} for logging messages
      */
     public static void runCommandLineApplication(
             String[] args, LauncherConfig config, Logger logger) {

@@ -45,21 +45,21 @@ import org.apache.commons.cli.CommandLine;
 public class SelectParamFactory {
 
     /**
-     * Use default manager.
+     * Creates a {@link SelectParam} that uses the default manager.
      *
-     * @return a manager that uses the default path.
+     * @return a {@link SelectParam} that uses the default path
      */
     public static SelectParam<Optional<Path>> useDefault() {
         return new UseDefaultManager();
     }
 
     /**
-     * Can point to either a path to beanXML
+     * Creates a {@link SelectParam} for a path, task name, or default.
      *
-     * @param line command-line to consider if certain options have been selected or not
-     * @param optionName which option we consider
-     * @param tasksDirectory path to the "tasks" directory in the anchor configuration files
-     * @return an appropriate SelectParam object
+     * @param line the {@link CommandLine} to consider if certain options have been selected or not
+     * @param optionName the option name to consider
+     * @param tasksDirectory the path to the "tasks" directory in the anchor configuration files
+     * @return an appropriate {@link SelectParam} object
      */
     public static SelectParam<Optional<Path>> pathOrTaskNameOrDefault(
             CommandLine line, String optionName, Path tasksDirectory) {
@@ -68,7 +68,9 @@ public class SelectParamFactory {
     }
 
     /**
-     * Can point to either:
+     * Creates a {@link SelectParam} for input selection.
+     *
+     * <p>Can point to either:
      *
      * <ol>
      *   <li>a path ending in <i>.xml</i>, assumed to BeanXML for an input manager
@@ -78,8 +80,8 @@ public class SelectParamFactory {
      *       input-context as an extension to match
      * </ol>
      *
-     * @param line command-line to consider if certain options have been selected or not
-     * @return an appropriate SelectParam object
+     * @param line the {@link CommandLine} to consider if certain options have been selected or not
+     * @return an appropriate {@link SelectParam} object
      */
     public static SelectParam<Optional<Path>> inputSelectParam(CommandLine line) {
         try {
@@ -93,15 +95,18 @@ public class SelectParamFactory {
     }
 
     /**
-     * Can point to either:
+     * Creates a {@link SelectParam} for output selection.
+     *
+     * <p>Can point to either:
      *
      * <ol>
      *   <li>a path ending in <i>.xml</i>, assumed to BeanXML for an output manager
      *   <li>a directory, set as the outputDirectory in the input-context
      * </ol>
      *
-     * @param line command-line to consider if certain options have been selected or not
-     * @return an appropriate SelectParam object
+     * @param line the {@link CommandLine} to consider if certain options have been selected or not
+     * @return an appropriate {@link SelectParam} object
+     * @throws ExperimentExecutionException if both output options are present
      */
     public static SelectParam<Optional<Path>> outputSelectParam(CommandLine line)
             throws ExperimentExecutionException {
@@ -135,17 +140,19 @@ public class SelectParamFactory {
     }
 
     /**
-     * Can point to either:
+     * Creates a {@link SelectParam} for experiment selection.
+     *
+     * <p>Can point to either:
      *
      * <ol>
      *   <li>a path ending in <i>.xml</i>, assumed to BeanXML for an experiment
      *   <li>nothing, then default experiment is used
      * </ol>
      *
-     * @param line command-line to consider if certain options have been selected or not.
-     * @param defaultExperiment path to the default experiment.
-     * @return an appropriate SelectParam object.
-     * @throws ExperimentExecutionException
+     * @param line the {@link CommandLine} to consider if certain options have been selected or not
+     * @param defaultExperiment the path to the default experiment
+     * @return an appropriate {@link SelectParam} object
+     * @throws ExperimentExecutionException if there's an error creating the experiment select param
      */
     public static SelectParam<Path> experimentSelectParam(CommandLine line, Path defaultExperiment)
             throws ExperimentExecutionException {
@@ -154,6 +161,13 @@ public class SelectParamFactory {
 
     /**
      * If {@code optionName} is present, then apply {@code func}, otherwise use the default-manager.
+     *
+     * @param <E> the type of exception that may be thrown
+     * @param line the {@link CommandLine} to check for options
+     * @param optionName the name of the option to check
+     * @param func the function to apply if the option is present
+     * @return a {@link SelectParam} based on the option presence
+     * @throws E if an exception occurs during function application
      */
     private static <E extends Exception> SelectParam<Optional<Path>> ifOptionOrDefault(
             CommandLine line,
@@ -166,6 +180,14 @@ public class SelectParamFactory {
     /**
      * If {@code optionName} is present, then apply {@code func}, otherwise return {@link
      * Optional#empty}.
+     *
+     * @param <E> the type of exception that may be thrown
+     * @param line the {@link CommandLine} to check for options
+     * @param optionName the name of the option to check
+     * @param func the function to apply if the option is present
+     * @return an {@link Optional} containing the result of {@code func} if the option is present,
+     *     otherwise empty
+     * @throws E if an exception occurs during function application
      */
     private static <E extends Exception> Optional<SelectParam<Optional<Path>>> ifOption(
             CommandLine line,
@@ -174,7 +196,6 @@ public class SelectParamFactory {
             throws E {
         if (line.hasOption(optionName)) {
             return Optional.of(func.apply(line.getOptionValues(optionName)));
-
         } else {
             return Optional.empty();
         }

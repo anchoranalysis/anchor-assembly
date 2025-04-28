@@ -25,19 +25,14 @@ import lombok.Value;
  * #L%
  */
 
+/** Configuration for help messages in the launcher. */
 @Value
 @AllArgsConstructor
 public class HelpConfig {
 
-    /**
-     * What the application command is described as in the help message e.g.&nbsp;anchor or
-     * anchorGUI
-     */
+    /** The application command as described in the help message. */
     private String commandName;
 
-    /**
-     * What the application argument is described as in the help message
-     * e.g.&nbsp;experimentFile.xml
-     */
+    /** The application's first argument as described in the help message. */
     private String firstArgument;
 }

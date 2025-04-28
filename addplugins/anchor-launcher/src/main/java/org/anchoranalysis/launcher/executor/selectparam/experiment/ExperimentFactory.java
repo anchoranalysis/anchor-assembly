@@ -42,10 +42,10 @@ public class ExperimentFactory {
     /**
      * Chooses either a path to the default-experiment or a path to a custom experiment.
      *
-     * @param line
+     * @param line the {@link CommandLine} containing the command-line arguments
      * @param defaultExperiment path to the default experiment
-     * @return
-     * @throws ExperimentExecutionException
+     * @return a {@link SelectParam}<{@link Path}> for the chosen experiment
+     * @throws ExperimentExecutionException if there's an error in selecting the experiment
      */
     public static SelectParam<Path> defaultExperimentOrCustom(
             CommandLine line, Path defaultExperiment) throws ExperimentExecutionException {
@@ -68,6 +68,13 @@ public class ExperimentFactory {
         }
     }
 
+    /**
+     * Extracts a {@link Path} from the command-line arguments.
+     *
+     * @param line the {@link CommandLine} containing the command-line arguments
+     * @return the extracted {@link Path}
+     * @throws ExperimentExecutionException if the path is invalid or contains wildcards
+     */
     private static Path extractPath(CommandLine line) throws ExperimentExecutionException {
         String str = line.getArgs()[0];
 

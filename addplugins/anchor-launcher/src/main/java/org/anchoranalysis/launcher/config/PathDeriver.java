@@ -30,18 +30,21 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 
+/** Utility class for deriving paths related to the default experiment configuration. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class PathDeriver {
 
-    /** A property that indicates a relative path to a default properties file */
+    /** A property that indicates a relative path to a default properties file. */
     private static final String PROPERTY_PATH_RELATIVE_DEFAULT_EXPERIMENT =
             "default.config.path.relative";
 
     /**
-     * Path to default-experiment
+     * Derives the path to the default experiment configuration.
      *
-     * @return a path to the defaultExperiment
-     * @throws ExperimentExecutionException
+     * @param pathCurrentJARDir the {@link Path} to the directory containing the current JAR
+     * @param pathRelativeProperties the relative path to the properties file
+     * @return a {@link Path} to the default experiment configuration
+     * @throws ExperimentExecutionException if an error occurs while deriving the path
      */
     public static Path pathDefaultExperiment(Path pathCurrentJARDir, String pathRelativeProperties)
             throws ExperimentExecutionException {
@@ -53,6 +56,13 @@ class PathDeriver {
         return pathCurrentJARDir.resolve(relativePathDefaultExperiment);
     }
 
+    /**
+     * Extracts the relative path to the default experiment from the properties file.
+     *
+     * @param propertyPath the {@link Path} to the properties file
+     * @return the relative path to the default experiment as a {@link String}
+     * @throws ExperimentExecutionException if an error occurs while reading the properties file
+     */
     private static String relativePathDefaultExperiment(Path propertyPath)
             throws ExperimentExecutionException {
 
@@ -78,6 +88,14 @@ class PathDeriver {
         return props.getProperty(PROPERTY_PATH_RELATIVE_DEFAULT_EXPERIMENT);
     }
 
+    /**
+     * Resolves the path to the properties file.
+     *
+     * @param currentJARDir the {@link Path} to the directory containing the current JAR
+     * @param pathRelativeProperties the relative path to the properties file
+     * @return the resolved {@link Path} to the properties file
+     * @throws ExperimentExecutionException if the properties file does not exist
+     */
     private static Path propertyPath(Path currentJARDir, String pathRelativeProperties)
             throws ExperimentExecutionException {
 

@@ -44,33 +44,34 @@ import org.anchoranalysis.io.output.bean.OutputManager;
 /**
  * Executes an experiment in different ways - AFTER an experiment bean exists.
  *
- * <p>We do not print any error messages to the console, but throw any errors in the form of
- * ExperimentExecutionException which can be translated elsewhere into nice error messages
+ * <p>We do not print any error messages to the console, but throw any errors in the form of {@link
+ * ExperimentExecutionException} which can be translated elsewhere into nice error messages
  *
  * @author Owen Feehan
  */
 class ExperimentExecutorAfter {
 
+    /** Default file extensions for input filtering. */
     private static Optional<StringSetTrie> defaultExtensions = Optional.empty();
 
     /**
      * Creates with needed initial state.
      *
-     * @param pathConfigurationDirectory a path where configuration files are stored.
-     * @throws ExperimentExecutionException
+     * @param pathConfigurationDirectory a {@link Path} where configuration files are stored.
+     * @throws ExperimentExecutionException if initialization fails
      */
     public ExperimentExecutorAfter(Path pathConfigurationDirectory)
             throws ExperimentExecutionException {
         initializeIfNecessary(pathConfigurationDirectory, true, true);
-        // Only accessible through static methods
     }
 
     /**
      * Initializes our factories if not already done.
      *
-     * @param pathConfigurationDirectory a path where configuration files are stored.
+     * @param pathConfigurationDirectory a {@link Path} where configuration files are stored.
+     * @param includeDefaultInstances if true, default instances are included.
      * @param includeRootPaths if true, a root bank is sought among the configurations and loaded.
-     * @throws ExperimentExecutionException
+     * @throws ExperimentExecutionException if initialization fails
      */
     static void initializeIfNecessary(
             Path pathConfigurationDirectory,
@@ -109,13 +110,13 @@ class ExperimentExecutorAfter {
     /**
      * Executes an experiment, possibly replacing the input and output manager
      *
-     * @param experiment the experiment to execute
-     * @param executionArguments experiment-arguments
-     * @param pathInput if defined, the path to an input-manager to replace the input-manager
-     *     specified in the experiment. If empty(), ignored.
-     * @param pathOutput if defined, the path to an output-manager to replace the output-manager
-     *     specified in the experiment. If empty(), ignored.
-     * @param pathTask if defined, the path to a task to replace the task specified in the
+     * @param experiment the {@link Experiment} to execute
+     * @param executionArguments {@link ExecutionArguments} for the experiment
+     * @param pathInput if defined, the {@link Path} to an input-manager to replace the
+     *     input-manager specified in the experiment. If empty(), ignored.
+     * @param pathOutput if defined, the {@link Path} to an output-manager to replace the
+     *     output-manager specified in the experiment. If empty(), ignored.
+     * @param pathTask if defined, the {@link Path} to a task to replace the task specified in the
      *     experiment. If empty(), ignored.
      * @throws ExperimentExecutionException if the execution ends early
      */
@@ -145,9 +146,9 @@ class ExperimentExecutorAfter {
     /**
      * Replaces the input-manager of an experiment with an input-manager declared at pathInput
      *
-     * @param experiment experiment whose input-manager will be replaced
-     * @param pathInput a path to a BeanXML file defining the replacement input-manager
-     * @throws ExperimentExecutionException
+     * @param experiment {@link Experiment} whose input-manager will be replaced
+     * @param pathInput a {@link Path} to a BeanXML file defining the replacement input-manager
+     * @throws ExperimentExecutionException if replacement fails
      */
     private void replaceInputManager(Experiment experiment, Path pathInput)
             throws ExperimentExecutionException {
@@ -181,9 +182,9 @@ class ExperimentExecutorAfter {
     /**
      * Replaces the output-manager of an experiment with an output-manager declared at pathOutput
      *
-     * @param experiment experiment whose input-manager will be replaced
-     * @param pathOutput a path to a BeanXML file defining the replacement output-manager
-     * @throws ExperimentExecutionException
+     * @param experiment {@link Experiment} whose output-manager will be replaced
+     * @param pathOutput a {@link Path} to a BeanXML file defining the replacement output-manager
+     * @throws ExperimentExecutionException if replacement fails
      */
     private void replaceOutputManager(Experiment experiment, Path pathOutput)
             throws ExperimentExecutionException {
@@ -192,8 +193,7 @@ class ExperimentExecutorAfter {
         OutputManager outputManager = BeanReader.readOutputManagerFromXML(pathOutput);
 
         try {
-            if (experiment instanceof ReplaceOutputManager) {
-                ReplaceOutputManager experimentCasted = (ReplaceOutputManager) experiment;
+            if (experiment instanceof ReplaceOutputManager experimentCasted) {
                 experimentCasted.replaceOutputManager(outputManager);
             } else {
                 throw new ExperimentExecutionException(
@@ -213,11 +213,11 @@ class ExperimentExecutorAfter {
     }
 
     /**
-     * Replaces the task of an experiment with an task declared at pathTask
+     * Replaces the task of an experiment with a task declared at pathTask
      *
-     * @param experiment experiment whose input-task will be replaced
-     * @param pathTask a path to a BeanXML file defining the replacement task
-     * @throws ExperimentExecutionException
+     * @param experiment {@link Experiment} whose task will be replaced
+     * @param pathTask a {@link Path} to a BeanXML file defining the replacement task
+     * @throws ExperimentExecutionException if replacement fails
      */
     @SuppressWarnings("unchecked")
     private void replaceTask(Experiment experiment, Path pathTask)
@@ -250,8 +250,8 @@ class ExperimentExecutorAfter {
     /**
      * Executes an experiment.
      *
-     * @param experiment the experiment to execute
-     * @param executionArguments additional arguments that describe the Experiment
+     * @param experiment the {@link Experiment} to execute
+     * @param executionArguments additional {@link ExecutionArguments} that describe the Experiment
      * @throws ExperimentExecutionException if the experiment cannot be executed
      */
     private void executeExperiment(Experiment experiment, ExecutionArguments executionArguments)

@@ -80,10 +80,10 @@ class UseAsExtension implements SelectParam<Optional<Path>> {
         StringSetTrie trie = new StringSetTrie();
         Arrays.stream(extensionsUnsplit)
                 .flatMap(str -> splitAsStream(str, ","))
-                .map(str -> str.trim())
-                .map(str -> FormatExtensions.removeAnyLeadingPeriod(str))
+                .map(String::trim)
+                .map(FormatExtensions::removeAnyLeadingPeriod)
                 .map(FormatExtensions::normalizeToLowerCase)
-                .forEach(str -> trie.add(str));
+                .forEach(trie::add);
         return trie;
     }
 

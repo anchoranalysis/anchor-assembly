@@ -43,8 +43,9 @@ class TasksIndexer {
      *
      * <p>If no directory component exists, the empty string is used as a key.
      *
-     * @return a newly created map from the directory-component to the original identifier (both
-     *     keys and values for a given key are in alphabetical order).
+     * @param identifiers a {@link Stream} of task identifiers
+     * @return a newly created {@link Multimap} from the directory-component to the original
+     *     identifier (both keys and values for a given key are in alphabetical order)
      */
     public static Multimap<String, String> indexBySubdirectory(Stream<String> identifiers) {
         Multimap<String, String> map = MultimapBuilder.treeKeys().treeSetValues().build();
@@ -59,9 +60,9 @@ class TasksIndexer {
     /**
      * Extracts the directory component from a path.
      *
-     * @param path the path to extract from.
-     * @return the directory part of the path (using forward slashes) or an empty string it doesn't
-     *     exist.
+     * @param path the {@link Path} to extract from
+     * @return the directory part of the path (using forward slashes) or an empty string if it
+     *     doesn't exist
      */
     private static String directoryComponent(Path path) {
         Path parent = path.getParent();
@@ -75,8 +76,8 @@ class TasksIndexer {
     /**
      * Extracts the filename component from a path.
      *
-     * @param path the path to extract from.
-     * @return the filename part of the path.
+     * @param path the {@link Path} to extract from
+     * @return the filename part of the path
      */
     private static String fileNameComponent(Path path) {
         return path.getFileName().toString();

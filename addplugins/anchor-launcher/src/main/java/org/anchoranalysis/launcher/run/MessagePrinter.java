@@ -55,6 +55,9 @@ class MessagePrinter {
     /**
      * Prints a help message to the screen if the command-line option is selected.
      *
+     * @param line the {@link CommandLine} containing parsed command-line arguments
+     * @param options the {@link Options} object containing all possible command-line options
+     * @param helpConfig the {@link HelpConfig} containing help message configuration
      * @return true if it prints the message, false otherwise
      */
     public boolean maybePrintHelp(CommandLine line, Options options, HelpConfig helpConfig) {
@@ -68,19 +71,27 @@ class MessagePrinter {
                                 helpConfig.getFirstArgument()));
     }
 
+    /**
+     * Prints the version information if the command-line option is selected.
+     *
+     * @param line the {@link CommandLine} containing parsed command-line arguments
+     * @return true if it prints the version information, false otherwise
+     * @throws IOException if there's an error reading the version information
+     */
     public boolean maybePrintVersion(CommandLine line) throws IOException {
         return runIfOption(line, CommandLineOptions.SHORT_OPTION_VERSION, this::printVersion);
     }
 
     /**
-     * Prints the available pre-defined tasks either the command-line option is selected.
+     * Prints the available pre-defined tasks if the command-line option is selected.
      *
      * <p>The predefined tasks come from the .xml files found in the config/tasks/ directory.
      *
+     * @param line the {@link CommandLine} containing parsed command-line arguments
+     * @param tasksDirectory the {@link Path} to the directory containing task definitions
      * @return true if it prints the message, false otherwise
      */
     public boolean maybeShowTasks(CommandLine line, Path tasksDirectory) {
-
         CommandLineExtracter extract = new CommandLineExtracter(line);
         if (extract.hasOptionWithoutArgument(CommandLineOptions.SHORT_OPTION_TASK)) {
             PredefinedTasks.printTasksToConsole(tasksDirectory, resources, PRINT_TO);
@@ -94,7 +105,7 @@ class MessagePrinter {
     }
 
     /**
-     * Describes which version of anchor is being used, and what version number
+     * Describes which version of anchor is being used, and what version number.
      *
      * @throws IOException if it's not possible to determine the version number
      */
@@ -110,9 +121,11 @@ class MessagePrinter {
      * Prints help message to guide usage to standard-output.
      *
      * @param options possible user-options
+     * @param commandNameInHelp the name of the command to display in the help message
+     * @param firstArgumentInHelp the description of the first argument to display in the help
+     *     message
      */
     private void printHelp(Options options, String commandNameInHelp, String firstArgumentInHelp) {
-
         // automatically generate the help statement
         HelpFormatter formatter = new HelpFormatter();
 
@@ -127,7 +140,7 @@ class MessagePrinter {
      * Runs some code if a particular command-line option is activated.
      *
      * @param <E> an exception that may be thrown by {@code runnable}
-     * @param line the command-line options present
+     * @param line the {@link CommandLine} containing parsed command-line arguments
      * @param option the option to check if it has been run
      * @param runnable code to run if {@code option} is activated in {@code line}
      * @return true if the code was run, false otherwise

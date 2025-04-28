@@ -41,6 +41,10 @@ class AdditionalOutputsParser {
      */
     private static final String ELEMENT_SEPERATOR = ":";
 
+    /** Part of the exception message for invalid output-name format. */
+    private static final String EXCEPTION_MESSAGE_SNIPPET =
+            "It must be in the format of either outputName or firstLevelOutputName:secondLevelOutputName.";
+
     /**
      * Creates a {@link OutputEnabledMutable} from a user-supplied string.
      *
@@ -86,9 +90,13 @@ class AdditionalOutputsParser {
         return outputs;
     }
 
-    private static final String EXCEPTION_MESSAGE_SNIPPET =
-            "It must be in the format of either outputName or firstLevelOutputName:secondLevelOutputName.";
-
+    /**
+     * Adds an element to the {@link OutputEnabledMutable}.
+     *
+     * @param outputs the {@link OutputEnabledMutable} to add to
+     * @param element the element string to parse and add
+     * @throws ExperimentExecutionException if the element is invalid
+     */
     private static void addElement(OutputEnabledMutable outputs, String element)
             throws ExperimentExecutionException {
         if (element.contains(ELEMENT_SEPERATOR)) {
@@ -98,6 +106,13 @@ class AdditionalOutputsParser {
         }
     }
 
+    /**
+     * Adds a second-level element to the {@link OutputEnabledMutable}.
+     *
+     * @param outputs the {@link OutputEnabledMutable} to add to
+     * @param element the element string to parse and add
+     * @throws ExperimentExecutionException if the element is invalid
+     */
     private static void addSecondLevelElement(OutputEnabledMutable outputs, String element)
             throws ExperimentExecutionException {
         if (element.startsWith(ELEMENT_SEPERATOR) || element.endsWith(ELEMENT_SEPERATOR)) {
@@ -113,6 +128,13 @@ class AdditionalOutputsParser {
         outputs.addEnabledOutputSecond(splits[0], splits[1]);
     }
 
+    /**
+     * Creates an {@link ExperimentExecutionException} with a formatted error message.
+     *
+     * @param prefix the prefix for the error message
+     * @param element the element that caused the error
+     * @return a new {@link ExperimentExecutionException}
+     */
     private static ExperimentExecutionException createException(String prefix, String element) {
         return new ExperimentExecutionException(
                 String.format("%s%n%s%n%s", prefix, EXCEPTION_MESSAGE_SNIPPET, element));

@@ -51,22 +51,22 @@ class ExperimentReaderErrorReportingTest {
     }
 
     @Test
-    void testNonExistentFilePath() throws ExperimentExecutionException {
+    void testNonExistentFilePath() {
         assertException(() -> readExperiment("a non-existent config-name", 1));
     }
 
     @Test
-    void testIncorrectEndTag() throws ExperimentExecutionException {
+    void testIncorrectEndTag() {
         assertException(() -> readExperiment("incorrectEndTag", 4));
     }
 
     @Test
-    void testMissingRootTag() throws ExperimentExecutionException {
+    void testMissingRootTag() {
         assertException(() -> readExperiment("missingRootTag", 3, "experiment"));
     }
 
     @Test
-    void testIncorrectClass() throws ExperimentExecutionException {
+    void testIncorrectClass() {
         assertException(
                 () ->
                         readExperiment(
@@ -79,7 +79,7 @@ class ExperimentReaderErrorReportingTest {
     }
 
     @Test
-    void testIncorrectFactory() throws ExperimentExecutionException {
+    void testIncorrectFactory() {
         assertException(
                 () ->
                         readExperiment(
@@ -89,7 +89,7 @@ class ExperimentReaderErrorReportingTest {
     }
 
     @Test
-    void testIncorrectClassNested() throws ExperimentExecutionException {
+    void testIncorrectClassNested() {
         assertException(
                 () ->
                         readExperiment(
@@ -102,29 +102,29 @@ class ExperimentReaderErrorReportingTest {
     }
 
     @Test
-    void testIncorrectIncludeFile() throws ExperimentExecutionException {
+    void testIncorrectIncludeFile() {
         assertException(
                 () -> readExperiment("incorrectIncludeFile", 10, "Cannot find included file"));
     }
 
     @Test
-    void testIncorrectIncludeFileNested() throws ExperimentExecutionException {
+    void testIncorrectIncludeFileNested() {
         assertException(
                 () -> readExperiment("incorrectIncludeFileNested", 6, "Cannot find included file"));
     }
 
     @Test
-    void testMalformedXMLTag() throws ExperimentExecutionException {
+    void testMalformedXMLTag() {
         assertException(() -> readExperiment("malformedXMLTag", 7, "/>"));
     }
 
     @Test
-    void testNonExistingBeanField() throws ExperimentExecutionException {
+    void testNonExistingBeanField() {
         assertException(() -> readExperiment("nonExistingBeanField", 13));
     }
 
     @Test
-    void testMissingRequiredBeanField() throws ExperimentExecutionException {
+    void testMissingRequiredBeanField() {
         assertException(
                 () ->
                         readExperiment(
@@ -138,7 +138,7 @@ class ExperimentReaderErrorReportingTest {
     }
 
     @Test
-    void testIncludeFileOverflow() throws ExperimentExecutionException {
+    void testIncludeFileOverflow() {
         assertException(
                 () ->
                         readExperiment(

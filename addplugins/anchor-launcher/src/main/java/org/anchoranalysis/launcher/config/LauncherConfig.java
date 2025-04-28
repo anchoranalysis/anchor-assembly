@@ -41,25 +41,50 @@ import org.apache.commons.cli.Options;
  */
 public abstract class LauncherConfig {
 
-    /** Config for resources sued by the launcher */
+    /**
+     * @return the {@link Resources} configuration used by the launcher
+     */
     public abstract Resources resources();
 
-    /** Config for displaying help message */
+    /**
+     * @return the {@link HelpConfig} for displaying help messages
+     */
     public abstract HelpConfig help();
 
     /**
-     * if true, then some extra newlines are inserted before error messages
+     * Determines if extra newlines should be inserted before error messages.
      *
-     * <p>This useful for the GUI client in Windows due to WinRun4j running as a Windows app, and
-     * not as a shell app. This changes how output is displayed;
+     * <p>This is useful for the GUI client in Windows due to WinRun4j running as a Windows app, and
+     * not as a shell app. This changes how output is displayed.
+     *
+     * @return true if newlines should be inserted before error messages, false otherwise
      */
     public abstract boolean newlinesBeforeError();
 
+    /**
+     * Creates execution arguments from the command line.
+     *
+     * @param line the {@link CommandLine} containing parsed command-line arguments
+     * @return the {@link ExecutionArguments} created from the command line
+     * @throws ExperimentExecutionException if there's an error creating the arguments
+     */
     public abstract ExecutionArguments createArguments(CommandLine line)
             throws ExperimentExecutionException;
 
+    /**
+     * Adds additional options to the command-line parser.
+     *
+     * @param options the {@link Options} object to which additional options should be added
+     */
     public abstract void addAdditionalOptions(Options options);
 
+    /**
+     * Creates an experiment executor from the command line.
+     *
+     * @param line the {@link CommandLine} containing parsed command-line arguments
+     * @return the created {@link ExperimentExecutor}
+     * @throws ExperimentExecutionException if there's an error creating the executor
+     */
     public ExperimentExecutor createExperimentExecutor(CommandLine line)
             throws ExperimentExecutionException {
 
@@ -72,22 +97,38 @@ public abstract class LauncherConfig {
                 line, pathDefaultExperiment, pathDefaultExperiment.getParent());
     }
 
+    /**
+     * Customizes the experiment executor with additional configuration.
+     *
+     * @param executor the {@link ExperimentExecutor} to be customized
+     * @param line the {@link CommandLine} containing parsed command-line arguments
+     * @throws ExperimentExecutionException if there's an error during customization
+     */
     public abstract void customizeExperimentExecutor(ExperimentExecutor executor, CommandLine line)
             throws ExperimentExecutionException;
 
     /**
-     * Path to a property file that defines a relative-path to the default experiment in bean XML.
+     * Provides the path to a property file that defines a relative-path to the default experiment
+     * in bean XML.
+     *
+     * @return the path to the properties file as a {@link String}
      */
     protected abstract String pathRelativeProperties();
 
-    /** A class which we use to determine the base location for pathRelativeProperties. */
+    /**
+     * Provides a class which is used to determine the base location for {@link
+     * #pathRelativeProperties()}.
+     *
+     * @return the {@link Class} in the current JAR
+     */
     protected abstract Class<?> classInCurrentJar();
 
     /**
-     * Path to default-experiment
+     * Determines the path to the default experiment.
      *
-     * @return a path to the defaultExperiment
-     * @throws ExperimentExecutionException
+     * @param pathCurrentJARDir the {@link Path} to the current JAR directory
+     * @return a {@link Path} to the default experiment
+     * @throws ExperimentExecutionException if there's an error determining the path
      */
     private Path pathDefaultExperiment(Path pathCurrentJARDir) throws ExperimentExecutionException {
         return PathDeriver.pathDefaultExperiment(pathCurrentJARDir, pathRelativeProperties());

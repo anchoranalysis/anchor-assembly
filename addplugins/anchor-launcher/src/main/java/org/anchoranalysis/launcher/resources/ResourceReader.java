@@ -39,10 +39,13 @@ import org.apache.commons.io.IOUtils;
 class ResourceReader {
 
     /**
-     * Reads a string from a resource, or displays an error message
+     * Reads a string from a resource, or displays an error message.
      *
      * @param resourceFileName the file-name to identify the resource (in the root directory)
-     * @param classLoader class-loader where resource is found
+     * @param classLoader {@link ClassLoader} where resource is found
+     * @return the content of the resource as a {@link String}, or an error message if the resource
+     *     is not found
+     * @throws IOException if an I/O error occurs while reading the resource
      */
     public static String readStringFromResource(String resourceFileName, ClassLoader classLoader)
             throws IOException {
@@ -56,12 +59,12 @@ class ResourceReader {
 
     /**
      * Gets the current version of the software by reading a properties-file provided by the Maven
-     * build
-     *
-     * <p>NOTE that this pom.proper
+     * build.
      *
      * @param key the key to read from the maven properties file
-     * @pram fallback, the string to return if the maven properties file doesn't exist
+     * @param fallback the string to return if the maven properties file doesn't exist
+     * @param resourceFileName the name of the resource file containing the maven properties
+     * @param classLoader {@link ClassLoader} where resource is found
      * @return string describing the key, or {@code fallback} if the resource file doesn't exist
      * @throws IOException if the properties file cannot be read, or is missing the appropriate
      *     version key

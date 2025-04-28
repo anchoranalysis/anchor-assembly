@@ -205,6 +205,11 @@ public class CommandLineOptions {
 
     // END: All LONG options
 
+    /**
+     * Adds basic options to the {@link Options} object.
+     *
+     * @param options the {@link Options} object to add the basic options to
+     */
     public static void addBasicOptions(Options options) {
         options.addOption(
                 SHORT_OPTION_HELP, LONG_OPTION_HELP, false, "print this message and exit");
@@ -235,6 +240,11 @@ public class CommandLineOptions {
                 "print task-names as useful for -t <name>");
     }
 
+    /**
+     * Adds additional options to the {@link Options} object.
+     *
+     * @param options the {@link Options} object to add the additional options to
+     */
     public static void addAdditionalOptions(Options options) {
 
         options.addOption(
@@ -246,6 +256,11 @@ public class CommandLineOptions {
         addTaskOptions(options);
     }
 
+    /**
+     * Adds input-related options to the {@link Options} object.
+     *
+     * @param options the {@link Options} object to add the input options to
+     */
     public static void addInputOptions(Options options) {
 
         options.addOption(
@@ -291,6 +306,11 @@ public class CommandLineOptions {
                 "randomly samples a number/portion of inputs");
     }
 
+    /**
+     * Adds output-related options to the {@link Options} object.
+     *
+     * @param options the {@link Options} object to add the output options to
+     */
     private static void addOutputOptions(Options options) {
 
         options.addOption(
@@ -348,6 +368,11 @@ public class CommandLineOptions {
                 "like -o but omits experiment name and version in output directory");
     }
 
+    /**
+     * Adds task-related options to the {@link Options} object.
+     *
+     * @param options the {@link Options} object to add the task options to
+     */
     private static void addTaskOptions(Options options) {
         options.addOption(
                 optionalStringArgument(

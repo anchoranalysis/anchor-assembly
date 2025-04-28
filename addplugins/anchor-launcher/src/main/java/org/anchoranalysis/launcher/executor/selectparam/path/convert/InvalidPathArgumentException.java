@@ -26,19 +26,30 @@ import org.anchoranalysis.core.exception.friendly.AnchorFriendlyCheckedException
 import org.anchoranalysis.launcher.CommandLineException;
 
 /**
- * An exception throw if an invalid-path is inputted as an argument.
+ * An exception thrown if an invalid path is inputted as an argument.
  *
  * @author Owen Feehan
  */
 public class InvalidPathArgumentException extends AnchorFriendlyCheckedException {
 
-    /** */
+    /** Serialization version ID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates an exception with a custom message.
+     *
+     * @param message the error message
+     */
     public InvalidPathArgumentException(String message) {
         super(message);
     }
 
+    /**
+     * Creates an exception for an invalid path argument.
+     *
+     * @param argument the invalid path argument
+     * @param exception the {@link InvalidPathException} that was caught
+     */
     public InvalidPathArgumentException(String argument, InvalidPathException exception) {
         super(
                 String.format(
@@ -46,6 +57,12 @@ public class InvalidPathArgumentException extends AnchorFriendlyCheckedException
                         argument, exception.getMessage()));
     }
 
+    /**
+     * Converts this exception to a {@link CommandLineException}.
+     *
+     * @return a new {@link CommandLineException} with the same message as this exception
+     * @throws CommandLineException always thrown with this exception's message
+     */
     public CommandLineException toCommandLineException() {
         throw new CommandLineException(getMessage());
     }
