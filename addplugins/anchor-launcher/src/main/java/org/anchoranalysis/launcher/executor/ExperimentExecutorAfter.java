@@ -192,8 +192,7 @@ class ExperimentExecutorAfter {
         OutputManager outputManager = BeanReader.readOutputManagerFromXML(pathOutput);
 
         try {
-            if (experiment instanceof ReplaceOutputManager) {
-                ReplaceOutputManager experimentCasted = (ReplaceOutputManager) experiment;
+            if (experiment instanceof ReplaceOutputManager experimentCasted) {
                 experimentCasted.replaceOutputManager(outputManager);
             } else {
                 throw new ExperimentExecutionException(
