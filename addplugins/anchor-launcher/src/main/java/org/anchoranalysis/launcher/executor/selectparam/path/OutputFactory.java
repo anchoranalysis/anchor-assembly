@@ -51,7 +51,7 @@ public class OutputFactory {
      * @param arguments the command-line arguments to parse
      * @param writeIntoRoot whether to write directly into an output directory's root (in which case
      *     a directory must be selected)
-     * @return a {@link SelectParam} for {@link Optional}<{@link Path}>
+     * @return a {@link SelectParam} for optional {@link Path}.
      * @throws CommandLineException if invalid arguments were passed
      */
     public static SelectParam<Optional<Path>> pathOrDirectory(
