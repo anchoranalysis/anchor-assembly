@@ -49,7 +49,7 @@ public class TaskFactory {
      *
      * @param args the command-line arguments
      * @param tasksDirectory the directory containing task configurations
-     * @return a {@link SelectParam} for {@link Optional}<{@link Path}>
+     * @return a {@link SelectParam} for an optional {@link Path}
      * @throws CommandLineException if invalid arguments were passed
      */
     public static SelectParam<Optional<Path>> pathOrTaskName(String[] args, Path tasksDirectory) {

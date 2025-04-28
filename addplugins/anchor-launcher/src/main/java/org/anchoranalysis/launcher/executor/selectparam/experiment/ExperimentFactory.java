@@ -44,7 +44,7 @@ public class ExperimentFactory {
      *
      * @param line the {@link CommandLine} containing the command-line arguments
      * @param defaultExperiment path to the default experiment
-     * @return a {@link SelectParam}<{@link Path}> for the chosen experiment
+     * @return a {@link SelectParam} for a {@link Path} for the chosen experiment
      * @throws ExperimentExecutionException if there's an error in selecting the experiment
      */
     public static SelectParam<Path> defaultExperimentOrCustom(

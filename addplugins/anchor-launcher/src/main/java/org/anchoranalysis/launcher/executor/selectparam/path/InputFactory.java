@@ -48,7 +48,7 @@ public class InputFactory {
      * Creates a {@link SelectParam} for path, directory, glob, or file extension inputs.
      *
      * @param arguments the command-line arguments to parse
-     * @return a {@link SelectParam} for {@link Optional}<{@link Path}>
+     * @return a {@link SelectParam} for an optional {@link Path}
      * @throws InvalidPathArgumentException if the arguments cannot be parsed into a valid path
      */
     public static SelectParam<Optional<Path>> pathOrDirectoryOrGlobOrExtension(String[] arguments)
