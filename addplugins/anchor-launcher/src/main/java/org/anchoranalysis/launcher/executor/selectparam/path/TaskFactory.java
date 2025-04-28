@@ -33,7 +33,7 @@ import org.anchoranalysis.launcher.executor.selectparam.path.convert.ArgumentCon
 import org.anchoranalysis.launcher.executor.selectparam.path.convert.InvalidPathArgumentException;
 
 /**
- * {@link SelectParam}<{@link Path}> factory for tasks.
+ * Determines {@link Path}s related to tasks.
  *
  * @author Owen Feehan
  */
