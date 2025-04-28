@@ -55,6 +55,7 @@ class LauncherConfigCommandLine extends LauncherConfig {
             "org/anchoranalysis/launcher/usageFooterDisplayMessage.txt";
     private static final String RESOURCE_TASKS_FOOTER =
             "org/anchoranalysis/launcher/tasksFooterDisplayMessage.txt";
+
     // END: Resource PATHs
 
     /**

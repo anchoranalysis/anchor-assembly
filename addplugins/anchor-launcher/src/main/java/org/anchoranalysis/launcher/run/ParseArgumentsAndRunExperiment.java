@@ -60,6 +60,7 @@ public class ParseArgumentsAndRunExperiment {
     // START REQUIRED ARGUMENTS
     /** For reporting messages on what goes wrong */
     private final Logger logger;
+
     // END REQUIRED ARGUMENTS
 
     /**

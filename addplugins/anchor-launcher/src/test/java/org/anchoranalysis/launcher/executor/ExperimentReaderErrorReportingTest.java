@@ -203,7 +203,7 @@ class ExperimentReaderErrorReportingTest {
      * @param expectedNumberOfLines expected number of lines in the error message
      */
     private void assertOutput(String output, String testPath, int expectedNumberOfLines) {
-        assertTrue(output.length() > 0);
+        assertFalse(output.isEmpty());
         assertEquals(expectedNumberOfLines, numberOfLines(output));
         assertTrue(containsPathWithForwardSlashes(output, testPath));
     }

@@ -31,14 +31,14 @@ import org.junit.jupiter.api.Test;
 
 class PrettyPathConverterTest {
 
-    private static Path PATH_ABSOLUTE_BIG = path("/a/b/c/d/e/f");
-    private static Path PATH_ABSOLUTE_MEDIUM = path("/a/b/c/d");
-    private static Path PATH_ABSOLUTE_DIFF_BIG_TO_MEDIUM = path("e/f");
-    private static Path PATH_ABSOLUTE_DIFF_MEDIUM_TO_BIG = path("../..");
+    private static final Path PATH_ABSOLUTE_BIG = path("/a/b/c/d/e/f");
+    private static final Path PATH_ABSOLUTE_MEDIUM = path("/a/b/c/d");
+    private static final Path PATH_ABSOLUTE_DIFF_BIG_TO_MEDIUM = path("e/f");
+    private static final Path PATH_ABSOLUTE_DIFF_MEDIUM_TO_BIG = path("../..");
 
-    private static Path PATH_RELATIVE_BIG = path("../../../");
-    private static Path PATH_RELATIVE_MEDIUM = path("../../");
-    private static Path PATH_RELATIVE_DIFF_BIG_TO_MEDIUM = path("../");
+    private static final Path PATH_RELATIVE_BIG = path("../../../");
+    private static final Path PATH_RELATIVE_MEDIUM = path("../../");
+    private static final Path PATH_RELATIVE_DIFF_BIG_TO_MEDIUM = path("../");
 
     private static String IDENTICAL = ".";
 
