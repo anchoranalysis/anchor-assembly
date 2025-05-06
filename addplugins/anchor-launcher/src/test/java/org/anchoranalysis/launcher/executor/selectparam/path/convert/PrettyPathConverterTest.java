@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.junit.jupiter.api.Test;
 
 class PrettyPathConverterTest {

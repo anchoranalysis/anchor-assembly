@@ -1,7 +1,0 @@
-#!/bin/bash
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-# Adds the current directory to the library path
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR
-
-java -cp $DIR/anchor-launcher.jar:$DIR/../lib/* -Donnxruntime.native.path=$DIR/../lib/onnxruntime -Xms500m -Xmx16000m -Djava.awt.headless=true org.anchoranalysis.launcher.Launch "$@"
