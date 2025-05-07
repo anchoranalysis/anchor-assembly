@@ -100,13 +100,6 @@
                       -->
                       <javaoptions>-Dlogging.level=INFO -Djava.util.logging.config.file=logging.properties --enable-native-access=ALL-UNNAMED -Djava.library.path=$APPDIR</javaoptions>
                       
-                      <!--
-                        Specifies the relative sub-path under the default installation
-                        location of the application for Windows, or absolute path of the
-                        installation directory of the application for Mac or Linux.
-                      -->
-                      <installdir>Anchor</installdir>
-
                     </configuration>             
           </plugin>
         </plugins>
@@ -207,8 +200,16 @@
                       </goals>
                       <configuration>
                       
-                            <!-- Upper-case first character to match Windows tyle -->
+                            <!-- Upper-case first character to match Windows style -->
                             <name>Anchor</name>
+                            
+                            <!--
+                        Specifies the relative sub-path under the default installation
+                        location of the application for Windows.
+                        
+                        Lower-case first character to match Windows style.
+                        -->
+                            <installdir>Anchor</installdir>
 
                             <!-- Indicate its a CLI app -->
                             <winconsole>true</winconsole>
@@ -262,6 +263,13 @@
   
                               <!-- Lower-case first character to match Windows style -->
                             <name>anchor</name>
+                            
+                            <!--
+                        Specifies the absolute path of the installation directory of the application.
+                        
+                        Lower-case first character to match Linux style.
+                        -->
+                            <installdir>anchor</installdir>                            
                     
                       </configuration>
                     </execution>
@@ -292,8 +300,15 @@
                       </goals>
                       <configuration>
 
-                            <!-- Lower-case first character to match macOS style -->
+                            <!-- Lower-case first character to match MacOS style -->
                             <name>anchor</name>
+                            
+                            <!--
+                          Specifies the absolute path of the installation directory of the application.
+                          
+                          Lower-case first character to match MacOS style.
+                        -->
+                            <installdir>anchor</installdir>                                                        
                             
                       </configuration>
                     </execution>
