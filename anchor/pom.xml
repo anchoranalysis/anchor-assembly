@@ -70,8 +70,6 @@
                       <mainjar>anchor-launcher.jar</mainjar>
                       <mainclass>org.anchoranalysis.launcher.Launch</mainclass>              
                       
-                      <winconsole>true</winconsole>
-                      
                       <!--
                         Specifies the location in which generated output files are placed.
                         Default value: $?{project.build.directory}/jpackage
@@ -215,7 +213,10 @@
                         <goal>jpackage</goal>
                       </goals>
                       <configuration>
-                     
+
+                            <!-- Indicate its a CLI app -->
+                            <winconsole>true</winconsole>
+                      
                             <!--
                               Enable adding a dialog to choose a directory in which
                               the product is installed.
