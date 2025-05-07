@@ -66,7 +66,7 @@
             <version>0.1.5</version>
                     <configuration>
                       
-                      <input>${project.build.directory}/anchor-1.0.0-SNAPSHOT-anchor/anchor-1.0.0-SNAPSHOT/lib</input>
+                      <input>${project.build.directory}/anchor-${project.version}-anchor/anchor-${project.version}/lib</input>
                       <mainjar>anchor-launcher.jar</mainjar>
                       <mainclass>org.anchoranalysis.launcher.Launch</mainclass>              
                       
@@ -75,13 +75,6 @@
                         Default value: $?{project.build.directory}/jpackage
                       -->
                       <dest>${project.build.directory}/jpackage</dest>
-                      
-                      <!--
-                        Specifies the name of subdirectory relative to
-                        the destination directory in which files of generated
-                        application image are placed.
-                      -->
-                      <name>Anchor</name>
                       
                       
                         <!-- Enable console output from jpackage -->
@@ -213,6 +206,9 @@
                         <goal>jpackage</goal>
                       </goals>
                       <configuration>
+                      
+                            <!-- Upper-case first character to match Windows tyle -->
+                            <name>Anchor</name>
 
                             <!-- Indicate its a CLI app -->
                             <winconsole>true</winconsole>
@@ -264,6 +260,8 @@
                       </goals>
                       <configuration>
   
+                              <!-- Lower-case first character to match Windows style -->
+                            <name>anchor</name>
                     
                       </configuration>
                     </execution>
@@ -294,7 +292,9 @@
                       </goals>
                       <configuration>
 
-                    
+                            <!-- Lower-case first character to match macOS style -->
+                            <name>anchor</name>
+                            
                       </configuration>
                     </execution>
                   </executions>
