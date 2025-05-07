@@ -17,7 +17,6 @@
 	  
   <dependencies>
 
-
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-launcher</artifactId>
@@ -57,6 +56,89 @@
   </dependencies>
 	
   <build>
+  
+  
+    <pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>com.github.akman</groupId>
+            <artifactId>jpackage-maven-plugin</artifactId>
+            <version>0.1.5</version>
+                    <configuration>
+                      
+                      <input>${project.build.directory}/anchor-1.0.0-SNAPSHOT-anchor/anchor-1.0.0-SNAPSHOT/lib</input>
+                      <mainjar>anchor-launcher.jar</mainjar>
+                      <mainclass>org.anchoranalysis.launcher.Launch</mainclass>              
+                      
+                      <winconsole>true</winconsole>
+                      
+                      <!--
+                        Specifies the location in which generated output files are placed.
+                        Default value: $?{project.build.directory}/jpackage
+                      -->
+                      <dest>${project.build.directory}/jpackage</dest>
+                      
+                      <!--
+                        Specifies the name of subdirectory relative to
+                        the destination directory in which files of generated
+                        application image are placed.
+                      -->
+                      <name>Anchor</name>
+                      
+                      
+                        <!-- Enable console output from jpackage -->
+                    <verbose>true</verbose>
+                      
+                      <!--
+                        Specifies version of the application and/or package.
+                      -->
+                      <appversion>1.0.0</appversion>
+                      
+                      <!--
+                        Specifies description of the application.
+                      -->
+                      <description>Anchor Image Analysis</description>
+                      
+                      <!--
+                        Specifies vendor of the application.
+                      -->
+                      <vendor>Owen Feehan</vendor>
+                      
+                      <!--
+                        Specifies the options to pass to the Java runtime.
+                      -->
+                      <javaoptions>-Dlogging.level=INFO -Djava.util.logging.config.file=logging.properties --enable-native-access=ALL-UNNAMED -Djava.library.path=$APPDIR</javaoptions>
+                      
+                      <!--
+                        Specifies the relative sub-path under the default installation
+                        location of the application for Windows, or absolute path of the
+                        installation directory of the application for Mac or Linux.
+                      -->
+                      <installdir>Anchor</installdir>
+                      
+                      <!--
+                        Enable adding a dialog to choose a directory in which
+                        the product is installed.
+                        Default value: false
+                      -->
+                      <windirchooser>true</windirchooser>
+                      
+                      <!--
+                        Enable requesting to perform an install on a per-user basis.
+                        Default value: false
+                      -->
+                      <winperuserinstall>true</winperuserinstall>
+                      
+                      <!--
+                        UUID associated with upgrades for this package.
+                      -->
+                      <winupgradeuuid>990bbd96-da42-437d-af8a-aeca5e0a7a5a</winupgradeuuid>
+                    </configuration>             
+          </plugin>
+        </plugins>
+     </pluginManagement>
+  
+  
     <plugins>
     
     	<!--  Unpack ONNX Runtime JAR, so the native libs can be copied into the respective disbiutions -->
@@ -126,6 +208,20 @@
 			  </execution>
 			</executions>
 		  </plugin>
+		  		  
+          <plugin>
+            <groupId>com.github.akman</groupId>
+            <artifactId>jpackage-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>jpackage-installer</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>jpackage</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>		  
 	  
     </plugins>
   </build>
