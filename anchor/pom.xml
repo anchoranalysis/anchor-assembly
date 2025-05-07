@@ -115,24 +115,7 @@
                         installation directory of the application for Mac or Linux.
                       -->
                       <installdir>Anchor</installdir>
-                      
-                      <!--
-                        Enable adding a dialog to choose a directory in which
-                        the product is installed.
-                        Default value: false
-                      -->
-                      <windirchooser>true</windirchooser>
-                      
-                      <!--
-                        Enable requesting to perform an install on a per-user basis.
-                        Default value: false
-                      -->
-                      <winperuserinstall>true</winperuserinstall>
-                      
-                      <!--
-                        UUID associated with upgrades for this package.
-                      -->
-                      <winupgradeuuid>990bbd96-da42-437d-af8a-aeca5e0a7a5a</winupgradeuuid>
+
                     </configuration>             
           </plugin>
         </plugins>
@@ -213,6 +196,7 @@
   </build>
   
   <profiles>
+      <!-- JPackager on Windows -->
       <profile>
           <id>windows</id>
           <activation>
@@ -230,12 +214,94 @@
                       <goals>
                         <goal>jpackage</goal>
                       </goals>
+                      <configuration>
+                     
+                            <!--
+                              Enable adding a dialog to choose a directory in which
+                              the product is installed.
+                              Default value: false
+                            -->
+                            <windirchooser>true</windirchooser>
+                            
+                            <!--
+                              Enable requesting to perform an install on a per-user basis.
+                              Default value: false
+                            -->
+                            <winperuserinstall>true</winperuserinstall>
+                            
+                            <!--
+                              UUID associated with upgrades for this package.
+                            -->
+                            <winupgradeuuid>990bbd96-da42-437d-af8a-aeca5e0a7a5a</winupgradeuuid>
+                    
+                      </configuration>
                     </execution>
                   </executions>
                 </plugin>	
             </plugins>
           </build>
       </profile>
+      
+      
+      <!-- JPackager on Linux -->
+      <profile>
+          <id>linux</id>
+          <activation>
+            <os><name>Linux</name></os>
+          </activation>
+          <build>
+            <plugins>
+                <plugin>
+                  <groupId>com.github.akman</groupId>
+                  <artifactId>jpackage-maven-plugin</artifactId>
+                  <executions>
+                    <execution>
+                      <id>jpackage-installer</id>
+                      <phase>verify</phase>
+                      <goals>
+                        <goal>jpackage</goal>
+                      </goals>
+                      <configuration>
+  
+                    
+                      </configuration>
+                    </execution>
+                  </executions>
+                </plugin>	
+            </plugins>
+          </build>
+      </profile>
+      
+      
+      <!-- JPackager on MacOS -->
+      <profile>
+          <id>MacOS</id>
+          <activation>
+            <os><name>Mac OS X</name></os>
+          </activation>
+          <build>
+            <plugins>
+                <plugin>
+                  <groupId>com.github.akman</groupId>
+                  <artifactId>jpackage-maven-plugin</artifactId>
+                  <executions>
+                    <execution>
+                      <id>jpackage-installer</id>
+                      <phase>verify</phase>
+                      <goals>
+                        <goal>jpackage</goal>
+                      </goals>
+                      <configuration>
+
+                    
+                      </configuration>
+                    </execution>
+                  </executions>
+                </plugin>	
+            </plugins>
+          </build>
+      </profile>      
+      
   </profiles>
   
 </project>
