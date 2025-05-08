@@ -263,14 +263,7 @@
   
                               <!-- Lower-case first character to match Windows style -->
                             <name>anchor</name>
-                            
-                            <!--
-                        Specifies the absolute path of the installation directory of the application.
-                        
-                        Lower-case first character to match Linux style.
-                        -->
-                            <installdir>anchor</installdir>                            
-                    
+                                            
                       </configuration>
                     </execution>
                   </executions>
@@ -302,13 +295,6 @@
 
                             <!-- Lower-case first character to match MacOS style -->
                             <name>anchor</name>
-                            
-                            <!--
-                          Specifies the absolute path of the installation directory of the application.
-                          
-                          Lower-case first character to match MacOS style.
-                        -->
-                            <installdir>anchor</installdir>                                                        
                             
                       </configuration>
                     </execution>
