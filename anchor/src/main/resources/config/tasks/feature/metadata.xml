@@ -17,6 +17,8 @@ These are:
 - pixel physical size in X, Y, Z (i.e. resolution)
 - area (XY), both in square pixels and in physical measurements
 - volume (XYZ), both in cubic voxels and in physical measurements
+- latitude and longitude if associated with image metadata
+- creation-time, modification-time, acqusition-time (all specified in seconds since the epoch)
 
 Note, these features can be calculated without reading any voxels from the image, so should calculate
 more quickly than intensity-based features.
@@ -151,6 +153,36 @@ features:
 				<item unitType="µm^3" acceptMissingResolution="true" config-class="org.anchoranalysis.image.feature.bean.physical.ConvertToPhysicalVolume">
 					<item config-class="org.anchoranalysis.plugin.image.feature.bean.dimensions.Volume"/>
 				</item>
+			</item>			
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="latitude">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.Latitude"/>
+			</item>			
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="longitude">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.Longitude"/>
+			</item>			
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="creationTime">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.CreationTime"/>
+			</item>			
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="modificationTime">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.ModificationTime"/>
+			</item>			
+		</item>
+		
+		<item config-class="org.anchoranalysis.bean.NamedBean" name="acquisitionTime">
+			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
+				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.AcquisitionTime"/>
 			</item>			
 		</item>
 		
