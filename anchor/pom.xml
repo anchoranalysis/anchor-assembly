@@ -298,9 +298,6 @@
                             <!-- Lower-case first character to match MacOS style -->
                             <name>anchor</name>
                             
-                            <!-- Create a PKG rather than a DMG as it's more suitable for a CLI -->
-                            <packageType>pkg</packageType>
-                            
                       </configuration>
                     </execution>
                   </executions>
