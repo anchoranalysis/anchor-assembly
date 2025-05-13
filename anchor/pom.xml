@@ -299,7 +299,7 @@
                             <name>anchor</name>
                             
                             <!-- Create a PKG rather than a DMG as it's more suitable for a CLI -->
-                            <type>pkg</type>
+                            <packageType>pkg</packageType>
                             
                       </configuration>
                     </execution>
