@@ -30,6 +30,7 @@
   <id>anchor</id>
   <formats>
     <format>dir</format>
+    <format>zip</format>
   </formats>
   <includeBaseDirectory>true</includeBaseDirectory>
 
@@ -77,6 +78,7 @@
 	        <!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
 			<exclude>*.formatted</exclude>
 		</excludes>
+        <fileMode>0755</fileMode>
      </fileSet>
      
      <fileSet>
