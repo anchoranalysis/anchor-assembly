@@ -261,8 +261,10 @@
                       </goals>
                       <configuration>
   
-                              <!-- Lower-case first character to match Windows style -->
+                              <!-- Lower-case first character to match Linux style -->
                             <name>anchor</name>
+                            
+                            <linuxpackagedeps>libasound2t64,  libmd0, libpng16-16t64</linuxpackagedeps>
                                             
                       </configuration>
                     </execution>
@@ -295,6 +297,9 @@
 
                             <!-- Lower-case first character to match MacOS style -->
                             <name>anchor</name>
+                            
+                            <!-- Create a PKG rather than a DMG as it's more suitable for a CLI -->
+                            <type>pkg</type>
                             
                       </configuration>
                     </execution>
