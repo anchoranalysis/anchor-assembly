@@ -168,24 +168,6 @@ features:
 			</item>			
 		</item>
 		
-		<item config-class="org.anchoranalysis.bean.NamedBean" name="creationTime">
-			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
-				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.CreationTime"/>
-			</item>			
-		</item>
-		
-		<item config-class="org.anchoranalysis.bean.NamedBean" name="modificationTime">
-			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
-				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.ModificationTime"/>
-			</item>			
-		</item>
-		
-		<item config-class="org.anchoranalysis.bean.NamedBean" name="acquisitionTime">
-			<item config-class="org.anchoranalysis.feature.bean.list.DefineSingle">
-				<item config-class="org.anchoranalysis.plugin.image.feature.bean.metadata.AcquisitionTime"/>
-			</item>			
-		</item>
-		
 	</features>
 
 </bean>
