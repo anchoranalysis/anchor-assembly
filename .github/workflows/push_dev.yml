@@ -10,4 +10,4 @@ jobs:
     uses: anchoranalysis/anchor-java-cicd/.github/workflows/push_dev.yml@main
     secrets: inherit
     with:
-       upload-artifact:  anchor/target/jpackage
+       upload-artifact: target/jpackage
