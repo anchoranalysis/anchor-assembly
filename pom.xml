@@ -115,20 +115,20 @@
 		<pluginManagement>
 			<plugins>
 			  <plugin>
-				<groupId>com.github.akman</groupId>
+				<groupId>org.panteleyev</groupId>
 				<artifactId>jpackage-maven-plugin</artifactId>
-				<version>0.1.5</version>
+				<version>1.6.6</version>
 						<configuration>
 						  
 						  <input>${project.build.directory}/anchor-${project.version}-anchor/anchor-${project.version}/lib</input>
-						  <mainjar>anchor-launcher-${project.version}.jar</mainjar>
-						  <mainclass>org.anchoranalysis.launcher.Launch</mainclass>              
+						  <mainJar>anchor-launcher-${project.version}.jar</mainJar>
+						  <mainClass>org.anchoranalysis.launcher.Launch</mainClass>              
 						  
 						  <!--
 							Specifies the location in which generated output files are placed.
 							Default value: $?{project.build.directory}/jpackage
 						  -->
-						  <dest>${project.build.directory}/jpackage</dest>
+						  <destination>${project.build.directory}/jpackage</destination>
 						  
 						  
 							<!-- Enable console output from jpackage -->
@@ -137,7 +137,7 @@
 						  <!--
 							Specifies version of the application and/or package.
 						  -->
-						  <appversion>1.0.0</appversion>
+						  <appVersion>1.0.0</appVersion>
 						  
 						  <!--
 							Specifies description of the application.
@@ -152,7 +152,12 @@
 						  <!--
 							Specifies the options to pass to the Java runtime.
 						  -->
-						  <javaoptions>-Dlogging.level=INFO -Djava.util.logging.config.file=logging.properties --enable-native-access=ALL-UNNAMED -Djava.library.path=$APPDIR</javaoptions>
+						  <javaOptions>
+								<javaOption>-Dlogging.level=INFO</javaOption>
+								<javaOption>-Djava.util.logging.config.file=logging.properties</javaOption>
+								<javaOption>--enable-native-access=ALL-UNNAMED</javaOption>
+								<javaOption>-Djava.library.path=$APPDIR</javaOption>
+						  </javaOptions>
 						  
 						</configuration>             
 			  </plugin>
@@ -269,8 +274,8 @@
           <build>
             <plugins>
                 <plugin>
-                  <groupId>com.github.akman</groupId>
-                  <artifactId>jpackage-maven-plugin</artifactId>
+				<groupId>org.panteleyev</groupId>
+				<artifactId>jpackage-maven-plugin</artifactId>
                   <executions>
                     <execution>
                       <id>jpackage-installer</id>
@@ -279,6 +284,9 @@
                         <goal>jpackage</goal>
                       </goals>
                       <configuration>
+					  
+						<!-- Type of package to build -->
+						<type>EXE</type>
                       
                             <!-- Upper-case first character to match Windows style -->
                             <name>Anchor</name>
@@ -289,28 +297,28 @@
                         
                         Lower-case first character to match Windows style.
                         -->
-                            <installdir>Anchor</installdir>
+                            <installDir>Anchor</installDir>
 
                             <!-- Indicate its a CLI app -->
-                            <winconsole>true</winconsole>
+                            <winConsole>true</winConsole>
                       
                             <!--
                               Enable adding a dialog to choose a directory in which
                               the product is installed.
                               Default value: false
                             -->
-                            <windirchooser>true</windirchooser>
+                            <winDirChooser>true</winDirChooser>
                             
                             <!--
                               Enable requesting to perform an install on a per-user basis.
                               Default value: false
                             -->
-                            <winperuserinstall>true</winperuserinstall>
+                            <winPerUserInstall>true</winPerUserInstall>
                             
                             <!--
                               UUID associated with upgrades for this package.
                             -->
-                            <winupgradeuuid>990bbd96-da42-437d-af8a-aeca5e0a7a5a</winupgradeuuid>
+                            <winUpgradeUuid>990bbd96-da42-437d-af8a-aeca5e0a7a5a</winUpgradeUuid>
                     
                       </configuration>
                     </execution>
@@ -330,7 +338,7 @@
           <build>
             <plugins>
                 <plugin>
-                  <groupId>com.github.akman</groupId>
+				<groupId>org.panteleyev</groupId>
                   <artifactId>jpackage-maven-plugin</artifactId>
                   <executions>
                     <execution>
@@ -340,11 +348,12 @@
                         <goal>jpackage</goal>
                       </goals>
                       <configuration>
+					  
+						 <!-- Type of package to build -->
+						<type>DEB</type>
   
                               <!-- Lower-case first character to match Linux style -->
                             <name>anchor</name>
-                            
-                            <linuxpackagedeps>libasound2t64,  libmd0, libpng16-16t64</linuxpackagedeps>
                                             
                       </configuration>
                     </execution>
@@ -364,7 +373,7 @@
           <build>
             <plugins>
                 <plugin>
-                  <groupId>com.github.akman</groupId>
+				<groupId>org.panteleyev</groupId>
                   <artifactId>jpackage-maven-plugin</artifactId>
                   <executions>
                     <execution>
@@ -375,6 +384,9 @@
                       </goals>
                       <configuration>
 
+						 <!-- Type of package to build -->
+						<type>PKG</type>
+						
                             <!-- Lower-case first character to match MacOS style -->
                             <name>anchor</name>
                             
