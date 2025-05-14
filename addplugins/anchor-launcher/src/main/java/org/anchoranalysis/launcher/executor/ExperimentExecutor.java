@@ -138,7 +138,8 @@ public class ExperimentExecutor {
      * @param execArgs the {@link ExecutionArguments} to update
      */
     private void setupModelDirectory(Path pathExecutionDirectory, ExecutionArguments execArgs) {
-        // Set model directory, assuming that the directory is called from bin/
+        // Set model directory, assuming that the directory is ../models relative to where the JAR
+    	// is called from
         execArgs.input()
                 .assignModelDirectory(
                         pathExecutionDirectory

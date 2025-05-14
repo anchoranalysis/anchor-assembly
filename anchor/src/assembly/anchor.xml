@@ -27,10 +27,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
   <!-- Left blank to avoid a suffix in the output subdirectory name. -->
-  <id>linux</id>
+  <id>anchor</id>
   <formats>
     <format>dir</format>
-    <format>tar.gz</format>
+    <format>zip</format>
   </formats>
   <includeBaseDirectory>true</includeBaseDirectory>
 
@@ -39,7 +39,7 @@
   <files>
     <file>
       <source>src/main/resources/topleveldocs/README.txt</source>
-      <outputDirectory></outputDirectory>
+      <outputDirectory>lib/</outputDirectory>
       <filtered>true</filtered>
     </file>
   </files>
@@ -52,87 +52,55 @@
         <directory>src/main/resources/topleveldocs</directory>
         <outputDirectory></outputDirectory>
         <filtered>true</filtered>
-        <fileMode>0644</fileMode>
         <lineEnding>lf</lineEnding>
         <excludes>
 	        <!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
 			<exclude>*.formatted</exclude>
-			<exclude>README.txt</exclude>
+			<exclude>lib/README.txt</exclude>
 		</excludes>
      </fileSet>
     
      <fileSet>
         <directory>src/main/resources/config</directory>
-        <outputDirectory>config</outputDirectory>
-        <fileMode>0644</fileMode>
+        <outputDirectory>lib/config</outputDirectory>
         <lineEnding>lf</lineEnding>
         <excludes>
         	<!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
 			<exclude>*.formatted</exclude>
 		</excludes>
      </fileSet>
-          
+     
      <fileSet>
-        <directory>src/main/resources/config</directory>
-        <outputDirectory>config</outputDirectory>
-        <fileMode>0644</fileMode>
+        <directory>src/main/resources/helperapps</directory>
+        <outputDirectory>lib</outputDirectory>
         <lineEnding>lf</lineEnding>
         <excludes>
 	        <!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
 			<exclude>*.formatted</exclude>
 		</excludes>
+        <fileMode>0755</fileMode>
      </fileSet>
      
      <fileSet>
         <directory>src/main/resources/models</directory>
-        <outputDirectory>models</outputDirectory>
-        <fileMode>0644</fileMode>
+        <outputDirectory>lib/models</outputDirectory>
      </fileSet>     
      
-  
-  	 <!--  The helper-apps used to allow easy start of Anchor on different platforms -->
-  	 
-     
-  	 <!-- Let's exclude the UNIX scripts we want to change permissions on -->
+       
+     <!-- Copy the windows files for the onnx runtime -->
      <fileSet>
-        <directory>src/main/resources/helperapps</directory>
-        <outputDirectory>bin</outputDirectory>
-        <excludes>
-        	<exclude>anchor</exclude>
-        </excludes>
-<!--         <fileMode>0644</fileMode> -->
-		<fileMode>0755</fileMode>
-        <!--<lineEnding>lf</lineEnding>-->
-     </fileSet>
-     
-     
-     <!-- Let's include the UNIX scripts we want to change permissions on -->
-     <fileSet>
-        <directory>src/main/resources/helperapps</directory>
-        <outputDirectory>bin</outputDirectory>
-        <includes>
-        	<include>anchor</include>
-        </includes>
-        <fileMode>0755</fileMode>
-         <lineEnding>lf</lineEnding>
-		<excludes>
-			<!-- This corrects a bug where .formatted files are outputed alongside the intended files. -->
-			<exclude>*.formatted</exclude>
-		</excludes>         
-     </fileSet>
-    <!--  We put this last, as it seems to use the last fileMode as the default for the next -->
-     
-     <!-- Copy the linux files for the onnx runtime -->
-     <fileSet>
-     	<directory>${project.build.directory}/onnxruntime/ai/onnxruntime/native/linux-x64</directory>
+     	<directory>${project.build.directory}/onnxruntime/ai/onnxruntime/native/win-x64</directory>
      	<outputDirectory>lib/onnxruntime</outputDirectory>
+	    <includes>
+        	<include>*.dll</include>
+        </includes>
      </fileSet>
-     
+          
   </fileSets>
     
   <dependencySets>
 
-	<!--  All the dependencies needed, apart from the anchor-launcher jar, is placed in the lib/ folder, unless they are plugins. -->
+	<!--  All the dependencies needed, apart from the anchor-launcher jar, are placed in the lib/ folder, unless they are plugins. -->
     <dependencySet>
       <useProjectArtifact>false</useProjectArtifact>
       <useTransitiveDependencies>true</useTransitiveDependencies>
@@ -140,60 +108,23 @@
       <scope>runtime</scope>
       <outputDirectory>lib</outputDirectory>
       <excludes>
-      	<exclude>org.anchoranalysis.anchor:anchor-launcher:*:*</exclude>
-      	<exclude>org.anchoranalysis.anchor:anchor-plugin-*:*:*</exclude>
-      	
       	<!--  We exclude the CPU version of the ONNX runtime, so only the GPU version remains. -->
       	<exclude>com.microsoft.onnxruntime:onnxruntime:*:*</exclude>
       </excludes>
-      <fileMode>0644</fileMode>
     </dependencySet>
     
-    <!-- We also include org.anchoranalysis.anchor:anchor-plugin-base -->
-    <dependencySet>
-      <useProjectArtifact>false</useProjectArtifact>
-      <useTransitiveDependencies>true</useTransitiveDependencies>
-      <unpack>false</unpack>
-      <scope>runtime</scope>
-      <outputDirectory>lib</outputDirectory>
-      <includes>
-      	<include>org.anchoranalysis.anchor:anchor-plugin-base:*:*</include>
-      </includes>
-      <fileMode>0644</fileMode>
-    </dependencySet>
-    
-    
-    
-    <!--  The anchor-launcher jar is placed in the bin/ folder. This is a simple bootstrap used to start
+    <!--  The anchor-launcher jar is placed in lib folder. This is a simple bootstrap used to start
       anchor from the command-line. -->
     <dependencySet>
       <useProjectArtifact>false</useProjectArtifact>
       <useTransitiveDependencies>true</useTransitiveDependencies>
       <unpack>false</unpack>
       <scope>runtime</scope>
-      <outputDirectory>bin</outputDirectory>
+      <outputDirectory>lib</outputDirectory>
       <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
       <includes>
       	<include>org.anchoranalysis.anchor:anchor-launcher:*:*</include>
       </includes>
-      <fileMode>0644</fileMode>
-    </dependencySet>
-
-    
-     <!-- Put all the plugins in the lib/ folder -->
-    <dependencySet>
-      <useProjectArtifact>false</useProjectArtifact>
-      <useTransitiveDependencies>true</useTransitiveDependencies>
-      <unpack>false</unpack>
-      <scope>runtime</scope>
-      <outputDirectory>lib</outputDirectory>
-       <excludes>
-      	<exclude>org.anchoranalysis.anchor:anchor-plugin-base:*:*</exclude>
-      </excludes>
-      <includes>
-      	<include>org.anchoranalysis.anchor:anchor-plugin-*:*:*</include>
-      </includes>
-      <fileMode>0644</fileMode>
     </dependencySet>
     
   </dependencySets>

@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# Starts Anchor using the system-wide JRE (i.e. ignore any JRE packaged alongside it in an installer)
+#
+# This requires the presence of a BASH shell on the system
+#
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Adds the current directory to the library path
