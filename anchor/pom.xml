@@ -3,12 +3,12 @@
      <parent>
         <groupId>org.anchoranalysis.anchor</groupId>
    	    <artifactId>anchor-parent-assembly</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
     </parent> 
 	
   <artifactId>anchor</artifactId>
   <url>http://www.anchoranalysis.org/</url>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   
   <packaging>pom</packaging>
 
@@ -20,7 +20,7 @@
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-launcher</artifactId>
-	  <version>1.0.1-SNAPSHOT</version>
+	  <version>1.0.0-SNAPSHOT</version>
 	</dependency>
 		
 	
@@ -30,13 +30,13 @@
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-plugin-fiji</artifactId>
-	  <version>1.0.0</version>
+	  <version>1.0.0-SNAPSHOT</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-plugin-io-gpl</artifactId>
-	  <version>1.0.0</version>
+	  <version>1.0.0-SNAPSHOT</version>
 	</dependency>
 	
 			
