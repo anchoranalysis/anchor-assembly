@@ -286,7 +286,7 @@
                       <configuration>
 					  
 						<!-- Type of package to build -->
-						<type>exe</type>
+						<type>EXE</type>
                       
                             <!-- Upper-case first character to match Windows style -->
                             <name>Anchor</name>
@@ -350,7 +350,7 @@
                       <configuration>
 					  
 						 <!-- Type of package to build -->
-						<type>deb</type>
+						<type>DEB</type>
   
                               <!-- Lower-case first character to match Linux style -->
                             <name>anchor</name>
@@ -385,7 +385,7 @@
                       <configuration>
 
 						 <!-- Type of package to build -->
-						<type>pkg</type>
+						<type>PKG</type>
 						
                             <!-- Lower-case first character to match MacOS style -->
                             <name>anchor</name>
