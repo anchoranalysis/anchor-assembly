@@ -10,4 +10,4 @@ jobs:
     uses: anchoranalysis/anchor-java-cicd/.github/workflows/push_master.yml@main
     secrets: inherit
     with:
-       upload-artifact: target/anchor-${project.version}-anchor.zip
+       upload-artifact: target/anchor-*-anchor.zip
