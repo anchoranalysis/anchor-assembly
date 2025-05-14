@@ -69,6 +69,12 @@
 				<artifactId>onnxruntime_gpu</artifactId>
 				<version>${onnx-runtime.version}</version>
 			</dependency>
+			
+			<!-- To ensure the lombok jar is distributed. -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+			</dependency>
 		
 	  </dependencies>
 	
@@ -257,15 +263,6 @@
 					
 		</plugins>
 	</build>
-		
-	<dependencies>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
-	</dependencies>
-  
-  
   
   <profiles>
       <!-- JPackager on Windows -->
