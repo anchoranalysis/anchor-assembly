@@ -2,6 +2,11 @@
 
 This is part of the source-distribution for the [Anchor Image Analysis](http://www.anchoranalysis.org) software.
 
+A distribution forms a useful functioning version of system
+- binaries
+- documentation
+etc.
+
 It creates an [Anchor distribution](https://www.anchoranalysis.org/developer_guide_anchor_distribution.html) by collating JARs and other files across repositories.
 
 The source code uses [Project Lombok](https://projectlombok.org/) to reduce [boilerplate](https://en.wikipedia.org/wiki/Boilerplate_code).
@@ -11,6 +16,28 @@ Please see:
 * [Javadoc](https://www.anchoranalysis.org/javadoc/) for Anchor project, as a whole.
 * The repository's [developer documentation](https://www.anchoranalysis.org/developer_guide_repositories_anchor_assembly.html).
 * The repository's [SonarCloud](https://sonarcloud.io/summary/overall?id=anchoranalysis_anchor-assembly).
+
+## How to create a distribution
+
+After running the 'package' goal in maven e.g.
+> mvn package
+
+...the distribution can then be found in:
+> target/anchor-assembly-<version-bin>
+
+After running the 'deploy' goal in maven, the distribution is copied into the ${anchor.home.deploy} directory
+
+## Folder structure
+
+Assembly descriptors
+> src/assembly/
+
+Applications used to help launch anchor with the appropriate JVM
+> src/main/resources/helperapps
+
+Documents that are placed in the top-level of the distribution
+> src/main/resources/topleveldocs
+
 
 ## What is Anchor?
 
