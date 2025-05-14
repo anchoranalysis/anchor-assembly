@@ -121,8 +121,8 @@
 						<configuration>
 						  
 						  <input>${project.build.directory}/anchor-${project.version}-anchor/anchor-${project.version}/lib</input>
-						  <mainJar>anchor-launcher-${project.version}.jar</mainjar>
-						  <mainClass>org.anchoranalysis.launcher.Launch</mainclass>              
+						  <mainJar>anchor-launcher-${project.version}.jar</mainJar>
+						  <mainClass>org.anchoranalysis.launcher.Launch</mainClass>              
 						  
 						  <!--
 							Specifies the location in which generated output files are placed.
@@ -137,7 +137,7 @@
 						  <!--
 							Specifies version of the application and/or package.
 						  -->
-						  <appVersion>1.0.0</appversion>
+						  <appVersion>1.0.0</appVersion>
 						  
 						  <!--
 							Specifies description of the application.
