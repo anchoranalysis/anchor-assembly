@@ -31,8 +31,6 @@
 		  <organizationUrl>http://www.owenfeehan.com</organizationUrl>
         </developer>
     </developers>
-
-	<name>anchor-parent-assembly</name>
   
 	  <dependencies>
 
