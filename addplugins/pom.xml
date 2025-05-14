@@ -3,11 +3,11 @@
    <parent>
         <groupId>org.anchoranalysis.anchor</groupId>
    	    <artifactId>anchor-parent-assembly</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>anchor-parent-addplugins</artifactId>
     <packaging>pom</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	
 	<modules>
 	   <module>anchor-launcher</module>
