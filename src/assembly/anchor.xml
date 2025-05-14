@@ -100,7 +100,7 @@
     
   <dependencySets>
 
-	<!--  All the dependencies needed, apart from the anchor-launcher jar, are placed in the lib/ folder, unless they are plugins. -->
+	<!--  All the dependencies needed. -->
     <dependencySet>
       <useProjectArtifact>false</useProjectArtifact>
       <useTransitiveDependencies>true</useTransitiveDependencies>
@@ -112,21 +112,7 @@
       	<exclude>com.microsoft.onnxruntime:onnxruntime:*:*</exclude>
       </excludes>
     </dependencySet>
-    
-    <!--  The anchor-launcher jar is placed in lib folder. This is a simple bootstrap used to start
-      anchor from the command-line. -->
-    <dependencySet>
-      <useProjectArtifact>false</useProjectArtifact>
-      <useTransitiveDependencies>true</useTransitiveDependencies>
-      <unpack>false</unpack>
-      <scope>runtime</scope>
-      <outputDirectory>lib</outputDirectory>
-      <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
-      <includes>
-      	<include>org.anchoranalysis.anchor:anchor-launcher:*:*</include>
-      </includes>
-    </dependencySet>
-    
+        
   </dependencySets>
 
  </assembly>

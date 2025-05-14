@@ -121,7 +121,7 @@
 						<configuration>
 						  
 						  <input>${project.build.directory}/anchor-${project.version}-anchor/anchor-${project.version}/lib</input>
-						  <mainjar>anchor-launcher.jar</mainjar>
+						  <mainjar>anchor-launcher-${project.version}.jar</mainjar>
 						  <mainclass>org.anchoranalysis.launcher.Launch</mainclass>              
 						  
 						  <!--
