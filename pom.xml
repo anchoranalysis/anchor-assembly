@@ -117,7 +117,7 @@
 			  <plugin>
 				<groupId>org.panteleyev</groupId>
 				<artifactId>jpackage-maven-plugin</artifactId>
-				<version>0.1.6.6</version>
+				<version>1.6.6</version>
 						<configuration>
 						  
 						  <input>${project.build.directory}/anchor-${project.version}-anchor/anchor-${project.version}/lib</input>
