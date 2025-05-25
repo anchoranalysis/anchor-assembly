@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 /** Runs tests on a particular task, checking for expected outputted files. */
-abstract class TaskTestBase {
+public abstract class TaskTestBase {
 
     @Test
     void testTask(@TempDir Path tempDirectory) throws IOException, InterruptedException {

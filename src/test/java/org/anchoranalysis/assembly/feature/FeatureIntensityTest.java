@@ -19,20 +19,13 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.assembly;
-
-import java.util.*;
+package org.anchoranalysis.assembly.feature;
 
 /** Tests the <b>montage</b> task in an Anchor distribution. */
-class MontageTest extends TaskTestBase {
+class FeatureIntensityTest extends FeatureBase {
 
     @Override
     protected String taskName() {
-        return "montage";
-    }
-
-    @Override
-    protected List<String> expectedFiles() {
-        return List.of("labelled.png");
+        return "feature/intensity";
     }
 }

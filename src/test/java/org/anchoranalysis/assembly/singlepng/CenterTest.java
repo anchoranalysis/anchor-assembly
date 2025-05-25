@@ -19,10 +19,10 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.assembly;
+package org.anchoranalysis.assembly.singlepng;
 
 /** Tests the <b>copy</b> task in an Anchor distribution. */
-class CenterTest extends SinglePNG {
+class CenterTest extends SinglePNGBase {
 
     @Override
     protected String taskName() {

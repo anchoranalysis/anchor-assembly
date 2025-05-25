@@ -19,16 +19,36 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.assembly;
+package org.anchoranalysis.assembly.other;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import org.anchoranalysis.assembly.TaskTestBase;
 
-/** A base for testing a task that outputs a single PNG file for every input image. */
-abstract class SinglePNG extends TaskTestBase {
+/** Tests the <b>copy</b> task in an Anchor distribution. */
+class HistogramTest extends TaskTestBase {
+
+    @Override
+    protected String taskName() {
+        return "histogram";
+    }
 
     @Override
     protected List<String> expectedFiles() {
-        return Arrays.asList("blue_corner.png", "chur.png", "green_shelf.png", "tuebingen.png");
+        return Arrays.asList(
+                "blue_corner_blue.csv",
+                "blue_corner_green.csv",
+                "blue_corner_red.csv",
+                "chur_blue.csv",
+                "chur_green.csv",
+                "chur_red.csv",
+                "green_shelf_blue.csv",
+                "green_shelf_green.csv",
+                "green_shelf_red.csv",
+                "tuebingen_blue.csv",
+                "tuebingen_green.csv",
+                "tuebingen_red.csv",
+                "sum/red.csv",
+                "sum/green.csv",
+                "sum/blue.csv");
     }
 }

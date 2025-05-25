@@ -19,13 +19,13 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.assembly;
+package org.anchoranalysis.assembly.feature;
 
-/** Tests the <b>copy</b> task in an Anchor distribution. */
-class ConvertTest extends SinglePNG {
+/** Tests the <b>montage</b> task in an Anchor distribution. */
+class FeatureMetadataTest extends FeatureBase {
 
     @Override
     protected String taskName() {
-        return "convert";
+        return "feature/metadata";
     }
 }
