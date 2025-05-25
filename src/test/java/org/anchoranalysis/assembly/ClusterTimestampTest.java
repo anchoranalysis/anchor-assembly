@@ -21,14 +21,22 @@
  */
 package org.anchoranalysis.assembly;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-/** A base for testing a task that outputs a single PNG file for every input image. */
-abstract class SinglePNG extends TaskTestBase {
+/** Tests the <b>cluster/timestamp</b> task in an Anchor distribution. */
+class ClusterTimestampTest extends TaskTestBase {
+
+    @Override
+    protected String taskName() {
+        return "cluster/timestamp";
+    }
 
     @Override
     protected List<String> expectedFiles() {
-        return Arrays.asList("blue_corner.png", "chur.png", "green_shelf.png", "tuebingen.png");
+        return Arrays.asList(
+                "outliers/blue_corner.png",
+                "outliers/chur.jpg",
+                "outliers/green_shelf.jpg",
+                "outliers/tuebingen.JPG");
     }
 }
