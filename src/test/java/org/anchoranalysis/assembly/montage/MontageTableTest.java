@@ -19,26 +19,13 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.assembly.other;
+package org.anchoranalysis.assembly.montage;
 
-import java.util.*;
-import org.anchoranalysis.assembly.TaskTestBase;
-
-/** Tests the <b>montage</b> task in an Anchor distribution. */
-class MontageTest extends TaskTestBase {
+/** Tests the <b>montage/table</b> task in an Anchor distribution. */
+class MontageTableTest extends MontageBase {
 
     @Override
     protected String taskName() {
-        return "montage";
-    }
-
-    @Override
-    protected List<String> expectedFiles() {
-        return List.of("labelled.png");
-    }
-
-    @Override
-    protected boolean consoleOnly() {
-        return false;
+        return "montage/table";
     }
 }

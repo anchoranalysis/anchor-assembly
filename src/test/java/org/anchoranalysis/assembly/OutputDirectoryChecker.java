@@ -83,8 +83,8 @@ class OutputDirectoryChecker {
                 actualFiles.size(),
                 () ->
                         String.format(
-                                "%d files were expected, but a non-identical %d files were found.",
-                                expectedFiles.size(), actualFiles.size()));
+                                "%d files were expected, but %d files were found. They are %s",
+                                expectedFiles.size(), actualFiles.size(), actualFiles));
     }
 
     /** Asserts each expected-files exists in the output-directory. */
