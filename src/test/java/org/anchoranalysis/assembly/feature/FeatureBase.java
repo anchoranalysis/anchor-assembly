@@ -31,4 +31,9 @@ abstract class FeatureBase extends TaskTestBase {
     protected List<String> expectedFiles() {
         return List.of("features.csv");
     }
+
+    @Override
+    protected boolean consoleOnly() {
+        return false;
+    }
 }

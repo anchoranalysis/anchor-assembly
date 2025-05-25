@@ -21,7 +21,7 @@
  */
 package org.anchoranalysis.assembly.singlepng;
 
-/** Tests the <b>copy</b> task in an Anchor distribution. */
+/** Tests the <b>resize</b> task in an Anchor distribution. */
 class ResizeTest extends SinglePNGBase {
 
     @Override

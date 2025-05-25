@@ -40,4 +40,9 @@ class ClusterTimestampTest extends TaskTestBase {
                 "outliers/green_shelf.jpg",
                 "outliers/tuebingen.JPG");
     }
+
+    @Override
+    protected boolean consoleOnly() {
+        return false;
+    }
 }

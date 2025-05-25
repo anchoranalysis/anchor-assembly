@@ -19,13 +19,13 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.assembly.singlepng;
+package org.anchoranalysis.assembly.nooutput;
 
-/** Tests the <b>convert</b> task in an Anchor distribution. */
-class ConvertTest extends SinglePNGBase {
+/** Tests the <b>list/names</b> task in an Anchor distribution. */
+class ListNamesTest extends NoOutputBase {
 
     @Override
     protected String taskName() {
-        return "convert";
+        return "list/names";
     }
 }

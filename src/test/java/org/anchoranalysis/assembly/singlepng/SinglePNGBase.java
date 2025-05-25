@@ -32,4 +32,9 @@ abstract class SinglePNGBase extends TaskTestBase {
     protected List<String> expectedFiles() {
         return Arrays.asList("blue_corner.png", "chur.png", "green_shelf.png", "tuebingen.png");
     }
+
+    @Override
+    protected boolean consoleOnly() {
+        return false;
+    }
 }

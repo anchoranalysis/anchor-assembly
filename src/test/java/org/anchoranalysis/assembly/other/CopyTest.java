@@ -36,4 +36,9 @@ class CopyTest extends TaskTestBase {
     protected List<String> expectedFiles() {
         return Arrays.asList("blue_corner.png", "chur.jpg", "green_shelf.jpg", "tuebingen.JPG");
     }
+
+    @Override
+    protected boolean consoleOnly() {
+        return false;
+    }
 }

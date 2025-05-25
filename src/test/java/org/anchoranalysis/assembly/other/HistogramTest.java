@@ -24,7 +24,7 @@ package org.anchoranalysis.assembly.other;
 import java.util.*;
 import org.anchoranalysis.assembly.TaskTestBase;
 
-/** Tests the <b>copy</b> task in an Anchor distribution. */
+/** Tests the <b>histogram</b> task in an Anchor distribution. */
 class HistogramTest extends TaskTestBase {
 
     @Override
@@ -50,5 +50,10 @@ class HistogramTest extends TaskTestBase {
                 "sum/red.csv",
                 "sum/green.csv",
                 "sum/blue.csv");
+    }
+
+    @Override
+    protected boolean consoleOnly() {
+        return false;
     }
 }

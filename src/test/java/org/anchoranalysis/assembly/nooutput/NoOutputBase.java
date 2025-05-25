@@ -19,13 +19,22 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.assembly.singlepng;
+package org.anchoranalysis.assembly.nooutput;
 
-/** Tests the <b>convert</b> task in an Anchor distribution. */
-class ConvertTest extends SinglePNGBase {
+import java.util.Arrays;
+import java.util.List;
+import org.anchoranalysis.assembly.TaskTestBase;
+
+/** A base for testing a task that outputs a single PNG file for every input image. */
+abstract class NoOutputBase extends TaskTestBase {
 
     @Override
-    protected String taskName() {
-        return "convert";
+    protected List<String> expectedFiles() {
+        return Arrays.asList();
+    }
+
+    @Override
+    protected boolean consoleOnly() {
+        return true;
     }
 }

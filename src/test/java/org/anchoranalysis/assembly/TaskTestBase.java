@@ -24,15 +24,30 @@ package org.anchoranalysis.assembly;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 /** Runs tests on a particular task, checking for expected outputted files. */
 public abstract class TaskTestBase {
 
+    /** Name of a log-experiment file (which is always expected). */
+    public static String LOG_EXPERIMENT_FILENAME = "logExperiment.txt";
+
     @Test
     void testTask(@TempDir Path tempDirectory) throws IOException, InterruptedException {
-        ExecutorFixture.runAndVerify(taskName(), List.of(), tempDirectory, expectedFiles());
+
+        boolean producesOutputFiles = !consoleOnly();
+
+        List<String> files = expectedFiles();
+
+        if (producesOutputFiles) {
+            files = appendLogExperiment(files);
+        }
+
+        ExecutorFixture.runAndVerify(
+                taskName(), List.of(), tempDirectory, files, producesOutputFiles);
     }
 
     /**
@@ -45,9 +60,23 @@ public abstract class TaskTestBase {
     /**
      * The files that are expected.
      *
-     * <p>Please omit logExperiment.txt as this is always expected.
+     * <p>Please omit logExperiment.txt as this is handled via the {@link #experimentLogExpected}.
      *
      * @return the expected-files as a newly-created list.
      */
     protected abstract List<String> expectedFiles();
+
+    /**
+     * Whether a task writes to the console only, and produces no output files.
+     *
+     * @return true iff this is true, or false if the {@link #LOG_EXPERIMENT_FILENAME} file (as well
+     *     as output files) are expected.
+     */
+    protected abstract boolean consoleOnly();
+
+    /** Append the name of the log-experiment file to a list in an immutable way. */
+    private static List<String> appendLogExperiment(List<String> existing) {
+        return Stream.concat(existing.stream(), Stream.of(LOG_EXPERIMENT_FILENAME))
+                .collect(Collectors.toList());
+    }
 }

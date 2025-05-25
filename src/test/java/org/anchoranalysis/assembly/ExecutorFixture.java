@@ -21,6 +21,7 @@
  */
 package org.anchoranalysis.assembly;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -30,8 +31,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.launcher.Launch;
@@ -40,9 +39,6 @@ import org.apache.commons.text.RandomStringGenerator;
 /** Executes anchor simulating as if it was run in a command-line (CLI) environment. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class ExecutorFixture {
-
-    /** Name of a log-experiment file (which is always expected). */
-    private static String LOG_EXPERIMENT_FILENAME = "logExperiment.txt";
 
     /**
      * The path, relative to the project-root, of a directory of image files that can be used as
@@ -76,13 +72,20 @@ class ExecutorFixture {
      * @param tempDirectory a temporary directory, in which, we create an arbitrary path to an
      *     output-directory.
      * @param expectedFiles filenames (or relative file-paths to the output-directory) that are
-     *     expected to be found in the output-directory, aside from a {@code logExperiment.txt}
-     *     which is always expected. Use forward-slashes to encode any subdirectory e.g. {@code
-     *     subdir/foo.bar}.
+     *     expected to be found in the output-directory. Use forward-slashes to encode any
+     *     subdirectory e.g. {@code subdir/foo.bar}.
+     * @param expectExperimentLog whether an {@code experimentLog.txt} file is expected to be
+     *     outputted, or not.
+     * @param expectCompletedSuccessfully when true, a message to STDOUT is expected indicating that
+     *     all jobs completed successfully. when false, it is not.
      * @throws IOException if the in the output directory cannot be successfully traversed.
      */
     public static void runAndVerify(
-            String taskName, List<String> otherArgs, Path tempDirectory, List<String> expectedFiles)
+            String taskName,
+            List<String> otherArgs,
+            Path tempDirectory,
+            List<String> expectedFiles,
+            boolean expectCompletedSuccessfully)
             throws IOException {
 
         // A non-existing directory is needed, so we cannot use the temporary-directory directly.
@@ -94,18 +97,13 @@ class ExecutorFixture {
         String outContent = executeExperimentCaptureOutput(command);
 
         // The number of jobs should be identical to the number of input files
-        assertTrue(
+        assertEquals(
+                expectCompletedSuccessfully,
                 outContent.contains("All 4 jobs completed successfully."),
-                () -> "One or more jobs did not complete successfully, as is expected.");
+                () ->
+                        "The presence/absence of a message that all jobs completed successfully, is unexpected.");
 
-        OutputDirectoryChecker.assertAsExpected(
-                outputDirectory, appendLogExperiment(expectedFiles));
-    }
-
-    /** Append the name of the log-experiment file to a list in an immutable way. */
-    private static List<String> appendLogExperiment(List<String> existing) {
-        return Stream.concat(existing.stream(), Stream.of(LOG_EXPERIMENT_FILENAME))
-                .collect(Collectors.toList());
+        OutputDirectoryChecker.assertAsExpected(outputDirectory, expectedFiles);
     }
 
     /** Generates a random-string 10 characters long using only the letters a-z. */

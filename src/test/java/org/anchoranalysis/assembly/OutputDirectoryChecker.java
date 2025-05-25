@@ -43,6 +43,8 @@ class OutputDirectoryChecker {
      *
      * <p>It also checks no other files (that aren't expected) exist.
      *
+     * <p>If there are no expected-files, we expect the directory never to have been created.
+     *
      * @param outputDirectory the directory to be checked for output files.
      * @param expectedFiles the file-names (or relative-paths to the files, encoding subdirectories
      *     using a forward slash) for <b>all</b> files expected to be outputted.
@@ -50,11 +52,27 @@ class OutputDirectoryChecker {
      */
     public static void assertAsExpected(Path outputDirectory, List<String> expectedFiles)
             throws IOException {
+
+        if (!expectedFiles.isEmpty()) {
+            assertWithExpectedOutput(outputDirectory, expectedFiles);
+        } else {
+            assertNoExpectedOutput(outputDirectory);
+        }
+    }
+
+    /** Checks when output-files are expected. */
+    private static void assertWithExpectedOutput(Path outputDirectory, List<String> expectedFiles)
+            throws IOException {
         Set<String> actualFiles = findFilesRecursively(outputDirectory);
 
         assertTotalCount(actualFiles, expectedFiles);
 
         assertEachExpectedFileExists(actualFiles, expectedFiles);
+    }
+
+    /** Checks when no output files are expected. */
+    private static void assertNoExpectedOutput(Path outputDirectory) {
+        assertTrue(!Files.exists(outputDirectory));
     }
 
     /** Asserts the total counts of actual and expected files are identical. */

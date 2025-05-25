@@ -21,7 +21,7 @@
  */
 package org.anchoranalysis.assembly.feature;
 
-/** Tests the <b>montage</b> task in an Anchor distribution. */
+/** Tests the <b>feature/intensity</b> task in an Anchor distribution. */
 class FeatureIntensityTest extends FeatureBase {
 
     @Override

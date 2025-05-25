@@ -36,4 +36,9 @@ class MontageTest extends TaskTestBase {
     protected List<String> expectedFiles() {
         return List.of("labelled.png");
     }
+
+    @Override
+    protected boolean consoleOnly() {
+        return false;
+    }
 }

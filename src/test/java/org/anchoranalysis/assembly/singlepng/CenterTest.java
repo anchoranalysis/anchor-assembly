@@ -21,7 +21,7 @@
  */
 package org.anchoranalysis.assembly.singlepng;
 
-/** Tests the <b>copy</b> task in an Anchor distribution. */
+/** Tests the <b>center</b> task in an Anchor distribution. */
 class CenterTest extends SinglePNGBase {
 
     @Override
