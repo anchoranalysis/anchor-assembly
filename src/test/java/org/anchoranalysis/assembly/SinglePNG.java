@@ -21,11 +21,14 @@
  */
 package org.anchoranalysis.assembly;
 
-/** Tests the <b>copy</b> task in an Anchor distribution. */
-class ConvertTest extends SinglePNG {
+import java.util.Arrays;
+import java.util.List;
+
+/** A base for testing a task that outputs a Single PNG for every input image. */
+abstract class SinglePNG extends TaskTestBase {
 
     @Override
-    protected String taskName() {
-        return "convert";
+    protected List<String> expectedFiles() {
+        return Arrays.asList("blue_corner.png", "chur.png", "green_shelf.png", "tuebingen.png");
     }
 }

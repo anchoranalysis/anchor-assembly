@@ -22,10 +22,10 @@
 package org.anchoranalysis.assembly;
 
 /** Tests the <b>copy</b> task in an Anchor distribution. */
-class ConvertTest extends SinglePNG {
+class ResizeTest extends SinglePNG {
 
     @Override
     protected String taskName() {
-        return "convert";
+        return "resize";
     }
 }

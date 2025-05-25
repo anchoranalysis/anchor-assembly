@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -68,21 +67,23 @@ class ExecutorFixture {
      *
      * <p>The STDERR is checked so that is either empty or contains only whitespace.
      *
-     * <p>The output-directory is checked so that each file in {@code expectedFiles} is present.
+     * <p>The output-directory is checked so that each file in {@code expectedFiles} is present, and
+     * exactly the correct number of expected-files are found in it (and no more).
      *
      * @param taskName the name of the task to run (as per the --task option to Anchor's CLI)
      * @param otherArgs any other arguments that are passed to the CLI (in addition to existing
      *     input, output and task arguments)
      * @param tempDirectory a temporary directory, in which, we create an arbitrary path to an
      *     output-directory.
-     * @param expectedFiles filenames that are expected to be found in the output-directory, aside
-     *     from a {@code logExperiment.txt} which is always expected.
+     * @param expectedFiles filenames (or relative file-paths to the output-directory) that are
+     *     expected to be found in the output-directory, aside from a {@code logExperiment.txt}
+     *     which is always expected. Use forward-slashes to encode any subdirectory e.g. {@code
+     *     subdir/foo.bar}.
+     * @throws IOException if the in the output directory cannot be successfully traversed.
      */
     public static void runAndVerify(
-            String taskName,
-            List<String> otherArgs,
-            Path tempDirectory,
-            List<String> expectedFiles) {
+            String taskName, List<String> otherArgs, Path tempDirectory, List<String> expectedFiles)
+            throws IOException {
 
         // A non-existing directory is needed, so we cannot use the temporary-directory directly.
         // Instead we point to a (not yet created) subdirectory inside of it.
@@ -96,7 +97,9 @@ class ExecutorFixture {
         assertTrue(
                 outContent.contains("All 4 jobs completed successfully."),
                 () -> "One or more jobs did not complete successfully, as is expected.");
-        assertExpectedFiles(outputDirectory, appendLogExperiment(expectedFiles));
+
+        OutputDirectoryChecker.assertAsExpected(
+                outputDirectory, appendLogExperiment(expectedFiles));
     }
 
     /** Append the name of the log-experiment file to a list in an immutable way. */
@@ -158,30 +161,5 @@ class ExecutorFixture {
         command.addAll(otherArgs);
 
         return command;
-    }
-
-    /** Asserts all the expected-files exist in the output-directory. */
-    private static void assertExpectedFiles(Path outputDirectory, Iterable<String> expectedFiles) {
-        for (String expectedFile : expectedFiles) {
-            Path path = outputDirectory.resolve(expectedFile);
-            assertTrue(
-                    Files.exists(path),
-                    () ->
-                            String.format(
-                                    "Expected file %s does not exist in directory. These files do: %s",
-                                    expectedFile, allFilesIn(outputDirectory)));
-        }
-    }
-
-    /** Lists all files in a directory. */
-    private static String allFilesIn(Path directory) {
-        try {
-            return Files.list(directory)
-                    .filter(Files::isRegularFile)
-                    .map(path -> path.getFileName().toString())
-                    .collect(Collectors.joining(", "));
-        } catch (IOException e) {
-            return "<Cannot list as an IOException occurred>";
-        }
     }
 }

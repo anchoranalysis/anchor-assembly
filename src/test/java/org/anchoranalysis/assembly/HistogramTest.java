@@ -21,11 +21,33 @@
  */
 package org.anchoranalysis.assembly;
 
+import java.util.*;
+
 /** Tests the <b>copy</b> task in an Anchor distribution. */
-class ConvertTest extends SinglePNG {
+class HistogramTest extends TaskTestBase {
 
     @Override
     protected String taskName() {
-        return "convert";
+        return "histogram";
+    }
+
+    @Override
+    protected List<String> expectedFiles() {
+        return Arrays.asList(
+                "blue_corner_blue.csv",
+                "blue_corner_green.csv",
+                "blue_corner_red.csv",
+                "chur_blue.csv",
+                "chur_green.csv",
+                "chur_red.csv",
+                "green_shelf_blue.csv",
+                "green_shelf_green.csv",
+                "green_shelf_red.csv",
+                "tuebingen_blue.csv",
+                "tuebingen_green.csv",
+                "tuebingen_red.csv",
+                "sum/red.csv",
+                "sum/green.csv",
+                "sum/blue.csv");
     }
 }
