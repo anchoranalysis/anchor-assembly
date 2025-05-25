@@ -24,12 +24,15 @@ package org.anchoranalysis.assembly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.launcher.Launch;
@@ -38,6 +41,9 @@ import org.apache.commons.text.RandomStringGenerator;
 /** Executes anchor simulating as if it was run in a command-line (CLI) environment. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class ExecutorFixture {
+
+    /** Name of a log-experiment file (which is always expected). */
+    private static String LOG_EXPERIMENT_FILENAME = "logExperiment.txt";
 
     /**
      * The path, relative to the project-root, of a directory of image files that can be used as
@@ -69,7 +75,8 @@ class ExecutorFixture {
      *     input, output and task arguments)
      * @param tempDirectory a temporary directory, in which, we create an arbitrary path to an
      *     output-directory.
-     * @param expectedFiles filenames that are expected to be found in the output-directory.
+     * @param expectedFiles filenames that are expected to be found in the output-directory, aside
+     *     from a {@code logExperiment.txt} which is always expected.
      */
     public static void runAndVerify(
             String taskName,
@@ -86,8 +93,16 @@ class ExecutorFixture {
         String outContent = executeExperimentCaptureOutput(command);
 
         // The number of jobs should be identical to the number of input files
-        assertTrue(outContent.contains("All 4 jobs completed successfully."));
-        assertExpectedFiles(outputDirectory, expectedFiles);
+        assertTrue(
+                outContent.contains("All 4 jobs completed successfully."),
+                () -> "One or more jobs did not complete successfully, as is expected.");
+        assertExpectedFiles(outputDirectory, appendLogExperiment(expectedFiles));
+    }
+
+    /** Append the name of the log-experiment file to a list in an immutable way. */
+    private static List<String> appendLogExperiment(List<String> existing) {
+        return Stream.concat(existing.stream(), Stream.of(LOG_EXPERIMENT_FILENAME))
+                .collect(Collectors.toList());
     }
 
     /** Generates a random-string 10 characters long using only the letters a-z. */
@@ -116,7 +131,7 @@ class ExecutorFixture {
             System.setErr(originalErr);
         }
 
-        assertTrue(errContent.toString().isBlank());
+        assertTrue(errContent.toString().isBlank(), () -> "STDERR is not blank as expected");
 
         return outContent.toString();
     }
@@ -146,10 +161,27 @@ class ExecutorFixture {
     }
 
     /** Asserts all the expected-files exist in the output-directory. */
-    private static void assertExpectedFiles(Path outputDirectory, List<String> expectedFiles) {
+    private static void assertExpectedFiles(Path outputDirectory, Iterable<String> expectedFiles) {
         for (String expectedFile : expectedFiles) {
             Path path = outputDirectory.resolve(expectedFile);
-            assertTrue(Files.exists(path));
+            assertTrue(
+                    Files.exists(path),
+                    () ->
+                            String.format(
+                                    "Expected file %s does not exist in directory. These files do: %s",
+                                    expectedFile, allFilesIn(outputDirectory)));
+        }
+    }
+
+    /** Lists all files in a directory. */
+    private static String allFilesIn(Path directory) {
+        try {
+            return Files.list(directory)
+                    .filter(Files::isRegularFile)
+                    .map(path -> path.getFileName().toString())
+                    .collect(Collectors.joining(", "));
+        } catch (IOException e) {
+            return "<Cannot list as an IOException occurred>";
         }
     }
 }

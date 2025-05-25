@@ -23,16 +23,16 @@ package org.anchoranalysis.assembly;
 
 import java.util.*;
 
-/** Tests the <b>montage</b> task in an Anchor distribution. */
-class MontageTest extends TaskTestBase {
+/** Tests the <b>copy</b> task in an Anchor distribution. */
+class CopyTest extends TaskTestBase {
 
     @Override
     protected String taskName() {
-        return "montage";
+        return "copy";
     }
 
     @Override
     protected List<String> expectedFiles() {
-        return List.of("labelled.png");
+        return Arrays.asList("blue_corner.png", "chur.jpg", "green_shelf.jpg", "tuebingen.JPG");
     }
 }

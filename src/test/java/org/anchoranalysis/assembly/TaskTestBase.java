@@ -21,18 +21,33 @@
  */
 package org.anchoranalysis.assembly;
 
-import java.util.*;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
-/** Tests the <b>montage</b> task in an Anchor distribution. */
-class MontageTest extends TaskTestBase {
+/** Runs tests on a particular task, checking for expected outputted files. */
+abstract class TaskTestBase {
 
-    @Override
-    protected String taskName() {
-        return "montage";
+    @Test
+    void testTask(@TempDir Path tempDirectory) throws IOException, InterruptedException {
+        ExecutorFixture.runAndVerify(taskName(), List.of(), tempDirectory, expectedFiles());
     }
 
-    @Override
-    protected List<String> expectedFiles() {
-        return List.of("labelled.png");
-    }
+    /**
+     * The name of the task to test.
+     *
+     * @return the task-name.
+     */
+    protected abstract String taskName();
+
+    /**
+     * The files that are expected.
+     *
+     * <p>Please omit logExperiment.txt as this is always expected.
+     *
+     * @return the expected-files as a newly-created list.
+     */
+    protected abstract List<String> expectedFiles();
 }
