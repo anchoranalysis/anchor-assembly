@@ -19,27 +19,18 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.assembly.singlepng;
+package org.anchoranalysis.assembly.project;
 
-import java.util.Arrays;
-import java.util.List;
-import org.anchoranalysis.assembly.TaskTestBase;
-
-/** A base for testing a task that outputs a single PNG file for every input image. */
-abstract class SinglePNGBase extends TaskTestBase {
+/** Tests the <b>project/standardDeviationResize</b> task in an Anchor distribution. */
+class ProjectStandardDeviationResizeTest extends ProjectBase {
 
     @Override
-    protected List<String> expectedFiles() {
-        return Arrays.asList("blue_corner.png", "chur.png", "green_shelf.png", "tuebingen.png");
+    protected String taskName() {
+        return "project/standardDeviationResize";
     }
 
     @Override
-    protected boolean consoleOnly() {
-        return false;
-    }
-
-    @Override
-    protected boolean identicalSizes() {
-        return false;
+    protected String projectionFileName() {
+        return "standardDeviation.png";
     }
 }

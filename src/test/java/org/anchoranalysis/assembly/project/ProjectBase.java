@@ -19,18 +19,17 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-package org.anchoranalysis.assembly.singlepng;
+package org.anchoranalysis.assembly.project;
 
-import java.util.Arrays;
 import java.util.List;
 import org.anchoranalysis.assembly.TaskTestBase;
 
-/** A base for testing a task that outputs a single PNG file for every input image. */
-abstract class SinglePNGBase extends TaskTestBase {
+/** A base for testing a task that segments an image. */
+abstract class ProjectBase extends TaskTestBase {
 
     @Override
     protected List<String> expectedFiles() {
-        return Arrays.asList("blue_corner.png", "chur.png", "green_shelf.png", "tuebingen.png");
+        return List.of(projectionFileName());
     }
 
     @Override
@@ -40,6 +39,13 @@ abstract class SinglePNGBase extends TaskTestBase {
 
     @Override
     protected boolean identicalSizes() {
-        return false;
+        return true;
     }
+
+    /**
+     * The name of the file that is outputted with the projection.
+     *
+     * @return the file-name.
+     */
+    protected abstract String projectionFileName();
 }

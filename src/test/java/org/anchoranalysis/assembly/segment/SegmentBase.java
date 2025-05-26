@@ -53,6 +53,11 @@ abstract class SegmentBase extends TaskTestBase {
         return false;
     }
 
+    @Override
+    protected boolean identicalSizes() {
+        return false;
+    }
+
     /**
      * The maximum index of the thumbnails created by the segmentation.
      *

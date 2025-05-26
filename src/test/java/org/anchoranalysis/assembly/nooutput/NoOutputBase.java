@@ -37,4 +37,9 @@ abstract class NoOutputBase extends TaskTestBase {
     protected boolean consoleOnly() {
         return true;
     }
+
+    @Override
+    protected boolean identicalSizes() {
+        return false;
+    }
 }

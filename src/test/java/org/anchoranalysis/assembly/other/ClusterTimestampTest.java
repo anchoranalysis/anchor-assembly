@@ -45,4 +45,9 @@ class ClusterTimestampTest extends TaskTestBase {
     protected boolean consoleOnly() {
         return false;
     }
+
+    @Override
+    protected boolean identicalSizes() {
+        return false;
+    }
 }

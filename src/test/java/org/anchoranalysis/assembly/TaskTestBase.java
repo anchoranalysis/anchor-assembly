@@ -47,7 +47,7 @@ public abstract class TaskTestBase {
         }
 
         ExecutorFixture.runAndVerify(
-                taskName(), List.of(), tempDirectory, files, producesOutputFiles);
+                taskName(), identicalSizes(), List.of(), tempDirectory, files, producesOutputFiles);
     }
 
     /**
@@ -73,6 +73,14 @@ public abstract class TaskTestBase {
      *     as output files) are expected.
      */
     protected abstract boolean consoleOnly();
+
+    /**
+     * Whether the input-directory should contain images of identical size?
+     *
+     * @return when true, images with identical sizes should be used, otherwise, the image-sizes
+     *     vary.
+     */
+    protected abstract boolean identicalSizes();
 
     /** Append the name of the log-experiment file to a list in an immutable way. */
     private static List<String> appendLogExperiment(List<String> existing) {

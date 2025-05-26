@@ -44,8 +44,13 @@ class ExecutorFixture {
      * The path, relative to the project-root, of a directory of image files that can be used as
      * input.
      */
-    private static final Path INPUT_DIRECTORY =
-            Paths.get("src/test/resources/input/differentSizes");
+    private static final Path INPUT_DIRECTORY = Paths.get("src/test/resources/input/");
+
+    /** The name of the subdirectory containing images of different sizes. */
+    private static final String DIRECTORY_DIFFERENT_SIZES = "differentSizes";
+
+    /** The name of the subdirectory containing images of identical sizes. */
+    private static final String DIRECTORY_IDENTICAL_SIZES = "identicalSizes";
 
     /**
      * The path, relative to the project-root, of the configuration files that are bundles with an
@@ -67,6 +72,8 @@ class ExecutorFixture {
      * exactly the correct number of expected-files are found in it (and no more).
      *
      * @param taskName the name of the task to run (as per the --task option to Anchor's CLI)
+     * @param identicalSizes when true, a directory of images with identical sizes is used. when
+     *     false, the sizes vary.
      * @param otherArgs any other arguments that are passed to the CLI (in addition to existing
      *     input, output and task arguments)
      * @param tempDirectory a temporary directory, in which, we create an arbitrary path to an
@@ -82,6 +89,7 @@ class ExecutorFixture {
      */
     public static void runAndVerify(
             String taskName,
+            boolean identicalSizes,
             List<String> otherArgs,
             Path tempDirectory,
             List<String> expectedFiles,
@@ -92,7 +100,7 @@ class ExecutorFixture {
         // Instead we point to a (not yet created) subdirectory inside of it.
         Path outputDirectory = tempDirectory.resolve(generateRandomString());
 
-        List<String> command = buildCommand(taskName, otherArgs, outputDirectory);
+        List<String> command = buildCommand(taskName, otherArgs, identicalSizes, outputDirectory);
 
         String outContent = executeExperimentCaptureOutput(command);
 
@@ -139,11 +147,11 @@ class ExecutorFixture {
 
     /** Builds the command-line arguments that are passed to the CLI for this particular test. */
     private static List<String> buildCommand(
-            String taskName, List<String> otherArgs, Path outputDirectory) {
+            String taskName, List<String> otherArgs, boolean identicalSizes, Path outputDirectory) {
         List<String> command = new ArrayList<>();
 
         command.add("--input");
-        command.add(INPUT_DIRECTORY.toString());
+        command.add(inputDirectory(identicalSizes).toString());
 
         command.add("--outputOmitExperimentIdentifier");
         command.add(outputDirectory.toString());
@@ -159,5 +167,20 @@ class ExecutorFixture {
         command.addAll(otherArgs);
 
         return command;
+    }
+
+    /**
+     * Determines which input-directory to use.
+     *
+     * @param identicalSizes when true, a directory of images with identical sizes is used. when
+     *     false, the sizes vary.
+     * @return a path to the chosen input directory.
+     */
+    private static Path inputDirectory(boolean identicalSizes) {
+        if (identicalSizes) {
+            return INPUT_DIRECTORY.resolve(DIRECTORY_IDENTICAL_SIZES);
+        } else {
+            return INPUT_DIRECTORY.resolve(DIRECTORY_DIFFERENT_SIZES);
+        }
     }
 }
