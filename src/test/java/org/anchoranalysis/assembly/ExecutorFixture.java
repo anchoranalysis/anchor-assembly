@@ -22,6 +22,7 @@
 package org.anchoranalysis.assembly;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -60,11 +61,15 @@ class ExecutorFixture {
     private static final Path DEFAULT_EXPERIMENT =
             Paths.get("src/main/resources/config/defaultExperiment.xml");
 
+    /** A phrase to search for in the STDOUT to indicate that an error occurred. */
+    private static final String ERROR_PHRASE = "An error occurred";
+
     /**
      * Launch Anchor via a simulated CLI environment, run a task, and check that certain assertions
      * are met.
      *
-     * <p>The STDOUT is checked for the string indicating all jobs completed successfully.
+     * <p>The STDOUT is checked for the string indicating all jobs completed successfully, and for
+     * the absence of the phrase {@code An error occurred}.
      *
      * <p>The STDERR is checked so that is either empty or contains only whitespace.
      *
@@ -104,14 +109,24 @@ class ExecutorFixture {
 
         String outContent = executeExperimentCaptureOutput(command);
 
+        checkStdOut(outContent, expectCompletedSuccessfully);
+
+        OutputDirectoryChecker.assertAsExpected(outputDirectory, expectedFiles);
+    }
+
+    /** Checks the content produced in the STDOUT. */
+    private static void checkStdOut(String outContent, boolean expectCompletedSuccessfully) {
+
+        assertFalse(
+                outContent.contains(ERROR_PHRASE),
+                () -> String.format("The STDOUT contained the phrase: %s", ERROR_PHRASE));
+
         // The number of jobs should be identical to the number of input files
         assertEquals(
                 expectCompletedSuccessfully,
                 outContent.contains("All 4 jobs completed successfully."),
                 () ->
                         "The presence/absence of a message that all jobs completed successfully, is unexpected.");
-
-        OutputDirectoryChecker.assertAsExpected(outputDirectory, expectedFiles);
     }
 
     /** Generates a random-string 10 characters long using only the letters a-z. */
