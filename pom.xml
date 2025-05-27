@@ -7,7 +7,7 @@
     </parent> 
 	
   <artifactId>anchor</artifactId>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.0.1</version>
     <url>http://www.anchoranalysis.org/</url>
   
   <packaging>jar</packaging>
@@ -47,13 +47,13 @@
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-fiji</artifactId>
-		  <version>1.0.0</version>
+		  <version>1.0.2</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-io-gpl</artifactId>
-		  <version>1.0.0</version>
+		  <version>1.0.2</version>
 		</dependency>
 		
 				
@@ -146,7 +146,7 @@
 						  <!--
 							Specifies version of the application and/or package.
 						  -->
-						  <appVersion>1.0.0</appVersion>
+						  <appVersion>1.0.2</appVersion>
 						  
 						  <!--
 							Specifies description of the application.
