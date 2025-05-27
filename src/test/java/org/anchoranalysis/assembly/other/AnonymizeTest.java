@@ -34,7 +34,7 @@ class AnonymizeTest extends TaskTestBase {
 
     @Override
     protected List<String> expectedFiles() {
-        return Arrays.asList();
+        return Arrays.asList("0.jpg", "1.jpg", "2.jpg", "3.jpg");
     }
 
     @Override
@@ -44,6 +44,6 @@ class AnonymizeTest extends TaskTestBase {
 
     @Override
     protected boolean identicalSizes() {
-        return false;
+        return true;
     }
 }
