@@ -7,10 +7,10 @@
     </parent> 
 	
   <artifactId>anchor</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
     <url>http://www.anchoranalysis.org/</url>
   
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   
   <name>Anchor Distribution</name>
   
@@ -37,7 +37,7 @@
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-launcher</artifactId>
-		  <version>1.0.0</version>
+		  <version>1.1.2</version>
 		</dependency>
 			
 		
@@ -47,35 +47,44 @@
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-fiji</artifactId>
-		  <version>1.0.0</version>
+		  <version>1.0.2</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-io-gpl</artifactId>
-		  <version>1.0.0</version>
+		  <version>1.0.2</version>
 		</dependency>
 		
 				
-			<!-- We add both onnxruntime dependencies (GPU and CPU) so the appropriate one can be removed later depending on operating system. -->
-			<dependency>
-				<groupId> com.microsoft.onnxruntime</groupId>
-				<artifactId>onnxruntime</artifactId>
-				<version>${onnx-runtime.version}</version>
-			</dependency>
-			
-			<dependency>
-				<groupId> com.microsoft.onnxruntime</groupId>
-				<artifactId>onnxruntime_gpu</artifactId>
-				<version>${onnx-runtime.version}</version>
-			</dependency>
-			
-			<!-- To ensure the lombok jar is distributed. -->
-			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-			</dependency>
+		<!-- We add both onnxruntime dependencies (GPU and CPU) so the appropriate one can be removed later depending on operating system. -->
+		<dependency>
+			<groupId> com.microsoft.onnxruntime</groupId>
+			<artifactId>onnxruntime</artifactId>
+			<version>${onnx-runtime.version}</version>
+		</dependency>
 		
+		<dependency>
+			<groupId> com.microsoft.onnxruntime</groupId>
+			<artifactId>onnxruntime_gpu</artifactId>
+			<version>${onnx-runtime.version}</version>
+		</dependency>
+		
+		<!-- To ensure the lombok jar is distributed. -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		
+		<!-- START: for the integration-tests -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-text</artifactId>
+		    <version>1.6</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- END: for the integration-tests -->
+
 	  </dependencies>
 	
 	<!-- For tagging releases. -->
@@ -121,7 +130,7 @@
 						<configuration>
 						  
 						  <input>${project.build.directory}/anchor-${project.version}-anchor/anchor-${project.version}/lib</input>
-						  <mainJar>anchor-launcher-${project.version}.jar</mainJar>
+						  <mainJar>anchor-launcher-1.1.2.jar</mainJar>
 						  <mainClass>org.anchoranalysis.launcher.Launch</mainClass>              
 						  
 						  <!--
@@ -137,7 +146,7 @@
 						  <!--
 							Specifies version of the application and/or package.
 						  -->
-						  <appVersion>1.0.0</appVersion>
+						  <appVersion>1.0.2</appVersion>
 						  
 						  <!--
 							Specifies description of the application.
