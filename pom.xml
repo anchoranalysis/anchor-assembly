@@ -37,7 +37,7 @@
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-launcher</artifactId>
-		  <version>1.1.1</version>
+		  <version>1.1.2</version>
 		</dependency>
 			
 		
@@ -130,7 +130,7 @@
 						<configuration>
 						  
 						  <input>${project.build.directory}/anchor-${project.version}-anchor/anchor-${project.version}/lib</input>
-						  <mainJar>anchor-launcher-1.1.0.jar</mainJar>
+						  <mainJar>anchor-launcher-1.1.2.jar</mainJar>
 						  <mainClass>org.anchoranalysis.launcher.Launch</mainClass>              
 						  
 						  <!--
