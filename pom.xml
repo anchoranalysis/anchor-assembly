@@ -3,11 +3,11 @@
      <parent>
         <groupId>org.anchoranalysis.anchor</groupId>
    	    <artifactId>anchor-pom</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
     </parent> 
 	
   <artifactId>anchor</artifactId>
-  <version>1.0.1</version>
+  <version>1.2.0</version>
     <url>http://www.anchoranalysis.org/</url>
   
   <packaging>jar</packaging>
@@ -37,7 +37,7 @@
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-launcher</artifactId>
-		  <version>1.1.2</version>
+		  <version>1.2.0</version>
 		</dependency>
 			
 		
@@ -47,13 +47,13 @@
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-fiji</artifactId>
-		  <version>1.0.2</version>
+		  <version>1.0.3</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-io-gpl</artifactId>
-		  <version>1.0.2</version>
+		  <version>1.0.3</version>
 		</dependency>
 		
 				
@@ -130,7 +130,7 @@
 						<configuration>
 						  
 						  <input>${project.build.directory}/anchor-${project.version}-anchor/anchor-${project.version}/lib</input>
-						  <mainJar>anchor-launcher-1.1.2.jar</mainJar>
+						  <mainJar>anchor-launcher-1.2.0.jar</mainJar>
 						  <mainClass>org.anchoranalysis.launcher.Launch</mainClass>              
 						  
 						  <!--
@@ -146,7 +146,7 @@
 						  <!--
 							Specifies version of the application and/or package.
 						  -->
-						  <appVersion>1.0.1</appVersion>
+						  <appVersion>1.2.0</appVersion>
 						  
 						  <!--
 							Specifies description of the application.

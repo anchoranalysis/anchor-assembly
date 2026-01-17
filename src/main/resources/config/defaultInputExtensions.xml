@@ -13,7 +13,6 @@
 	<item>jpeg</item>
 	<item>jpee</item>
 	<item>png</item>
-	<item>gif</item>
 	<item>jp2</item>
 	<item>webp</item>
 	<item>pbm</item>
@@ -29,6 +28,7 @@
 	
 	
 	<!-- From bioformats, excluding avi, nov and other video formats, and those already covered under OpenCV, and Photoshop's PSD. -->
+	<item>gif</item>
 	<item>tif</item>
 	<item>tiff</item>
 	<item>tf2</item>
